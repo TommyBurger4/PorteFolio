@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catimini - Détails du projet | Tom & Paul</title>
+    <meta name="description" content="Découvrez Catimini en détail - Application de gestion d'emplois du temps pour organiser facilement des sorties entre amis">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#3730A3",
+                        accent: "#10B981"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            color: #4F46E5;
+            font-weight: 600;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html" class="text-2xl font-bold text-primary">Tom & Paul</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html#home" class="nav-link py-2 px-1">Accueil</a>
+                    <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html#about" class="nav-link py-2 px-1">Qui sommes-nous</a>
+                    <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html#projects" class="nav-link py-2 px-1">Nos projets</a>
+                    <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html#contact" class="nav-link py-2 px-1">Nous contacter</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-purple-600 to-pink-600 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <a href="c9dbaa06-5d64-414a-ac78-6e7eeeca77bf.html#projects" class="inline-flex items-center text-white hover:text-gray-200 transition-colors mb-4">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Retour aux projets
+                </a>
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Catimini</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                L'application qui simplifie l'organisation de sorties entre amis
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Flutter</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Node.js</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">MongoDB</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Application Mobile</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-purple-50 p-8 rounded-xl mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-lightbulb text-purple-600 mr-3"></i>
+                        L'histoire derrière Catimini
+                    </h2>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                        Nous adorions organiser des sorties et des événements avec notre groupe d'amis : cinéma, restaurants, 
+                        escapades weekend, soirées jeux... Mais à chaque fois, c'était le même casse-tête !
+                    </p>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                        <strong>Le problème :</strong> Comment savoir quand tout le monde est disponible ? 
+                        Messages WhatsApp interminables, sondages Doodle perdus, emplois du temps qui changent... 
+                        C'était devenu un vrai défi de trouver un créneau qui convienne à tous.
+                    </p>
+                    <blockquote class="border-l-4 border-purple-600 pl-6 italic text-gray-600 text-lg">
+                        "Il nous faut une app qui centralise les disponibilités de chacun et qui trouve automatiquement 
+                        les créneaux où tout le monde est libre !"
+                    </blockquote>
+                    <p class="text-gray-700 text-lg leading-relaxed mt-6">
+                        Catimini est née de cette frustration quotidienne. Plus besoin de jongler entre 15 conversations : 
+                        chacun renseigne ses indisponibilités, l'app fait le reste !
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Fonctionnalités principales</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-purple-600 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar-alt text-purple-600 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Calendrier partagé</h3>
+                    <p class="text-gray-600">
+                        Chaque membre du groupe peut indiquer ses indisponibilités sur un calendrier partagé 
+                        en temps réel.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-green-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-search text-green-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Détection automatique</h3>
+                    <p class="text-gray-600">
+                        L'algorithme trouve automatiquement les créneaux où tous les membres 
+                        sont disponibles simultanément.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-blue-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-users text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Groupes personnalisés</h3>
+                    <p class="text-gray-600">
+                        Créez différents groupes pour différents types d'activités : 
+                        famille, amis, collègues, sport...
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-red-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-bell text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Notifications intelligentes</h3>
+                    <p class="text-gray-600">
+                        Recevez des notifications quand de nouveaux créneaux deviennent disponibles 
+                        ou quand un événement approche.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-yellow-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-clock text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Planification événements</h3>
+                    <p class="text-gray-600">
+                        Planifiez vos sorties directement dans l'app avec détails, lieu, 
+                        et confirmations de présence.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-indigo-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-sync text-indigo-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Synchronisation temps réel</h3>
+                    <p class="text-gray-600">
+                        Toutes les modifications sont synchronisées instantanément 
+                        entre tous les membres du groupe.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- User Journey Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Comment ça marche ?</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            1
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Créez votre groupe</h3>
+                            <p class="text-gray-600">
+                                Invitez vos amis à rejoindre votre groupe Catimini. Chaque groupe a son propre calendrier partagé.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            2
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Renseignez vos indisponibilités</h3>
+                            <p class="text-gray-600">
+                                Chaque membre indique ses créneaux d'indisponibilité : travail, cours, autres engagements...
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            3
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Découvrez les créneaux libres</h3>
+                            <p class="text-gray-600">
+                                Catimini calcule automatiquement tous les moments où tout le monde est disponible.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-10 h-10 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            4
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Organisez votre sortie</h3>
+                            <p class="text-gray-600">
+                                Choisissez un créneau, créez l'événement et envoyez les invitations en un clic !
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Détails techniques</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Technologies utilisées</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-blue-500 rounded-full mr-3"></div>
+                                <span class="text-gray-700"><strong>Flutter</strong> - Framework mobile cross-platform</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+                                <span class="text-gray-700"><strong>Node.js</strong> - Backend API RESTful</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-green-700 rounded-full mr-3"></div>
+                                <span class="text-gray-700"><strong>MongoDB</strong> - Base de données NoSQL</span>
+                            </div>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                                <span class="text-gray-700"><strong>Socket.io</strong> - Communication temps réel</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Défis techniques relevés</h3>
+                        <div class="space-y-4">
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h4 class="font-semibold text-gray-800">Algorithme de disponibilité</h4>
+                                <p class="text-gray-600 text-sm">Calcul efficace des créneaux communs pour plusieurs utilisateurs</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h4 class="font-semibold text-gray-800">Synchronisation temps réel</h4>
+                                <p class="text-gray-600 text-sm">Mise à jour instantanée des calendriers partagés</p>
+                            </div>
+                            <div class="bg-white p-4 rounded-lg shadow-sm">
+                                <h4 class="font-semibold text-gray-800">Gestion des fuseaux horaires</h4>
+                                <p class="text-gray-600 text-sm">Support des groupes avec membres dans différents fuseaux</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Captures d'écran</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center">
+                    <img src="https://picsum.photos/300/500?random=40" alt="Calendrier partagé Catimini" class="rounded-xl shadow-lg mx-auto mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Calendrier partagé</h3>
+                    <p class="text-gray-600">Vue des disponibilités du groupe</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://picsum.photos/300/500?random=41" alt="Créneaux libres Catimini" class="rounded-xl shadow-lg mx-auto mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Créneaux libres</h3>
+                    <p class="text-gray-600">Découvrez quand tout le monde est libre</p>
+                </div>
+                <div class="text-center">
+                    <img src="https://picsum.photos/300/500?random=42" alt="Planification événement Catimini" class="rounded-xl shadow-lg mx-auto mb-4">
+                    <h3 class="text-lg font-semibold text-gray-800">Planification d'événement</h3>
+                    <p class="text-gray-600">Créez et organisez vos sorties</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-purple-600 to-pink-600 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Prêt à simplifier vos sorties ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Rejoignez Catimini et ne ratez plus jamais une sortie avec vos amis !
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="#" class="inline-flex items-center bg-white text-purple-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                    <i class="fab fa-google-play mr-2"></i>
+                    Télécharger sur Google Play
+                </a>
+                <a href="#" class="inline-flex items-center bg-white text-purple-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                    <i class="fab fa-apple mr-2"></i>
+                    Télécharger sur App Store
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold">Tom & Paul</h2>
+                    <p class="text-gray-400 mt-2">Créativité et expertise au service de vos projets</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Tom & Paul. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
