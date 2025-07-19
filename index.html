@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <base target="_self">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tom & Paul | Portfolio</title>
+    <meta name="description" content="Portfolio de Tom & Paul - Étudiants ingénieurs en informatique, créateurs d'applications innovantes">
+    <meta name="keywords" content="Tom, Paul, développeur, étudiant ingénieur, informatique, FindMyCourt, Créno, application mobile, développement web, Strasbourg">
+    <meta name="author" content="Tom & Paul">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tom-paul-portfolio.com/">
+    <meta property="og:title" content="Tom & Paul | Portfolio - Étudiants Ingénieurs Informatique">
+    <meta property="og:description" content="Découvrez nos projets innovants : FindMyCourt, Créno et plus encore. Deux étudiants ingénieurs passionnés de développement.">
+    <meta property="og:image" content="https://tom-paul-portfolio.com/images/og-image.jpg">
+    <meta property="og:locale" content="fr_FR">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tom-paul-portfolio.com/">
+    <meta property="twitter:title" content="Tom & Paul | Portfolio - Étudiants Ingénieurs Informatique">
+    <meta property="twitter:description" content="Découvrez nos projets innovants : FindMyCourt, Créno et plus encore. Deux étudiants ingénieurs passionnés de développement.">
+    <meta property="twitter:image" content="https://tom-paul-portfolio.com/images/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tom-paul-portfolio.com/">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#3730A3",
+                        accent: "#10B981"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Données structurées JSON-LD -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Tom & Paul",
+        "description": "Étudiants ingénieurs en informatique, créateurs d'applications innovantes",
+        "url": "https://tom-paul-portfolio.com",
+        "email": "findmycourt67@gmail.com",
+        "telephone": "+33 7 88 56 62 99",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Strasbourg",
+            "addressCountry": "France"
+        },
+        "knowsAbout": [
+            "Développement web",
+            "Développement mobile",
+            "React Native",
+            "Flutter",
+            "JavaScript",
+            "Node.js",
+            "MongoDB",
+            "Firebase"
+        ],
+        "alumniOf": "École d'ingénieur - Spécialité Informatique",
+        "owns": [
+            {
+                "@type": "SoftwareApplication",
+                "name": "FindMyCourt",
+                "description": "Application communautaire avec carte interactive montrant les terrains de sport",
+                "applicationCategory": "MobileApplication"
+            },
+            {
+                "@type": "SoftwareApplication", 
+                "name": "Créno",
+                "description": "Application de gestion d'emplois du temps pour organiser des sorties entre amis",
+                "applicationCategory": "MobileApplication"
+            },
+            {
+                "@type": "WebSite",
+                "name": "Burger Michel EIRL",
+                "description": "Site vitrine pour entreprise de restauration"
+            }
+        ]
+    }
+    </script>
+    <style>
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            color: #4F46E5;
+            font-weight: 600;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        section {
+            min-height: 100vh;
+            padding-top: 80px;
+            padding-bottom: 80px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#home" class="text-2xl font-bold text-primary">Tom & Paul</a>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" class="nav-link py-2 px-1 text-gray-700">Accueil</a>
+                    <a href="#about" class="nav-link py-2 px-1 text-gray-700">Qui sommes-nous</a>
+                    <a href="#projects" class="nav-link py-2 px-1 text-gray-700">Nos projets</a>
+                    <a href="#contact" class="nav-link py-2 px-1 text-gray-700">Nous contacter</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div class="md:hidden hidden pt-4" id="mobile-menu">
+                <div class="flex flex-col space-y-3">
+                    <a href="#home" class="nav-link py-2 px-1 text-gray-700">Accueil</a>
+                    <a href="#about" class="nav-link py-2 px-1 text-gray-700">Qui sommes-nous</a>
+                    <a href="#projects" class="nav-link py-2 px-1 text-gray-700">Nos projets</a>
+                    <a href="#contact" class="nav-link py-2 px-1 text-gray-700">Nous contacter</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Tom & Paul</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Étudiants ingénieurs passionnés, nous créons des solutions qui répondent à de vrais besoins</p>
+            <a href="#projects" class="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                Voir nos projets <i class="fas fa-arrow-down ml-2"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Qui sommes-nous</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <img src="https://picsum.photos/600/400?random=20" alt="Notre équipe" class="rounded-xl shadow-lg w-full" loading="lazy">
+                </div>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Deux étudiants ingénieurs passionnés</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Nous sommes Tom et Paul, deux étudiants en école d'ingénieur spécialisés en informatique. 
+                        Notre philosophie ? Créer des applications qui résolvent de vrais problèmes que nous avons personnellement rencontrés. 
+                        Chaque projet naît d'un besoin réel, transformé en solution digitale innovante grâce à notre passion commune pour le développement.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-primary text-2xl mb-2">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Innovation</h4>
+                            <p class="text-gray-600 text-sm">Solutions créatives et modernes</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-primary text-2xl mb-2">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Technique</h4>
+                            <p class="text-gray-600 text-sm">Code propre et performant</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-primary text-2xl mb-2">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Mobile</h4>
+                            <p class="text-gray-600 text-sm">Applications natives et hybrides</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-primary text-2xl mb-2">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Design</h4>
+                            <p class="text-gray-600 text-sm">Interfaces intuitives et élégantes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nos projets</h2>
+            
+            <!-- FindMyCourt -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
+                <div class="lg:w-1/2">
+                    <img src="images/FIndMyCourt/logoFDM.png" alt="FindMyCourt - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">FindMyCourt</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Application communautaire avec carte interactive montrant les terrains de sport du monde entier, ajoutés et maintenus par la communauté. 
+                        Plus fiable que Google Maps, FindMyCourt vous garantit de trouver des terrains réellement existants et accessibles.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-primary mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-gray-600 text-sm">
+                            En vacances, Tom cherchait un terrain de volley pour jouer. Google Maps indiquait des terrains qui n'existaient plus ! 
+                            Il s'est tourné vers Paul : "Ce serait génial d'avoir une appli avec tous les terrains de sport réels et à jour !" 
+                            FindMyCourt était né.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Google Maps API</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="findmycourt.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="findmycourt-map-real.html" class="inline-flex items-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary transition-colors">
+                            <i class="fas fa-map-marked-alt mr-2"></i>Voir la carte interactive
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                        <a href="https://github.com/tompaul/findmycourt" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-github mr-2"></i>Code source
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.findmycourt" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-google-play mr-2"></i>Google Play
+                        </a>
+                        <a href="https://apps.apple.com/app/findmycourt/id123456789" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-app-store mr-2"></i>App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Créno -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
+                <div class="lg:w-1/2">
+                    <img src="https://picsum.photos/800/500?random=22" alt="Créno App" class="rounded-xl shadow-lg w-full" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Créno</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Application de gestion d'emplois du temps pour organiser facilement des sorties et événements entre amis. 
+                        Centralisez les disponibilités de chacun et trouvez instantanément les créneaux où tout le monde est libre.
+                    </p>
+                    <div class="bg-blue-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-primary mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-gray-600 text-sm">
+                            Nous organisions pleins de sorties et d'événements avec notre groupe d'amis, mais c'était toujours compliqué de savoir quand tout le monde était disponible. 
+                            Créno centralise toutes les indisponibilités de chacun pour trouver facilement les dates parfaites !
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Flutter</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Node.js</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MongoDB</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Stripe</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="creno.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                        <a href="https://github.com/tompaul/creno" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-github mr-2"></i>Code source
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.creno" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-google-play mr-2"></i>Google Play
+                        </a>
+                        <a href="https://apps.apple.com/app/creno/id987654321" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-app-store mr-2"></i>App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Souleymane -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
+                <div class="lg:w-1/2">
+                    <img src="https://picsum.photos/800/500?random=53" alt="Souleymane App" class="rounded-xl shadow-lg w-full" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Souleymane</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Application de partage de photos en albums privés et sécurisés avec codes d'accès. 
+                        Parfait pour rassembler toutes les photos d'un événement en un seul endroit, accessible seulement aux personnes invitées.
+                    </p>
+                    <div class="bg-green-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-accent mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-gray-600 text-sm">
+                            Lors d'un voyage avec des amis, nous nous sommes retrouvés avec des dizaines de photos réparties sur différents téléphones. 
+                            Comment les rassembler facilement sans passer par des groupes WhatsApp interminables ? Souleymane était la solution !
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Expo</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">TypeScript</span>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="souleymane.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
+                        <a href="https://github.com/tompaul/souleymane" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-github mr-2"></i>Code source
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.souleymane" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-google-play mr-2"></i>Google Play
+                        </a>
+                        <a href="https://apps.apple.com/app/souleymane/id456789123" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
+                            <i class="fab fa-app-store mr-2"></i>App Store
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Application Clubs Sportifs -->
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
+                <div class="lg:w-1/2">
+                    <img src="https://picsum.photos/800/500?random=54" alt="Application Clubs Sportifs" class="rounded-xl shadow-lg w-full" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full mb-4">Projet à venir</span>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Application Clubs Sportifs</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Le répertoire complet de tous les clubs sportifs de France. Recherche géolocalisée, informations détaillées, 
+                        avis des membres et réservation en ligne pour trouver le club parfait selon vos besoins.
+                    </p>
+                    <div class="bg-purple-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-clock text-purple-600 mr-2"></i>En développement</h4>
+                        <p class="text-gray-600 text-sm">
+                            Après le succès de FindMyCourt pour les terrains, nous développons une application similaire pour tous les clubs sportifs français. 
+                            Un projet ambitieux pour révolutionner la recherche de clubs sportifs !
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">API REST</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Géolocalisation</span>
+                    </div>
+                    <a href="clubs-sportifs.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                        Découvrir le projet <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Burger Michel EIRL -->
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <img src="https://picsum.photos/800/500?random=23" alt="Burger Michel EIRL" class="rounded-xl shadow-lg w-full" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full mb-4">Site Web</span>
+                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Burger Michel EIRL</h3>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Site vitrine moderne pour l'entreprise de restauration de mon père. Présentation alléchante des burgers artisanaux, 
+                        galerie photo professionnelle et informations pratiques pour attirer et informer les clients.
+                    </p>
+                    <div class="bg-orange-50 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-heart text-orange-600 mr-2"></i>Un projet personnel</h4>
+                        <p class="text-gray-600 text-sm">
+                            Mon père a créé cette entreprise et je voulais lui offrir un site web professionnel pour que les clients puissent découvrir son travail et ses délicieux burgers. 
+                            Un projet qui allie compétences techniques et fierté familiale !
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 mb-6">
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">JavaScript</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP</span>
+                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                    </div>
+                    <a href="#" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                        Visiter le site <i class="fas fa-external-link-alt ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="bg-white py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Notre expertise technique</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-blue-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-laptop-code text-blue-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Frontend</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">React Native</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Flutter</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">HTML/CSS/JS</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-blue-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-server text-green-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Backend</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Node.js</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Firebase</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Express.js</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-green-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-purple-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-database text-purple-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Base de données</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">MongoDB</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">MySQL</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Firestore</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-purple-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-orange-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-tools text-orange-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Outils</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Git</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Docker</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Figma</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-orange-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- APIs -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-red-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-plug text-red-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">APIs & Services</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Google Maps</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Stripe</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">REST APIs</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-red-500 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Methodologies -->
+                <div class="bg-gray-50 p-6 rounded-xl">
+                    <div class="flex items-center mb-4">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-project-diagram text-indigo-600 text-xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800">Méthodologies</h3>
+                    </div>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">Agile/Scrum</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">TDD</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-gray-600 text-sm">CI/CD</span>
+                            <div class="flex">
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-indigo-500 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                                <div class="w-2 h-2 bg-gray-300 rounded-full mr-1"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="bg-gray-50 py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Ce que disent nos utilisateurs</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2 text-sm">5/5</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "FindMyCourt m'a sauvé mes vacances ! J'ai enfin trouvé un terrain de basket près de mon hôtel. 
+                        L'app est super intuitive et les terrains sont vraiment à jour."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/50/50?random=1" alt="Marie L." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Marie L.</p>
+                            <p class="text-gray-600 text-xs">Utilisatrice FindMyCourt</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2 text-sm">5/5</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Créno a révolutionné nos sorties entre amis ! Plus besoin de 20 messages WhatsApp pour 
+                        trouver un créneau. L'app fait tout automatiquement."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/50/50?random=2" alt="Alex M." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Alex M.</p>
+                            <p class="text-gray-600 text-xs">Utilisateur Créno</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-sm">
+                    <div class="flex items-center mb-4">
+                        <div class="flex text-yellow-400">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <span class="text-gray-600 ml-2 text-sm">5/5</span>
+                    </div>
+                    <p class="text-gray-700 mb-4 italic">
+                        "Interface super clean et fonctionnalités pratiques. On voit que c'est fait par des 
+                        développeurs qui comprennent vraiment les besoins des utilisateurs."
+                    </p>
+                    <div class="flex items-center">
+                        <img src="https://picsum.photos/50/50?random=3" alt="Sarah K." class="w-10 h-10 rounded-full mr-3">
+                        <div>
+                            <p class="font-semibold text-gray-800 text-sm">Sarah K.</p>
+                            <p class="text-gray-600 text-xs">Développeuse</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nous contacter</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Travaillons ensemble</h3>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            Vous avez un projet en tête ou souhaitez en savoir plus sur nos réalisations ? 
+                            Contactez-nous via le formulaire ou directement par email/téléphone. Nous serons ravis d'échanger avec vous.
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email</h4>
+                                    <p class="text-gray-600">findmycourt67@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Téléphone</h4>
+                                    <p class="text-gray-600">+33 7 88 56 62 99</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Adresse</h4>
+                                    <p class="text-gray-600">Strasbourg, France</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form id="contact-form" class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                            <div class="mb-6">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Votre nom</label>
+                                <input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Votre email</label>
+                                <input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Votre message</label>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"></textarea>
+                            </div>
+                            <button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-bold hover:bg-secondary transition-colors">
+                                <span id="btn-text">Envoyer le message</span>
+                                <i class="fas fa-spinner fa-spin hidden" id="btn-spinner"></i>
+                            </button>
+                            <div id="form-status" class="mt-4 text-center hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold">Tom & Paul</h2>
+                    <p class="text-gray-400 mt-2">Créativité et expertise au service de vos projets</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://twitter.com/tompaul_dev" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/tompaul-dev" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="https://github.com/tompaul" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://instagram.com/tompaul_dev" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Tom & Paul. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active nav link
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Highlight active section in nav
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${sectionId}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // Initialize - highlight home link if at top of page
+        window.addEventListener('load', function() {
+            if (window.scrollY < 100) {
+                document.querySelector('a[href="#home"]').classList.add('active');
+            }
+        });
+        
+        // EmailJS configuration
+        (function() {
+            // Initialiser EmailJS avec votre User ID
+            emailjs.init("YOUR_USER_ID"); // Remplacez par votre User ID EmailJS
+        })();
+        
+        // Gestion du formulaire de contact
+        document.getElementById('contact-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnSpinner = document.getElementById('btn-spinner');
+            const formStatus = document.getElementById('form-status');
+            
+            // Désactiver le bouton et afficher le spinner
+            submitBtn.disabled = true;
+            btnText.classList.add('hidden');
+            btnSpinner.classList.remove('hidden');
+            
+            // Paramètres EmailJS - IMPORTANT: Remplacez ces valeurs
+            const serviceID = 'YOUR_SERVICE_ID'; // Remplacez par votre Service ID
+            const templateID = 'YOUR_TEMPLATE_ID'; // Remplacez par votre Template ID
+            
+            // Envoyer l'email
+            emailjs.sendForm(serviceID, templateID, this)
+                .then(() => {
+                    // Succès
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('hidden');
+                    btnSpinner.classList.add('hidden');
+                    
+                    formStatus.classList.remove('hidden', 'text-red-600');
+                    formStatus.classList.add('text-green-600');
+                    formStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i>Message envoyé avec succès !';
+                    
+                    // Réinitialiser le formulaire
+                    this.reset();
+                    
+                    // Masquer le message après 5 secondes
+                    setTimeout(() => {
+                        formStatus.classList.add('hidden');
+                    }, 5000);
+                }, (error) => {
+                    // Erreur
+                    submitBtn.disabled = false;
+                    btnText.classList.remove('hidden');
+                    btnSpinner.classList.add('hidden');
+                    
+                    formStatus.classList.remove('hidden', 'text-green-600');
+                    formStatus.classList.add('text-red-600');
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Erreur lors de l\'envoi. Veuillez réessayer.';
+                    
+                    console.error('Erreur EmailJS:', error);
+                });
+        });
+    </script>
+</body>
+</html>
