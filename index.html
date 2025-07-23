@@ -925,18 +925,36 @@
         
         // EmailJS configuration
         (function() {
+            // Vérifier que EmailJS est chargé
+            if (typeof emailjs === 'undefined') {
+                console.error('EmailJS n\'est pas chargé! Vérifiez votre connexion internet.');
+                return;
+            }
+            
             // Initialiser EmailJS avec votre User ID
             emailjs.init("QGiqGNLlquKdGHJLv"); // User ID EmailJS
+            console.log('EmailJS initialisé avec succès');
         })();
         
         // Gestion du formulaire de contact
         document.getElementById('contact-form').addEventListener('submit', function(event) {
             event.preventDefault();
             
+            console.log('Formulaire soumis!');
+            
             const submitBtn = document.getElementById('submit-btn');
             const btnText = document.getElementById('btn-text');
             const btnSpinner = document.getElementById('btn-spinner');
             const formStatus = document.getElementById('form-status');
+            
+            // Récupérer les valeurs du formulaire
+            const formData = {
+                from_name: this.from_name.value,
+                from_email: this.from_email.value,
+                message: this.message.value
+            };
+            
+            console.log('Données du formulaire:', formData);
             
             // Désactiver le bouton et afficher le spinner
             submitBtn.disabled = true;
@@ -946,6 +964,9 @@
             // Paramètres EmailJS
             const serviceID = 'service_sbslxfo'; // Service ID
             const templateID = 'template_h16q1jc'; // Template ID
+            
+            console.log('Service ID:', serviceID);
+            console.log('Template ID:', templateID);
             
             // Envoyer l'email
             emailjs.sendForm(serviceID, templateID, this)
@@ -974,9 +995,26 @@
                     
                     formStatus.classList.remove('hidden', 'text-green-600');
                     formStatus.classList.add('text-red-600');
-                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>Erreur lors de l\'envoi. Veuillez réessayer.';
                     
-                    console.error('Erreur EmailJS:', error);
+                    console.error('Erreur EmailJS complète:', error);
+                    console.error('Code erreur:', error.status);
+                    console.error('Message:', error.text);
+                    
+                    // Message d'erreur plus détaillé
+                    let errorMessage = 'Erreur lors de l\'envoi. ';
+                    if (error.text) {
+                        if (error.text.includes('template')) {
+                            errorMessage += 'Vérifiez la configuration du template EmailJS.';
+                        } else if (error.text.includes('service')) {
+                            errorMessage += 'Vérifiez la configuration du service EmailJS.';
+                        } else if (error.text.includes('user')) {
+                            errorMessage += 'Vérifiez votre User ID EmailJS.';
+                        } else {
+                            errorMessage += error.text;
+                        }
+                    }
+                    
+                    formStatus.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>' + errorMessage;
                 });
         });
     </script>
