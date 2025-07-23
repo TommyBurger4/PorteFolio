@@ -1,0 +1,23 @@
+# Configuration GitHub Pages
+# Ce fichier aide GitHub Pages à servir correctement votre site
+
+# Pas de Jekyll processing (pour éviter les conflits avec les fichiers commençant par _)
+plugins: []
+
+# Inclure les dossiers et fichiers nécessaires
+include:
+  - images
+  - "*.html"
+  - "*.css"
+  - "*.js"
+  - "favicon.ico"
+  - "apple-touch-icon.png"
+  - "favicon-32x32.png"
+  - "favicon-16x16.png"
+
+# Exclure les fichiers non nécessaires
+exclude:
+  - README.md
+  - EMAILJS_SETUP.md
+  - .gitignore
+  - .git

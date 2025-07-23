@@ -26,10 +26,10 @@
     <meta property="twitter:image" content="https://tom-paul-portfolio.com/images/twitter-image.jpg">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     
     <!-- Canonical URL -->
     <link rel="canonical" href="https://tom-paul-portfolio.com/">
@@ -923,7 +923,7 @@
         // EmailJS configuration
         (function() {
             // Initialiser EmailJS avec votre User ID
-            emailjs.init("YOUR_USER_ID"); // Remplacez par votre User ID EmailJS
+            emailjs.init("QGiqGNLlquKdGHJLv"); // User ID EmailJS
         })();
         
         // Gestion du formulaire de contact
@@ -940,9 +940,9 @@
             btnText.classList.add('hidden');
             btnSpinner.classList.remove('hidden');
             
-            // Paramètres EmailJS - IMPORTANT: Remplacez ces valeurs
-            const serviceID = 'YOUR_SERVICE_ID'; // Remplacez par votre Service ID
-            const templateID = 'YOUR_TEMPLATE_ID'; // Remplacez par votre Template ID
+            // Paramètres EmailJS
+            const serviceID = 'service_sbslxfo'; // Service ID
+            const templateID = 'template_h16q1jc'; // Template ID
             
             // Envoyer l'email
             emailjs.sendForm(serviceID, templateID, this)
