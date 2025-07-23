@@ -6,7 +6,13 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(for file in *.html)",
+      "Bash(do if [ \"$file\" != \"index.html\" ])",
+      "Bash(! grep -q '<base href=\"\"/PorteFolio/\"\">' \"$file\")",
+      "Bash(then sed -i '/<head>/a\\    <base href=\"\"/PorteFolio/\"\">' \"$file\")",
+      "Bash(fi)",
+      "Bash(done)"
     ],
     "deny": []
   }
