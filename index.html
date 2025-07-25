@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <base href="/PorteFolio/">
-    <base target="_self">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tom & Paul | Portfolio</title>
@@ -124,6 +122,64 @@
             padding-top: 80px;
             padding-bottom: 80px;
         }
+        .hero-gradient {
+            background: linear-gradient(-45deg, #1E40AF, #3B82F6, #06B6D4, #0EA5E9, #2563EB);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .particle:nth-child(1) { width: 6px; height: 6px; left: 10%; background: rgba(255,255,255,0.4); animation: float1 12s infinite linear; }
+        .particle:nth-child(2) { width: 4px; height: 4px; left: 20%; background: rgba(59,130,246,0.3); animation: float2 15s infinite linear; }
+        .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; background: rgba(6,182,212,0.4); animation: float3 18s infinite linear; }
+        .particle:nth-child(4) { width: 3px; height: 3px; left: 40%; background: rgba(14,165,233,0.5); animation: float1 10s infinite linear; }
+        .particle:nth-child(5) { width: 10px; height: 10px; left: 50%; background: rgba(255,255,255,0.3); animation: float2 20s infinite linear; }
+        .particle:nth-child(6) { width: 5px; height: 5px; left: 60%; background: rgba(37,99,235,0.4); animation: float3 14s infinite linear; }
+        .particle:nth-child(7) { width: 7px; height: 7px; left: 70%; background: rgba(6,182,212,0.3); animation: float1 16s infinite linear; }
+        .particle:nth-child(8) { width: 9px; height: 9px; left: 80%; background: rgba(59,130,246,0.4); animation: float2 13s infinite linear; }
+        .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; background: rgba(255,255,255,0.5); animation: float3 11s infinite linear; }
+        .particle:nth-child(10) { width: 6px; height: 6px; left: 15%; background: rgba(14,165,233,0.3); animation: float1 17s infinite linear; }
+        .particle:nth-child(11) { width: 5px; height: 5px; left: 25%; background: rgba(6,182,212,0.4); animation: float2 19s infinite linear; }
+        .particle:nth-child(12) { width: 8px; height: 8px; left: 35%; background: rgba(37,99,235,0.3); animation: float3 12s infinite linear; }
+        .particle:nth-child(13) { width: 4px; height: 4px; left: 45%; background: rgba(255,255,255,0.4); animation: float1 15s infinite linear; }
+        .particle:nth-child(14) { width: 7px; height: 7px; left: 55%; background: rgba(59,130,246,0.5); animation: float2 14s infinite linear; }
+        .particle:nth-child(15) { width: 6px; height: 6px; left: 65%; background: rgba(6,182,212,0.4); animation: float3 16s infinite linear; }
+        @keyframes float1 {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+        @keyframes float2 {
+            0% { transform: translateY(100vh) translateX(0px) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(-80px) rotate(-360deg); opacity: 0; }
+        }
+        @keyframes float3 {
+            0% { transform: translateY(100vh) translateX(0px) scale(0.5) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            50% { transform: translateY(50vh) translateX(60px) scale(1.2) rotate(180deg); }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(-60px) scale(0.8) rotate(360deg); opacity: 0; }
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
@@ -156,8 +212,25 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="flex items-center justify-center bg-gradient-to-r from-primary to-secondary text-white">
-        <div class="container mx-auto px-6 text-center">
+    <section id="home" class="flex items-center justify-center hero-gradient text-white">
+        <div class="particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+        </div>
+        <div class="container mx-auto px-6 text-center relative z-10">
             <h1 class="text-5xl md:text-6xl font-bold mb-6">Tom & Paul</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Étudiants ingénieurs passionnés, nous créons des solutions qui répondent à de vrais besoins</p>
             <a href="#projects" class="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
@@ -167,12 +240,12 @@
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-white">
+    <section id="about" class="bg-blue-100">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Qui sommes-nous</h2>
             <div class="flex flex-col md:flex-row items-center gap-12">
                 <div class="md:w-1/2">
-                    <img src="https://picsum.photos/600/400?random=20" alt="Notre équipe" class="rounded-xl shadow-lg w-full" loading="lazy">
+                    <img src="images/TomPaul/PaulEtTom.jpg" alt="Tom et Paul - Notre équipe" class="rounded-xl shadow-lg w-full" loading="lazy">
                 </div>
                 <div class="md:w-1/2">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4">Deux étudiants ingénieurs passionnés</h3>
@@ -184,31 +257,31 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="text-primary text-2xl mb-2">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 class="font-semibold text-gray-800">Problème réel</h4>
+                            <p class="text-gray-600 text-sm">On part toujours d'un besoin concret</p>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <div class="text-primary text-2xl mb-2">
                                 <i class="fas fa-lightbulb"></i>
                             </div>
-                            <h4 class="font-semibold text-gray-800">Innovation</h4>
-                            <p class="text-gray-600 text-sm">Solutions créatives et modernes</p>
+                            <h4 class="font-semibold text-gray-800">Solution créative</h4>
+                            <p class="text-gray-600 text-sm">Innovation et réflexion</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="text-primary text-2xl mb-2">
-                                <i class="fas fa-code"></i>
+                                <i class="fas fa-users"></i>
                             </div>
-                            <h4 class="font-semibold text-gray-800">Technique</h4>
-                            <p class="text-gray-600 text-sm">Code propre et performant</p>
+                            <h4 class="font-semibold text-gray-800">Collaboration</h4>
+                            <p class="text-gray-600 text-sm">Travail d'équipe efficace</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
                             <div class="text-primary text-2xl mb-2">
-                                <i class="fas fa-mobile-alt"></i>
+                                <i class="fas fa-rocket"></i>
                             </div>
-                            <h4 class="font-semibold text-gray-800">Mobile</h4>
-                            <p class="text-gray-600 text-sm">Applications natives et hybrides</p>
-                        </div>
-                        <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-primary text-2xl mb-2">
-                                <i class="fas fa-paint-brush"></i>
-                            </div>
-                            <h4 class="font-semibold text-gray-800">Design</h4>
-                            <p class="text-gray-600 text-sm">Interfaces intuitives et élégantes</p>
+                            <h4 class="font-semibold text-gray-800">Impact</h4>
+                            <p class="text-gray-600 text-sm">Applications qui changent le quotidien</p>
                         </div>
                     </div>
                 </div>
@@ -249,22 +322,11 @@
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Google Maps API</span>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="findmycourt.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                        <a href="findmycourt.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                             Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                         <a href="findmycourt-map-real.html" class="inline-flex items-center bg-primary text-white px-4 py-2 rounded-lg font-medium hover:bg-secondary transition-colors">
                             <i class="fas fa-map-marked-alt mr-2"></i>Voir la carte interactive
-                        </a>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
-                        <a href="https://github.com/tompaul/findmycourt" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-github mr-2"></i>Code source
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.findmycourt" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-google-play mr-2"></i>Google Play
-                        </a>
-                        <a href="https://apps.apple.com/app/findmycourt/id123456789" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-app-store mr-2"></i>App Store
                         </a>
                     </div>
                 </div>
@@ -273,7 +335,7 @@
             <!-- Créno -->
             <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
                 <div class="lg:w-1/2">
-                    <img src="https://picsum.photos/800/500?random=22" alt="Créno App" class="rounded-xl shadow-lg w-full" loading="lazy">
+                    <img src="images/Creno/icone.png" alt="Créno - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
                     <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
@@ -296,19 +358,8 @@
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Stripe</span>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="creno.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                        <a href="creno.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                             Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
-                        <a href="https://github.com/tompaul/creno" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-github mr-2"></i>Code source
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.creno" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-google-play mr-2"></i>Google Play
-                        </a>
-                        <a href="https://apps.apple.com/app/creno/id987654321" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-app-store mr-2"></i>App Store
                         </a>
                     </div>
                 </div>
@@ -317,7 +368,7 @@
             <!-- Souleymane -->
             <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
                 <div class="lg:w-1/2">
-                    <img src="https://picsum.photos/800/500?random=53" alt="Souleymane App" class="rounded-xl shadow-lg w-full" loading="lazy">
+                    <img src="images/Souleymane/Icone.png" alt="Souleymane - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
                     <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
@@ -340,19 +391,8 @@
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">TypeScript</span>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="souleymane.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                        <a href="souleymane.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                             Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-4 mt-4">
-                        <a href="https://github.com/tompaul/souleymane" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-github mr-2"></i>Code source
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.souleymane" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-google-play mr-2"></i>Google Play
-                        </a>
-                        <a href="https://apps.apple.com/app/souleymane/id456789123" class="inline-flex items-center text-gray-600 hover:text-primary transition-colors">
-                            <i class="fab fa-app-store mr-2"></i>App Store
                         </a>
                     </div>
                 </div>
@@ -361,7 +401,7 @@
             <!-- Application Clubs Sportifs -->
             <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
                 <div class="lg:w-1/2">
-                    <img src="https://picsum.photos/800/500?random=54" alt="Application Clubs Sportifs" class="rounded-xl shadow-lg w-full" loading="lazy">
+                    <img src="images/AppliClubSportifs/Icone.png" alt="Application Clubs Sportifs - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
                     <span class="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full mb-4">Projet à venir</span>
@@ -383,7 +423,7 @@
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">API REST</span>
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Géolocalisation</span>
                     </div>
-                    <a href="clubs-sportifs.html" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                    <a href="clubs-sportifs.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                         Découvrir le projet <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -392,7 +432,7 @@
             <!-- Burger Michel EIRL -->
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2">
-                    <img src="https://picsum.photos/800/500?random=23" alt="Burger Michel EIRL" class="rounded-xl shadow-lg w-full" loading="lazy">
+                    <img src="images/BurgerMichelEIRL/Icone.png" alt="Burger Michel EIRL - Logo de l'entreprise" class="rounded-xl w-2/3 mx-auto" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
                     <span class="inline-block bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full mb-4">Site Web</span>
@@ -414,7 +454,7 @@
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP</span>
                         <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
                     </div>
-                    <a href="#" class="inline-flex items-center text-primary font-medium hover:text-secondary transition-colors">
+                    <a href="#" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                         Visiter le site <i class="fas fa-external-link-alt ml-2"></i>
                     </a>
                 </div>
