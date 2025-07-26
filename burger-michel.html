@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Michel EIRL - Artisan Couvreur - Site en construction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#3730A3",
+                        accent: "#10B981"
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .construction-animation {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+        .roof-icon {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 flex items-center justify-center px-6">
+    <div class="max-w-2xl w-full text-center">
+        <!-- Logo animé -->
+        <div class="mb-8 roof-icon">
+            <div class="w-32 h-32 mx-auto bg-red-100 rounded-full flex items-center justify-center">
+                <i class="fas fa-home text-6xl text-red-700"></i>
+            </div>
+        </div>
+        
+        <!-- Titre -->
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2">
+            Burger Michel EIRL
+        </h1>
+        <p class="text-xl text-gray-600 mb-6">Artisan Couvreur</p>
+        
+        <!-- Badge en construction -->
+        <div class="inline-flex items-center bg-amber-100 text-amber-800 px-4 py-2 rounded-full mb-8 construction-animation">
+            <i class="fas fa-tools mr-2"></i>
+            <span class="font-medium">Site en cours de création</span>
+        </div>
+        
+        <!-- Message -->
+        <p class="text-xl text-gray-600 mb-12 max-w-lg mx-auto leading-relaxed">
+            Le site de Burger Michel EIRL, artisan couvreur à Strasbourg, est actuellement en développement. 
+            Nous préparons une vitrine professionnelle pour présenter nos services de couverture et toiture.
+        </p>
+        
+        <!-- Informations de contact -->
+        <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-6">En attendant, contactez-nous :</h2>
+            <div class="space-y-4">
+                <div class="flex items-center justify-center text-gray-600">
+                    <i class="fas fa-phone-alt text-orange-600 mr-3"></i>
+                    <span>+33 7 88 56 62 99</span>
+                </div>
+                <div class="flex items-center justify-center text-gray-600">
+                    <i class="fas fa-map-marker-alt text-orange-600 mr-3"></i>
+                    <span>Strasbourg, France</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Bouton retour -->
+        <a href="index.html" class="inline-flex items-center bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
+            <i class="fas fa-arrow-left mr-2"></i>
+            Retour au portfolio
+        </a>
+        
+        <!-- Message développeur -->
+        <p class="mt-12 text-sm text-gray-500">
+            Développé avec ❤️ par Tom & Paul
+        </p>
+    </div>
+</body>
+</html>

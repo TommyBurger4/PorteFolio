@@ -37,6 +37,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         tailwind.config = {
@@ -48,7 +49,7 @@
                         accent: "#10B981"
                     },
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Poppins', 'sans-serif'],
                     }
                 }
             }
@@ -97,7 +98,7 @@
             {
                 "@type": "WebSite",
                 "name": "Burger Michel EIRL",
-                "description": "Site vitrine pour entreprise de restauration"
+                "description": "Site vitrine pour entreprise de couverture - Artisan couvreur"
             }
         ]
     }
@@ -105,11 +106,47 @@
     <style>
         .nav-link {
             transition: all 0.3s ease;
+            position: relative;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: transparent;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background-color: #4F46E5;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 80%;
+        }
+        .nav-link:hover {
+            background-color: rgba(79, 70, 229, 0.1);
+            transform: translateY(-2px);
         }
         .nav-link.active {
             color: #4F46E5;
             font-weight: 600;
+            background-color: rgba(79, 70, 229, 0.15);
+            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
         }
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .nav-link:nth-child(1):hover { color: #1E40AF; }
+        .nav-link:nth-child(2):hover { color: #2563EB; }
+        .nav-link:nth-child(3):hover { color: #3B82F6; }
+        .nav-link:nth-child(4):hover { color: #60A5FA; }
+        #mobile-menu .nav-link:nth-child(1):hover { color: #1E40AF; }
+        #mobile-menu .nav-link:nth-child(2):hover { color: #2563EB; }
+        #mobile-menu .nav-link:nth-child(3):hover { color: #3B82F6; }
+        #mobile-menu .nav-link:nth-child(4):hover { color: #60A5FA; }
         .project-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -117,10 +154,32 @@
             transform: translateY(-8px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        section {
+        section#home, section#about, section#contact {
             min-height: 100vh;
             padding-top: 80px;
             padding-bottom: 80px;
+        }
+        .logo-3d {
+            animation: float3d 6s ease-in-out infinite;
+            transform-style: preserve-3d;
+            transition: transform 0.3s ease;
+        }
+        .logo-3d:hover {
+            transform: scale(1.05) rotateY(10deg);
+        }
+        @keyframes float3d {
+            0%, 100% {
+                transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+            }
+            25% {
+                transform: translateY(-10px) rotateX(2deg) rotateY(5deg);
+            }
+            50% {
+                transform: translateY(-5px) rotateX(-1deg) rotateY(-3deg);
+            }
+            75% {
+                transform: translateY(-8px) rotateX(1deg) rotateY(-5deg);
+            }
         }
         .hero-gradient {
             background: linear-gradient(-45deg, #1E40AF, #3B82F6, #06B6D4, #0EA5E9, #2563EB);
@@ -184,15 +243,15 @@
 </head>
 <body class="font-sans bg-gray-50">
     <!-- Navigation -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
+    <header class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
                 <a href="#home" class="text-2xl font-bold text-primary">Tom & Paul</a>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#home" class="nav-link py-2 px-1 text-gray-700">Accueil</a>
-                    <a href="#about" class="nav-link py-2 px-1 text-gray-700">Qui sommes-nous</a>
-                    <a href="#projects" class="nav-link py-2 px-1 text-gray-700">Nos projets</a>
-                    <a href="#contact" class="nav-link py-2 px-1 text-gray-700">Nous contacter</a>
+                <div class="hidden md:flex space-x-4 items-center">
+                    <a href="#home" class="nav-link text-gray-700 font-semibold">Accueil</a>
+                    <a href="#about" class="nav-link text-gray-700 font-semibold">Qui sommes-nous</a>
+                    <a href="#projects" class="nav-link text-gray-700 font-semibold">Nos projets</a>
+                    <a href="#contact" class="nav-link text-gray-700 font-semibold">Nous contacter</a>
                 </div>
                 <button class="md:hidden focus:outline-none" id="mobile-menu-button">
                     <i class="fas fa-bars text-2xl text-gray-700"></i>
@@ -202,10 +261,10 @@
             <!-- Mobile menu -->
             <div class="md:hidden hidden pt-4" id="mobile-menu">
                 <div class="flex flex-col space-y-3">
-                    <a href="#home" class="nav-link py-2 px-1 text-gray-700">Accueil</a>
-                    <a href="#about" class="nav-link py-2 px-1 text-gray-700">Qui sommes-nous</a>
-                    <a href="#projects" class="nav-link py-2 px-1 text-gray-700">Nos projets</a>
-                    <a href="#contact" class="nav-link py-2 px-1 text-gray-700">Nous contacter</a>
+                    <a href="#home" class="nav-link text-gray-700 font-semibold">Accueil</a>
+                    <a href="#about" class="nav-link text-gray-700 font-semibold">Qui sommes-nous</a>
+                    <a href="#projects" class="nav-link text-gray-700 font-semibold">Nos projets</a>
+                    <a href="#contact" class="nav-link text-gray-700 font-semibold">Nous contacter</a>
                 </div>
             </div>
         </nav>
@@ -291,22 +350,93 @@
 
 
 
+    <!-- Transition gradient from blue to yellow -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #dbeafe, #fef3c7);"></div>
+    
     <!-- Projects Section -->
-    <section id="projects" class="bg-gray-50">
+    <section id="projects" style="background-color: #fef3c7; padding: 4rem 0;">
         <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nos projets</h2>
-            
-            <!-- FindMyCourt -->
-            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
+            <h2 class="text-4xl font-bold text-center mb-16" style="color: #0f2e4f;">Nos projets</h2>
+        </div>
+    
+    <!-- Créno Section -->
+    <section style="background-color: #fef3c7; padding: 2rem 0;">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-12">
                 <div class="lg:w-1/2">
-                    <img src="images/FIndMyCourt/logoFDM.png" alt="FindMyCourt - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
+                    <img src="images/Creno/icone.png" alt="Créno - Logo de l'application" class="rounded-xl w-full mx-auto logo-3d" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
-                    <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
+                    <span class="inline-block bg-white text-sm px-3 py-1 rounded-full mb-4" style="color: #0f2e4f;">Application Mobile</span>
+                    <h3 class="text-3xl font-bold mb-4" style="color: #0f2e4f;">Créno</h3>
+                    <p class="mb-4 leading-relaxed" style="color: #0f2e4f;">
+                        Organisez vos sorties entre amis en trouvant automatiquement les créneaux où tout le monde est libre.
+                    </p>
+                    <div class="bg-white bg-opacity-80 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-2" style="color: #0f2e4f;"><i class="fas fa-lightbulb mr-2" style="color: #0f2e4f;"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-sm" style="color: #0f2e4f;">
+                            Nous organisions pleins de sorties et d'événements avec notre groupe d'amis, mais c'était toujours compliqué de savoir quand tout le monde était disponible. 
+                            Créno centralise toutes les indisponibilités de chacun pour trouver facilement les dates parfaites !
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="creno.html" class="inline-flex items-center px-6 py-3 rounded-lg font-bold transition-colors" style="background-color: #0f2e4f; color: #fef3c7;">
+                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Transition gradient from yellow to blue -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #fef3c7, #498fc3);"></div>
+    
+    <!-- Fakt Section -->
+    <section style="background-color: #498fc3; padding: 2rem 0;">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-12">
+                <div class="lg:w-1/2">
+                    <img src="images/Fakt/icone.png" alt="Fakt - Logo de l'application" class="rounded-xl w-full mx-auto logo-3d" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-white text-sm px-3 py-1 rounded-full mb-4" style="color: #1d5783;">Application Mobile</span>
+                    <h3 class="text-3xl font-bold mb-4" style="color: #ffffff;">Fakt</h3>
+                    <p class="mb-4 leading-relaxed" style="color: #ffffff;">
+                        Créez rapidement des devis PDF professionnels pour la location de chambres.
+                    </p>
+                    <div class="bg-white bg-opacity-80 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-2" style="color: #1d5783;"><i class="fas fa-lightbulb mr-2" style="color: #1d5783;"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-sm" style="color: #1d5783;">
+                            Une personne de notre entourage nous a demandé si nous pouvions automatiser les devis pour ses locations de chambres. 
+                            Nous avons donc décidé de créer Fakt qui, en rentrant les infos nécessaires, créer le devis en PDF !
+                        </p>
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="fact.html" class="inline-flex items-center px-6 py-3 rounded-lg font-bold transition-colors" style="background-color: #1d5783; color: #498fc3;">
+                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Transition gradient from blue to white -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #498fc3, #ffffff);"></div>
+    
+    <!-- FindMyCourt Section -->
+    <section class="bg-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
+                <div class="lg:w-1/2">
+                    <img src="images/FIndMyCourt/logoFDM.png" alt="FindMyCourt - Logo de l'application" class="rounded-xl w-2/3 mx-auto logo-3d" loading="lazy">
+                </div>
+                <div class="lg:w-1/2">
+                    <span class="inline-block bg-blue-50 text-blue-900 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
                     <h3 class="text-3xl font-bold text-gray-800 mb-4">FindMyCourt</h3>
                     <p class="text-gray-600 mb-4 leading-relaxed">
-                        Application communautaire avec carte interactive montrant les terrains de sport du monde entier, ajoutés et maintenus par la communauté. 
-                        Plus fiable que Google Maps, FindMyCourt vous garantit de trouver des terrains réellement existants et accessibles.
+                        Trouvez les terrains de sport près de chez vous grâce à notre carte interactive communautaire.
                     </p>
                     <div class="bg-blue-50 p-4 rounded-lg mb-6">
                         <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-primary mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
@@ -315,11 +445,6 @@
                             Il s'est tourné vers Paul : "Ce serait génial d'avoir une appli avec tous les terrains de sport réels et à jour !" 
                             FindMyCourt était né.
                         </p>
-                    </div>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Google Maps API</span>
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         <a href="findmycourt.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
@@ -331,84 +456,55 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Créno -->
-            <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
+        </div>
+    </section>
+    
+    <!-- Transition gradient from white to green -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #ffffff, #dcfce7);"></div>
+    
+    <!-- PixShare Section -->
+    <section style="background-color: #dcfce7; padding: 2rem 0;">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col lg:flex-row items-center gap-12 mb-12">
                 <div class="lg:w-1/2">
-                    <img src="images/Creno/icone.png" alt="Créno - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
+                    <img src="images/PixShare/Icone.png" alt="PixShare - Logo de l'application" class="rounded-xl w-2/3 mx-auto logo-3d" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
-                    <span class="inline-block bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Créno</h3>
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                        Application de gestion d'emplois du temps pour organiser facilement des sorties et événements entre amis. 
-                        Centralisez les disponibilités de chacun et trouvez instantanément les créneaux où tout le monde est libre.
+                    <span class="inline-block bg-white text-sm px-3 py-1 rounded-full mb-4" style="color: #166534;">Application Mobile</span>
+                    <h3 class="text-3xl font-bold mb-4" style="color: #166534;">PixShare</h3>
+                    <p class="mb-4 leading-relaxed" style="color: #166534;">
+                        Partagez vos photos d'événements dans des albums privés sécurisés.
                     </p>
-                    <div class="bg-blue-50 p-4 rounded-lg mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-primary mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
-                        <p class="text-gray-600 text-sm">
-                            Nous organisions pleins de sorties et d'événements avec notre groupe d'amis, mais c'était toujours compliqué de savoir quand tout le monde était disponible. 
-                            Créno centralise toutes les indisponibilités de chacun pour trouver facilement les dates parfaites !
-                        </p>
-                    </div>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Flutter</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Node.js</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MongoDB</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Stripe</span>
-                    </div>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="creno.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
-                            Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Souleymane -->
-            <div class="flex flex-col lg:flex-row items-center gap-12 mb-24">
-                <div class="lg:w-1/2">
-                    <img src="images/Souleymane/Icone.png" alt="Souleymane - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
-                </div>
-                <div class="lg:w-1/2">
-                    <span class="inline-block bg-green-100 text-green-800 text-sm px-3 py-1 rounded-full mb-4">Application Mobile</span>
-                    <h3 class="text-3xl font-bold text-gray-800 mb-4">Souleymane</h3>
-                    <p class="text-gray-600 mb-4 leading-relaxed">
-                        Application de partage de photos en albums privés et sécurisés avec codes d'accès. 
-                        Parfait pour rassembler toutes les photos d'un événement en un seul endroit, accessible seulement aux personnes invitées.
-                    </p>
-                    <div class="bg-green-50 p-4 rounded-lg mb-6">
-                        <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-lightbulb text-accent mr-2"></i>Pourquoi l'avons-nous créé ?</h4>
-                        <p class="text-gray-600 text-sm">
+                    <div class="bg-white bg-opacity-80 p-4 rounded-lg mb-6">
+                        <h4 class="font-semibold mb-2" style="color: #166534;"><i class="fas fa-lightbulb mr-2" style="color: #166534;"></i>Pourquoi l'avons-nous créé ?</h4>
+                        <p class="text-sm" style="color: #166534;">
                             Lors d'un voyage avec des amis, nous nous sommes retrouvés avec des dizaines de photos réparties sur différents téléphones. 
-                            Comment les rassembler facilement sans passer par des groupes WhatsApp interminables ? Souleymane était la solution !
+                            Comment les rassembler facilement sans passer par des groupes WhatsApp interminables ? PixShare était la solution !
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Expo</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">TypeScript</span>
-                    </div>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="souleymane.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
+                        <a href="pixshare.html" class="inline-flex items-center px-6 py-3 rounded-lg font-bold transition-colors" style="background-color: #166534; color: #dcfce7;">
                             Voir plus de détails <i class="fas fa-arrow-right ml-2"></i>
                         </a>
                     </div>
                 </div>
             </div>
+        </div>
+    
+    <!-- Return to normal background -->
+    <section class="bg-gray-50 py-16">
+        <div class="container mx-auto px-6">
             
             <!-- Application Clubs Sportifs -->
             <div class="flex flex-col lg:flex-row-reverse items-center gap-12 mb-24">
                 <div class="lg:w-1/2">
-                    <img src="images/AppliClubSportifs/Icone.png" alt="Application Clubs Sportifs - Logo de l'application" class="rounded-xl w-2/3 mx-auto" loading="lazy">
+                    <img src="images/AppliClubSportifs/Icone.png" alt="Application Clubs Sportifs - Logo de l'application" class="rounded-xl w-2/3 mx-auto logo-3d" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
-                    <span class="inline-block bg-purple-100 text-purple-800 text-sm px-3 py-1 rounded-full mb-4">Projet à venir</span>
+                    <span class="inline-block bg-indigo-100 text-indigo-900 text-sm px-3 py-1 rounded-full mb-4">Projet à venir</span>
                     <h3 class="text-3xl font-bold text-gray-800 mb-4">Application Clubs Sportifs</h3>
                     <p class="text-gray-600 mb-4 leading-relaxed">
-                        Le répertoire complet de tous les clubs sportifs de France. Recherche géolocalisée, informations détaillées, 
-                        avis des membres et réservation en ligne pour trouver le club parfait selon vos besoins.
+                        Trouvez le club sportif parfait près de chez vous dans toute la France.
                     </p>
                     <div class="bg-purple-50 p-4 rounded-lg mb-6">
                         <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-clock text-purple-600 mr-2"></i>En développement</h4>
@@ -416,12 +512,6 @@
                             Après le succès de FindMyCourt pour les terrains, nous développons une application similaire pour tous les clubs sportifs français. 
                             Un projet ambitieux pour révolutionner la recherche de clubs sportifs !
                         </p>
-                    </div>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">React Native</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Firebase</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">API REST</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Géolocalisation</span>
                     </div>
                     <a href="clubs-sportifs.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                         Découvrir le projet <i class="fas fa-arrow-right ml-2"></i>
@@ -432,29 +522,22 @@
             <!-- Burger Michel EIRL -->
             <div class="flex flex-col lg:flex-row items-center gap-12">
                 <div class="lg:w-1/2">
-                    <img src="images/BurgerMichelEIRL/Icone.png" alt="Burger Michel EIRL - Logo de l'entreprise" class="rounded-xl w-2/3 mx-auto" loading="lazy">
+                    <img src="images/BurgerMichelEIRL/Icone.png" alt="Burger Michel EIRL - Logo de l'entreprise" class="rounded-xl w-2/3 mx-auto logo-3d" loading="lazy">
                 </div>
                 <div class="lg:w-1/2">
-                    <span class="inline-block bg-orange-100 text-orange-800 text-sm px-3 py-1 rounded-full mb-4">Site Web</span>
+                    <span class="inline-block bg-cyan-100 text-cyan-900 text-sm px-3 py-1 rounded-full mb-4">Site Web</span>
                     <h3 class="text-3xl font-bold text-gray-800 mb-4">Burger Michel EIRL</h3>
                     <p class="text-gray-600 mb-4 leading-relaxed">
-                        Site vitrine moderne pour l'entreprise de restauration de mon père. Présentation alléchante des burgers artisanaux, 
-                        galerie photo professionnelle et informations pratiques pour attirer et informer les clients.
+                        Site vitrine professionnel pour une entreprise de couverture artisanale.
                     </p>
                     <div class="bg-orange-50 p-4 rounded-lg mb-6">
                         <h4 class="font-semibold text-gray-800 mb-2"><i class="fas fa-heart text-orange-600 mr-2"></i>Un projet personnel</h4>
                         <p class="text-gray-600 text-sm">
-                            Mon père a créé cette entreprise et je voulais lui offrir un site web professionnel pour que les clients puissent découvrir son travail et ses délicieux burgers. 
-                            Un projet qui allie compétences techniques et fierté familiale !
+                            Mon père est artisan couvreur et a créé cette entreprise. Je voulais lui offrir un site web professionnel pour présenter 
+                            son expertise et ses réalisations en matière de toiture. Un projet qui allie compétences techniques et fierté familiale !
                         </p>
                     </div>
-                    <div class="flex flex-wrap gap-3 mb-6">
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">HTML/CSS</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">JavaScript</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP</span>
-                        <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
-                    </div>
-                    <a href="#" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
+                    <a href="burger-michel.html" class="inline-flex items-center bg-primary text-white px-6 py-3 rounded-lg font-bold hover:bg-secondary transition-colors">
                         Visiter le site <i class="fas fa-external-link-alt ml-2"></i>
                     </a>
                 </div>
@@ -722,6 +805,74 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nous contacter</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Travaillons ensemble</h3>
+                        <p class="text-gray-600 mb-8 leading-relaxed">
+                            Vous avez un projet en tête ou souhaitez en savoir plus sur nos réalisations ? 
+                            Contactez-nous via le formulaire ou directement par email/téléphone. Nous serons ravis d'échanger avec vous.
+                        </p>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Email</h4>
+                                    <p class="text-gray-600">findmycourt67@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-phone-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Téléphone</h4>
+                                    <p class="text-gray-600">+33 7 88 56 62 99</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
+                                    <i class="fas fa-map-marker-alt text-primary"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-gray-800">Adresse</h4>
+                                    <p class="text-gray-600">Strasbourg, France</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <form id="contact-form" class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                            <div class="mb-6">
+                                <label for="name" class="block text-gray-700 font-medium mb-2">Votre nom</label>
+                                <input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                            </div>
+                            <div class="mb-6">
+                                <label for="email" class="block text-gray-700 font-medium mb-2">Votre email</label>
+                                <input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
+                            </div>
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 font-medium mb-2">Votre message</label>
+                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"></textarea>
+                            </div>
+                            <button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-bold hover:bg-secondary transition-colors">
+                                <span id="btn-text">Envoyer le message</span>
+                                <i class="fas fa-spinner fa-spin hidden" id="btn-spinner"></i>
+                            </button>
+                            <div id="form-status" class="mt-4 text-center hidden"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section class="bg-gray-50 py-20">
         <div class="container mx-auto px-6">
@@ -796,74 +947,6 @@
                             <p class="font-semibold text-gray-800 text-sm">Sarah K.</p>
                             <p class="text-gray-600 text-xs">Développeuse</p>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="bg-white">
-        <div class="container mx-auto px-6">
-            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Nous contacter</h2>
-            <div class="max-w-4xl mx-auto">
-                <div class="grid md:grid-cols-2 gap-12">
-                    <div>
-                        <h3 class="text-2xl font-semibold text-gray-800 mb-6">Travaillons ensemble</h3>
-                        <p class="text-gray-600 mb-8 leading-relaxed">
-                            Vous avez un projet en tête ou souhaitez en savoir plus sur nos réalisations ? 
-                            Contactez-nous via le formulaire ou directement par email/téléphone. Nous serons ravis d'échanger avec vous.
-                        </p>
-                        <div class="space-y-6">
-                            <div class="flex items-start">
-                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                    <i class="fas fa-envelope text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Email</h4>
-                                    <p class="text-gray-600">findmycourt67@gmail.com</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                    <i class="fas fa-phone-alt text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Téléphone</h4>
-                                    <p class="text-gray-600">+33 7 88 56 62 99</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start">
-                                <div class="bg-primary bg-opacity-10 p-3 rounded-full mr-4">
-                                    <i class="fas fa-map-marker-alt text-primary"></i>
-                                </div>
-                                <div>
-                                    <h4 class="font-medium text-gray-800">Adresse</h4>
-                                    <p class="text-gray-600">Strasbourg, France</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <form id="contact-form" class="bg-gray-50 p-8 rounded-xl shadow-sm">
-                            <div class="mb-6">
-                                <label for="name" class="block text-gray-700 font-medium mb-2">Votre nom</label>
-                                <input type="text" id="name" name="from_name" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
-                            </div>
-                            <div class="mb-6">
-                                <label for="email" class="block text-gray-700 font-medium mb-2">Votre email</label>
-                                <input type="email" id="email" name="from_email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition">
-                            </div>
-                            <div class="mb-6">
-                                <label for="message" class="block text-gray-700 font-medium mb-2">Votre message</label>
-                                <textarea id="message" name="message" rows="5" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition"></textarea>
-                            </div>
-                            <button type="submit" id="submit-btn" class="w-full bg-primary text-white py-3 px-6 rounded-lg font-bold hover:bg-secondary transition-colors">
-                                <span id="btn-text">Envoyer le message</span>
-                                <i class="fas fa-spinner fa-spin hidden" id="btn-spinner"></i>
-                            </button>
-                            <div id="form-status" class="mt-4 text-center hidden"></div>
-                        </form>
                     </div>
                 </div>
             </div>
