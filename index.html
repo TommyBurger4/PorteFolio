@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tom & Paul | Portfolio</title>
-    <meta name="description" content="Portfolio de Tom & Paul - Étudiants ingénieurs en informatique, créateurs d'applications innovantes">
+    <title>Topal | Portfolio</title>
+    <meta name="description" content="Portfolio de Topal - Étudiants ingénieurs en informatique, créateurs d'applications innovantes">
     <meta name="keywords" content="Tom, Paul, développeur, étudiant ingénieur, informatique, FindMyCourt, Créno, application mobile, développement web, Strasbourg">
-    <meta name="author" content="Tom & Paul">
+    <meta name="author" content="Topal">
     <meta name="robots" content="index, follow">
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tom-paul-portfolio.com/">
-    <meta property="og:title" content="Tom & Paul | Portfolio - Étudiants Ingénieurs Informatique">
+    <meta property="og:title" content="Topal | Portfolio - Étudiants Ingénieurs Informatique">
     <meta property="og:description" content="Découvrez nos projets innovants : FindMyCourt, Créno et plus encore. Deux étudiants ingénieurs passionnés de développement.">
     <meta property="og:image" content="https://tom-paul-portfolio.com/images/og-image.jpg">
     <meta property="og:locale" content="fr_FR">
@@ -20,7 +20,7 @@
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://tom-paul-portfolio.com/">
-    <meta property="twitter:title" content="Tom & Paul | Portfolio - Étudiants Ingénieurs Informatique">
+    <meta property="twitter:title" content="Topal | Portfolio - Étudiants Ingénieurs Informatique">
     <meta property="twitter:description" content="Découvrez nos projets innovants : FindMyCourt, Créno et plus encore. Deux étudiants ingénieurs passionnés de développement.">
     <meta property="twitter:image" content="https://tom-paul-portfolio.com/images/twitter-image.jpg">
     
@@ -61,7 +61,7 @@
     {
         "@context": "https://schema.org",
         "@type": "Person",
-        "name": "Tom & Paul",
+        "name": "Topal",
         "description": "Étudiants ingénieurs en informatique, créateurs d'applications innovantes",
         "url": "https://tom-paul-portfolio.com",
         "email": "findmycourt67@gmail.com",
@@ -120,33 +120,33 @@
             transform: translateX(-50%);
             width: 0;
             height: 3px;
-            background-color: #4F46E5;
+            background-color: #6B7280;
             transition: width 0.3s ease;
         }
         .nav-link:hover::after {
             width: 80%;
         }
         .nav-link:hover {
-            background-color: rgba(79, 70, 229, 0.1);
+            background-color: rgba(107, 114, 128, 0.1);
             transform: translateY(-2px);
         }
         .nav-link.active {
-            color: #4F46E5;
+            color: #6B7280;
             font-weight: 600;
-            background-color: rgba(79, 70, 229, 0.15);
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.2);
+            background-color: rgba(107, 114, 128, 0.15);
+            box-shadow: 0 2px 8px rgba(107, 114, 128, 0.2);
         }
         .nav-link.active::after {
             width: 100%;
         }
-        .nav-link:nth-child(1):hover { color: #1E40AF; }
-        .nav-link:nth-child(2):hover { color: #2563EB; }
-        .nav-link:nth-child(3):hover { color: #3B82F6; }
-        .nav-link:nth-child(4):hover { color: #60A5FA; }
-        #mobile-menu .nav-link:nth-child(1):hover { color: #1E40AF; }
-        #mobile-menu .nav-link:nth-child(2):hover { color: #2563EB; }
-        #mobile-menu .nav-link:nth-child(3):hover { color: #3B82F6; }
-        #mobile-menu .nav-link:nth-child(4):hover { color: #60A5FA; }
+        .nav-link:nth-child(1):hover { color: #4B5563; }
+        .nav-link:nth-child(2):hover { color: #6B7280; }
+        .nav-link:nth-child(3):hover { color: #9CA3AF; }
+        .nav-link:nth-child(4):hover { color: #D1D5DB; }
+        #mobile-menu .nav-link:nth-child(1):hover { color: #4B5563; }
+        #mobile-menu .nav-link:nth-child(2):hover { color: #6B7280; }
+        #mobile-menu .nav-link:nth-child(3):hover { color: #9CA3AF; }
+        #mobile-menu .nav-link:nth-child(4):hover { color: #D1D5DB; }
         .project-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
@@ -188,6 +188,13 @@
             position: relative;
             overflow: hidden;
         }
+        .hero-gradient-gray {
+            background: linear-gradient(-45deg, #374151, #4B5563, #6B7280, #9CA3AF, #D1D5DB);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
         @keyframes gradientShift {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -206,20 +213,20 @@
             border-radius: 50%;
         }
         .particle:nth-child(1) { width: 6px; height: 6px; left: 10%; background: rgba(255,255,255,0.4); animation: float1 12s infinite linear; }
-        .particle:nth-child(2) { width: 4px; height: 4px; left: 20%; background: rgba(59,130,246,0.3); animation: float2 15s infinite linear; }
-        .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; background: rgba(6,182,212,0.4); animation: float3 18s infinite linear; }
-        .particle:nth-child(4) { width: 3px; height: 3px; left: 40%; background: rgba(14,165,233,0.5); animation: float1 10s infinite linear; }
+        .particle:nth-child(2) { width: 4px; height: 4px; left: 20%; background: rgba(156,163,175,0.3); animation: float2 15s infinite linear; }
+        .particle:nth-child(3) { width: 8px; height: 8px; left: 30%; background: rgba(209,213,219,0.4); animation: float3 18s infinite linear; }
+        .particle:nth-child(4) { width: 3px; height: 3px; left: 40%; background: rgba(107,114,128,0.5); animation: float1 10s infinite linear; }
         .particle:nth-child(5) { width: 10px; height: 10px; left: 50%; background: rgba(255,255,255,0.3); animation: float2 20s infinite linear; }
-        .particle:nth-child(6) { width: 5px; height: 5px; left: 60%; background: rgba(37,99,235,0.4); animation: float3 14s infinite linear; }
-        .particle:nth-child(7) { width: 7px; height: 7px; left: 70%; background: rgba(6,182,212,0.3); animation: float1 16s infinite linear; }
-        .particle:nth-child(8) { width: 9px; height: 9px; left: 80%; background: rgba(59,130,246,0.4); animation: float2 13s infinite linear; }
+        .particle:nth-child(6) { width: 5px; height: 5px; left: 60%; background: rgba(75,85,99,0.4); animation: float3 14s infinite linear; }
+        .particle:nth-child(7) { width: 7px; height: 7px; left: 70%; background: rgba(209,213,219,0.3); animation: float1 16s infinite linear; }
+        .particle:nth-child(8) { width: 9px; height: 9px; left: 80%; background: rgba(156,163,175,0.4); animation: float2 13s infinite linear; }
         .particle:nth-child(9) { width: 4px; height: 4px; left: 90%; background: rgba(255,255,255,0.5); animation: float3 11s infinite linear; }
-        .particle:nth-child(10) { width: 6px; height: 6px; left: 15%; background: rgba(14,165,233,0.3); animation: float1 17s infinite linear; }
-        .particle:nth-child(11) { width: 5px; height: 5px; left: 25%; background: rgba(6,182,212,0.4); animation: float2 19s infinite linear; }
-        .particle:nth-child(12) { width: 8px; height: 8px; left: 35%; background: rgba(37,99,235,0.3); animation: float3 12s infinite linear; }
+        .particle:nth-child(10) { width: 6px; height: 6px; left: 15%; background: rgba(107,114,128,0.3); animation: float1 17s infinite linear; }
+        .particle:nth-child(11) { width: 5px; height: 5px; left: 25%; background: rgba(209,213,219,0.4); animation: float2 19s infinite linear; }
+        .particle:nth-child(12) { width: 8px; height: 8px; left: 35%; background: rgba(75,85,99,0.3); animation: float3 12s infinite linear; }
         .particle:nth-child(13) { width: 4px; height: 4px; left: 45%; background: rgba(255,255,255,0.4); animation: float1 15s infinite linear; }
-        .particle:nth-child(14) { width: 7px; height: 7px; left: 55%; background: rgba(59,130,246,0.5); animation: float2 14s infinite linear; }
-        .particle:nth-child(15) { width: 6px; height: 6px; left: 65%; background: rgba(6,182,212,0.4); animation: float3 16s infinite linear; }
+        .particle:nth-child(14) { width: 7px; height: 7px; left: 55%; background: rgba(156,163,175,0.5); animation: float2 14s infinite linear; }
+        .particle:nth-child(15) { width: 6px; height: 6px; left: 65%; background: rgba(209,213,219,0.4); animation: float3 16s infinite linear; }
         @keyframes float1 {
             0% { transform: translateY(100vh) translateX(0px) rotate(0deg); opacity: 0; }
             10% { opacity: 1; }
@@ -239,14 +246,21 @@
             90% { opacity: 1; }
             100% { transform: translateY(-100px) translateX(-60px) scale(0.8) rotate(360deg); opacity: 0; }
         }
+        html, body {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
     </style>
 </head>
 <body class="font-sans bg-gray-50">
     <!-- Navigation -->
     <header class="bg-white shadow-md sticky top-0 z-50 border-b border-gray-100">
-        <nav class="container mx-auto px-6 py-4">
+        <nav class="container mx-auto px-6 py-1">
             <div class="flex justify-between items-center">
-                <a href="#home" class="text-2xl font-bold text-primary">Tom & Paul</a>
+                <a href="#home" class="flex items-center">
+                    <img src="images/TomPaul/logo.png" alt="Topal Logo" class="h-20 w-auto">
+                </a>
                 <div class="hidden md:flex space-x-4 items-center">
                     <a href="#home" class="nav-link text-gray-700 font-semibold">Accueil</a>
                     <a href="#about" class="nav-link text-gray-700 font-semibold">Qui sommes-nous</a>
@@ -271,7 +285,7 @@
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="flex items-center justify-center hero-gradient text-white">
+    <section id="home" class="flex items-center justify-center hero-gradient-gray text-white">
         <div class="particles">
             <div class="particle"></div>
             <div class="particle"></div>
@@ -290,16 +304,16 @@
             <div class="particle"></div>
         </div>
         <div class="container mx-auto px-6 text-center relative z-10">
-            <h1 class="text-5xl md:text-6xl font-bold mb-6">Tom & Paul</h1>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Topal</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Étudiants ingénieurs passionnés, nous créons des solutions qui répondent à de vrais besoins</p>
-            <a href="#projects" class="inline-block bg-white text-primary px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+            <a href="#projects" class="inline-block bg-white text-gray-800 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
                 Voir nos projets <i class="fas fa-arrow-down ml-2"></i>
             </a>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="bg-blue-100">
+    <section id="about" class="bg-gray-100">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Qui sommes-nous</h2>
             <div class="flex flex-col md:flex-row items-center gap-12">
@@ -315,28 +329,28 @@
                     </p>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-primary text-2xl mb-2">
+                            <div class="text-gray-600 text-2xl mb-2">
                                 <i class="fas fa-search"></i>
                             </div>
                             <h4 class="font-semibold text-gray-800">Problème réel</h4>
                             <p class="text-gray-600 text-sm">On part toujours d'un besoin concret</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-primary text-2xl mb-2">
+                            <div class="text-gray-600 text-2xl mb-2">
                                 <i class="fas fa-lightbulb"></i>
                             </div>
                             <h4 class="font-semibold text-gray-800">Solution créative</h4>
                             <p class="text-gray-600 text-sm">Innovation et réflexion</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-primary text-2xl mb-2">
+                            <div class="text-gray-600 text-2xl mb-2">
                                 <i class="fas fa-users"></i>
                             </div>
                             <h4 class="font-semibold text-gray-800">Collaboration</h4>
                             <p class="text-gray-600 text-sm">Travail d'équipe efficace</p>
                         </div>
                         <div class="bg-gray-50 p-4 rounded-lg">
-                            <div class="text-primary text-2xl mb-2">
+                            <div class="text-gray-600 text-2xl mb-2">
                                 <i class="fas fa-rocket"></i>
                             </div>
                             <h4 class="font-semibold text-gray-800">Impact</h4>
@@ -348,10 +362,8 @@
         </div>
     </section>
 
-
-
-    <!-- Transition gradient from blue to yellow -->
-    <div style="height: 50px; background: linear-gradient(to bottom, #dbeafe, #fef3c7);"></div>
+    <!-- Transition gradient from gray to yellow -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #f3f4f6, #fef3c7);"></div>
     
     <!-- Projects Section -->
     <section id="projects" style="background-color: #fef3c7; padding: 4rem 0;">
@@ -957,7 +969,7 @@
         <div class="container mx-auto px-6">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-6 md:mb-0">
-                    <h2 class="text-2xl font-bold">Tom & Paul</h2>
+                    <h2 class="text-2xl font-bold">Topal</h2>
                     <p class="text-gray-400 mt-2">Créativité et expertise au service de vos projets</p>
                 </div>
                 <div class="flex space-x-6">
@@ -976,7 +988,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-                <p>&copy; 2023 Tom & Paul. Tous droits réservés.</p>
+                <p>&copy; 2023 Topal. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
