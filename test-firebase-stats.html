@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Firebase Stats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .stat {
+            margin: 10px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 4px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #d32f2f;
+            background: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+        .success {
+            color: #388e3c;
+            background: #e8f5e9;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Firebase Stats</h1>
+        <div id="status" class="loading">Connexion à Firebase...</div>
+        <div id="stats"></div>
+        <div id="logs"></div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const statusEl = document.getElementById('status');
+        const statsEl = document.getElementById('stats');
+        const logsEl = document.getElementById('logs');
+
+        function log(message, type = 'info') {
+            const logEntry = document.createElement('div');
+            logEntry.className = type;
+            logEntry.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            logsEl.appendChild(logEntry);
+            console.log(message);
+        }
+
+        try {
+            // Configuration Firebase
+            const firebaseConfig = {
+                apiKey: "AIzaSyApPmmL0e_ewgdwqKGv9Rp796i0pdY9Pg0",
+                authDomain: "catimini-256a1.firebaseapp.com",
+                projectId: "catimini-256a1",
+                storageBucket: "catimini-256a1.appspot.com",
+                messagingSenderId: "426239063773",
+                appId: "1:426239063773:web:YOUR_APP_ID"
+            };
+
+            log('Initialisation de Firebase...');
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+            log('Firebase initialisé avec succès', 'success');
+
+            // Test de lecture du document counters/events
+            log('Tentative de lecture de counters/events...');
+            try {
+                const eventsCounterDoc = await getDoc(doc(db, 'counters', 'events'));
+                if (eventsCounterDoc.exists()) {
+                    const count = eventsCounterDoc.data().count || 0;
+                    log(`Document counters/events trouvé : ${count} événements`, 'success');
+                    statsEl.innerHTML += `<div class="stat">Événements (counters): ${count}</div>`;
+                } else {
+                    log('Document counters/events introuvable', 'error');
+                    
+                    // Essayer de créer le document avec une valeur de test
+                    log('Tentative de création du document counters/events...');
+                    try {
+                        await setDoc(doc(db, 'counters', 'events'), {
+                            count: 3847,
+                            lastUpdated: new Date()
+                        });
+                        log('Document counters/events créé avec succès', 'success');
+                    } catch (createError) {
+                        log(`Erreur lors de la création : ${createError.message}`, 'error');
+                    }
+                }
+            } catch (error) {
+                log(`Erreur lors de la lecture de counters/events : ${error.message}`, 'error');
+            }
+
+            // Test de lecture du document stats/creno
+            log('Tentative de lecture de stats/creno...');
+            try {
+                const statsDoc = await getDoc(doc(db, 'stats', 'creno'));
+                if (statsDoc.exists()) {
+                    const data = statsDoc.data();
+                    log('Document stats/creno trouvé', 'success');
+                    statsEl.innerHTML += `
+                        <div class="stat">Utilisateurs: ${data.totalUsers || 0}</div>
+                        <div class="stat">Événements: ${data.totalEvents || 0}</div>
+                        <div class="stat">Note moyenne: ${data.averageRating || 0}</div>
+                    `;
+                } else {
+                    log('Document stats/creno introuvable', 'error');
+                    
+                    // Essayer de créer le document avec des valeurs de test
+                    log('Tentative de création du document stats/creno...');
+                    try {
+                        await setDoc(doc(db, 'stats', 'creno'), {
+                            totalUsers: 1250,
+                            totalEvents: 3847,
+                            averageRating: 4.8,
+                            lastUpdated: new Date()
+                        });
+                        log('Document stats/creno créé avec succès', 'success');
+                    } catch (createError) {
+                        log(`Erreur lors de la création : ${createError.message}`, 'error');
+                    }
+                }
+            } catch (error) {
+                log(`Erreur lors de la lecture de stats/creno : ${error.message}`, 'error');
+            }
+
+            statusEl.textContent = 'Tests terminés';
+            statusEl.className = 'success';
+
+        } catch (error) {
+            statusEl.textContent = `Erreur : ${error.message}`;
+            statusEl.className = 'error';
+            log(`Erreur globale : ${error.message}`, 'error');
+        }
+    </script>
+</body>
+</html>
