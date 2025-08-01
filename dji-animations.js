@@ -556,6 +556,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateAnimation = (progress) => {
             console.log('🎯 Créno updateAnimation called with progress:', progress.toFixed(2));
             
+            // Animate section position if fixed
+            if (crenoSection.style.position === 'fixed' && crenoSection.dataset.initialTop) {
+                const initialTop = parseFloat(crenoSection.dataset.initialTop);
+                // Smoothly move from initial position to top: 0
+                const topProgress = Math.min(1, progress / 2); // Complete in first half of animation
+                const currentTop = initialTop * (1 - topProgress);
+                crenoSection.style.top = currentTop + 'px';
+                
+                // Enable smooth transition after first frame
+                if (progress > 0.1 && crenoSection.style.transition === 'none') {
+                    crenoSection.style.transition = 'top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                }
+            }
+            
             // Step 1: Logo shrinks (0-1)
             if (progress <= 1) {
                 const scale = 1 - (progress * 0.4);
@@ -743,6 +757,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     crenoSection.style.left = 'auto';
                     crenoSection.style.right = 'auto';
                     crenoSection.style.zIndex = '1';
+                    crenoSection.style.transition = ''; // Reset transition
+                    delete crenoSection.dataset.initialTop; // Clean up data attribute
                     hasTriggered = false;
                     animationLock = false; // Reset lock
                     triggerTimestamp = 0; // Reset timestamp
@@ -787,6 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     hasTriggered = false;
                     animationLock = false; // Reset lock
                     triggerTimestamp = 0; // Reset timestamp
+                    delete crenoSection.dataset.initialTop; // Clean up data attribute
                     // Remove placeholder
                     const placeholder = wrapper.querySelector('.creno-placeholder');
                     if (placeholder) placeholder.remove();
