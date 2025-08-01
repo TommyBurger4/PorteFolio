@@ -1,25 +1,8 @@
 {
   "permissions": {
     "allow": [
-      "Bash(mv:*)",
-      "Bash(python3:*)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git push:*)",
-      "Bash(ls:*)",
-      "Bash(for file in *.html)",
-      "Bash(do if [ \"$file\" != \"index.html\" ])",
-      "Bash(! grep -q '<base href=\"\"/PorteFolio/\"\">' \"$file\")",
-      "Bash(then sed -i '/<head>/a\\    <base href=\"\"/PorteFolio/\"\">' \"$file\")",
-      "Bash(fi)",
-      "Bash(done)",
-      "Bash(gh repo view:*)",
-      "Bash(grep:*)",
-      "Bash(find:*)",
-      "Bash(sed:*)",
-      "Bash(rm:*)",
-      "Bash(touch:*)",
-      "Bash(open index-dji.html)"
+      "Bash(git config:*)",
+      "Bash(git remote set-url:*)"
     ],
     "deny": []
   }

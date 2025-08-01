@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Clubs Sportifs - Projet à venir | Topal</title>
+    <meta name="description" content="Découvrez notre futur projet - Application de répertoire des clubs sportifs en France">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#4F46E5",
+                        secondary: "#3730A3",
+                        accent: "#10B981"
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .nav-link {
+            transition: all 0.3s ease;
+        }
+        .nav-link.active {
+            color: #4F46E5;
+            font-weight: 600;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .coming-soon-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50">
+    <!-- Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="../../index.html" class="text-2xl font-bold text-primary">Topal</a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="../../index.html#home" class="nav-link py-2 px-1">Accueil</a>
+                    <a href="../../index.html#about" class="nav-link py-2 px-1">Qui sommes-nous</a>
+                    <a href="../../index.html#projects" class="nav-link py-2 px-1">Nos projets</a>
+                    <a href="../../index.html#contact" class="nav-link py-2 px-1">Nous contacter</a>
+                </div>
+                <button class="md:hidden focus:outline-none" id="mobile-menu-button">
+                    <i class="fas fa-bars text-2xl text-gray-700"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="coming-soon-gradient text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8">
+                <a href="../../index.html#projects" class="inline-flex items-center text-white hover:text-gray-200 transition-colors mb-4">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Retour aux projets
+                </a>
+            </div>
+            <div class="inline-flex items-center bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm font-medium mb-6">
+                <i class="fas fa-clock mr-2"></i>
+                Projet à venir
+            </div>
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">Application Clubs Sportifs</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+                Le répertoire complet de tous les clubs sportifs de France
+            </p>
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">React Native</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Firebase</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">API REST</span>
+                <span class="bg-white bg-opacity-20 px-4 py-2 rounded-full text-sm">Géolocalisation</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-purple-50 p-8 rounded-xl mb-12">
+                    <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                        <i class="fas fa-lightbulb text-purple-600 mr-3"></i>
+                        Le concept
+                    </h2>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                        Vous cherchez un club de tennis près de chez vous ? Un club de football pour votre enfant ? 
+                        Un cours de yoga dans votre quartier ? Notre prochaine application révolutionnera la recherche de clubs sportifs en France.
+                    </p>
+                    <p class="text-gray-700 text-lg leading-relaxed mb-6">
+                        <strong>L'objectif :</strong> Centraliser toutes les informations des clubs sportifs français 
+                        dans une seule application mobile intuitive et géolocalisée.
+                    </p>
+                    <blockquote class="border-l-4 border-purple-600 pl-6 italic text-gray-600 text-lg">
+                        "Une base de données complète et à jour de tous les clubs sportifs, 
+                        accessible en quelques clics selon votre localisation et vos préférences."
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planned Features Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Fonctionnalités prévues</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-blue-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-map-marked-alt text-blue-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Recherche géolocalisée</h3>
+                    <p class="text-gray-600">
+                        Trouvez les clubs sportifs les plus proches de votre position 
+                        avec carte interactive et calcul d'itinéraires.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-green-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-filter text-green-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Filtres avancés</h3>
+                    <p class="text-gray-600">
+                        Filtrez par sport, niveau, âge, prix, horaires, 
+                        équipements disponibles et bien plus encore.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-purple-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-info-circle text-purple-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Fiches détaillées</h3>
+                    <p class="text-gray-600">
+                        Informations complètes sur chaque club : horaires, tarifs, 
+                        contact, photos, avis des membres.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-red-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-star text-red-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Avis et évaluations</h3>
+                    <p class="text-gray-600">
+                        Système d'avis et de notes des membres pour aider 
+                        à choisir le club parfait selon vos besoins.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-yellow-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-calendar text-yellow-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Réservation en ligne</h3>
+                    <p class="text-gray-600">
+                        Réservez directement vos créneaux, cours d'essai 
+                        ou inscriptions depuis l'application.
+                    </p>
+                </div>
+                
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm">
+                    <div class="bg-indigo-500 bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                        <i class="fas fa-bell text-indigo-500 text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-808 mb-4">Notifications personnalisées</h3>
+                    <p class="text-gray-600">
+                        Alertes pour nouveaux clubs, événements spéciaux, 
+                        offres promotionnelles dans votre région.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sports Categories -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Sports couverts</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-futbol text-blue-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Football</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-tennis-ball text-green-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Tennis</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-basketball-ball text-orange-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Basketball</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-swimming-pool text-purple-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Natation</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-dumbbell text-red-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Fitness</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-running text-yellow-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Athlétisme</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-bicycle text-indigo-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Cyclisme</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-pink-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-volleyball-ball text-pink-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Volleyball</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-hockey-puck text-teal-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Hockey</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-gray-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-fist-raised text-gray-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Arts martiaux</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-quidditch text-blue-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Rugby</p>
+                </div>
+                <div class="text-center">
+                    <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-plus text-green-600 text-2xl"></i>
+                    </div>
+                    <p class="text-gray-700 font-medium">Et plus...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-4xl font-bold text-center text-gray-800 mb-16">Feuille de route</h2>
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-8">
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            Q1
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Recherche et conception</h3>
+                            <p class="text-gray-600">
+                                Étude de marché, analyse des besoins utilisateurs, conception UX/UI et architecture technique.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            Q2
+                        </div>
+                        <div class="bg-white p-6 rounded-lg shadow-sm flex-1">
+                            <h3 class="text-xl font-semibold text-gray-800 mb-2">Développement MVP</h3>
+                            <p class="text-gray-600">
+                                Développement de la version minimale viable avec recherche géolocalisée et base de données initiale.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-gray-300 text-gray-600 w-12 h-12 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            Q3
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm flex-1 border-2 border-dashed border-gray-300">
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">Tests et améliorations</h3>
+                            <p class="text-gray-500">
+                                Phase de tests utilisateurs, corrections de bugs et ajout des fonctionnalités avancées.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="bg-gray-300 text-gray-600 w-12 h-12 rounded-full flex items-center justify-center font-bold mr-6 flex-shrink-0">
+                            Q4
+                        </div>
+                        <div class="bg-gray-50 p-6 rounded-lg shadow-sm flex-1 border-2 border-dashed border-gray-300">
+                            <h3 class="text-xl font-semibold text-gray-600 mb-2">Lancement public</h3>
+                            <p class="text-gray-500">
+                                Lancement officiel sur les stores avec campagne marketing et partenariats clubs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto text-center">
+                <h2 class="text-4xl font-bold text-gray-800 mb-6">Restez informé</h2>
+                <p class="text-xl text-gray-600 mb-8">
+                    Inscrivez-vous pour être averti du lancement et recevoir les dernières actualités du projet.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input 
+                        type="email" 
+                        placeholder="Votre adresse email" 
+                        class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    />
+                    <button class="bg-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                        S'inscrire
+                    </button>
+                </div>
+                <p class="text-sm text-gray-500 mt-4">
+                    Nous respectons votre vie privée. Pas de spam, désinscription facile.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 coming-soon-gradient text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-4xl font-bold mb-6">Un projet qui vous intéresse ?</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">
+                Nous sommes toujours à l'écoute de vos idées et suggestions pour améliorer ce futur projet !
+            </p>
+            <a href="../../index.html#contact" class="inline-flex items-center bg-white text-purple-600 px-8 py-3 rounded-lg font-bold hover:bg-gray-100 transition-colors">
+                <i class="fas fa-envelope mr-2"></i>
+                Nous contacter
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <h2 class="text-2xl font-bold">Topal</h2>
+                    <p class="text-gray-400 mt-2">Créativité et expertise au service de vos projets</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2023 Topal. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyCourt - Carte Interactive</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .custom-marker {
+            position: relative;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .marker-pin {
+            width: 40px;
+            height: 40px;
+            border-radius: 50% 50% 50% 0;
+            background: #FF4444;
+            position: absolute;
+            transform: rotate(-45deg);
+            left: 50%;
+            top: 50%;
+            margin: -20px 0 0 -20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .marker-pin::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            margin: 8px 0 0 8px;
+            background: white;
+            position: absolute;
+            border-radius: 50%;
+        }
+        
+        .marker-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+            z-index: 1;
+        }
+        
+        .terrain-basketball .marker-pin { background: #FF9800; }
+        .terrain-volleyball .marker-pin { background: #4CAF50; }
+        .terrain-football .marker-pin { background: #2196F3; }
+        .terrain-tennis .marker-pin { background: #FFC107; }
+        .terrain-padel .marker-pin { background: #E91E63; }
+        .terrain-pingpong .marker-pin { background: #00BCD4; }
+        .terrain-escalade .marker-pin { background: #795548; }
+        .terrain-skate .marker-pin { background: #9E9E9E; }
+        .terrain-workout .marker-pin { background: #607D8B; }
+        .terrain-other .marker-pin { background: #9C27B0; }
+        
+        .filter-container {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            z-index: 1000;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            max-width: 90%;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .filter-btn:hover {
+            background: #f5f5f5;
+        }
+        
+        .filter-btn.active {
+            background: #4F46E5;
+            color: white;
+            border-color: #4F46E5;
+        }
+        
+        .info-window {
+            padding: 10px;
+            min-width: 200px;
+        }
+        
+        .info-window h3 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .info-window p {
+            margin: 5px 0;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 1000;
+        }
+        
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #4F46E5;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    
+    <div class="filter-container" id="filterContainer">
+        <button class="filter-btn active" data-filter="all">
+            <span>🗺️</span> Tous
+        </button>
+        <button class="filter-btn" data-filter="basket">
+            <span>🏀</span> Basketball
+        </button>
+        <button class="filter-btn" data-filter="volley">
+            <span>🏐</span> Volleyball
+        </button>
+        <button class="filter-btn" data-filter="foot">
+            <span>⚽</span> Football
+        </button>
+        <button class="filter-btn" data-filter="tennis">
+            <span>🎾</span> Tennis
+        </button>
+        <button class="filter-btn" data-filter="padel">
+            <span>🎾</span> Padel
+        </button>
+        <button class="filter-btn" data-filter="pingpong">
+            <span>🏓</span> Ping-pong
+        </button>
+        <button class="filter-btn" data-filter="escalade">
+            <span>🧗</span> Escalade
+        </button>
+        <button class="filter-btn" data-filter="skate">
+            <span>🛹</span> Skatepark
+        </button>
+        <button class="filter-btn" data-filter="workout">
+            <span>🏋️</span> Workout
+        </button>
+        <button class="filter-btn" data-filter="other">
+            <span>🏟️</span> Autre
+        </button>
+    </div>
+    
+    <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <p>Chargement de la carte...</p>
+    </div>
+
+    <script>
+        let map;
+        let markers = [];
+        let activeFilter = 'all';
+        let infoWindow;
+        
+        // Données de démonstration des terrains
+        const terrainsData = [
+            // Basketball
+            { id: 1, name: "Terrain de basket Orangerie", type: "basket", lat: 48.5866, lng: 7.7620, city: "Strasbourg", icon: "🏀" },
+            { id: 2, name: "City basket Krutenau", type: "basket", lat: 48.5760, lng: 7.7550, city: "Strasbourg", icon: "🏀" },
+            { id: 3, name: "Playground Neudorf", type: "basket", lat: 48.5500, lng: 7.7700, city: "Strasbourg", icon: "🏀" },
+            
+            // Volleyball
+            { id: 4, name: "Beach Volley Rivetoile", type: "volley", lat: 48.5740, lng: 7.6920, city: "Strasbourg", icon: "🏐" },
+            { id: 5, name: "Terrain volley Heyritz", type: "volley", lat: 48.5590, lng: 7.7560, city: "Strasbourg", icon: "🏐" },
+            
+            // Football
+            { id: 6, name: "City stade Cronenbourg", type: "foot", lat: 48.5950, lng: 7.7200, city: "Strasbourg", icon: "⚽" },
+            { id: 7, name: "Terrain foot Meinau", type: "foot", lat: 48.5590, lng: 7.7490, city: "Strasbourg", icon: "⚽" },
+            { id: 8, name: "Mini foot Hautepierre", type: "foot", lat: 48.5940, lng: 7.7020, city: "Strasbourg", icon: "⚽" },
+            
+            // Tennis
+            { id: 9, name: "Courts tennis Wacken", type: "tennis", lat: 48.6000, lng: 7.7620, city: "Strasbourg", icon: "🎾" },
+            { id: 10, name: "Tennis Club Neuhof", type: "tennis", lat: 48.5400, lng: 7.7710, city: "Strasbourg", icon: "🎾" },
+            
+            // Padel
+            { id: 11, name: "Padel Arena Schiltigheim", type: "padel", lat: 48.6070, lng: 7.7490, city: "Schiltigheim", icon: "🎾" },
+            
+            // Ping-pong
+            { id: 12, name: "Tables ping-pong Contades", type: "pingpong", lat: 48.5930, lng: 7.7710, city: "Strasbourg", icon: "🏓" },
+            { id: 13, name: "Ping-pong parc Citadelle", type: "pingpong", lat: 48.5780, lng: 7.7810, city: "Strasbourg", icon: "🏓" },
+            
+            // Escalade
+            { id: 14, name: "Mur escalade Koenigshoffen", type: "escalade", lat: 48.5780, lng: 7.7150, city: "Strasbourg", icon: "🧗" },
+            
+            // Skatepark
+            { id: 15, name: "Skatepark Rotonde", type: "skate", lat: 48.5820, lng: 7.7340, city: "Strasbourg", icon: "🛹" },
+            { id: 16, name: "Bowl Neudorf", type: "skate", lat: 48.5510, lng: 7.7650, city: "Strasbourg", icon: "🛹" },
+            
+            // Street Workout
+            { id: 17, name: "Street workout Pourtalès", type: "workout", lat: 48.5890, lng: 7.7780, city: "Strasbourg", icon: "🏋️" },
+            { id: 18, name: "Musculation extérieure Orangerie", type: "workout", lat: 48.5850, lng: 7.7650, city: "Strasbourg", icon: "🏋️" },
+            
+            // Autres
+            { id: 19, name: "Pétanque Parc de l'Étoile", type: "other", lat: 48.5730, lng: 7.6880, city: "Strasbourg", icon: "🏟️" },
+            { id: 20, name: "Terrain multisport Robertsau", type: "other", lat: 48.6120, lng: 7.7890, city: "Strasbourg", icon: "🏟️" }
+        ];
+        
+        function initMap() {
+            // Centre de Strasbourg
+            const strasbourg = { lat: 48.5734, lng: 7.7521 };
+            
+            map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 13,
+                center: strasbourg,
+                mapTypeControl: false,
+                streetViewControl: false,
+                fullscreenControl: false,
+                styles: [
+                    {
+                        featureType: "poi",
+                        elementType: "labels",
+                        stylers: [{ visibility: "off" }]
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "labels",
+                        stylers: [{ visibility: "off" }]
+                    }
+                ]
+            });
+            
+            infoWindow = new google.maps.InfoWindow();
+            
+            // Ajouter les marqueurs
+            addMarkers();
+            
+            // Masquer le chargement
+            document.getElementById('loading').style.display = 'none';
+            
+            // Ajouter les écouteurs d'événements pour les filtres
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    activeFilter = this.dataset.filter;
+                    filterMarkers();
+                });
+            });
+        }
+        
+        function addMarkers() {
+            terrainsData.forEach(terrain => {
+                const marker = new google.maps.Marker({
+                    position: { lat: terrain.lat, lng: terrain.lng },
+                    map: map,
+                    title: terrain.name,
+                    icon: {
+                        path: google.maps.SymbolPath.CIRCLE,
+                        scale: 0
+                    },
+                    terrainData: terrain
+                });
+                
+                // Créer un marqueur personnalisé
+                const customMarker = new google.maps.OverlayView();
+                customMarker.terrain = terrain;
+                customMarker.setMap(map);
+                
+                customMarker.onAdd = function() {
+                    const div = document.createElement('div');
+                    div.className = 'custom-marker terrain-' + terrain.type;
+                    div.innerHTML = `
+                        <div class="marker-pin"></div>
+                        <div class="marker-icon">${terrain.icon}</div>
+                    `;
+                    
+                    div.addEventListener('click', () => {
+                        const content = `
+                            <div class="info-window">
+                                <h3>${terrain.icon} ${terrain.name}</h3>
+                                <p><strong>Type:</strong> ${getTypeName(terrain.type)}</p>
+                                <p><strong>Ville:</strong> ${terrain.city}</p>
+                            </div>
+                        `;
+                        infoWindow.setContent(content);
+                        infoWindow.setPosition({ lat: terrain.lat, lng: terrain.lng });
+                        infoWindow.open(map);
+                    });
+                    
+                    this.div = div;
+                    const panes = this.getPanes();
+                    panes.overlayMouseTarget.appendChild(div);
+                };
+                
+                customMarker.draw = function() {
+                    const overlayProjection = this.getProjection();
+                    const position = overlayProjection.fromLatLngToDivPixel(
+                        new google.maps.LatLng(terrain.lat, terrain.lng)
+                    );
+                    
+                    if (this.div) {
+                        this.div.style.left = position.x + 'px';
+                        this.div.style.top = position.y + 'px';
+                        this.div.style.position = 'absolute';
+                        this.div.style.transform = 'translate(-50%, -50%)';
+                    }
+                };
+                
+                customMarker.onRemove = function() {
+                    if (this.div) {
+                        this.div.parentNode.removeChild(this.div);
+                        this.div = null;
+                    }
+                };
+                
+                markers.push(customMarker);
+            });
+        }
+        
+        function filterMarkers() {
+            markers.forEach(marker => {
+                if (activeFilter === 'all' || marker.terrain.type === activeFilter) {
+                    if (marker.div) marker.div.style.display = 'block';
+                } else {
+                    if (marker.div) marker.div.style.display = 'none';
+                }
+            });
+        }
+        
+        function getTypeName(type) {
+            const types = {
+                'basket': 'Basketball',
+                'volley': 'Volleyball',
+                'foot': 'Football',
+                'tennis': 'Tennis',
+                'padel': 'Padel',
+                'pingpong': 'Ping-pong',
+                'escalade': 'Escalade',
+                'skate': 'Skatepark',
+                'workout': 'Street Workout',
+                'other': 'Autre'
+            };
+            return types[type] || 'Autre';
+        }
+        
+        window.initMap = initMap;
+    </script>
+    
+    <!-- Remplacer YOUR_API_KEY par une clé API Google Maps valide -->
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1RfypMmcYuf0NWwpte_rPpFOEZ9gh43E&callback=initMap">
+    </script>
+</body>
+</html>
