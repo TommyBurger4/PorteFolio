@@ -802,6 +802,7 @@
                 
                 let isAnimating = false;
                 let hasTriggered = false;
+                let animationPhase = 0; // 0: normal, 1: rising, 2: fixed, 3: stats, 4: descending
                 
                 // Create wrapper for scroll animation
                 let wrapper = crenoSection.closest('.creno-wrapper');
@@ -809,7 +810,7 @@
                     wrapper = document.createElement('div');
                     const viewportHeight = window.innerHeight;
                     const isMobile = window.innerWidth < 768;
-                    const wrapperHeight = isMobile ? '150vh' : '200vh';
+                    const wrapperHeight = isMobile ? '300vh' : '400vh'; // Increased height for better animation
                     wrapper.style.minHeight = wrapperHeight;
                     wrapper.style.position = 'relative';
                     wrapper.classList.add('animation-wrapper', 'creno-wrapper');
@@ -843,35 +844,36 @@
                 };
                 
                 const updateAnimation = (progress) => {
-                    // Step 1: Logo shrinks (0-1)
+                    // Phase 1: Logo shrinks and moves up
                     if (progress <= 1) {
-                        const scale = 1 - (progress * 0.4);
-                        crenoLogo.style.transform = `scale(${scale})`;
-                        crenoLogo.style.opacity = 1 - (progress * 0.3);
+                        const scale = 1 - (progress * 0.3);
+                        const translateY = -progress * 50; // Move up
+                        crenoLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                        crenoLogo.style.opacity = 1 - (progress * 0.2);
                     }
                     
-                    // Step 2: Show stats container (1-2)
+                    // Phase 2: Show stats container
                     if (progress > 1 && progress <= 2) {
                         if (statsContainer) {
                             statsContainer.style.display = 'block';
                         }
-                        crenoLogo.style.transform = 'scale(0.6)';
-                        crenoLogo.style.opacity = '0.7';
+                        crenoLogo.style.transform = 'scale(0.7) translateY(-50px)';
+                        crenoLogo.style.opacity = '0.8';
                     }
                     
-                    // Step 3-4: Animate stats one by one
+                    // Phase 3-4: Animate stats one by one
                     stats.forEach((stat, index) => {
-                        const statStart = 2 + index * 0.7;
-                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.7));
+                        const statStart = 2 + index * 0.8;
+                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.8));
                         
                         if (statProgress > 0) {
                             stat.style.opacity = statProgress;
-                            const yOffset = 30 - (statProgress * 30);
+                            const yOffset = 40 - (statProgress * 40);
                             
                             if (index === 0) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${-30 + statProgress * 30}px) rotate(-12deg) scale(${0.8 + statProgress * 0.2})`;
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${-40 + statProgress * 40}px) rotate(-15deg) scale(${0.7 + statProgress * 0.3})`;
                             } else if (index === 1) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${30 - statProgress * 30}px) rotate(15deg) scale(${0.8 + statProgress * 0.2})`;
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${40 - statProgress * 40}px) rotate(15deg) scale(${0.7 + statProgress * 0.3})`;
                             }
                             
                             if (statProgress > 0.5 && !stat.dataset.animated) {
@@ -887,7 +889,7 @@
                     });
                     
                     // Fade text elements
-                    const textOpacity = Math.max(0.2, 1 - (progress / 5));
+                    const textOpacity = Math.max(0.1, 1 - (progress / 4));
                     if (crenoTitle) crenoTitle.style.opacity = textOpacity;
                     if (crenoSubtitle) crenoSubtitle.style.opacity = textOpacity * 0.8;
                     if (crenoContent) crenoContent.style.opacity = textOpacity * 0.6;
@@ -899,78 +901,73 @@
                     const rect = wrapper.getBoundingClientRect();
                     const wrapperHeight = wrapper.offsetHeight;
                     const viewportHeight = window.innerHeight;
+                    const scrollY = window.scrollY;
+                    const wrapperOffset = wrapper.offsetTop;
                     
-                    // Calculate when section is in the middle of the screen
-                    const sectionCenter = rect.top + rect.height / 2;
-                    const screenCenter = viewportHeight / 2;
-                    const distanceFromCenter = Math.abs(sectionCenter - screenCenter);
+                    // Calculate scroll progress through the wrapper
+                    const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
                     
-                    // Trigger animation when section is near the center
-                    const shouldTrigger = !hasTriggered && !isAnimating && distanceFromCenter < 100;
-                    
-                    if (shouldTrigger) {
-                        isAnimating = true;
-                        hasTriggered = true;
+                    // Phase 1: Rising phase (0-25% of scroll)
+                    if (scrollProgress < 0.25) {
+                        if (animationPhase !== 1) {
+                            animationPhase = 1;
+                            crenoSection.style.position = 'relative';
+                            crenoSection.style.transform = 'none';
+                            crenoSection.style.zIndex = '1';
+                        }
                         
-                        // Create placeholder
-                        const placeholder = document.createElement('div');
-                        placeholder.style.height = '100vh';
-                        placeholder.style.width = '100%';
-                        placeholder.className = 'creno-placeholder';
-                        wrapper.insertBefore(placeholder, crenoSection);
+                        const phaseProgress = scrollProgress / 0.25;
+                        const translateY = -phaseProgress * 100; // Move up
+                        crenoSection.style.transform = `translateY(${translateY}px)`;
                         
-                        // Fix the section at the center of the screen
-                        crenoSection.style.position = 'fixed';
-                        crenoSection.style.top = '50%';
-                        crenoSection.style.left = '0';
-                        crenoSection.style.right = '0';
-                        crenoSection.style.transform = 'translateY(-50%)';
-                        crenoSection.style.zIndex = '50';
-                        crenoSection.style.transition = 'none';
-                    } else if (hasTriggered) {
-                        // Calculate progress based on scroll position
-                        const scrollY = window.scrollY;
-                        const wrapperOffset = wrapper.offsetTop;
-                        const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
+                    } 
+                    // Phase 2: Fixed at center (25-50% of scroll)
+                    else if (scrollProgress < 0.5) {
+                        if (animationPhase !== 2) {
+                            animationPhase = 2;
+                            crenoSection.style.position = 'fixed';
+                            crenoSection.style.top = '50%';
+                            crenoSection.style.left = '0';
+                            crenoSection.style.right = '0';
+                            crenoSection.style.transform = 'translateY(-50%)';
+                            crenoSection.style.zIndex = '50';
+                            
+                            // Create placeholder
+                            if (!wrapper.querySelector('.creno-placeholder')) {
+                                const placeholder = document.createElement('div');
+                                placeholder.style.height = '100vh';
+                                placeholder.style.width = '100%';
+                                placeholder.className = 'creno-placeholder';
+                                wrapper.insertBefore(placeholder, crenoSection);
+                            }
+                        }
                         
-                        const easedProgress = scrollProgress < 0.5 
-                            ? 4 * scrollProgress * scrollProgress * scrollProgress 
-                            : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
+                        // Animate logo and show stats
+                        const phaseProgress = (scrollProgress - 0.25) / 0.25;
+                        updateAnimation(phaseProgress * 4);
                         
-                        const animationProgress = easedProgress * 5;
-                        updateAnimation(animationProgress);
-                        
-                        // Complete animation when scrolled past the wrapper
-                        if (scrollY > wrapperOffset + wrapperHeight - viewportHeight) {
+                    } 
+                    // Phase 3: Descending phase (50-100% of scroll)
+                    else {
+                        if (animationPhase !== 3) {
+                            animationPhase = 3;
                             crenoSection.style.position = 'relative';
                             crenoSection.style.top = '0';
                             crenoSection.style.transform = 'none';
                             crenoSection.style.zIndex = '1';
-                            crenoSection.style.transition = '';
-                            hasTriggered = false;
-                            isAnimating = false;
                             
+                            // Remove placeholder
                             const placeholder = wrapper.querySelector('.creno-placeholder');
                             if (placeholder) placeholder.remove();
-                            
-                            wrapper.classList.add('animation-complete');
-                            
-                            if (wrapper.parentNode) {
-                                wrapper.parentNode.insertBefore(crenoSection, wrapper.nextSibling);
-                                wrapper.style.transition = 'height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                                wrapper.style.height = '0';
-                                wrapper.style.minHeight = '0';
-                                wrapper.style.overflow = 'hidden';
-                                
-                                setTimeout(() => {
-                                    if (wrapper.parentNode) {
-                                        wrapper.remove();
-                                    }
-                                }, 600);
-                            }
-                            
-                            updateAnimation(5);
                         }
+                        
+                        // Continue animation and fade out
+                        const phaseProgress = (scrollProgress - 0.5) / 0.5;
+                        updateAnimation(4 + phaseProgress * 2);
+                        
+                        // Fade out the entire section
+                        const fadeOut = Math.max(0.3, 1 - phaseProgress);
+                        crenoSection.style.opacity = fadeOut;
                     }
                 };
                 
@@ -1002,6 +999,7 @@
                 
                 let isAnimating = false;
                 let hasTriggered = false;
+                let animationPhase = 0; // 0: normal, 1: rising, 2: fixed, 3: stats, 4: descending
                 
                 // Create wrapper for scroll animation
                 let wrapper = pixshareSection.closest('.pixshare-wrapper');
@@ -1009,7 +1007,7 @@
                     wrapper = document.createElement('div');
                     const viewportHeight = window.innerHeight;
                     const isMobile = window.innerWidth < 768;
-                    const wrapperHeight = isMobile ? '150vh' : '200vh';
+                    const wrapperHeight = isMobile ? '300vh' : '400vh'; // Increased height for better animation
                     wrapper.style.minHeight = wrapperHeight;
                     wrapper.style.position = 'relative';
                     wrapper.classList.add('animation-wrapper', 'pixshare-wrapper');
@@ -1043,35 +1041,36 @@
                 };
                 
                 const updateAnimation = (progress) => {
-                    // Step 1: Logo shrinks (0-1)
+                    // Phase 1: Logo shrinks and moves up
                     if (progress <= 1) {
-                        const scale = 1 - (progress * 0.4);
-                        pixshareLogo.style.transform = `scale(${scale})`;
-                        pixshareLogo.style.opacity = 1 - (progress * 0.3);
+                        const scale = 1 - (progress * 0.3);
+                        const translateY = -progress * 50; // Move up
+                        pixshareLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+                        pixshareLogo.style.opacity = 1 - (progress * 0.2);
                     }
                     
-                    // Step 2: Show stats container (1-2)
+                    // Phase 2: Show stats container
                     if (progress > 1 && progress <= 2) {
                         if (statsContainer) {
                             statsContainer.style.display = 'block';
                         }
-                        pixshareLogo.style.transform = 'scale(0.6)';
-                        pixshareLogo.style.opacity = '0.7';
+                        pixshareLogo.style.transform = 'scale(0.7) translateY(-50px)';
+                        pixshareLogo.style.opacity = '0.8';
                     }
                     
-                    // Step 3-4: Animate stats one by one
+                    // Phase 3-4: Animate stats one by one
                     stats.forEach((stat, index) => {
-                        const statStart = 2 + index * 0.7;
-                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.7));
+                        const statStart = 2 + index * 0.8;
+                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.8));
                         
                         if (statProgress > 0) {
                             stat.style.opacity = statProgress;
-                            const yOffset = 30 - (statProgress * 30);
+                            const yOffset = 40 - (statProgress * 40);
                             
                             if (index === 0) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${-30 + statProgress * 30}px) rotate(-12deg) scale(${0.8 + statProgress * 0.2})`;
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${-40 + statProgress * 40}px) rotate(-15deg) scale(${0.7 + statProgress * 0.3})`;
                             } else if (index === 1) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${30 - statProgress * 30}px) rotate(15deg) scale(${0.8 + statProgress * 0.2})`;
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${40 - statProgress * 40}px) rotate(15deg) scale(${0.7 + statProgress * 0.3})`;
                             }
                             
                             if (statProgress > 0.5 && !stat.dataset.animated) {
@@ -1087,7 +1086,7 @@
                     });
                     
                     // Fade text elements
-                    const textOpacity = Math.max(0.2, 1 - (progress / 5));
+                    const textOpacity = Math.max(0.1, 1 - (progress / 4));
                     if (pixshareTitle) pixshareTitle.style.opacity = textOpacity;
                     if (pixshareSubtitle) pixshareSubtitle.style.opacity = textOpacity * 0.8;
                     if (pixshareContent) pixshareContent.style.opacity = textOpacity * 0.6;
@@ -1099,78 +1098,73 @@
                     const rect = wrapper.getBoundingClientRect();
                     const wrapperHeight = wrapper.offsetHeight;
                     const viewportHeight = window.innerHeight;
+                    const scrollY = window.scrollY;
+                    const wrapperOffset = wrapper.offsetTop;
                     
-                    // Calculate when section is in the middle of the screen
-                    const sectionCenter = rect.top + rect.height / 2;
-                    const screenCenter = viewportHeight / 2;
-                    const distanceFromCenter = Math.abs(sectionCenter - screenCenter);
+                    // Calculate scroll progress through the wrapper
+                    const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
                     
-                    // Trigger animation when section is near the center
-                    const shouldTrigger = !hasTriggered && !isAnimating && distanceFromCenter < 100;
-                    
-                    if (shouldTrigger) {
-                        isAnimating = true;
-                        hasTriggered = true;
+                    // Phase 1: Rising phase (0-25% of scroll)
+                    if (scrollProgress < 0.25) {
+                        if (animationPhase !== 1) {
+                            animationPhase = 1;
+                            pixshareSection.style.position = 'relative';
+                            pixshareSection.style.transform = 'none';
+                            pixshareSection.style.zIndex = '1';
+                        }
                         
-                        // Create placeholder
-                        const placeholder = document.createElement('div');
-                        placeholder.style.height = '100vh';
-                        placeholder.style.width = '100%';
-                        placeholder.className = 'pixshare-placeholder';
-                        wrapper.insertBefore(placeholder, pixshareSection);
+                        const phaseProgress = scrollProgress / 0.25;
+                        const translateY = -phaseProgress * 100; // Move up
+                        pixshareSection.style.transform = `translateY(${translateY}px)`;
                         
-                        // Fix the section at the center of the screen
-                        pixshareSection.style.position = 'fixed';
-                        pixshareSection.style.top = '50%';
-                        pixshareSection.style.left = '0';
-                        pixshareSection.style.right = '0';
-                        pixshareSection.style.transform = 'translateY(-50%)';
-                        pixshareSection.style.zIndex = '50';
-                        pixshareSection.style.transition = 'none';
-                    } else if (hasTriggered) {
-                        // Calculate progress based on scroll position
-                        const scrollY = window.scrollY;
-                        const wrapperOffset = wrapper.offsetTop;
-                        const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
+                    } 
+                    // Phase 2: Fixed at center (25-50% of scroll)
+                    else if (scrollProgress < 0.5) {
+                        if (animationPhase !== 2) {
+                            animationPhase = 2;
+                            pixshareSection.style.position = 'fixed';
+                            pixshareSection.style.top = '50%';
+                            pixshareSection.style.left = '0';
+                            pixshareSection.style.right = '0';
+                            pixshareSection.style.transform = 'translateY(-50%)';
+                            pixshareSection.style.zIndex = '50';
+                            
+                            // Create placeholder
+                            if (!wrapper.querySelector('.pixshare-placeholder')) {
+                                const placeholder = document.createElement('div');
+                                placeholder.style.height = '100vh';
+                                placeholder.style.width = '100%';
+                                placeholder.className = 'pixshare-placeholder';
+                                wrapper.insertBefore(placeholder, pixshareSection);
+                            }
+                        }
                         
-                        const easedProgress = scrollProgress < 0.5 
-                            ? 4 * scrollProgress * scrollProgress * scrollProgress 
-                            : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
+                        // Animate logo and show stats
+                        const phaseProgress = (scrollProgress - 0.25) / 0.25;
+                        updateAnimation(phaseProgress * 4);
                         
-                        const animationProgress = easedProgress * 5;
-                        updateAnimation(animationProgress);
-                        
-                        // Complete animation when scrolled past the wrapper
-                        if (scrollY > wrapperOffset + wrapperHeight - viewportHeight) {
+                    } 
+                    // Phase 3: Descending phase (50-100% of scroll)
+                    else {
+                        if (animationPhase !== 3) {
+                            animationPhase = 3;
                             pixshareSection.style.position = 'relative';
                             pixshareSection.style.top = '0';
                             pixshareSection.style.transform = 'none';
                             pixshareSection.style.zIndex = '1';
-                            pixshareSection.style.transition = '';
-                            hasTriggered = false;
-                            isAnimating = false;
                             
+                            // Remove placeholder
                             const placeholder = wrapper.querySelector('.pixshare-placeholder');
                             if (placeholder) placeholder.remove();
-                            
-                            wrapper.classList.add('animation-complete');
-                            
-                            if (wrapper.parentNode) {
-                                wrapper.parentNode.insertBefore(pixshareSection, wrapper.nextSibling);
-                                wrapper.style.transition = 'height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                                wrapper.style.height = '0';
-                                wrapper.style.minHeight = '0';
-                                wrapper.style.overflow = 'hidden';
-                                
-                                setTimeout(() => {
-                                    if (wrapper.parentNode) {
-                                        wrapper.remove();
-                                    }
-                                }, 600);
-                            }
-                            
-                            updateAnimation(5);
                         }
+                        
+                        // Continue animation and fade out
+                        const phaseProgress = (scrollProgress - 0.5) / 0.5;
+                        updateAnimation(4 + phaseProgress * 2);
+                        
+                        // Fade out the entire section
+                        const fadeOut = Math.max(0.3, 1 - phaseProgress);
+                        pixshareSection.style.opacity = fadeOut;
                     }
                 };
                 
