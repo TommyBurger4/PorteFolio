@@ -54,6 +54,86 @@
     background: #000;
     overflow: visible; /* Changed from hidden to show stats */
     scroll-snap-align: start;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-showcase-dji.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation fluide pour les logos des applications */
+.app-logo-hero {
+    opacity: 0;
+    transform: scale(0.8) translateY(30px);
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.3s;
+}
+
+.product-showcase-dji.in-view .app-logo-hero {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Animation pour les titres des sections */
+.headline-massive {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.5s;
+}
+
+.product-showcase-dji.in-view .headline-massive {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les sous-titres */
+.creno-subtitle,
+.pixshare-subtitle {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.7s;
+}
+
+.product-showcase-dji.in-view .creno-subtitle,
+.product-showcase-dji.in-view .pixshare-subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les boutons */
+.hover-lift {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.9s;
+}
+
+.product-showcase-dji.in-view .hover-lift {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Amélioration de l'effet hover sur les boutons */
+.hover-lift:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation fluide pour les sections de transition */
+.transition-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .product-image-container {
@@ -241,37 +321,73 @@
     transform: scale(1);
 }
 
-/* Feature grid with stagger */
+/* Grille des projets - Animations améliorées */
 .feature-grid-dji {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    padding: 4rem 0;
+    gap: 3rem;
+    margin-top: 4rem;
 }
 
 .feature-card-dji {
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.1);
-    padding: 3rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
+    padding: 3rem 2rem;
     text-align: center;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
-    transform: translateY(50px) scale(0.9);
-    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateY(40px);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card-dji::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.feature-card-dji:hover::before {
+    opacity: 1;
 }
 
 .feature-card-dji.visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
 
+/* Animation progressive pour chaque carte */
 .feature-card-dji:nth-child(1) { transition-delay: 0.1s; }
 .feature-card-dji:nth-child(2) { transition-delay: 0.2s; }
 .feature-card-dji:nth-child(3) { transition-delay: 0.3s; }
 .feature-card-dji:nth-child(4) { transition-delay: 0.4s; }
 .feature-card-dji:nth-child(5) { transition-delay: 0.5s; }
 .feature-card-dji:nth-child(6) { transition-delay: 0.6s; }
+
+/* Effet hover amélioré */
+.feature-card-dji:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation des logos dans les cartes */
+.feature-card-dji .app-logo {
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scale(1);
+}
+
+.feature-card-dji:hover .app-logo {
+    transform: scale(1.1) rotateZ(5deg);
+    filter: brightness(1.2) contrast(1.1);
+}
 
 /* Cinematic transitions */
 .scene-transition {
@@ -403,37 +519,59 @@
     scroll-snap-align: start;
 }
 
-/* Reveal on scroll masks */
+/* Reveal on scroll masks - Version améliorée et plus fluide */
 .mask-reveal {
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
+.mask-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Suppression de l'ancien effet de balayage */
 .mask-reveal::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #000;
-    transform: translateX(0);
-    transition: transform 1.5s cubic-bezier(0.77, 0, 0.175, 1);
-    z-index: 1;
-}
-
-.mask-reveal.revealed::before {
-    transform: translateX(100%);
+    display: none;
 }
 
 .mask-reveal-content {
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    transition-delay: 0.5s;
+    opacity: 1;
+    transition: none;
+    transition-delay: 0s;
 }
 
 .mask-reveal.revealed .mask-reveal-content {
     opacity: 1;
+}
+
+/* Animation plus douce pour les éléments enfants */
+.mask-reveal .headline-massive,
+.mask-reveal p,
+.mask-reveal a {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.3s;
+}
+
+.mask-reveal.revealed .headline-massive,
+.mask-reveal.revealed p,
+.mask-reveal.revealed a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Délai progressif pour les éléments multiples */
+.mask-reveal p:nth-child(2) {
+    transition-delay: 0.5s;
+}
+
+.mask-reveal a {
+    transition-delay: 0.7s;
 }
 
 /* Stats showcase containers */

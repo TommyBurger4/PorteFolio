@@ -80,20 +80,23 @@ class DJIAnimations {
             heroZoomObserver.observe(el);
         });
 
-        // Product showcase zoom
+        // Product showcase animations - Version améliorée
         const productObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                const image = entry.target.querySelector('.product-image');
-                if (entry.isIntersecting && image) {
-                    image.classList.add('in-view');
+                if (entry.isIntersecting) {
+                    // Animation fluide pour toute la section
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
                     
-                    // Zoom on scroll
+                    // Animation du zoom sur scroll (plus douce)
                     const scrollHandler = () => {
                         const rect = entry.target.getBoundingClientRect();
                         const progress = 1 - (rect.top / window.innerHeight);
                         
-                        if (progress > 0.5 && progress < 1.5) {
-                            image.style.transform = `scale(${1 + (progress - 0.5) * 0.5}) translateZ(0)`;
+                        if (progress > 0.3 && progress < 1.2) {
+                            const scale = 1 + (progress - 0.3) * 0.3; // Zoom plus subtil
+                            entry.target.style.transform = `scale(${scale}) translateZ(0)`;
                         }
                     };
                     
@@ -220,19 +223,46 @@ class DJIAnimations {
             numberObserver.observe(el);
         });
 
-        // Mask reveal effect
+        // Mask reveal effect - Version améliorée et plus fluide
         const maskObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    setTimeout(() => {
+                    // Animation plus immédiate et fluide
+                    requestAnimationFrame(() => {
                         entry.target.classList.add('revealed');
-                    }, 200);
+                    });
+                } else {
+                    // Reset pour permettre la re-animation lors du scroll vers le haut
+                    entry.target.classList.remove('revealed');
                 }
             });
-        }, observerOptions);
+        }, { 
+            threshold: 0.2, // Déclenche plus tôt
+            rootMargin: '0px 0px -50px 0px' // Marge plus petite pour plus de réactivité
+        });
 
         document.querySelectorAll('.mask-reveal').forEach(el => {
             maskObserver.observe(el);
+        });
+
+        // Observer pour les sections de transition
+        const transitionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    requestAnimationFrame(() => {
+                        entry.target.classList.add('in-view');
+                    });
+                } else {
+                    entry.target.classList.remove('in-view');
+                }
+            });
+        }, { 
+            threshold: 0.3,
+            rootMargin: '0px 0px -100px 0px'
+        });
+
+        document.querySelectorAll('.transition-section').forEach(el => {
+            transitionObserver.observe(el);
         });
     }
 
