@@ -796,51 +796,398 @@
                 const crenoLogo = crenoSection.querySelector('.app-logo-hero');
                 const statsContainer = crenoSection.querySelector('.creno-stats-showcase');
                 const stats = crenoSection.querySelectorAll('.creno-stat');
+                const crenoTitle = crenoSection.querySelector('.creno-title');
+                const crenoSubtitle = crenoSection.querySelector('.creno-subtitle');
+                const crenoContent = crenoSection.querySelector('.creno-content');
                 
-                // Simple intersection observer for stats animation
-                const statsObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            // Show stats container
-                            if (statsContainer) {
-                                statsContainer.style.display = 'block';
+                let isAnimating = false;
+                let hasTriggered = false;
+                
+                // Create wrapper for scroll animation
+                let wrapper = crenoSection.closest('.creno-wrapper');
+                if (!wrapper) {
+                    wrapper = document.createElement('div');
+                    const viewportHeight = window.innerHeight;
+                    const isMobile = window.innerWidth < 768;
+                    const wrapperHeight = isMobile ? '150vh' : '200vh';
+                    wrapper.style.minHeight = wrapperHeight;
+                    wrapper.style.position = 'relative';
+                    wrapper.classList.add('animation-wrapper', 'creno-wrapper');
+                    crenoSection.parentNode.insertBefore(wrapper, crenoSection);
+                    wrapper.appendChild(crenoSection);
+                }
+                
+                // Initial setup
+                crenoSection.style.position = 'relative';
+                crenoSection.style.width = '100%';
+                crenoSection.style.height = '100vh';
+                crenoSection.style.top = '0';
+                
+                // Counter animation function
+                const animateCounter = (element, target) => {
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            element.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            element.textContent = target.toLocaleString('fr-FR') + '+';
+                        }
+                    };
+                    
+                    updateCounter();
+                };
+                
+                const updateAnimation = (progress) => {
+                    // Step 1: Logo shrinks (0-1)
+                    if (progress <= 1) {
+                        const scale = 1 - (progress * 0.4);
+                        crenoLogo.style.transform = `scale(${scale})`;
+                        crenoLogo.style.opacity = 1 - (progress * 0.3);
+                    }
+                    
+                    // Step 2: Show stats container (1-2)
+                    if (progress > 1 && progress <= 2) {
+                        if (statsContainer) {
+                            statsContainer.style.display = 'block';
+                        }
+                        crenoLogo.style.transform = 'scale(0.6)';
+                        crenoLogo.style.opacity = '0.7';
+                    }
+                    
+                    // Step 3-4: Animate stats one by one
+                    stats.forEach((stat, index) => {
+                        const statStart = 2 + index * 0.7;
+                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.7));
+                        
+                        if (statProgress > 0) {
+                            stat.style.opacity = statProgress;
+                            const yOffset = 30 - (statProgress * 30);
+                            
+                            if (index === 0) {
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${-30 + statProgress * 30}px) rotate(-12deg) scale(${0.8 + statProgress * 0.2})`;
+                            } else if (index === 1) {
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${30 - statProgress * 30}px) rotate(15deg) scale(${0.8 + statProgress * 0.2})`;
                             }
                             
-                            // Animate stats
-                            stats.forEach((stat, index) => {
-                                setTimeout(() => {
-                                    stat.style.opacity = '1';
-                                    stat.style.transform = 'translateY(0)';
-                                    
-                                    // Animate counter
-                                    const numberEl = stat.querySelector('.stat-number');
-                                    if (numberEl) {
-                                        const realStats = window.crenoStats || { totalUsers: 16, totalEvents: 7, averageRating: 4.8 };
-                                        const target = index === 0 ? realStats.totalUsers : realStats.totalEvents;
-                                        
-                                        const duration = 2000;
-                                        const increment = target / (duration / 16);
-                                        let current = 0;
-                                        
-                                        const updateCounter = () => {
-                                            current += increment;
-                                            if (current < target) {
-                                                numberEl.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
-                                                requestAnimationFrame(updateCounter);
-                                            } else {
-                                                numberEl.textContent = target.toLocaleString('fr-FR') + '+';
-                                            }
-                                        };
-                                        
-                                        updateCounter();
-                                    }
-                                }, index * 300);
-                            });
+                            if (statProgress > 0.5 && !stat.dataset.animated) {
+                                stat.dataset.animated = 'true';
+                                const numberEl = stat.querySelector('.stat-number');
+                                if (numberEl) {
+                                    const realStats = window.crenoStats || { totalUsers: 16, totalEvents: 7, averageRating: 4.8 };
+                                    if (index === 0) animateCounter(numberEl, realStats.totalUsers);
+                                    if (index === 1) animateCounter(numberEl, realStats.totalEvents);
+                                }
+                            }
                         }
                     });
-                }, { threshold: 0.5 });
+                    
+                    // Fade text elements
+                    const textOpacity = Math.max(0.2, 1 - (progress / 5));
+                    if (crenoTitle) crenoTitle.style.opacity = textOpacity;
+                    if (crenoSubtitle) crenoSubtitle.style.opacity = textOpacity * 0.8;
+                    if (crenoContent) crenoContent.style.opacity = textOpacity * 0.6;
+                };
                 
-                statsObserver.observe(crenoSection);
+                const handleScroll = () => {
+                    if (!wrapper) return;
+                    
+                    const rect = wrapper.getBoundingClientRect();
+                    const wrapperHeight = wrapper.offsetHeight;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Calculate when section is in the middle of the screen
+                    const sectionCenter = rect.top + rect.height / 2;
+                    const screenCenter = viewportHeight / 2;
+                    const distanceFromCenter = Math.abs(sectionCenter - screenCenter);
+                    
+                    // Trigger animation when section is near the center
+                    const shouldTrigger = !hasTriggered && !isAnimating && distanceFromCenter < 100;
+                    
+                    if (shouldTrigger) {
+                        isAnimating = true;
+                        hasTriggered = true;
+                        
+                        // Create placeholder
+                        const placeholder = document.createElement('div');
+                        placeholder.style.height = '100vh';
+                        placeholder.style.width = '100%';
+                        placeholder.className = 'creno-placeholder';
+                        wrapper.insertBefore(placeholder, crenoSection);
+                        
+                        // Fix the section at the center of the screen
+                        crenoSection.style.position = 'fixed';
+                        crenoSection.style.top = '50%';
+                        crenoSection.style.left = '0';
+                        crenoSection.style.right = '0';
+                        crenoSection.style.transform = 'translateY(-50%)';
+                        crenoSection.style.zIndex = '50';
+                        crenoSection.style.transition = 'none';
+                    } else if (hasTriggered) {
+                        // Calculate progress based on scroll position
+                        const scrollY = window.scrollY;
+                        const wrapperOffset = wrapper.offsetTop;
+                        const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
+                        
+                        const easedProgress = scrollProgress < 0.5 
+                            ? 4 * scrollProgress * scrollProgress * scrollProgress 
+                            : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
+                        
+                        const animationProgress = easedProgress * 5;
+                        updateAnimation(animationProgress);
+                        
+                        // Complete animation when scrolled past the wrapper
+                        if (scrollY > wrapperOffset + wrapperHeight - viewportHeight) {
+                            crenoSection.style.position = 'relative';
+                            crenoSection.style.top = '0';
+                            crenoSection.style.transform = 'none';
+                            crenoSection.style.zIndex = '1';
+                            crenoSection.style.transition = '';
+                            hasTriggered = false;
+                            isAnimating = false;
+                            
+                            const placeholder = wrapper.querySelector('.creno-placeholder');
+                            if (placeholder) placeholder.remove();
+                            
+                            wrapper.classList.add('animation-complete');
+                            
+                            if (wrapper.parentNode) {
+                                wrapper.parentNode.insertBefore(crenoSection, wrapper.nextSibling);
+                                wrapper.style.transition = 'height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                                wrapper.style.height = '0';
+                                wrapper.style.minHeight = '0';
+                                wrapper.style.overflow = 'hidden';
+                                
+                                setTimeout(() => {
+                                    if (wrapper.parentNode) {
+                                        wrapper.remove();
+                                    }
+                                }, 600);
+                            }
+                            
+                            updateAnimation(5);
+                        }
+                    }
+                };
+                
+                // Throttled scroll handler
+                let ticking = false;
+                const scrollHandler = () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            handleScroll();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                };
+                
+                window.addEventListener('scroll', scrollHandler, { passive: true });
+                window.addEventListener('resize', handleScroll);
+            }
+            
+            // PixShare scroll-triggered animation (similar to Créno)
+            const pixshareSection = document.querySelector('.pixshare-scroll-trigger');
+            if (pixshareSection) {
+                const pixshareLogo = pixshareSection.querySelector('.app-logo-hero');
+                const statsContainer = pixshareSection.querySelector('.pixshare-stats-showcase');
+                const stats = pixshareSection.querySelectorAll('.pixshare-stat');
+                const pixshareTitle = pixshareSection.querySelector('.pixshare-title');
+                const pixshareSubtitle = pixshareSection.querySelector('.pixshare-subtitle');
+                const pixshareContent = pixshareSection.querySelector('.pixshare-content');
+                
+                let isAnimating = false;
+                let hasTriggered = false;
+                
+                // Create wrapper for scroll animation
+                let wrapper = pixshareSection.closest('.pixshare-wrapper');
+                if (!wrapper) {
+                    wrapper = document.createElement('div');
+                    const viewportHeight = window.innerHeight;
+                    const isMobile = window.innerWidth < 768;
+                    const wrapperHeight = isMobile ? '150vh' : '200vh';
+                    wrapper.style.minHeight = wrapperHeight;
+                    wrapper.style.position = 'relative';
+                    wrapper.classList.add('animation-wrapper', 'pixshare-wrapper');
+                    pixshareSection.parentNode.insertBefore(wrapper, pixshareSection);
+                    wrapper.appendChild(pixshareSection);
+                }
+                
+                // Initial setup
+                pixshareSection.style.position = 'relative';
+                pixshareSection.style.width = '100%';
+                pixshareSection.style.height = '100vh';
+                pixshareSection.style.top = '0';
+                
+                // Counter animation function
+                const animateCounter = (element, target) => {
+                    const duration = 2000;
+                    const increment = target / (duration / 16);
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += increment;
+                        if (current < target) {
+                            element.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            element.textContent = target.toLocaleString('fr-FR') + '+';
+                        }
+                    };
+                    
+                    updateCounter();
+                };
+                
+                const updateAnimation = (progress) => {
+                    // Step 1: Logo shrinks (0-1)
+                    if (progress <= 1) {
+                        const scale = 1 - (progress * 0.4);
+                        pixshareLogo.style.transform = `scale(${scale})`;
+                        pixshareLogo.style.opacity = 1 - (progress * 0.3);
+                    }
+                    
+                    // Step 2: Show stats container (1-2)
+                    if (progress > 1 && progress <= 2) {
+                        if (statsContainer) {
+                            statsContainer.style.display = 'block';
+                        }
+                        pixshareLogo.style.transform = 'scale(0.6)';
+                        pixshareLogo.style.opacity = '0.7';
+                    }
+                    
+                    // Step 3-4: Animate stats one by one
+                    stats.forEach((stat, index) => {
+                        const statStart = 2 + index * 0.7;
+                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.7));
+                        
+                        if (statProgress > 0) {
+                            stat.style.opacity = statProgress;
+                            const yOffset = 30 - (statProgress * 30);
+                            
+                            if (index === 0) {
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${-30 + statProgress * 30}px) rotate(-12deg) scale(${0.8 + statProgress * 0.2})`;
+                            } else if (index === 1) {
+                                stat.style.transform = `translateY(${yOffset}px) translateX(${30 - statProgress * 30}px) rotate(15deg) scale(${0.8 + statProgress * 0.2})`;
+                            }
+                            
+                            if (statProgress > 0.5 && !stat.dataset.animated) {
+                                stat.dataset.animated = 'true';
+                                const numberEl = stat.querySelector('.stat-number');
+                                if (numberEl) {
+                                    const realStats = window.pixshareStats || { totalPhotos: 150, totalUsers: 25, averageRating: 4.9 };
+                                    if (index === 0) animateCounter(numberEl, realStats.totalPhotos);
+                                    if (index === 1) animateCounter(numberEl, realStats.totalUsers);
+                                }
+                            }
+                        }
+                    });
+                    
+                    // Fade text elements
+                    const textOpacity = Math.max(0.2, 1 - (progress / 5));
+                    if (pixshareTitle) pixshareTitle.style.opacity = textOpacity;
+                    if (pixshareSubtitle) pixshareSubtitle.style.opacity = textOpacity * 0.8;
+                    if (pixshareContent) pixshareContent.style.opacity = textOpacity * 0.6;
+                };
+                
+                const handleScroll = () => {
+                    if (!wrapper) return;
+                    
+                    const rect = wrapper.getBoundingClientRect();
+                    const wrapperHeight = wrapper.offsetHeight;
+                    const viewportHeight = window.innerHeight;
+                    
+                    // Calculate when section is in the middle of the screen
+                    const sectionCenter = rect.top + rect.height / 2;
+                    const screenCenter = viewportHeight / 2;
+                    const distanceFromCenter = Math.abs(sectionCenter - screenCenter);
+                    
+                    // Trigger animation when section is near the center
+                    const shouldTrigger = !hasTriggered && !isAnimating && distanceFromCenter < 100;
+                    
+                    if (shouldTrigger) {
+                        isAnimating = true;
+                        hasTriggered = true;
+                        
+                        // Create placeholder
+                        const placeholder = document.createElement('div');
+                        placeholder.style.height = '100vh';
+                        placeholder.style.width = '100%';
+                        placeholder.className = 'pixshare-placeholder';
+                        wrapper.insertBefore(placeholder, pixshareSection);
+                        
+                        // Fix the section at the center of the screen
+                        pixshareSection.style.position = 'fixed';
+                        pixshareSection.style.top = '50%';
+                        pixshareSection.style.left = '0';
+                        pixshareSection.style.right = '0';
+                        pixshareSection.style.transform = 'translateY(-50%)';
+                        pixshareSection.style.zIndex = '50';
+                        pixshareSection.style.transition = 'none';
+                    } else if (hasTriggered) {
+                        // Calculate progress based on scroll position
+                        const scrollY = window.scrollY;
+                        const wrapperOffset = wrapper.offsetTop;
+                        const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
+                        
+                        const easedProgress = scrollProgress < 0.5 
+                            ? 4 * scrollProgress * scrollProgress * scrollProgress 
+                            : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
+                        
+                        const animationProgress = easedProgress * 5;
+                        updateAnimation(animationProgress);
+                        
+                        // Complete animation when scrolled past the wrapper
+                        if (scrollY > wrapperOffset + wrapperHeight - viewportHeight) {
+                            pixshareSection.style.position = 'relative';
+                            pixshareSection.style.top = '0';
+                            pixshareSection.style.transform = 'none';
+                            pixshareSection.style.zIndex = '1';
+                            pixshareSection.style.transition = '';
+                            hasTriggered = false;
+                            isAnimating = false;
+                            
+                            const placeholder = wrapper.querySelector('.pixshare-placeholder');
+                            if (placeholder) placeholder.remove();
+                            
+                            wrapper.classList.add('animation-complete');
+                            
+                            if (wrapper.parentNode) {
+                                wrapper.parentNode.insertBefore(pixshareSection, wrapper.nextSibling);
+                                wrapper.style.transition = 'height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                                wrapper.style.height = '0';
+                                wrapper.style.minHeight = '0';
+                                wrapper.style.overflow = 'hidden';
+                                
+                                setTimeout(() => {
+                                    if (wrapper.parentNode) {
+                                        wrapper.remove();
+                                    }
+                                }, 600);
+                            }
+                            
+                            updateAnimation(5);
+                        }
+                    }
+                };
+                
+                // Throttled scroll handler
+                let ticking = false;
+                const scrollHandler = () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            handleScroll();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                };
+                
+                window.addEventListener('scroll', scrollHandler, { passive: true });
+                window.addEventListener('resize', handleScroll);
             }
         });
     </script>
