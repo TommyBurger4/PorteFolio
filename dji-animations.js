@@ -10,15 +10,6 @@ class DJIAnimations {
     }
 
     init() {
-        // Add loading screen
-        document.body.insertAdjacentHTML('afterbegin', `
-            <div class="loading-screen">
-                <div class="loading-logo">
-                    <img src="assets/images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
-                </div>
-            </div>
-        `);
-
         // Add scroll progress bar
         document.body.insertAdjacentHTML('afterbegin', `
             <div class="scroll-progress">
@@ -36,38 +27,60 @@ class DJIAnimations {
         // Force scroll to top on page load
         window.scrollTo(0, 0);
         
-        // Ensure loading screen is visible on every page load
-        const loadingScreen = document.querySelector('.loading-screen');
+        // Create loading screen if it doesn't exist
+        let loadingScreen = document.querySelector('.loading-screen');
+        if (!loadingScreen) {
+            document.body.insertAdjacentHTML('afterbegin', `
+                <div class="loading-screen">
+                    <div class="loading-logo">
+                        <img src="assets/images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+                    </div>
+                </div>
+            `);
+            loadingScreen = document.querySelector('.loading-screen');
+        }
+        
+        // Ensure loading screen is visible
         if (loadingScreen) {
             loadingScreen.classList.remove('loaded');
             loadingScreen.style.display = 'flex';
             loadingScreen.style.opacity = '1';
             loadingScreen.style.visibility = 'visible';
+            loadingScreen.style.pointerEvents = 'auto';
         }
         
-        // Also ensure loading screen is visible immediately when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            const loadingScreen = document.querySelector('.loading-screen');
+        // Hide loading screen after a delay
+        const hideLoadingScreen = () => {
             if (loadingScreen) {
-                loadingScreen.classList.remove('loaded');
-                loadingScreen.style.display = 'flex';
-                loadingScreen.style.opacity = '1';
-                loadingScreen.style.visibility = 'visible';
+                loadingScreen.classList.add('loaded');
+                // Force hide after transition
+                setTimeout(() => {
+                    if (loadingScreen && loadingScreen.classList.contains('loaded')) {
+                        loadingScreen.style.display = 'none';
+                        loadingScreen.style.pointerEvents = 'none';
+                    }
+                }, 1000);
             }
+        };
+        
+        // Multiple triggers to ensure loading screen disappears
+        setTimeout(hideLoadingScreen, 1500); // Primary trigger
+        
+        // Backup triggers
+        window.addEventListener('load', () => {
+            setTimeout(hideLoadingScreen, 500);
         });
         
-        window.addEventListener('load', () => {
-            // Force scroll to top again after load
-            window.scrollTo(0, 0);
-            
-            // Always show loading animation
-            setTimeout(() => {
-                const loadingScreen = document.querySelector('.loading-screen');
-                if (loadingScreen) {
-                    loadingScreen.classList.add('loaded');
-                }
-            }, 1500);
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(hideLoadingScreen, 2000);
         });
+        
+        // Force hide after 3 seconds maximum
+        setTimeout(() => {
+            if (loadingScreen && !loadingScreen.classList.contains('loaded')) {
+                hideLoadingScreen();
+            }
+        }, 3000);
     }
 
     setupScrollTriggers() {

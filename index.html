@@ -93,6 +93,13 @@
     </style>
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-logo">
+            <img src="assets/images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1);">
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -739,6 +746,33 @@
     <script>
         // Initialize DJI Animations with all necessary setup
         document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading screen after page loads - Simplified and more aggressive
+            const hideLoadingScreen = () => {
+                const loadingScreen = document.querySelector('.loading-screen');
+                if (loadingScreen) {
+                    console.log('Hiding loading screen...');
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.visibility = 'hidden';
+                    loadingScreen.style.display = 'none';
+                    loadingScreen.style.pointerEvents = 'none';
+                    console.log('Loading screen hidden');
+                }
+            };
+            
+            // Immediate hide after a short delay
+            setTimeout(hideLoadingScreen, 1000);
+            
+            // Also hide on window load
+            window.addEventListener('load', hideLoadingScreen);
+            
+            // Force hide after 2 seconds maximum
+            setTimeout(hideLoadingScreen, 2000);
+            
+            // Immediate hide if page is already loaded
+            if (document.readyState === 'complete') {
+                hideLoadingScreen();
+            }
+            
             const animations = new DJIAnimations();
             animations.setupPageTransitions();
             
@@ -753,284 +787,60 @@
                 window.crenoStats = event.detail;
             });
             
-            // Créno scroll-triggered animation
+            // Test loading screen functionality
+            console.log('DJI Animations initialized');
+            
+            // Simplified Créno animation - just basic scroll trigger
             const crenoSection = document.querySelector('.creno-scroll-trigger');
             if (crenoSection) {
                 const crenoLogo = crenoSection.querySelector('.app-logo-hero');
                 const statsContainer = crenoSection.querySelector('.creno-stats-showcase');
                 const stats = crenoSection.querySelectorAll('.creno-stat');
-                const crenoTitle = crenoSection.querySelector('.creno-title');
-                const crenoSubtitle = crenoSection.querySelector('.creno-subtitle');
-                const crenoContent = crenoSection.querySelector('.creno-content');
                 
-                let isAnimating = false;
-                let animationProgress = 0;
-                let hasTriggered = false;
-                const totalSteps = 5;
-                let scrollLocked = false;
-                let triggerTimestamp = 0;
-                let animationLock = false;
-                
-                // Check if wrapper already exists to prevent duplicates
-                let wrapper = crenoSection.closest('.creno-wrapper');
-                if (!wrapper) {
-                    // Create wrapper for scroll animation
-                    wrapper = document.createElement('div');
-                    // Adaptive height based on viewport - Reduced for mobile
-                    const viewportHeight = window.innerHeight;
-                    const isMobile = window.innerWidth < 768;
-                    // Much smaller height for mobile to improve UX
-                    const wrapperHeight = isMobile ? '150vh' : (viewportHeight < 800 ? '200vh' : (viewportHeight < 900 ? '180vh' : '160vh'));
-                    wrapper.style.minHeight = wrapperHeight;
-                    wrapper.style.position = 'relative';
-                    wrapper.classList.add('animation-wrapper', 'creno-wrapper');
-                    crenoSection.parentNode.insertBefore(wrapper, crenoSection);
-                    wrapper.appendChild(crenoSection);
-                }
-                
-                // Initial setup to prevent jump
-                crenoSection.style.position = 'relative';
-                crenoSection.style.width = '100%';
-                crenoSection.style.height = '100vh';
-                crenoSection.style.top = '0';
-                
-                // Counter animation function
-                const animateCounter = (element, target) => {
-                    const duration = 2000;
-                    const start = 0;
-                    const increment = target / (duration / 16);
-                    let current = start;
-                    
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            element.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            element.textContent = target.toLocaleString('fr-FR') + '+';
-                        }
-                    };
-                    
-                    updateCounter();
-                };
-                
-                const updateAnimation = (progress) => {
-                    // Animate section position if fixed
-                    if (crenoSection.style.position === 'fixed' && crenoSection.dataset.initialTop) {
-                        const initialTop = parseFloat(crenoSection.dataset.initialTop);
-                        const topProgress = Math.min(1, progress / 2);
-                        const currentTop = initialTop * (1 - topProgress);
-                        crenoSection.style.top = currentTop + 'px';
-                        
-                        if (progress > 0.1 && crenoSection.style.transition === 'none') {
-                            crenoSection.style.transition = 'top 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                        }
-                    }
-                    
-                    // Step 1: Logo shrinks (0-1)
-                    if (progress <= 1) {
-                        const scale = 1 - (progress * 0.4);
-                        crenoLogo.style.transform = `scale(${scale})`;
-                        crenoLogo.style.opacity = 1 - (progress * 0.3);
-                        
-                        crenoSection.style.display = 'flex';
-                        crenoSection.style.alignItems = 'center';
-                        crenoSection.style.justifyContent = 'center';
-                    }
-                    
-                    // Step 2: Show stats container (1-2)
-                    if (progress > 1 && progress <= 2) {
-                        if (statsContainer.style.display !== 'block') {
-                            statsContainer.style.display = 'block';
-                        }
-                        crenoLogo.style.transform = 'scale(0.6)';
-                        crenoLogo.style.opacity = '0.7';
-                    }
-                    
-                    // Step 3-4: Animate stats one by one with stagger
-                    stats.forEach((stat, index) => {
-                        const statStart = 2 + index * 0.7;
-                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.7));
-                        
-                        if (statProgress > 0) {
-                            stat.style.opacity = statProgress;
-                            const yOffset = 30 - (statProgress * 30);
-                            
-                            if (index === 0) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${-30 + statProgress * 30}px) rotate(-12deg) scale(${0.8 + statProgress * 0.2}) translateZ(0)`;
-                            } else if (index === 1) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${30 - statProgress * 30}px) rotate(15deg) scale(${0.8 + statProgress * 0.2}) translateZ(0)`;
+                // Simple intersection observer for stats animation
+                const statsObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            // Show stats container
+                            if (statsContainer) {
+                                statsContainer.style.display = 'block';
                             }
                             
-                            stat.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-                            stat.style.willChange = 'transform, opacity';
-                            
-                            if (statProgress > 0.5 && !stat.dataset.animated) {
-                                stat.dataset.animated = 'true';
-                                const numberEl = stat.querySelector('.stat-number');
-                                
-                                const realStats = window.crenoStats || { totalUsers: 16, totalEvents: 7, averageRating: 4.8 };
-                                
-                                if (index === 0) animateCounter(numberEl, realStats.totalUsers);
-                                if (index === 1) animateCounter(numberEl, realStats.totalEvents);
-                            }
-                        }
-                    });
-                    
-                    // Fade text elements
-                    const textOpacity = Math.max(0.2, 1 - (progress / totalSteps));
-                    crenoTitle.style.opacity = textOpacity;
-                    crenoSubtitle.style.opacity = textOpacity * 0.8;
-                    crenoContent.style.opacity = textOpacity * 0.6;
-                };
-                
-                const handleScroll = () => {
-                    if (!wrapper || !wrapper.parentNode) return;
-                    
-                    const rect = wrapper.getBoundingClientRect();
-                    const wrapperTop = rect.top;
-                    const wrapperHeight = wrapper.offsetHeight;
-                    const viewportHeight = window.innerHeight;
-                    
-                    const scrollProgress = Math.max(0, Math.min(1, -wrapperTop / (wrapperHeight - viewportHeight)));
-                    
-                    const easedProgress = scrollProgress < 0.5 
-                        ? 4 * scrollProgress * scrollProgress * scrollProgress 
-                        : 1 - Math.pow(-2 * scrollProgress + 2, 3) / 2;
-                    
-                    const triggerMargin = viewportHeight < 800 ? viewportHeight * 0.05 : (viewportHeight < 900 ? viewportHeight * 0.15 : viewportHeight * 0.1);
-                    
-                    const inAnimationZone = wrapperTop <= -triggerMargin && wrapperTop > -(wrapperHeight - viewportHeight + triggerMargin);
-                    const forceStart = wrapperTop < -50 && wrapperTop > -150 && !hasTriggered;
-                    
-                    const shouldTrigger = (inAnimationZone || forceStart) && !hasTriggered && !animationLock;
-                    const currentTime = Date.now();
-                    
-                    if (shouldTrigger && !wrapper.querySelector('.creno-placeholder') && (currentTime - triggerTimestamp > 500)) {
-                        animationLock = true;
-                        hasTriggered = true;
-                        triggerTimestamp = currentTime;
-                        
-                        const beforeRect = crenoSection.getBoundingClientRect();
-                        
-                        const placeholder = document.createElement('div');
-                        placeholder.style.height = '100vh';
-                        placeholder.style.width = '100%';
-                        placeholder.className = 'creno-placeholder';
-                        wrapper.insertBefore(placeholder, crenoSection);
-                        
-                        const currentTop = beforeRect.top;
-                        crenoSection.style.position = 'fixed';
-                        crenoSection.style.top = currentTop + 'px';
-                        crenoSection.style.left = '0';
-                        crenoSection.style.right = '0';
-                        crenoSection.style.zIndex = '50';
-                        crenoSection.style.transition = 'none';
-                        
-                        crenoSection.dataset.initialTop = currentTop;
-                        
-                        setTimeout(() => {
-                            animationLock = false;
-                        }, 100);
-                    } else if ((inAnimationZone || forceStart) && hasTriggered) {
-                        animationProgress = easedProgress * totalSteps;
-                        updateAnimation(animationProgress);
-                    } else if (wrapperTop < -(wrapperHeight - viewportHeight + triggerMargin)) {
-                        if (hasTriggered) {
-                            crenoSection.style.position = 'relative';
-                            crenoSection.style.top = '0';
-                            crenoSection.style.bottom = 'auto';
-                            crenoSection.style.left = 'auto';
-                            crenoSection.style.right = 'auto';
-                            crenoSection.style.zIndex = '1';
-                            crenoSection.style.transition = '';
-                            delete crenoSection.dataset.initialTop;
-                            hasTriggered = false;
-                            animationLock = false;
-                            triggerTimestamp = 0;
-                            
-                            const placeholder = wrapper.querySelector('.creno-placeholder');
-                            if (placeholder) placeholder.remove();
-                            
-                            wrapper.classList.add('animation-complete');
-                            
-                            if (wrapper.parentNode) {
-                                wrapper.parentNode.insertBefore(crenoSection, wrapper.nextSibling);
-                                wrapper.style.transition = 'height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                                wrapper.style.height = '0';
-                                wrapper.style.minHeight = '0';
-                                wrapper.style.overflow = 'hidden';
-                                
+                            // Animate stats
+                            stats.forEach((stat, index) => {
                                 setTimeout(() => {
-                                    if (wrapper.parentNode) {
-                                        wrapper.remove();
+                                    stat.style.opacity = '1';
+                                    stat.style.transform = 'translateY(0)';
+                                    
+                                    // Animate counter
+                                    const numberEl = stat.querySelector('.stat-number');
+                                    if (numberEl) {
+                                        const realStats = window.crenoStats || { totalUsers: 16, totalEvents: 7, averageRating: 4.8 };
+                                        const target = index === 0 ? realStats.totalUsers : realStats.totalEvents;
+                                        
+                                        const duration = 2000;
+                                        const increment = target / (duration / 16);
+                                        let current = 0;
+                                        
+                                        const updateCounter = () => {
+                                            current += increment;
+                                            if (current < target) {
+                                                numberEl.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
+                                                requestAnimationFrame(updateCounter);
+                                            } else {
+                                                numberEl.textContent = target.toLocaleString('fr-FR') + '+';
+                                            }
+                                        };
+                                        
+                                        updateCounter();
                                     }
-                                }, 600);
-                            }
-                            
-                            crenoSection.style.position = 'relative';
-                            crenoSection.style.zIndex = '1';
-                            crenoSection.style.opacity = '1';
-                            crenoSection.style.transition = 'opacity 0.3s ease';
-                        }
-                        updateAnimation(totalSteps);
-                    } else {
-                        if (hasTriggered) {
-                            crenoSection.style.transition = 'none';
-                            crenoSection.style.position = 'relative';
-                            hasTriggered = false;
-                            animationLock = false;
-                            triggerTimestamp = 0;
-                            delete crenoSection.dataset.initialTop;
-                            
-                            const placeholder = wrapper.querySelector('.creno-placeholder');
-                            if (placeholder) placeholder.remove();
-                            
-                            requestAnimationFrame(() => {
-                                crenoSection.style.transition = '';
+                                }, index * 300);
                             });
                         }
-                        crenoLogo.style.transform = '';
-                        crenoLogo.style.opacity = '';
-                        statsContainer.style.display = 'none';
-                        stats.forEach((stat, index) => {
-                            stat.style.opacity = '0';
-                            if (index === 0) {
-                                stat.style.transform = 'translateY(30px) rotate(-12deg)';
-                            } else if (index === 1) {
-                                stat.style.transform = 'translateY(30px) rotate(15deg)';
-                            }
-                            delete stat.dataset.animated;
-                        });
-                        crenoTitle.style.opacity = '';
-                        crenoSubtitle.style.opacity = '';
-                        crenoContent.style.opacity = '';
-                    }
-                };
+                    });
+                }, { threshold: 0.5 });
                 
-                let ticking = false;
-                let lastScrollTime = 0;
-                const scrollHandler = () => {
-                    const now = performance.now();
-                    if (!ticking && now - lastScrollTime > 32) {
-                        window.requestAnimationFrame(() => {
-                            handleScroll();
-                            ticking = false;
-                            lastScrollTime = performance.now();
-                        });
-                        ticking = true;
-                    }
-                };
-                
-                window.addEventListener('scroll', scrollHandler, { passive: true });
-                window.addEventListener('resize', handleScroll);
-            }
-            
-            // PixShare scroll-triggered animation (similar setup)
-            const pixshareSection = document.querySelector('.pixshare-scroll-trigger');
-            if (pixshareSection) {
-                // Similar implementation for PixShare...
-                // (Code omitted for brevity, but follows the same pattern as Créno)
+                statsObserver.observe(crenoSection);
             }
         });
     </script>
