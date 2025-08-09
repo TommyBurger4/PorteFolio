@@ -604,3 +604,148 @@
         width: 100% !important;
     }
 }
+
+/* Mobile-specific optimizations for better UX */
+@media (max-width: 768px) {
+    /* Reduce animation wrapper heights for mobile */
+    .animation-wrapper {
+        min-height: 120vh !important; /* Much smaller than desktop */
+    }
+    
+    /* Optimize stats showcase for mobile */
+    .creno-stats-showcase,
+    .pixshare-stats-showcase {
+        width: 95vw !important;
+        max-width: 350px !important;
+        height: 80vh !important;
+        max-height: 400px !important;
+    }
+    
+    /* Adjust stat positioning for mobile */
+    .creno-stat,
+    .pixshare-stat {
+        position: absolute !important;
+        top: 15% !important;
+        padding: 1rem !important;
+    }
+    
+    .creno-stat:nth-child(1),
+    .pixshare-stat:nth-child(1) {
+        left: 2% !important;
+        right: auto !important;
+    }
+    
+    .creno-stat:nth-child(2),
+    .pixshare-stat:nth-child(2) {
+        right: 2% !important;
+        left: auto !important;
+    }
+    
+    /* Reduce stat box sizes on mobile */
+    .creno-stat > div,
+    .pixshare-stat > div {
+        padding: 0.8rem 1rem !important;
+        border-radius: 15px !important;
+    }
+    
+    .creno-stat .stat-number,
+    .pixshare-stat .stat-number {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    .creno-stat div:last-child,
+    .pixshare-stat div:last-child {
+        font-size: 0.7rem !important;
+    }
+    
+    /* Optimize product showcase for mobile */
+    .product-showcase-dji {
+        min-height: 80vh !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    /* Reduce logo sizes on mobile */
+    .app-logo-hero {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    /* Optimize text sizes for mobile */
+    .headline-massive {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .creno-subtitle,
+    .pixshare-subtitle {
+        font-size: 1rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Improve scroll sections on mobile */
+    .scroll-section {
+        padding: 5vh 1rem !important;
+        min-height: 80vh !important;
+    }
+    
+    /* Optimize feature grid for mobile */
+    .feature-grid-dji {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        margin-top: 2rem !important;
+    }
+    
+    .feature-card-dji {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    /* Reduce animation delays on mobile for faster response */
+    .mask-reveal .headline-massive,
+    .mask-reveal p,
+    .mask-reveal a {
+        transition-delay: 0.1s !important;
+    }
+    
+    .mask-reveal p:nth-child(2) {
+        transition-delay: 0.2s !important;
+    }
+    
+    .mask-reveal a {
+        transition-delay: 0.3s !important;
+    }
+    
+    /* Optimize transitions for mobile performance */
+    .product-showcase-dji,
+    .app-logo-hero,
+    .headline-massive,
+    .creno-subtitle,
+    .pixshare-subtitle {
+        transition-duration: 0.8s !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .animation-wrapper {
+        min-height: 100vh !important;
+    }
+    
+    .creno-stats-showcase,
+    .pixshare-stats-showcase {
+        width: 98vw !important;
+        max-width: 300px !important;
+        height: 70vh !important;
+        max-height: 350px !important;
+    }
+    
+    .headline-massive {
+        font-size: 1.8rem !important;
+    }
+    
+    .app-logo-hero {
+        width: 100px !important;
+        height: 100px !important;
+    }
+}

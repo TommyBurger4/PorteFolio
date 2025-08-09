@@ -14,7 +14,7 @@ class DJIAnimations {
         document.body.insertAdjacentHTML('afterbegin', `
             <div class="loading-screen">
                 <div class="loading-logo">
-                    <img src="images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
+                    <img src="assets/images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;">
                 </div>
             </div>
         `);
@@ -42,7 +42,19 @@ class DJIAnimations {
             loadingScreen.classList.remove('loaded');
             loadingScreen.style.display = 'flex';
             loadingScreen.style.opacity = '1';
+            loadingScreen.style.visibility = 'visible';
         }
+        
+        // Also ensure loading screen is visible immediately when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const loadingScreen = document.querySelector('.loading-screen');
+            if (loadingScreen) {
+                loadingScreen.classList.remove('loaded');
+                loadingScreen.style.display = 'flex';
+                loadingScreen.style.opacity = '1';
+                loadingScreen.style.visibility = 'visible';
+            }
+        });
         
         window.addEventListener('load', () => {
             // Force scroll to top again after load
@@ -539,10 +551,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!wrapper) {
             // Create wrapper for scroll animation
             wrapper = document.createElement('div');
-            // Adaptive height based on viewport
+            // Adaptive height based on viewport - Reduced for mobile
             const viewportHeight = window.innerHeight;
-            // Pour un écran de 749px, utiliser 300vh pour plus d'espace d'animation
-            const wrapperHeight = viewportHeight < 800 ? '300vh' : (viewportHeight < 900 ? '250vh' : '200vh');
+            const isMobile = window.innerWidth < 768;
+            // Much smaller height for mobile to improve UX
+            const wrapperHeight = isMobile ? '150vh' : (viewportHeight < 800 ? '200vh' : (viewportHeight < 900 ? '180vh' : '160vh'));
             wrapper.style.minHeight = wrapperHeight;
             wrapper.style.position = 'relative';
             wrapper.classList.add('animation-wrapper', 'creno-wrapper');
@@ -901,10 +914,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!wrapper) {
             // Create wrapper for scroll animation
             wrapper = document.createElement('div');
-            // Adaptive height based on viewport
+            // Adaptive height based on viewport - Reduced for mobile
             const viewportHeight = window.innerHeight;
-            // Pour un écran de 749px, utiliser 300vh pour plus d'espace d'animation
-            const wrapperHeight = viewportHeight < 800 ? '300vh' : (viewportHeight < 900 ? '250vh' : '200vh');
+            const isMobile = window.innerWidth < 768;
+            // Much smaller height for mobile to improve UX
+            const wrapperHeight = isMobile ? '150vh' : (viewportHeight < 800 ? '200vh' : (viewportHeight < 900 ? '180vh' : '160vh'));
             wrapper.style.minHeight = wrapperHeight;
             wrapper.style.position = 'relative';
             wrapper.classList.add('animation-wrapper', 'pixshare-wrapper');
