@@ -1,0 +1,189 @@
+/* FORCE CENTRAGE ABSOLU - CORRECTION DÉFINITIVE */
+
+/* Reset et force centrage sur le container sticky */
+.animation-sticky-section {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+    width: 100vw !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Force le logo au centre exact */
+.creno-logo-zoom,
+.pixshare-logo-zoom {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* FORCE CENTRAGE DU TEXTE */
+.creno-text-content,
+.pixshare-text-content {
+    position: absolute !important;
+    bottom: 8% !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    transform: none !important;
+    text-align: center !important;
+    z-index: 50 !important;
+    margin: 0 !important;
+    padding: 0 20px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+/* Reset tous les éléments enfants */
+.creno-text-content *,
+.pixshare-text-content * {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: center !important;
+    width: 100% !important;
+}
+
+/* Titre produit */
+.product-title {
+    font-size: clamp(3rem, 6vw, 5rem) !important;
+    font-weight: 900 !important;
+    margin: 0 auto 0.5rem auto !important;
+    padding: 0 !important;
+    letter-spacing: -0.03em !important;
+    color: #fff !important;
+    text-align: center !important;
+    line-height: 1.1 !important;
+    display: block !important;
+    width: auto !important;
+}
+
+/* Sous-titre */
+.product-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.8rem) !important;
+    opacity: 0.7 !important;
+    font-weight: 300 !important;
+    color: #fff !important;
+    margin: 0 auto 2rem auto !important;
+    padding: 0 !important;
+    text-align: center !important;
+    line-height: 1.3 !important;
+    display: block !important;
+    width: auto !important;
+}
+
+/* Container scroll indicator - CENTRAGE FORCÉ */
+.scroll-indicator {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    opacity: 0.5 !important;
+    animation: scrollBounce 2s ease-in-out infinite !important;
+    text-align: center !important;
+    width: auto !important;
+}
+
+/* Texte "Scroll pour découvrir" */
+.scroll-indicator span {
+    font-size: 0.875rem !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.1em !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    display: block !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+/* Icône chevron */
+.scroll-indicator i {
+    font-size: 1.2rem !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    display: block !important;
+    text-align: center !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: auto !important;
+}
+
+/* Animation bounce */
+@keyframes scrollBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(10px);
+    }
+    60% {
+        transform: translateY(5px);
+    }
+}
+
+/* Stats container centré */
+.creno-stats-container,
+.pixshare-stats-container {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90vw !important;
+    max-width: 1000px !important;
+    height: 80vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Debug - vérification visuelle */
+.creno-text-content::before,
+.pixshare-text-content::before {
+    content: "" !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 1px !important;
+    background: rgba(255, 0, 0, 0.3) !important;
+    z-index: -1 !important;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .creno-text-content,
+    .pixshare-text-content {
+        bottom: 12% !important;
+        padding: 0 15px !important;
+    }
+    
+    .product-title {
+        font-size: 2.5rem !important;
+    }
+    
+    .product-subtitle {
+        font-size: 1.1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .scroll-indicator span {
+        font-size: 0.75rem !important;
+    }
+    
+    .scroll-indicator i {
+        font-size: 1rem !important;
+    }
+}

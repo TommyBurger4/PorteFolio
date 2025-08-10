@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Créno - L'organisation réinventée | Topal</title>
+    <meta name="description" content="Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités de votre groupe et trouve le créneau parfait.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/Creno/icone.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --creno-yellow: #ffc605;
+            --creno-dark: #1a1a1a;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .creno-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .creno-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--creno-yellow) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .creno-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 198, 5, 0.05);
+            border: 1px solid rgba(255, 198, 5, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--creno-yellow);
+            background: rgba(255, 198, 5, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--creno-yellow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        .phone-mockup {
+            max-width: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .phone-screen {
+            background: #fff;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--creno-yellow) 0%, #ffdb4d 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: #000;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .creno-logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#demo">Démo</a></li>
+                <li><a href="#download">Télécharger</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="creno-hero">
+        <div class="hero-content">
+            <img src="assets/images/Creno/icone.png" alt="Créno" class="creno-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">Créno</h1>
+            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 3rem;">L'organisation réinventée</p>
+            <a href="#features" class="hover-lift" style="display: inline-block; padding: 1.2rem 3rem; background: var(--creno-yellow); color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                Découvrir les fonctionnalités <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Pourquoi choisir Créno ?
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-calendar-check feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Synchronisation automatique</h3>
+                    <p style="opacity: 0.8;">Créno analyse les disponibilités de tous les participants et trouve automatiquement le créneau parfait.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Groupes illimités</h3>
+                    <p style="opacity: 0.8;">Créez autant de groupes que vous voulez : amis, famille, collègues, équipe sportive...</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-bell feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Notifications intelligentes</h3>
+                    <p style="opacity: 0.8;">Recevez des rappels personnalisés pour ne jamais rater un événement important.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Simple et intuitif
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center; max-width: 1000px; margin: 0 auto;">
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">1. Créez votre groupe</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Invitez vos amis en quelques secondes avec un simple lien de partage.</p>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">2. Proposez des créneaux</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Chacun indique ses disponibilités, Créno fait le reste.</p>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">3. C'est parti !</h3>
+                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Le créneau optimal est trouvé, tout le monde est notifié.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section">Prêt à simplifier vos sorties ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
+                Téléchargez Créno gratuitement et ne ratez plus jamais une sortie entre amis.
+            </p>
+            <div class="download-buttons fade-section">
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Télécharger sur</div>
+                        <div style="font-size: 1.1rem;">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-google-play" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Disponible sur</div>
+                        <div style="font-size: 1.1rem;">Google Play</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <a href="index.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600;">
+            ← Retour à l'accueil
+        </a>
+        <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 2rem;">
+            © 2024 Topal. Tous droits réservés.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

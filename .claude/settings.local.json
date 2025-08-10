@@ -1,9 +1,16 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "Bash(git config:*)",
       "Bash(git remote set-url:*)",
-      "Bash(git ls-tree:*)"
+      "Bash(git ls-tree:*)",
+      "Bash(mv:*)",
+      "Bash(true)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(python3:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

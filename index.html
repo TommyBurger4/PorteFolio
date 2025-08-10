@@ -4,414 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topal | Innovation Digitale</title>
-    <meta name="description" content="Créateurs d'expériences digitales révolutionnaires">
+    <meta name="description" content="Créateurs d'expériences digitales révolutionnaires - Créno et PixShare">
     
-    <!-- Force scroll to top on page load -->
-    <script>
-        // Force immediate scroll to top before anything loads
-        history.scrollRestoration = 'manual';
-        window.scrollTo(0, 0);
-        document.documentElement.scrollTop = 0;
-        if (document.body) document.body.scrollTop = 0;
-        
-        // Multiple events to ensure scroll reset
-        window.addEventListener('beforeunload', function() {
-            window.scrollTo(0, 0);
-        });
-        
-        window.addEventListener('DOMContentLoaded', function() {
-            window.scrollTo(0, 0);
-            document.documentElement.scrollTop = 0;
-            if (document.body) document.body.scrollTop = 0;
-        });
-        
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                if (document.body) document.body.scrollTop = 0;
-            }, 0);
-        });
-        
-        // Disable bfcache and force reload
-        window.addEventListener('pageshow', function(event) {
-            if (event.persisted) {
-                window.location.reload();
-            } else {
-                window.scrollTo(0, 0);
-                document.documentElement.scrollTop = 0;
-                if (document.body) document.body.scrollTop = 0;
-            }
-        });
-    </script>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="dji-style.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <style>
-        /* Force scroll position reset */
-        html {
-            scroll-behavior: auto !important;
-            overflow-y: scroll;
-            height: 100%;
-        }
-        
-        html, body {
-            scroll-padding-top: 0 !important;
-        }
-        
-        body {
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            position: relative;
-            min-height: 100%;
-        }
-        
-        /* Override navbar for black background */
-        .navbar {
-            background: rgba(0, 0, 0, 0.9);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 400;
-            letter-spacing: 0.02em;
-        }
-        
-        .nav-link:hover {
-            color: #fff;
-        }
-        
-        .nav-link::after {
-            background-color: #fff;
-        }
-    </style>
+    <!-- Préchargement des images importantes -->
+    <link rel="preload" as="image" href="assets/images/Creno/icone.png">
+    <link rel="preload" as="image" href="assets/images/PixShare/Icone.png">
 </head>
 <body>
     <!-- Loading Screen -->
-    <div class="loading-screen">
-        <div class="loading-logo">
-            <img src="assets/images/TomPaul/logo.png" alt="Loading" style="width: 120px; height: auto; filter: invert(1);">
-        </div>
+    <div id="loadingScreen">
+        <div class="loader"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#home">
-                <img src="assets/images/TomPaul/logo.png" alt="Topal" class="nav-logo" style="filter: invert(1);">
+    <nav>
+        <div class="nav-content">
+            <a href="#home" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
             </a>
-            <div class="nav-menu">
-                <a href="#home" class="nav-link">Accueil</a>
-                <a href="#innovation" class="nav-link">Innovation</a>
-                <a href="#projects" class="nav-link">Projets</a>
-                <a href="#vision" class="nav-link">Vision</a>
-                <a href="#contact" class="nav-link">Contact</a>
-            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#creno-showcase">Créno</a></li>
+                <li><a href="#pixshare-showcase">PixShare</a></li>
+                <li><a href="#projects">Projets</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
             <button class="mobile-menu-toggle">
-                <div class="hamburger">
-                    <span style="background: #fff;"></span>
-                    <span style="background: #fff;"></span>
-                    <span style="background: #fff;"></span>
-                </div>
+                <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Hero with Cinematic Zoom -->
+    <!-- Hero Section -->
     <section id="home" class="hero-zoom">
-        <div class="hero-zoom-content">
-            <div class="text-reveal">
-                <h1 class="headline-massive text-reveal-content">
-                    Ingénieurs<br>
-                    <span class="headline-gradient">Créateurs</span>
-                </h1>
-            </div>
-            <div class="text-reveal" style="animation-delay: 0.6s;">
-                <p class="text-reveal-content" style="font-size: 1.8rem; margin-top: 2rem; opacity: 0.9; font-weight: 300; line-height: 1.4;">
-                    Deux étudiants ingénieurs en informatique
-                </p>
-            </div>
-            <div class="text-reveal" style="animation-delay: 0.9s;">
-                <p class="text-reveal-content" style="font-size: 1.3rem; margin-top: 1.5rem; opacity: 0.7; max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.6;">
-                    Nous transformons nos problèmes quotidiens en solutions digitales innovantes<br>
-                    <span style="font-size: 1.1rem; opacity: 0.6;">Chaque application naît d'un besoin réel</span>
-                </p>
-            </div>
-            <div style="margin-top: 4rem; opacity: 0; animation: fadeIn 1s ease forwards; animation-delay: 1.5s;">
-                <a href="#innovation" style="color: #fff; text-decoration: none;">
-                    <i class="fas fa-chevron-down" style="font-size: 2rem; animation: bounce 2s infinite;"></i>
-                </a>
-            </div>
+        <div class="hero-content">
+            <h1 class="headline-massive fade-section">Topal</h1>
+            <p class="product-subtitle fade-section">Innovation Digitale</p>
         </div>
     </section>
 
-    <!-- Spacer section to prevent scroll jump -->
-    <section style="height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; scroll-snap-align: start;">
+    <!-- Section intro -->
+    <section style="height: 100vh; display: flex; align-items: center; justify-content: center; background: #000;">
         <div class="section-container" style="text-align: center;">
             <h2 class="headline-massive fade-section" style="opacity: 0.1;">↓</h2>
         </div>
     </section>
 
-    <!-- Product Showcase - Créno -->
-    <section class="product-showcase-dji creno-scroll-trigger" id="creno-showcase" style="min-height: 100vh;">
-        <div class="scroll-section" style="min-height: 100vh; display: flex; align-items: center;">
-            <div class="section-container">
-                <div class="fade-section" style="text-align: center; position: relative;">
-                    <div class="creno-main-logo" style="margin-bottom: 3rem; position: relative; width: 100%; height: 250px; display: flex; justify-content: center; align-items: center; transform: none !important;">
-                                                 <img src="assets/images/Creno/icone.png" alt="Créno" class="app-logo-hero" style="width: 250px; height: 250px; object-fit: contain; position: relative; z-index: 1; left: 0; right: 0; margin-left: auto; margin-right: auto;">
-                        <!-- Stats for scroll animation -->
-                        <div class="creno-stats-showcase" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 90vh; max-height: 600px; display: none; z-index: 2;">
-                            <!-- Users stat -->
-                            <div class="creno-stat stat-1" style="position: absolute; top: 10%; left: 5%; opacity: 0; transform: translateY(30px) rotate(-12deg);">
-                                <div style="background: rgba(255, 198, 5, 0.1); border: 2px solid #ffc605; border-radius: 20px; padding: 1.2rem 1.5rem; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(255, 198, 5, 0.2);">
-                                    <div class="stat-number" style="font-size: 2rem; font-weight: 700; color: #ffc605; margin-bottom: 0.3rem;">0</div>
-                                    <div style="font-size: 0.8rem; opacity: 0.8;">Utilisateurs actifs</div>
-                                </div>
-                            </div>
-                            <!-- Events stat -->
-                            <div class="creno-stat stat-2" style="position: absolute; top: 10%; right: 5%; opacity: 0; transform: translateY(30px) rotate(15deg);">
-                                <div style="background: rgba(255, 198, 5, 0.1); border: 2px solid #ffc605; border-radius: 20px; padding: 1.2rem 1.5rem; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(255, 198, 5, 0.2);">
-                                    <div class="stat-number" style="font-size: 2rem; font-weight: 700; color: #ffc605; margin-bottom: 0.3rem;">0</div>
-                                    <div style="font-size: 0.8rem; opacity: 0.8;">Événements créés</div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Créno Showcase (DJI Style) -->
+    <section class="creno-animation-container" id="creno-showcase">
+        <div class="animation-sticky-section">
+            <!-- Logo central -->
+            <div class="creno-logo-zoom">
+                <img src="assets/images/Creno/icone.png" alt="Créno">
+            </div>
+            
+            <!-- Statistiques -->
+            <div class="creno-stats-container">
+                <div class="creno-stat-item stat-item-1">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="150">0</div>
+                        <div class="stat-label">Téléchargements</div>
                     </div>
-                    <h3 class="headline-massive creno-title">Créno</h3>
-                    <p class="creno-subtitle" style="font-size: 2rem; margin: 2rem 0; opacity: 0.8;">
-                        L'organisation réinventée
-                    </p>
-                    <div class="mask-reveal creno-content">
-                        <div class="mask-reveal-content">
-                            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem; line-height: 1.8;">
-                                Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités 
-                                de votre groupe et trouve le créneau parfait.
-                            </p>
-                            <a href="creno-new.html" class="hover-lift" style="display: inline-block; padding: 1rem 3rem; background: #fcc60d; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600;">
-                                Découvrir Créno
-                            </a>
-                        </div>
+                </div>
+                
+                <div class="creno-stat-item stat-item-2">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="87">0</div>
+                        <div class="stat-label">Événements créés</div>
                     </div>
+                </div>
+                
+                <div class="creno-stat-item stat-item-3">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="4.8">0</div>
+                        <div class="stat-label">Note de l'application</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Texte et indicateur -->
+            <div class="creno-text-content">
+                <h3 class="product-title">Créno</h3>
+                <p class="product-subtitle">L'organisation réinventée</p>
+                <div class="scroll-indicator">
+                    <span>Scroll pour découvrir</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Spacer section between Créno and PixShare -->
-    <section class="transition-section" style="height: 100vh; background: linear-gradient(180deg, #111 0%, #000 50%, #111 100%); display: flex; align-items: center; justify-content: center; position: relative; z-index: 50; overflow: hidden;">
-        <!-- Background effect -->
-        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.8) 100%); pointer-events: none;"></div>
-        
-        <div class="section-container" style="text-align: center; z-index: 2;">
-            <div class="fade-section">
-                <div style="width: 100px; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); margin: 0 auto 3rem; opacity: 0.3;"></div>
-                <h3 style="font-size: 2.5rem; font-weight: 200; margin-bottom: 1rem; color: #fff; letter-spacing: 0.1em; text-transform: uppercase;">
-                    Transition
-                </h3>
-                <p style="font-size: 1.2rem; opacity: 0.6; font-weight: 300; color: #fff; letter-spacing: 0.05em;">
-                    vers notre prochain projet
+    
+    <!-- Section Créno -->
+    <section class="scroll-section" style="background: #000; padding: 5rem 0;">
+        <div class="section-container">
+            <div class="slide-in-left" style="text-align: center; width: 100%;">
+                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+                    Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités 
+                    de votre groupe et trouve le créneau parfait.
                 </p>
-                <div style="width: 100px; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); margin: 3rem auto 0; opacity: 0.3;"></div>
+                <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #fcc60d; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    Découvrir Créno →
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Product Showcase - PixShare -->
-    <section class="product-showcase-dji pixshare-scroll-trigger" id="pixshare-showcase" style="min-height: 100vh;">
-        <div class="scroll-section" style="min-height: 100vh; display: flex; align-items: center;">
-            <div class="section-container">
-                <div class="fade-section" style="text-align: center; position: relative;">
-                    <div class="pixshare-main-logo" style="margin-bottom: 3rem; position: relative; width: 100%; height: 250px; display: flex; justify-content: center; align-items: center; transform: none !important;">
-                                                 <img src="assets/images/PixShare/Icone.png" alt="PixShare" class="app-logo-hero pixshare-logo" style="width: 250px; height: 250px; object-fit: contain; position: relative; z-index: 1; left: 0; right: 0; margin-left: auto; margin-right: auto;">
-                        <!-- Stats for scroll animation -->
-                        <div class="pixshare-stats-showcase" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90vw; max-width: 800px; height: 90vh; max-height: 600px; display: none; z-index: 2;">
-                            <!-- Photos shared stat -->
-                            <div class="pixshare-stat stat-1" style="position: absolute; top: 10%; left: 5%; opacity: 0; transform: translateY(30px) rotate(-12deg);">
-                                <div style="background: rgba(147, 51, 234, 0.1); border: 2px solid #9333ea; border-radius: 20px; padding: 1.2rem 1.5rem; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);">
-                                    <div class="stat-number" style="font-size: 2rem; font-weight: 700; color: #9333ea; margin-bottom: 0.3rem;">45.2K</div>
-                                    <div style="font-size: 0.8rem; opacity: 0.8;">Photos partagées</div>
-                                </div>
-                            </div>
-                            <!-- Active users stat -->
-                            <div class="pixshare-stat stat-2" style="position: absolute; top: 10%; right: 5%; opacity: 0; transform: translateY(30px) rotate(15deg);">
-                                <div style="background: rgba(147, 51, 234, 0.1); border: 2px solid #9333ea; border-radius: 20px; padding: 1.2rem 1.5rem; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);">
-                                    <div class="stat-number" style="font-size: 2rem; font-weight: 700; color: #9333ea; margin-bottom: 0.3rem;">8,750</div>
-                                    <div style="font-size: 0.8rem; opacity: 0.8;">Créateurs actifs</div>
-                                </div>
-                            </div>
-                            <!-- Storage stat -->
-                            <div class="pixshare-stat stat-3" style="position: absolute; bottom: 15%; left: 15%; transform: translateY(30px) rotate(-8deg); opacity: 0;">
-                                <div style="background: rgba(147, 51, 234, 0.1); border: 2px solid #9333ea; border-radius: 20px; padding: 1.2rem 1.5rem; text-align: center; backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(147, 51, 234, 0.2);">
-                                    <div style="font-size: 2rem; font-weight: 700; color: #9333ea; margin-bottom: 0.3rem;">
-                                        2.1 TB
-                                    </div>
-                                    <div style="font-size: 0.8rem; opacity: 0.8;">Stockage cloud</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="headline-massive pixshare-title">PixShare</h3>
-                    <p class="pixshare-subtitle" style="font-size: 2rem; margin: 2rem 0; opacity: 0.8;">
-                        Le partage photo réinventé
-                    </p>
-                    <div class="mask-reveal pixshare-content">
-                        <div class="mask-reveal-content">
-                            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem; line-height: 1.8;">
-                                Partagez vos moments les plus précieux avec style. PixShare révolutionne 
-                                le partage photo avec une interface élégante et des fonctionnalités innovantes.
-                            </p>
-                            <a href="#" class="hover-lift" style="display: inline-block; padding: 1rem 3rem; background: #9333ea; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600;">
-                                Découvrir PixShare
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Spacer section after PixShare -->
-    <section style="height: 100vh; background: #000; display: flex; align-items: center; justify-content: center; scroll-snap-align: start;">
+    <!-- Transition -->
+    <section class="transition-section" style="background: #000; padding: 8rem 0;">
         <div class="section-container" style="text-align: center;">
             <div class="fade-section">
-                <h3 style="font-size: 2rem; opacity: 0.5; margin-bottom: 2rem;">Continuez à découvrir</h3>
-                <p style="opacity: 0.3;">↓</p>
+                <div style="width: 150px; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); margin: 0 auto; opacity: 0.3;"></div>
             </div>
         </div>
     </section>
 
-    <!-- Product Showcase - FindMyCourt -->
-    <section class="product-showcase-dji" style="background: #111; min-height: 100vh;">
-        <div class="scroll-section" style="min-height: 100vh; display: flex; align-items: center;">
-            <div class="section-container">
-                <div class="fade-section" style="text-align: center;">
-                    <div class="product-image" style="margin-bottom: 3rem;">
-                                                 <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt" class="app-logo-hero" style="width: 250px; height: 250px; object-fit: contain;">
-                    </div>
-                    <h3 class="headline-massive">FindMyCourt</h3>
-                    <p style="font-size: 2rem; margin: 2rem 0; opacity: 0.8;">
-                        La carte qui change tout
-                    </p>
-                    <div class="mask-reveal">
-                        <div class="mask-reveal-content">
-                            <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 3rem; line-height: 1.8;">
-                                Trouvez instantanément les meilleurs terrains de sport près de vous. 
-                                Une communauté active qui partage et note chaque terrain.
-                            </p>
-                            <a href="findmycourt.html" class="hover-lift" style="display: inline-block; padding: 1rem 3rem; background: #4F46E5; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600;">
-                                Explorer FindMyCourt
-                            </a>
-                        </div>
-                    </div>
-                </div>
+    <!-- PixShare Showcase (DJI Style) -->
+    <section class="pixshare-animation-container" id="pixshare-showcase">
+        <div class="animation-sticky-section">
+            <!-- Logo central -->
+            <div class="pixshare-logo-zoom">
+                <img src="assets/images/PixShare/Icone.png" alt="PixShare">
             </div>
-        </div>
-    </section>
-
-    <!-- All Projects Grid -->
-    <section id="projects" class="scroll-section" style="background: #000; padding: 10rem 0; position: relative; z-index: 100; margin-top: 5rem;">
-        <div class="section-container">
-            <h2 class="headline-massive text-center word-by-word" style="margin-bottom: 6rem;">
-                Tous nos projets
-            </h2>
             
-            <div class="feature-grid-dji">
-                <!-- Créno -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/Creno/icone.png" alt="Créno" class="app-logo" style="width: 80%; height: auto; object-fit: contain; display: block; margin: 0 auto; transition: all 0.5s ease;">
+            <!-- Statistiques -->
+            <div class="pixshare-stats-container">
+                <div class="pixshare-stat-item stat-item-1">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="45200">0</div>
+                        <div class="stat-label">Photos partagées</div>
                     </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Créno</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Organisation de sorties simplifiée</p>
-                    <a href="creno-new.html" style="color: #fcc60d; text-decoration: none; font-weight: 600;">
-                        En savoir plus →
-                    </a>
                 </div>
-
-                <!-- Fakt -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/Fakt/icone.png" alt="Fakt" class="app-logo" style="width: 80%; transition: all 0.5s ease;">
+                
+                <div class="pixshare-stat-item stat-item-2">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="8750">0</div>
+                        <div class="stat-label">Créateurs actifs</div>
                     </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Fakt</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Factures automatisées professionnelles</p>
-                    <a href="fact.html" style="color: #93c5fd; text-decoration: none; font-weight: 600;">
-                        En savoir plus →
-                    </a>
                 </div>
-
-                <!-- FindMyCourt -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt" class="app-logo" style="width: 80%; transition: all 0.5s ease;">
+                
+                <div class="pixshare-stat-item stat-item-3">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="1250">0</div>
+                        <div class="stat-label">Albums créés</div>
                     </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">FindMyCourt</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Carte communautaire des terrains</p>
-                    <a href="findmycourt.html" style="color: #c7d2fe; text-decoration: none; font-weight: 600;">
-                        En savoir plus →
-                    </a>
                 </div>
-
-                <!-- PixShare -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/PixShare/Icone.png" alt="PixShare" class="app-logo" style="width: 80%; transition: all 0.5s ease;">
+                
+                <div class="pixshare-stat-item stat-item-4">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="99">0</div>
+                        <div class="stat-label">% de satisfaction</div>
                     </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">PixShare</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Albums photos privés sécurisés</p>
-                    <a href="pixshare.html" style="color: #86efac; text-decoration: none; font-weight: 600;">
-                        En savoir plus →
-                    </a>
                 </div>
-
-                <!-- Clubs Sportifs -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/AppliClubSportifs/Icone.png" alt="Clubs Sportifs" class="app-logo" style="width: 80%; transition: all 0.5s ease;">
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Clubs Sportifs</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Annuaire national des clubs</p>
-                    <span style="color: #e9d5ff; font-size: 0.875rem;">Bientôt disponible</span>
-                </div>
-
-                <!-- Burger Michel -->
-                <div class="feature-card-dji hover-lift">
-                    <div class="app-logo-container" style="width: 100px; height: 100px; margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; position: relative;">
-                                                 <img src="assets/images/BurgerMichelEIRL/Icone.png" alt="Burger Michel" class="app-logo" style="width: 80%; transition: all 0.5s ease;">
-                    </div>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Burger Michel</h3>
-                    <p style="opacity: 0.7; margin-bottom: 2rem;">Site vitrine professionnel</p>
-                    <a href="burger-michel.html" style="color: #fdba74; text-decoration: none; font-weight: 600;">
-                        Visiter le site →
-                    </a>
+            </div>
+            
+            <!-- Texte et indicateur -->
+            <div class="pixshare-text-content">
+                <h3 class="product-title">PixShare</h3>
+                <p class="product-subtitle">Le partage photo repensé</p>
+                <div class="scroll-indicator">
+                    <span>Scroll pour découvrir</span>
+                    <i class="fas fa-chevron-down"></i>
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Section PixShare -->
+    <section class="scroll-section" style="background: #000; padding: 5rem 0;">
+        <div class="section-container">
+            <div class="slide-in-left" style="text-align: center; width: 100%;">
+                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+                    Partagez vos moments en toute simplicité. PixShare révolutionne le partage photo 
+                    avec une expérience intuitive et sécurisée.
+                </p>
+                <a href="pixshare.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #9333ea; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    Découvrir PixShare →
+                </a>
+            </div>
+        </div>
+    </section>
 
-    <!-- Vision Section -->
-    <section id="vision" class="feature-reveal">
-        <div class="feature-bg-image" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1920'); filter: brightness(0.2);"></div>
-        <div class="feature-content">
-            <h2 class="headline-massive word-by-word">
-                Notre vision
-            </h2>
-            <p style="font-size: 1.8rem; margin-top: 3rem; line-height: 1.6; max-width: 800px; margin-left: auto; margin-right: auto;">
-                Nous croyons en un futur où la technologie simplifie réellement la vie. 
-                Chaque ligne de code, chaque pixel est pensé pour créer des expériences 
-                qui marquent et qui durent.
-            </p>
-            <div style="margin-top: 4rem;">
-                <div class="mask-reveal">
-                    <div class="mask-reveal-content">
-                        <a href="#contact" class="hover-lift" style="display: inline-block; padding: 1.2rem 3rem; background: #fff; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                            Créons ensemble
+    <!-- Projets -->
+    <section id="projects" class="scroll-section" style="background: #000;">
+        <div class="section-container">
+            <h2 class="fade-section" style="font-size: 3rem; text-align: center; margin-bottom: 3rem;">Nos Projets</h2>
+            <div class="projects-grid">
+                <div class="project-card fade-section">
+                    <div style="padding: 2rem;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Créno</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Application de planification d'événements intelligente</p>
+                        <a href="creno.html" style="color: #ffc605; text-decoration: none; font-weight: 600;">
+                            En savoir plus →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-section">
+                    <div style="padding: 2rem;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">PixShare</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Plateforme de partage photo nouvelle génération</p>
+                        <a href="pixshare.html" style="color: #9333ea; text-decoration: none; font-weight: 600;">
+                            En savoir plus →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-section">
+                    <div style="padding: 2rem;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Burger Michel</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Site web en cours pour une entreprise de couverture</p>
+                        <a href="#" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">
+                            En cours de développement →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-section">
+                    <div style="padding: 2rem;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Fakt</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations Booking</p>
+                        <a href="#" style="color: #4ecdc4; text-decoration: none; font-weight: 600;">
+                            En savoir plus →
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-section">
+                    <div style="padding: 2rem;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">FindMyCourt</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu près de chez vous</p>
+                        <a href="#" style="color: #45b7d1; text-decoration: none; font-weight: 600;">
+                            En savoir plus →
                         </a>
                     </div>
                 </div>
@@ -419,771 +249,47 @@
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="scroll-section" style="background: #111; min-height: 100vh; display: flex; align-items: center;">
+    <!-- Contact -->
+    <section id="contact" class="feature-reveal">
         <div class="section-container">
-            <div class="fade-section" style="text-align: center;">
-                <h2 class="headline-massive">
-                    Prêt pour<br>
-                    <span class="headline-gradient">l'innovation ?</span>
-                </h2>
-                
-                <p style="font-size: 1.5rem; margin: 3rem 0; opacity: 0.8;">
-                    Transformons vos idées en réalité digitale
+            <div class="contact-content fade-section">
+                <h2 style="font-size: 3rem; margin-bottom: 2rem;">Travaillons ensemble</h2>
+                <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem;">
+                    Prêt à transformer vos idées en réalité digitale ?
                 </p>
-                
-                <div style="display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; margin-top: 4rem;">
-                    <div class="hover-lift" style="text-align: center;">
-                        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
-                            <i class="fas fa-envelope" style="font-size: 2rem;"></i>
-                        </div>
-                        <p style="font-weight: 600;">Email</p>
-                        <p style="opacity: 0.7;">findmycourt67@gmail.com</p>
-                    </div>
-                    
-                    <div class="hover-lift" style="text-align: center;">
-                        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
-                            <i class="fas fa-phone" style="font-size: 2rem;"></i>
-                        </div>
-                        <p style="font-weight: 600;">Téléphone</p>
-                        <p style="opacity: 0.7;">+33 7 88 56 62 99</p>
-                    </div>
-                    
-                    <div class="hover-lift" style="text-align: center;">
-                        <div style="width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
-                            <i class="fas fa-map-marker-alt" style="font-size: 2rem;"></i>
-                        </div>
-                        <p style="font-weight: 600;">Localisation</p>
-                        <p style="opacity: 0.7;">Strasbourg, France</p>
-                    </div>
+                <div class="contact-links">
+                    <a href="mailto:topalpaul6@gmail.com" title="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                    <a href="https://github.com/paul-tometich" target="_blank" title="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/paul-tometich" target="_blank" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer style="background: #000; padding: 3rem 0; border-top: 1px solid rgba(255,255,255,0.1);">
-        <div class="section-container">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-                <div>
-                    <h3 style="font-size: 1.5rem;">Topal</h3>
-                    <p style="opacity: 0.5;">Innovation & Excellence</p>
-                </div>
-                <div style="display: flex; gap: 1.5rem;">
-                    <a href="#" class="hover-lift" style="color: #fff; opacity: 0.7; transition: opacity 0.3s;">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="#" class="hover-lift" style="color: #fff; opacity: 0.7; transition: opacity 0.3s;">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="#" class="hover-lift" style="color: #fff; opacity: 0.7; transition: opacity 0.3s;">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="#" class="hover-lift" style="color: #fff; opacity: 0.7; transition: opacity 0.3s;">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 2rem; opacity: 0.5;">
-                &copy; 2025 Topal. Tous droits réservés.
-            </p>
-        </div>
+    <footer style="background: #000; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <p style="opacity: 0.5; font-size: 0.9rem;">
+            © 2024 Topal. Tous droits réservés.
+        </p>
     </footer>
 
     <!-- Scripts -->
-    <!-- Custom Scripts -->
-    <script src="animations.js"></script>
-    <script src="dji-animations.js"></script>
+    <script src="assets/js/app.js?v=2"></script>
+    <!-- Animation contrôlée par scroll avec effet de recul -->
+    <script src="assets/js/scroll-controlled-animation.js"></script>
+    <!-- Animation simple slide-in pour les descriptions -->
+    <script src="assets/js/simple-slide-animation.js"></script>
     
-    <!-- Firebase Stats Module -->
-    <script type="module" src="firebase-stats.js"></script>
-    
-    <!-- Debug Script -->
-    <script src="debug-scroll.js"></script>
-    
-    <style>
-        /* Fix for sections visibility after animations */
-        .animation-wrapper {
-            transition: all 0.3s ease;
-        }
-        
-        /* Ensure projects section is always visible */
-        #projects {
-            position: relative !important;
-            z-index: 100 !important;
-            background: #000 !important;
-        }
-        
-        /* Reset wrapper after animation completes */
-        .animation-complete {
-            height: auto !important;
-            min-height: 0 !important;
-            position: static !important;
-        }
-        
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.3);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
-        }
-        
-        /* Logo animations */
-        .app-logo-container {
-            position: relative;
-            overflow: visible;
-            z-index: 1;
-        }
-        
-        .app-logo-container::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(circle at center, transparent 30%, rgba(255,255,255,0.03) 70%);
-            transform: translate(-50%, -50%) scale(0);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: -1;
-        }
-        
-        .app-logo-container::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0);
-            transform: translate(-50%, -50%) scale(1.2);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: -1;
-        }
-        
-        .feature-card-dji:hover .app-logo-container::before {
-            transform: translate(-50%, -50%) scale(1.5);
-        }
-        
-        .feature-card-dji:hover .app-logo-container::after {
-            border-color: rgba(255,255,255,0.2);
-            transform: translate(-50%, -50%) scale(1.8);
-        }
-        
-        .app-logo {
-            animation: float 6s ease-in-out infinite;
-            transform-origin: center;
-            position: relative;
-            z-index: 2;
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        }
-        
-        .feature-card-dji:hover .app-logo {
-            transform: scale(1.1) rotateZ(360deg);
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(0,0,0,0.3));
-        }
-        
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) scale(1);
-            }
-            50% {
-                transform: translateY(-10px) scale(1.05);
-            }
-        }
-        
-        /* Individual logo colors on hover */
-        .feature-card-dji:nth-child(1):hover .app-logo { /* Créno */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(252, 198, 13, 0.4));
-        }
-        
-        .feature-card-dji:nth-child(2):hover .app-logo { /* Fakt */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(147, 197, 253, 0.4));
-        }
-        
-        .feature-card-dji:nth-child(3):hover .app-logo { /* FindMyCourt */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(199, 210, 254, 0.4));
-        }
-        
-        .feature-card-dji:nth-child(4):hover .app-logo { /* PixShare */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(134, 239, 172, 0.4));
-        }
-        
-        .feature-card-dji:nth-child(5):hover .app-logo { /* Clubs Sportifs */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(233, 213, 255, 0.4));
-        }
-        
-        .feature-card-dji:nth-child(6):hover .app-logo { /* Burger Michel */
-            filter: contrast(1.2) drop-shadow(0 10px 30px rgba(253, 186, 116, 0.4));
-        }
-        
-        /* Stagger animation delays */
-        .feature-card-dji:nth-child(1) .app-logo { animation-delay: 0s; }
-        .feature-card-dji:nth-child(2) .app-logo { animation-delay: 0.5s; }
-        .feature-card-dji:nth-child(3) .app-logo { animation-delay: 1s; }
-        .feature-card-dji:nth-child(4) .app-logo { animation-delay: 1.5s; }
-        .feature-card-dji:nth-child(5) .app-logo { animation-delay: 2s; }
-        .feature-card-dji:nth-child(6) .app-logo { animation-delay: 2.5s; }
-        
-        /* Glow effect on hover */
-        .feature-card-dji:hover {
-            background: rgba(255,255,255,0.08) !important;
-        }
-        
-        /* Hero logo animations */
-        .app-logo-hero {
-            position: relative;
-            animation: heroFloat 4s ease-in-out infinite;
-            transition: all 0.5s ease;
-        }
-        
-        .app-logo-hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 120%;
-            height: 120%;
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        
-        .product-image:hover .app-logo-hero::before {
-            opacity: 1;
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .product-image:hover .app-logo-hero {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 30px rgba(255,255,255,0.6));
-        }
-        
-        @keyframes heroFloat {
-            0%, 100% {
-                transform: translateY(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-20px) rotate(5deg);
-            }
-            75% {
-                transform: translateY(-20px) rotate(-5deg);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 0.5;
-            }
-            50% {
-                transform: translate(-50%, -50%) scale(1.3);
-                opacity: 0.8;
-            }
-        }
-        
-        /* Zoom effect on scroll for hero logos */
-        .product-image {
-            perspective: 1000px;
-        }
-        
-        .product-showcase-dji.in-view .app-logo-hero {
-            animation: zoomRotate 1.5s ease-out forwards;
-        }
-        
-        @keyframes zoomRotate {
-            0% {
-                transform: scale(0.3) rotateY(180deg);
-                opacity: 0;
-            }
-            50% {
-                transform: scale(1.2) rotateY(90deg);
-            }
-            100% {
-                transform: scale(1) rotateY(0deg);
-                opacity: 1;
-            }
-        }
-    </style>
-    
-    <script>
-        // Initialize DJI Animations with all necessary setup
-        document.addEventListener('DOMContentLoaded', function() {
-            // Hide loading screen after page loads - Simplified and more aggressive
-            const hideLoadingScreen = () => {
-                const loadingScreen = document.querySelector('.loading-screen');
-                if (loadingScreen) {
-                    console.log('Hiding loading screen...');
-                    loadingScreen.style.opacity = '0';
-                    loadingScreen.style.visibility = 'hidden';
-                    loadingScreen.style.display = 'none';
-                    loadingScreen.style.pointerEvents = 'none';
-                    console.log('Loading screen hidden');
-                }
-            };
-            
-            // Immediate hide after a short delay
-            setTimeout(hideLoadingScreen, 1000);
-            
-            // Also hide on window load
-            window.addEventListener('load', hideLoadingScreen);
-            
-            // Force hide after 2 seconds maximum
-            setTimeout(hideLoadingScreen, 2000);
-            
-            // Immediate hide if page is already loaded
-            if (document.readyState === 'complete') {
-                hideLoadingScreen();
-            }
-            
-            const animations = new DJIAnimations();
-            animations.setupPageTransitions();
-            
-            // Create parallax scenes
-            document.querySelectorAll('.parallax-container').forEach(container => {
-                animations.createParallaxScene(container);
-            });
-            
-            // Listen for Firebase stats to be loaded
-            window.addEventListener('crenoStatsLoaded', (event) => {
-                console.log('Créno stats loaded from Firebase:', event.detail);
-                window.crenoStats = event.detail;
-            });
-            
-            // Test loading screen functionality
-            console.log('DJI Animations initialized');
-            
-            // Simplified Créno animation - just basic scroll trigger
-            const crenoSection = document.querySelector('.creno-scroll-trigger');
-            if (crenoSection) {
-                const crenoLogo = crenoSection.querySelector('.app-logo-hero');
-                const statsContainer = crenoSection.querySelector('.creno-stats-showcase');
-                const stats = crenoSection.querySelectorAll('.creno-stat');
-                const crenoTitle = crenoSection.querySelector('.creno-title');
-                const crenoSubtitle = crenoSection.querySelector('.creno-subtitle');
-                const crenoContent = crenoSection.querySelector('.creno-content');
-                
-                let isAnimating = false;
-                let hasTriggered = false;
-                let animationPhase = 0; // 0: normal, 1: rising, 2: fixed, 3: stats, 4: descending
-                
-                // Create wrapper for scroll animation
-                let wrapper = crenoSection.closest('.creno-wrapper');
-                if (!wrapper) {
-                    wrapper = document.createElement('div');
-                    const viewportHeight = window.innerHeight;
-                    const isMobile = window.innerWidth < 768;
-                    const wrapperHeight = isMobile ? '300vh' : '400vh'; // Increased height for better animation
-                    wrapper.style.minHeight = wrapperHeight;
-                    wrapper.style.position = 'relative';
-                    wrapper.classList.add('animation-wrapper', 'creno-wrapper');
-                    crenoSection.parentNode.insertBefore(wrapper, crenoSection);
-                    wrapper.appendChild(crenoSection);
-                }
-                
-                // Initial setup
-                crenoSection.style.position = 'relative';
-                crenoSection.style.width = '100%';
-                crenoSection.style.height = '100vh';
-                crenoSection.style.top = '0';
-                
-                // Counter animation function
-                const animateCounter = (element, target) => {
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    let current = 0;
-                    
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            element.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            element.textContent = target.toLocaleString('fr-FR') + '+';
-                        }
-                    };
-                    
-                    updateCounter();
-                };
-                
-                const updateAnimation = (progress) => {
-                    // Phase 1: Logo shrinks and moves up
-                    if (progress <= 1) {
-                        const scale = 1 - (progress * 0.3);
-                        const translateY = -progress * 50; // Move up
-                        crenoLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-                        crenoLogo.style.opacity = 1 - (progress * 0.2);
-                    }
-                    
-                    // Phase 2: Show stats container
-                    if (progress > 1 && progress <= 2) {
-                        if (statsContainer) {
-                            statsContainer.style.display = 'block';
-                        }
-                        crenoLogo.style.transform = 'scale(0.7) translateY(-50px)';
-                        crenoLogo.style.opacity = '0.8';
-                    }
-                    
-                    // Phase 3-4: Animate stats one by one
-                    stats.forEach((stat, index) => {
-                        const statStart = 2 + index * 0.8;
-                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.8));
-                        
-                        if (statProgress > 0) {
-                            stat.style.opacity = statProgress;
-                            const yOffset = 40 - (statProgress * 40);
-                            
-                            if (index === 0) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${-40 + statProgress * 40}px) rotate(-15deg) scale(${0.7 + statProgress * 0.3})`;
-                            } else if (index === 1) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${40 - statProgress * 40}px) rotate(15deg) scale(${0.7 + statProgress * 0.3})`;
-                            }
-                            
-                            if (statProgress > 0.5 && !stat.dataset.animated) {
-                                stat.dataset.animated = 'true';
-                                const numberEl = stat.querySelector('.stat-number');
-                                if (numberEl) {
-                                    const realStats = window.crenoStats || { totalUsers: 16, totalEvents: 7, averageRating: 4.8 };
-                                    if (index === 0) animateCounter(numberEl, realStats.totalUsers);
-                                    if (index === 1) animateCounter(numberEl, realStats.totalEvents);
-                                }
-                            }
-                        }
-                    });
-                    
-                    // Fade text elements
-                    const textOpacity = Math.max(0.1, 1 - (progress / 4));
-                    if (crenoTitle) crenoTitle.style.opacity = textOpacity;
-                    if (crenoSubtitle) crenoSubtitle.style.opacity = textOpacity * 0.8;
-                    if (crenoContent) crenoContent.style.opacity = textOpacity * 0.6;
-                };
-                
-                const handleScroll = () => {
-                    if (!wrapper) return;
-                    
-                    const rect = wrapper.getBoundingClientRect();
-                    const wrapperHeight = wrapper.offsetHeight;
-                    const viewportHeight = window.innerHeight;
-                    const scrollY = window.scrollY;
-                    const wrapperOffset = wrapper.offsetTop;
-                    
-                    // Calculate scroll progress through the wrapper
-                    const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
-                    
-                    // Phase 1: Rising phase (0-25% of scroll)
-                    if (scrollProgress < 0.25) {
-                        if (animationPhase !== 1) {
-                            animationPhase = 1;
-                            crenoSection.style.position = 'relative';
-                            crenoSection.style.transform = 'none';
-                            crenoSection.style.zIndex = '1';
-                        }
-                        
-                        const phaseProgress = scrollProgress / 0.25;
-                        const translateY = -phaseProgress * 100; // Move up
-                        crenoSection.style.transform = `translateY(${translateY}px)`;
-                        
-                    } 
-                    // Phase 2: Fixed at center (25-50% of scroll)
-                    else if (scrollProgress < 0.5) {
-                        if (animationPhase !== 2) {
-                            animationPhase = 2;
-                            crenoSection.style.position = 'fixed';
-                            crenoSection.style.top = '50%';
-                            crenoSection.style.left = '0';
-                            crenoSection.style.right = '0';
-                            crenoSection.style.transform = 'translateY(-50%)';
-                            crenoSection.style.zIndex = '50';
-                            
-                            // Create placeholder
-                            if (!wrapper.querySelector('.creno-placeholder')) {
-                                const placeholder = document.createElement('div');
-                                placeholder.style.height = '100vh';
-                                placeholder.style.width = '100%';
-                                placeholder.className = 'creno-placeholder';
-                                wrapper.insertBefore(placeholder, crenoSection);
-                            }
-                        }
-                        
-                        // Animate logo and show stats
-                        const phaseProgress = (scrollProgress - 0.25) / 0.25;
-                        updateAnimation(phaseProgress * 4);
-                        
-                    } 
-                    // Phase 3: Descending phase (50-100% of scroll)
-                    else {
-                        if (animationPhase !== 3) {
-                            animationPhase = 3;
-                            crenoSection.style.position = 'relative';
-                            crenoSection.style.top = '0';
-                            crenoSection.style.transform = 'none';
-                            crenoSection.style.zIndex = '1';
-                            
-                            // Remove placeholder
-                            const placeholder = wrapper.querySelector('.creno-placeholder');
-                            if (placeholder) placeholder.remove();
-                        }
-                        
-                        // Continue animation and fade out
-                        const phaseProgress = (scrollProgress - 0.5) / 0.5;
-                        updateAnimation(4 + phaseProgress * 2);
-                        
-                        // Fade out the entire section
-                        const fadeOut = Math.max(0.3, 1 - phaseProgress);
-                        crenoSection.style.opacity = fadeOut;
-                    }
-                };
-                
-                // Throttled scroll handler
-                let ticking = false;
-                const scrollHandler = () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            handleScroll();
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                };
-                
-                window.addEventListener('scroll', scrollHandler, { passive: true });
-                window.addEventListener('resize', handleScroll);
-            }
-            
-            // PixShare scroll-triggered animation (similar to Créno)
-            const pixshareSection = document.querySelector('.pixshare-scroll-trigger');
-            if (pixshareSection) {
-                const pixshareLogo = pixshareSection.querySelector('.app-logo-hero');
-                const statsContainer = pixshareSection.querySelector('.pixshare-stats-showcase');
-                const stats = pixshareSection.querySelectorAll('.pixshare-stat');
-                const pixshareTitle = pixshareSection.querySelector('.pixshare-title');
-                const pixshareSubtitle = pixshareSection.querySelector('.pixshare-subtitle');
-                const pixshareContent = pixshareSection.querySelector('.pixshare-content');
-                
-                let isAnimating = false;
-                let hasTriggered = false;
-                let animationPhase = 0; // 0: normal, 1: rising, 2: fixed, 3: stats, 4: descending
-                
-                // Create wrapper for scroll animation
-                let wrapper = pixshareSection.closest('.pixshare-wrapper');
-                if (!wrapper) {
-                    wrapper = document.createElement('div');
-                    const viewportHeight = window.innerHeight;
-                    const isMobile = window.innerWidth < 768;
-                    const wrapperHeight = isMobile ? '300vh' : '400vh'; // Increased height for better animation
-                    wrapper.style.minHeight = wrapperHeight;
-                    wrapper.style.position = 'relative';
-                    wrapper.classList.add('animation-wrapper', 'pixshare-wrapper');
-                    pixshareSection.parentNode.insertBefore(wrapper, pixshareSection);
-                    wrapper.appendChild(pixshareSection);
-                }
-                
-                // Initial setup
-                pixshareSection.style.position = 'relative';
-                pixshareSection.style.width = '100%';
-                pixshareSection.style.height = '100vh';
-                pixshareSection.style.top = '0';
-                
-                // Counter animation function
-                const animateCounter = (element, target) => {
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    let current = 0;
-                    
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            element.textContent = Math.floor(current).toLocaleString('fr-FR') + '+';
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            element.textContent = target.toLocaleString('fr-FR') + '+';
-                        }
-                    };
-                    
-                    updateCounter();
-                };
-                
-                const updateAnimation = (progress) => {
-                    // Phase 1: Logo shrinks and moves up
-                    if (progress <= 1) {
-                        const scale = 1 - (progress * 0.3);
-                        const translateY = -progress * 50; // Move up
-                        pixshareLogo.style.transform = `scale(${scale}) translateY(${translateY}px)`;
-                        pixshareLogo.style.opacity = 1 - (progress * 0.2);
-                    }
-                    
-                    // Phase 2: Show stats container
-                    if (progress > 1 && progress <= 2) {
-                        if (statsContainer) {
-                            statsContainer.style.display = 'block';
-                        }
-                        pixshareLogo.style.transform = 'scale(0.7) translateY(-50px)';
-                        pixshareLogo.style.opacity = '0.8';
-                    }
-                    
-                    // Phase 3-4: Animate stats one by one
-                    stats.forEach((stat, index) => {
-                        const statStart = 2 + index * 0.8;
-                        const statProgress = Math.max(0, Math.min(1, (progress - statStart) / 0.8));
-                        
-                        if (statProgress > 0) {
-                            stat.style.opacity = statProgress;
-                            const yOffset = 40 - (statProgress * 40);
-                            
-                            if (index === 0) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${-40 + statProgress * 40}px) rotate(-15deg) scale(${0.7 + statProgress * 0.3})`;
-                            } else if (index === 1) {
-                                stat.style.transform = `translateY(${yOffset}px) translateX(${40 - statProgress * 40}px) rotate(15deg) scale(${0.7 + statProgress * 0.3})`;
-                            }
-                            
-                            if (statProgress > 0.5 && !stat.dataset.animated) {
-                                stat.dataset.animated = 'true';
-                                const numberEl = stat.querySelector('.stat-number');
-                                if (numberEl) {
-                                    const realStats = window.pixshareStats || { totalPhotos: 150, totalUsers: 25, averageRating: 4.9 };
-                                    if (index === 0) animateCounter(numberEl, realStats.totalPhotos);
-                                    if (index === 1) animateCounter(numberEl, realStats.totalUsers);
-                                }
-                            }
-                        }
-                    });
-                    
-                    // Fade text elements
-                    const textOpacity = Math.max(0.1, 1 - (progress / 4));
-                    if (pixshareTitle) pixshareTitle.style.opacity = textOpacity;
-                    if (pixshareSubtitle) pixshareSubtitle.style.opacity = textOpacity * 0.8;
-                    if (pixshareContent) pixshareContent.style.opacity = textOpacity * 0.6;
-                };
-                
-                const handleScroll = () => {
-                    if (!wrapper) return;
-                    
-                    const rect = wrapper.getBoundingClientRect();
-                    const wrapperHeight = wrapper.offsetHeight;
-                    const viewportHeight = window.innerHeight;
-                    const scrollY = window.scrollY;
-                    const wrapperOffset = wrapper.offsetTop;
-                    
-                    // Calculate scroll progress through the wrapper
-                    const scrollProgress = Math.max(0, Math.min(1, (scrollY - wrapperOffset) / (wrapperHeight - viewportHeight)));
-                    
-                    // Phase 1: Rising phase (0-25% of scroll)
-                    if (scrollProgress < 0.25) {
-                        if (animationPhase !== 1) {
-                            animationPhase = 1;
-                            pixshareSection.style.position = 'relative';
-                            pixshareSection.style.transform = 'none';
-                            pixshareSection.style.zIndex = '1';
-                        }
-                        
-                        const phaseProgress = scrollProgress / 0.25;
-                        const translateY = -phaseProgress * 100; // Move up
-                        pixshareSection.style.transform = `translateY(${translateY}px)`;
-                        
-                    } 
-                    // Phase 2: Fixed at center (25-50% of scroll)
-                    else if (scrollProgress < 0.5) {
-                        if (animationPhase !== 2) {
-                            animationPhase = 2;
-                            pixshareSection.style.position = 'fixed';
-                            pixshareSection.style.top = '50%';
-                            pixshareSection.style.left = '0';
-                            pixshareSection.style.right = '0';
-                            pixshareSection.style.transform = 'translateY(-50%)';
-                            pixshareSection.style.zIndex = '50';
-                            
-                            // Create placeholder
-                            if (!wrapper.querySelector('.pixshare-placeholder')) {
-                                const placeholder = document.createElement('div');
-                                placeholder.style.height = '100vh';
-                                placeholder.style.width = '100%';
-                                placeholder.className = 'pixshare-placeholder';
-                                wrapper.insertBefore(placeholder, pixshareSection);
-                            }
-                        }
-                        
-                        // Animate logo and show stats
-                        const phaseProgress = (scrollProgress - 0.25) / 0.25;
-                        updateAnimation(phaseProgress * 4);
-                        
-                    } 
-                    // Phase 3: Descending phase (50-100% of scroll)
-                    else {
-                        if (animationPhase !== 3) {
-                            animationPhase = 3;
-                            pixshareSection.style.position = 'relative';
-                            pixshareSection.style.top = '0';
-                            pixshareSection.style.transform = 'none';
-                            pixshareSection.style.zIndex = '1';
-                            
-                            // Remove placeholder
-                            const placeholder = wrapper.querySelector('.pixshare-placeholder');
-                            if (placeholder) placeholder.remove();
-                        }
-                        
-                        // Continue animation and fade out
-                        const phaseProgress = (scrollProgress - 0.5) / 0.5;
-                        updateAnimation(4 + phaseProgress * 2);
-                        
-                        // Fade out the entire section
-                        const fadeOut = Math.max(0.3, 1 - phaseProgress);
-                        pixshareSection.style.opacity = fadeOut;
-                    }
-                };
-                
-                // Throttled scroll handler
-                let ticking = false;
-                const scrollHandler = () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            handleScroll();
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                };
-                
-                window.addEventListener('scroll', scrollHandler, { passive: true });
-                window.addEventListener('resize', handleScroll);
-            }
-        });
+    <!-- Firebase (optionnel) -->
+    <script type="module">
+        // Configuration Firebase si nécessaire
+        // import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
     </script>
 </body>
 </html>

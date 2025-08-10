@@ -1,0 +1,217 @@
+/* CORRECTIONS URGENTES POUR LE SITE */
+
+/* 1. FIX: Débloquer le scroll */
+html, body {
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    position: relative !important;
+    scroll-behavior: smooth;
+}
+
+/* 2. FIX: Loading screen doit disparaître rapidement */
+.loading-screen {
+    animation: fadeOut 1s ease-out forwards !important;
+}
+
+@keyframes fadeOut {
+    0% { opacity: 1; }
+    100% { opacity: 0; visibility: hidden; pointer-events: none; }
+}
+
+/* 3. FIX: Rendre tous les éléments visibles par défaut */
+.fade-section,
+.app-logo-hero,
+.headline-massive,
+.creno-subtitle,
+.pixshare-subtitle,
+.hover-lift,
+.transition-section,
+.product-showcase-dji,
+.feature-card-dji,
+.mask-reveal,
+.mask-reveal-content {
+    opacity: 1 !important;
+    transform: none !important;
+    visibility: visible !important;
+}
+
+/* 4. FIX: Sections Créno et PixShare */
+.creno-scroll-trigger,
+.pixshare-scroll-trigger {
+    position: relative !important;
+    height: 100vh !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow: visible !important;
+}
+
+/* 5. FIX: Wrapper animations */
+.animation-wrapper,
+.creno-wrapper,
+.pixshare-wrapper {
+    height: auto !important;
+    min-height: 100vh !important;
+    position: relative !important;
+}
+
+/* 6. FIX: Navigation toujours visible */
+.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    transform: none !important;
+}
+
+/* 7. MOBILE: Responsive amélioré */
+@media (max-width: 768px) {
+    /* Tailles de texte mobile */
+    .headline-massive {
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    p {
+        font-size: 1rem !important;
+    }
+    
+    /* Espacements mobile */
+    .section {
+        padding: 3rem 1rem !important;
+    }
+    
+    .section-container {
+        padding: 0 1rem !important;
+    }
+    
+    /* Grilles responsive */
+    .feature-grid-dji {
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem !important;
+    }
+    
+    /* Images et logos */
+    .app-logo-hero {
+        width: 150px !important;
+        height: 150px !important;
+    }
+    
+    .app-logo {
+        width: 60px !important;
+        height: 60px !important;
+    }
+    
+    /* Cards mobile */
+    .feature-card-dji {
+        padding: 1.5rem !important;
+    }
+    
+    /* Navigation mobile */
+    .nav-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        display: none;
+        flex-direction: column;
+        padding: 1rem;
+    }
+    
+    .nav-menu.mobile-active {
+        display: flex !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: block !important;
+    }
+    
+    /* Hero mobile */
+    .hero-zoom-content {
+        padding: 0 1rem;
+    }
+    
+    /* Stats responsive */
+    .creno-stats-showcase,
+    .pixshare-stats-showcase {
+        max-width: 90vw !important;
+        max-height: 80vh !important;
+    }
+    
+    .creno-stat,
+    .pixshare-stat {
+        font-size: 0.8rem !important;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem !important;
+    }
+}
+
+/* 8. Animations simples au scroll */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Appliquer les animations uniquement quand visible */
+.fade-section.visible {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Stats initialement cachées */
+.creno-stats-showcase,
+.pixshare-stats-showcase {
+    display: none;
+    opacity: 0;
+}
+
+.creno-stat,
+.pixshare-stat {
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+}
+
+/* 9. Fix des sections qui disparaissent */
+section {
+    position: relative !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* 10. Scroll snap désactivé (cause des problèmes) */
+* {
+    scroll-snap-type: none !important;
+    scroll-snap-align: none !important;
+}
+
+/* 11. Z-index pour éviter les superpositions */
+.navbar {
+    z-index: 9999 !important;
+}
+
+.product-showcase-dji {
+    z-index: 1 !important;
+}
+
+/* 12. Transitions plus rapides */
+* {
+    transition-duration: 0.3s !important;
+}
+
+/* 13. Forcer la visibilité du contenu principal */
+#home, #innovation, #projects, #vision, #contact {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Scroll</title>
+</head>
+<body>
+    <h1>Test de scroll</h1>
+    <p>Scrollez pour voir les logs dans la console</p>
+    <div style="height: 2000px; background: linear-gradient(to bottom, #000, #fff);"></div>
+    
+    <script>
+        // Test simple du scroll
+        let scrollCount = 0;
+        window.addEventListener('scroll', () => {
+            scrollCount++;
+            console.log(`Scroll #${scrollCount} - Position: ${window.scrollY}px`);
+        });
+        
+        console.log('Test scroll ready');
+    </script>
+</body>
+</html>
