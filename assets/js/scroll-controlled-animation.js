@@ -108,9 +108,14 @@
                         window.removeEventListener('touchmove', blockOther);
                         window.removeEventListener('keydown', blockOther);
                         
-                        // Débloquer le scroll natif
+                        // Débloquer le scroll natif (avec fix iOS)
+                        const scrollY = document.body.style.top;
                         document.body.style.overflow = '';
                         document.documentElement.style.overflow = '';
+                        document.body.style.position = '';
+                        document.body.style.width = '';
+                        document.body.style.top = '';
+                        window.scrollTo(0, parseInt(scrollY || '0') * -1);
                         
                         // Scroll léger pour continuer
                         setTimeout(() => {
@@ -135,9 +140,12 @@
             window.addEventListener('touchmove', blockOther, { passive: false, capture: true });
             window.addEventListener('keydown', blockOther, { passive: false, capture: true });
             
-            // Bloquer aussi le scroll natif
+            // Bloquer aussi le scroll natif (avec fix iOS)
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+            document.body.style.top = `-${window.scrollY}px`;
         }
         
         function applyScrollAnimation(progress) {
