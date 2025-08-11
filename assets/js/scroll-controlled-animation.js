@@ -63,17 +63,12 @@
                 startScrollBlock();
             }
             
-            // Si on s'éloigne trop, reset (désactivé sur iOS pour éviter les bugs)
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            if (!isIOS && (rect.bottom < -500 || rect.top > viewportHeight + 500)) {
-                if (state.triggered) {
-                    resetAnimation();
-                }
-            }
+            // PAS DE RESET - Une fois jouée, l'animation reste figée jusqu'au rafraîchissement
+            // Les stats restent visibles en permanence après l'animation
         }
         
         function startScrollBlock() {
-            console.log(`🔒 ${config.name} - Scroll bloqué, utilisez la molette pour progresser`);
+            console.log(`🔒 ${config.name} - Scroll bloqué pendant l'animation`);
             
             // Détecter iOS
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -84,55 +79,64 @@
                 return;
             }
             
-            // Code original pour desktop
-            let accumulatedDelta = 0;
-            const scrollSensitivity = 0.5;
-            
-            const handleWheel = (e) => {
-                if (!state.blocking) return;
-                
-                e.preventDefault();
-                e.stopPropagation();
-                
-                accumulatedDelta += e.deltaY * scrollSensitivity;
-                const maxScroll = 1000;
-                state.blockProgress = Math.max(0, Math.min(1, accumulatedDelta / maxScroll));
-                
-                console.log(`📊 Progress: ${Math.round(state.blockProgress * 100)}%`);
-                applyScrollAnimation(state.blockProgress);
-                
-                if (state.blockProgress >= 1 && !state.animationsComplete) {
-                    console.log(`⏳ ${config.name} - Progress 100%, attente fin des animations...`);
-                    state.animationsComplete = true;
-                    setTimeout(() => {
-                        console.log(`🔓 ${config.name} - Toutes animations terminées, déblocage`);
-                        state.blocking = false;
-                        window.removeEventListener('wheel', handleWheel);
-                        window.removeEventListener('touchmove', blockOther);
-                        window.removeEventListener('keydown', blockOther);
-                        
-                        // Restaurer seulement overflow
-                        document.body.style.overflow = '';
-                        document.documentElement.style.overflow = '';
-                    }, 2500);
-                }
-            };
-            
-            const blockOther = (e) => {
+            // Bloquer le scroll pendant l'animation
+            const blockScroll = (e) => {
                 if (state.blocking) {
                     e.preventDefault();
+                    e.stopPropagation();
                     return false;
                 }
             };
             
-            window.addEventListener('wheel', handleWheel, { passive: false, capture: true });
-            window.addEventListener('touchmove', blockOther, { passive: false, capture: true });
-            window.addEventListener('keydown', blockOther, { passive: false, capture: true });
+            // Ajouter les event listeners pour bloquer
+            window.addEventListener('wheel', blockScroll, { passive: false, capture: true });
+            window.addEventListener('touchmove', blockScroll, { passive: false, capture: true });
+            window.addEventListener('keydown', blockScroll, { passive: false, capture: true });
             
-            // Ne pas utiliser position:fixed qui cause le retour en haut
-            // Utiliser seulement overflow:hidden pour bloquer le scroll
+            // Bloquer avec overflow hidden uniquement
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
+            
+            // Animation automatique pendant le blocage
+            const duration = 2000; // 2 secondes
+            const startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                
+                state.blockProgress = progress;
+                applyScrollAnimation(progress);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    console.log(`🔓 ${config.name} - Animation terminée, déblocage`);
+                    state.animationsComplete = true;
+                    state.blocking = false;
+                    
+                    // S'assurer que les stats restent visibles
+                    elements.stats.style.display = 'block';
+                    elements.stats.style.opacity = '1';
+                    
+                    // Garder tous les éléments dans leur état final
+                    elements.statItems.forEach(stat => {
+                        stat.style.opacity = '1';
+                        stat.style.transform = 'translateY(0) scale(1)';
+                    });
+                    
+                    // Retirer les event listeners
+                    window.removeEventListener('wheel', blockScroll);
+                    window.removeEventListener('touchmove', blockScroll);
+                    window.removeEventListener('keydown', blockScroll);
+                    
+                    // Restaurer le scroll
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+                }
+            }
+            
+            requestAnimationFrame(animate);
         }
         
         // Animation automatique pour iOS
@@ -274,35 +278,8 @@
             update();
         }
         
-        function resetAnimation() {
-            console.log(`🔄 Reset ${config.name}`);
-            
-            state.triggered = false;
-            state.blocking = false;
-            state.blockProgress = 0;
-            state.animationsComplete = false;
-            
-            // Reset styles
-            elements.logo.style.transform = 'translate(-50%, -50%) scale(1)';
-            elements.logo.style.opacity = '1';
-            elements.logo.style.filter = 'brightness(1)';
-            
-            if (elements.text) {
-                elements.text.style.transform = 'translateY(0) scale(1)';
-                elements.text.style.opacity = '1';
-            }
-            
-            elements.stats.style.display = 'none';
-            elements.statItems.forEach(stat => {
-                stat.style.opacity = '0';
-                stat.style.transform = 'translateY(30px) scale(0.8)';
-                const counter = stat.querySelector('.stat-counter');
-                if (counter) {
-                    delete counter.dataset.animating;
-                    counter.textContent = '0';
-                }
-            });
-        }
+        // Fonction resetAnimation supprimée - L'animation ne se reset jamais
+        // Elle ne se rejoue qu'après un rafraîchissement de la page
         
         // Écouter le scroll
         let ticking = false;

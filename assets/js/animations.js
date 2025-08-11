@@ -100,10 +100,7 @@ class PortfolioAnimations {
                     this.applyAnimations(elements, progress, state);
                 }
                 
-                // Reset si on s'éloigne
-                if (rect.bottom < -200 || rect.top > viewportHeight + 200) {
-                    this.resetAnimation(elements, state);
-                }
+                // PAS DE RESET - L'animation reste figée une fois jouée
             };
             
             // Optimisation avec RAF
@@ -229,33 +226,8 @@ class PortfolioAnimations {
         update();
     }
     
-    // Reset animation
-    resetAnimation(elements, state) {
-        state.triggered = false;
-        state.statsShown = false;
-        
-        if (elements.text) {
-            elements.text.style.opacity = '1';
-            elements.text.style.transform = 'translateY(0)';
-        }
-        
-        elements.logo.style.transform = 'translate(-50%, -50%) scale(1)';
-        
-        elements.stats.style.opacity = '0';
-        setTimeout(() => {
-            elements.stats.style.display = 'none';
-        }, 300);
-        
-        elements.statItems.forEach(stat => {
-            stat.style.opacity = '0';
-            stat.style.transform = 'translateY(30px) scale(0.8)';
-            const counter = stat.querySelector('.stat-counter');
-            if (counter) {
-                delete counter.dataset.animated;
-                counter.textContent = '0';
-            }
-        });
-    }
+    // Fonction resetAnimation supprimée - L'animation ne se reset jamais
+    // Elle reste figée après avoir été jouée et ne se rejoue qu'au rafraîchissement
     
     // ========================================
     // ANIMATION HERO
