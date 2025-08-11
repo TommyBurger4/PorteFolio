@@ -63,8 +63,9 @@
                 startScrollBlock();
             }
             
-            // Si on s'éloigne trop, reset
-            if (rect.bottom < -500 || rect.top > viewportHeight + 500) {
+            // Si on s'éloigne trop, reset (désactivé sur iOS pour éviter les bugs)
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (!isIOS && (rect.bottom < -500 || rect.top > viewportHeight + 500)) {
                 if (state.triggered) {
                     resetAnimation();
                 }
@@ -74,8 +75,18 @@
         function startScrollBlock() {
             console.log(`🔒 ${config.name} - Scroll bloqué, utilisez la molette pour progresser`);
             
+            // Détecter iOS
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            if (isIOS) {
+                // Animation automatique pour iOS sans bloquer le scroll
+                startIOSAnimation();
+                return;
+            }
+            
+            // Code original pour desktop
             let accumulatedDelta = 0;
-            const scrollSensitivity = 0.5; // Ajuster la sensibilité
+            const scrollSensitivity = 0.5;
             
             const handleWheel = (e) => {
                 if (!state.blocking) return;
@@ -83,23 +94,15 @@
                 e.preventDefault();
                 e.stopPropagation();
                 
-                // Accumuler le delta du scroll
                 accumulatedDelta += e.deltaY * scrollSensitivity;
-                
-                // Convertir en progression (0 à 1)
-                const maxScroll = 1000; // Quantité de scroll nécessaire pour compléter
+                const maxScroll = 1000;
                 state.blockProgress = Math.max(0, Math.min(1, accumulatedDelta / maxScroll));
                 
                 console.log(`📊 Progress: ${Math.round(state.blockProgress * 100)}%`);
-                
-                // Appliquer l'animation
                 applyScrollAnimation(state.blockProgress);
                 
-                // Ne débloquer que si toutes les animations sont terminées
                 if (state.blockProgress >= 1 && !state.animationsComplete) {
                     console.log(`⏳ ${config.name} - Progress 100%, attente fin des animations...`);
-                    
-                    // Attendre que tous les compteurs soient terminés
                     state.animationsComplete = true;
                     setTimeout(() => {
                         console.log(`🔓 ${config.name} - Toutes animations terminées, déblocage`);
@@ -108,27 +111,22 @@
                         window.removeEventListener('touchmove', blockOther);
                         window.removeEventListener('keydown', blockOther);
                         
-                        // Débloquer le scroll natif (avec fix iOS)
-                        const scrollY = document.body.style.top;
                         document.body.style.overflow = '';
                         document.documentElement.style.overflow = '';
                         document.body.style.position = '';
                         document.body.style.width = '';
                         document.body.style.top = '';
-                        window.scrollTo(0, parseInt(scrollY || '0') * -1);
                         
-                        // Scroll léger pour continuer
                         setTimeout(() => {
                             window.scrollBy({
                                 top: 100,
                                 behavior: 'smooth'
                             });
                         }, 300);
-                    }, 2500); // Attendre 2.5s pour que les compteurs finissent
+                    }, 2500);
                 }
             };
             
-            // Bloquer aussi les autres méthodes de scroll
             const blockOther = (e) => {
                 if (state.blocking) {
                     e.preventDefault();
@@ -140,12 +138,36 @@
             window.addEventListener('touchmove', blockOther, { passive: false, capture: true });
             window.addEventListener('keydown', blockOther, { passive: false, capture: true });
             
-            // Bloquer aussi le scroll natif (avec fix iOS)
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
             document.body.style.position = 'fixed';
             document.body.style.width = '100%';
             document.body.style.top = `-${window.scrollY}px`;
+        }
+        
+        // Animation automatique pour iOS
+        function startIOSAnimation() {
+            console.log(`📱 ${config.name} - Animation iOS sans blocage`);
+            
+            const duration = 3000; // 3 secondes
+            const startTime = Date.now();
+            
+            function animate() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                
+                state.blockProgress = progress;
+                applyScrollAnimation(progress);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    console.log(`✅ ${config.name} - Animation iOS terminée`);
+                    state.animationsComplete = true;
+                }
+            }
+            
+            requestAnimationFrame(animate);
         }
         
         function applyScrollAnimation(progress) {

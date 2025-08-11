@@ -96,11 +96,31 @@ class PortfolioApp {
         const menuToggle = document.querySelector('.mobile-menu-toggle');
         const navLinks = document.querySelector('.nav-links');
         
-        if (!menuToggle || !navLinks) return;
+        if (!menuToggle || !navLinks) {
+            console.log('❌ Menu mobile non trouvé');
+            return;
+        }
         
-        menuToggle.addEventListener('click', () => {
+        console.log('📱 Initialisation du menu mobile');
+        
+        menuToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
             menuToggle.classList.toggle('active');
+            
+            // Changer l'icône
+            const icon = menuToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-bars');
+                icon.classList.toggle('fa-times');
+            }
+        });
+        
+        // Fermer le menu en cliquant sur un lien
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
         });
         
         // Fermer le menu en cliquant ailleurs
@@ -114,9 +134,14 @@ class PortfolioApp {
     closeMobileMenu() {
         const navLinks = document.querySelector('.nav-links');
         const menuToggle = document.querySelector('.mobile-menu-toggle');
+        const icon = menuToggle?.querySelector('i');
         
         if (navLinks) navLinks.classList.remove('active');
         if (menuToggle) menuToggle.classList.remove('active');
+        if (icon) {
+            icon.classList.add('fa-bars');
+            icon.classList.remove('fa-times');
+        }
     }
 }
 
