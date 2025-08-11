@@ -165,7 +165,7 @@ nav {
 .creno-animation-container,
 .pixshare-animation-container {
     position: relative;
-    height: 200vh;
+    height: 80vh;
     background: var(--color-black);
     overflow: hidden;
 }

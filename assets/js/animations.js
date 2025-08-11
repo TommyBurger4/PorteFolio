@@ -140,8 +140,8 @@ class PortfolioAnimations {
         const handleWheel = (e) => {
             if (Date.now() < blockEnd) {
                 e.preventDefault();
-                // Scroll très lent (5% de la vitesse) pour faire apparaître les stats progressivement
-                window.scrollBy(0, e.deltaY * 0.05);
+                // Bloquer complètement le scroll pendant l'animation
+                // Ne pas faire de scrollBy qui cause le retour en haut de la page
             } else {
                 window.removeEventListener('wheel', handleWheel);
                 state.blocking = false;

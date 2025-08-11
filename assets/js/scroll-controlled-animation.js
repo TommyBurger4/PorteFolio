@@ -111,18 +111,9 @@
                         window.removeEventListener('touchmove', blockOther);
                         window.removeEventListener('keydown', blockOther);
                         
+                        // Restaurer seulement overflow
                         document.body.style.overflow = '';
                         document.documentElement.style.overflow = '';
-                        document.body.style.position = '';
-                        document.body.style.width = '';
-                        document.body.style.top = '';
-                        
-                        setTimeout(() => {
-                            window.scrollBy({
-                                top: 100,
-                                behavior: 'smooth'
-                            });
-                        }, 300);
                     }, 2500);
                 }
             };
@@ -138,11 +129,10 @@
             window.addEventListener('touchmove', blockOther, { passive: false, capture: true });
             window.addEventListener('keydown', blockOther, { passive: false, capture: true });
             
+            // Ne pas utiliser position:fixed qui cause le retour en haut
+            // Utiliser seulement overflow:hidden pour bloquer le scroll
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
-            document.body.style.position = 'fixed';
-            document.body.style.width = '100%';
-            document.body.style.top = `-${window.scrollY}px`;
         }
         
         // Animation automatique pour iOS
