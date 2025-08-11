@@ -157,6 +157,20 @@ nav {
     z-index: 2;
 }
 
+/* Animation de la flèche */
+@keyframes bounce-arrow {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.bounce-arrow {
+    animation: bounce-arrow 2s ease-in-out infinite;
+}
+
 /* ==========================================================================
    6. ANIMATIONS DJI STYLE
    ========================================================================== */
