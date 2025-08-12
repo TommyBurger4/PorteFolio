@@ -50,16 +50,29 @@
             const distance = Math.abs(triggerPoint - viewportHeight/2);
             
             // Debug proche du centre
-            if (distance < 150 && !state.triggered) {
+            if (distance < 200 && !state.triggered) {
                 console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px`);
             }
             
-            // DÉCLENCHER LE BLOCAGE
-            if (distance < 50 && !state.triggered) {
+            // DÉCLENCHER LE BLOCAGE - Zone élargie pour capturer le scroll rapide
+            // On vérifie aussi si on a dépassé la zone (triggerPoint est au-dessus du centre)
+            const hasPassedTrigger = triggerPoint < viewportHeight/2 && rect.top < 0;
+            
+            if ((distance < 150 || hasPassedTrigger) && !state.triggered) {
                 console.log(`🎯 ${config.name} - BLOCAGE ACTIVÉ!`);
                 state.triggered = true;
                 state.blocking = true;
                 state.scrollStart = window.scrollY;
+                
+                // Si on a dépassé la zone, on force le scroll à revenir
+                if (hasPassedTrigger) {
+                    const targetScroll = window.scrollY - (viewportHeight/2 - triggerPoint);
+                    window.scrollTo({
+                        top: targetScroll,
+                        behavior: 'instant'
+                    });
+                }
+                
                 startScrollBlock();
             }
             
@@ -281,9 +294,10 @@
         // Fonction resetAnimation supprimée - L'animation ne se reset jamais
         // Elle ne se rejoue qu'après un rafraîchissement de la page
         
-        // Écouter le scroll
+        // Écouter le scroll et la molette pour une détection plus rapide
         let ticking = false;
-        window.addEventListener('scroll', function() {
+        
+        function handleScrollCheck() {
             if (!ticking && !state.blocking) {
                 requestAnimationFrame(function() {
                     checkAnimation();
@@ -291,7 +305,12 @@
                 });
                 ticking = true;
             }
-        });
+        }
+        
+        // Double détection pour capturer les scrolls rapides
+        window.addEventListener('scroll', handleScrollCheck);
+        window.addEventListener('wheel', handleScrollCheck, { passive: true });
+        window.addEventListener('touchmove', handleScrollCheck, { passive: true });
         
         console.log(`✅ ${config.name} prêt - Scroll pour contrôler l'animation`);
     }
