@@ -18,6 +18,14 @@
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("BhTBNQbhJz5mhbfcZ"); // Public Key EmailJS
+        })();
+    </script>
+    
     <!-- Préchargement des images importantes -->
     <link rel="preload" as="image" href="assets/images/Creno/icone.png">
     <link rel="preload" as="image" href="assets/images/PixShare/Icone.png">
@@ -36,6 +44,7 @@
             </a>
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
+                <li><a href="#about">Qui sommes-nous</a></li>
                 <li><a href="#creno-showcase">Créno</a></li>
                 <li><a href="#pixshare-showcase">PixShare</a></li>
                 <li><a href="#projects">Projets</a></li>
@@ -56,6 +65,46 @@
         <!-- Flèche animée dans la même section, en bas -->
         <div class="arrow-container" style="position: absolute; bottom: 10vh; left: 50%; transform: translateX(-50%); text-align: center;">
             <h2 class="headline-massive fade-section bounce-arrow" style="opacity: 0.2;">↓</h2>
+        </div>
+    </section>
+
+    <!-- Section Qui sommes-nous -->
+    <section id="about" style="background: #000; padding: 5rem 0;">
+        <div class="section-container">
+            <h2 class="headline-medium fade-section" style="text-align: center; margin-bottom: 4rem; color: #fff;">Qui sommes-nous</h2>
+            <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div style="flex: 1; min-width: 300px;">
+                    <img src="assets/images/TomPaul/PaulEtTom.jpg" alt="Tom et Paul - Notre équipe" 
+                         class="fade-section" 
+                         style="width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);">
+                </div>
+                <div style="flex: 1; min-width: 300px; padding: 0 2rem;">
+                    <h3 class="fade-section" style="font-size: 2rem; margin-bottom: 1.5rem; color: #fff;">
+                        Deux étudiants ingénieurs passionnés
+                    </h3>
+                    <p class="fade-section" style="font-size: 1.2rem; line-height: 1.8; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">
+                        Nous sommes Tom et Paul, deux étudiants en école d'ingénieur spécialisés en informatique. 
+                        Notre philosophie ? Créer des applications qui résolvent de vrais problèmes que nous avons personnellement rencontrés. 
+                        Chaque projet naît d'un besoin réel, transformé en solution digitale innovante grâce à notre passion commune pour le développement.
+                    </p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                        <div class="fade-section hover-lift" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: #fcc60d; font-size: 2rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h4 style="color: #fff; margin-bottom: 0.5rem;">Problème réel</h4>
+                            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">On part toujours d'un besoin concret</p>
+                        </div>
+                        <div class="fade-section hover-lift" style="background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                            <div style="color: #9333ea; font-size: 2rem; margin-bottom: 0.5rem;">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <h4 style="color: #fff; margin-bottom: 0.5rem;">Solution créative</h4>
+                            <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">Innovation et simplicité d'usage</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -111,21 +160,19 @@
                     Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités 
                     de votre groupe et trouve le créneau parfait.
                 </p>
-                <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #fcc60d; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                    Découvrir Créno →
-                </a>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #fcc60d; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                        Découvrir Créno →
+                    </a>
+                    <a href="projets/Créno/user-guide.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #fcc60d; border: 2px solid #fcc60d; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                        <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
+                        Documentation
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Transition -->
-    <section class="transition-section" style="background: #000; padding: 8rem 0;">
-        <div class="section-container" style="text-align: center;">
-            <div class="fade-section">
-                <div style="width: 150px; height: 2px; background: linear-gradient(90deg, transparent, #fff, transparent); margin: 0 auto; opacity: 0.3;"></div>
-            </div>
-        </div>
-    </section>
 
     <!-- PixShare Showcase (DJI Style) -->
     <section class="pixshare-animation-container" id="pixshare-showcase">
@@ -255,18 +302,55 @@
     <section id="contact" class="feature-reveal">
         <div class="section-container">
             <div class="contact-content fade-section">
-                <h2 style="font-size: 3rem; margin-bottom: 2rem;">Travaillons ensemble</h2>
-                <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem;">
+                <h2 style="font-size: 3rem; margin-bottom: 2rem; text-align: center;">Travaillons ensemble</h2>
+                <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; text-align: center;">
                     Prêt à transformer vos idées en réalité digitale ?
                 </p>
-                <div class="contact-links">
-                    <a href="mailto:topalpaul6@gmail.com" title="Email">
-                        <i class="fas fa-envelope"></i>
+                
+                <!-- Formulaire de contact -->
+                <div style="max-width: 600px; margin: 0 auto 3rem;">
+                    <form id="contact-form" style="background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="name" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre nom</label>
+                            <input type="text" id="name" name="from_name" required 
+                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                   onfocus="this.style.borderColor='#fcc60d'" 
+                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="email" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre email</label>
+                            <input type="email" id="email" name="from_email" required 
+                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                   onfocus="this.style.borderColor='#fcc60d'" 
+                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="message" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre message</label>
+                            <textarea id="message" name="message" rows="5" required 
+                                      style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s; resize: vertical;"
+                                      onfocus="this.style.borderColor='#fcc60d'" 
+                                      onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'"></textarea>
+                        </div>
+                        <button type="submit" id="submit-btn" 
+                                style="width: 100%; padding: 1rem; background: #fcc60d; color: #000; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                                onmouseover="this.style.background='#ffdc4d'" 
+                                onmouseout="this.style.background='#fcc60d'">
+                            <span id="btn-text">Envoyer le message</span>
+                            <i class="fas fa-spinner fa-spin" id="btn-spinner" style="display: none;"></i>
+                        </button>
+                        <div id="form-status" style="margin-top: 1rem; text-align: center; display: none;"></div>
+                    </form>
+                </div>
+                
+                <!-- Liens sociaux -->
+                <div class="contact-links" style="text-align: center;">
+                    <a href="https://www.instagram.com/topalfr" target="_blank" title="Instagram">
+                        <i class="fab fa-instagram"></i>
                     </a>
-                    <a href="https://github.com/paul-tometich" target="_blank" title="GitHub">
-                        <i class="fab fa-github"></i>
+                    <a href="https://www.tiktok.com/@topalfr" target="_blank" title="TikTok">
+                        <i class="fab fa-tiktok"></i>
                     </a>
-                    <a href="https://linkedin.com/in/paul-tometich" target="_blank" title="LinkedIn">
+                    <a href="https://www.linkedin.com/company/topalfr/about/?viewAsMember=true" target="_blank" title="LinkedIn Topal">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
@@ -309,6 +393,67 @@
     <script type="module">
         // Configuration Firebase si nécessaire
         // import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
+    </script>
+    
+    <!-- Script de gestion du formulaire de contact -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    const submitBtn = document.getElementById('submit-btn');
+                    const btnText = document.getElementById('btn-text');
+                    const btnSpinner = document.getElementById('btn-spinner');
+                    const formStatus = document.getElementById('form-status');
+                    
+                    // Désactiver le bouton et afficher le spinner
+                    submitBtn.disabled = true;
+                    btnText.style.display = 'none';
+                    btnSpinner.style.display = 'inline-block';
+                    
+                    // Paramètres EmailJS
+                    const serviceID = 'service_sbslxfo';
+                    const templateID = 'template_h16q1jc';
+                    
+                    // Envoyer l'email
+                    emailjs.sendForm(serviceID, templateID, this)
+                        .then(() => {
+                            // Succès
+                            submitBtn.disabled = false;
+                            btnText.style.display = 'inline';
+                            btnSpinner.style.display = 'none';
+                            
+                            formStatus.style.display = 'block';
+                            formStatus.style.color = '#10b981';
+                            formStatus.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>Message envoyé avec succès !';
+                            
+                            // Réinitialiser le formulaire
+                            this.reset();
+                            
+                            // Masquer le message après 5 secondes
+                            setTimeout(() => {
+                                formStatus.style.display = 'none';
+                            }, 5000);
+                        }, (error) => {
+                            // Erreur
+                            console.error('Erreur:', error);
+                            submitBtn.disabled = false;
+                            btnText.style.display = 'inline';
+                            btnSpinner.style.display = 'none';
+                            
+                            formStatus.style.display = 'block';
+                            formStatus.style.color = '#ef4444';
+                            formStatus.innerHTML = '<i class="fas fa-exclamation-circle" style="margin-right: 0.5rem;"></i>Erreur lors de l\'envoi. Veuillez réessayer.';
+                            
+                            setTimeout(() => {
+                                formStatus.style.display = 'none';
+                            }, 5000);
+                        });
+                });
+            }
+        });
     </script>
 </body>
 </html>
