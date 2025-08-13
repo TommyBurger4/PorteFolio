@@ -281,6 +281,60 @@ nav {
     transition: opacity var(--transition-normal);
 }
 
+/* Container des statistiques mobile - Carrousel */
+@media (max-width: 768px) {
+    .creno-stats-container,
+    .pixshare-stats-container {
+        position: absolute;
+        top: 35%;
+        left: 0;
+        right: 0;
+        transform: translateY(-100%);
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        padding: 0;
+        z-index: 35;
+    }
+    
+    /* Wrapper pour le carrousel */
+    .stats-carousel-wrapper {
+        display: flex;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        width: 100%;
+    }
+    
+    /* Indicateurs de navigation (dots) */
+    .carousel-indicators {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 40;
+    }
+    
+    .carousel-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+    
+    .carousel-dot.active {
+        width: 24px;
+        border-radius: 4px;
+        background: var(--color-creno);
+    }
+    
+    .pixshare-stats-container .carousel-dot.active {
+        background: var(--color-pixshare);
+    }
+}
+
 /* Items de statistiques */
 .creno-stat-item,
 .pixshare-stat-item {
@@ -290,11 +344,29 @@ nav {
     transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Positionnement des stats */
+/* Positionnement des stats desktop */
 .stat-item-1 { top: 15%; left: 10%; }
 .stat-item-2 { top: 15%; right: 10%; }
 .stat-item-3 { bottom: 25%; left: 15%; }
 .stat-item-4 { bottom: 25%; right: 15%; }
+
+/* Positionnement des stats mobile - Items du carrousel */
+@media (max-width: 768px) {
+    .creno-stat-item,
+    .pixshare-stat-item {
+        position: relative !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+        flex: 0 0 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 20px;
+    }
+}
 
 /* Boîtes de stats */
 .stat-box {
@@ -509,13 +581,27 @@ nav {
     /* Animations DJI mobile */
     .creno-animation-container,
     .pixshare-animation-container {
-        height: 150vh;
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .animation-sticky-section {
+        position: relative;
+        height: auto;
+        min-height: 100vh;
     }
     
     .creno-logo-zoom img,
     .pixshare-logo-zoom img {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
+    }
+    
+    .creno-logo-zoom,
+    .pixshare-logo-zoom {
+        top: 50%;
+        z-index: 10;
     }
     
     .product-title {
@@ -531,8 +617,27 @@ nav {
     }
     
     .stat-box {
-        padding: 1.5rem 2rem;
-        min-width: 140px;
+        padding: 1.8rem 2.2rem;
+        min-width: 200px;
+        max-width: 280px;
+        margin: 0 auto;
+        transform: scale(0.85);
+    }
+    
+    /* Animation d'entrée pour le carrousel */
+    @keyframes slideInStat {
+        from {
+            opacity: 0;
+            transform: scale(0.8) translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: scale(0.9) translateY(0);
+        }
+    }
+    
+    .stat-box.animate-in {
+        animation: slideInStat 0.5s ease-out forwards;
     }
     
     /* Grille projets mobile */

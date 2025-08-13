@@ -218,49 +218,228 @@
                 
                 // Animer chaque stat en fonction du progress
                 const statsProgress = (progress - 0.3) / 0.7; // 0 à 1 sur 70% du progress
+                const isMobile = window.innerWidth <= 768;
                 
-                elements.statItems.forEach((stat, index) => {
-                    // Chaque stat apparaît à un moment différent
-                    const statStart = index * 0.2; // 0, 0.2, 0.4, 0.6
-                    const statProgress = Math.max(0, Math.min(1, (statsProgress - statStart) / 0.3));
-                    
-                    if (statProgress > 0) {
-                        stat.style.opacity = statProgress;
-                        stat.style.transform = `translateY(${(1 - statProgress) * 30}px) scale(${0.8 + statProgress * 0.2})`;
-                        
-                        // Animer le compteur
-                        const counter = stat.querySelector('.stat-counter');
-                        if (counter && statProgress > 0.5 && !counter.dataset.animating) {
-                            counter.dataset.animating = 'true';
-                            animateCounter(counter, statProgress);
+                if (isMobile) {
+                    // Sur mobile, toutes les stats s'animent ensemble pour le carrousel
+                    elements.statItems.forEach((stat, index) => {
+                        if (statsProgress > 0) {
+                            stat.style.opacity = statsProgress;
+                            stat.style.transform = `scale(${0.8 + statsProgress * 0.2})`;
+                            
+                            // Animer le compteur
+                            const counter = stat.querySelector('.stat-counter');
+                            if (counter && statsProgress > 0.3 && !counter.dataset.animating) {
+                                counter.dataset.animating = 'true';
+                                animateCounter(counter, statsProgress);
+                            }
                         }
-                    }
-                });
+                    });
+                } else {
+                    // Desktop : animation progressive
+                    elements.statItems.forEach((stat, index) => {
+                        // Chaque stat apparaît à un moment différent
+                        const statStart = index * 0.2; // 0, 0.2, 0.4, 0.6
+                        const statProgress = Math.max(0, Math.min(1, (statsProgress - statStart) / 0.3));
+                        
+                        if (statProgress > 0) {
+                            stat.style.opacity = statProgress;
+                            stat.style.transform = `translateY(${(1 - statProgress) * 30}px) scale(${0.8 + statProgress * 0.2})`;
+                            
+                            // Animer le compteur
+                            const counter = stat.querySelector('.stat-counter');
+                            if (counter && statProgress > 0.5 && !counter.dataset.animating) {
+                                counter.dataset.animating = 'true';
+                                animateCounter(counter, statProgress);
+                            }
+                        }
+                    });
+                }
             }
         }
         
         function showStats() {
             console.log(`📊 ${config.name} - Préparation des stats`);
             
+            // Détecter si on est sur mobile
+            const isMobile = window.innerWidth <= 768;
+            
+            if (isMobile) {
+                // Configuration mobile avec carrousel
+                setupMobileCarousel();
+            } else {
+                // Configuration desktop (comme avant)
+                elements.stats.style.cssText = `
+                    display: block !important;
+                    opacity: 1 !important;
+                    position: absolute !important;
+                    top: 50% !important;
+                    left: 50% !important;
+                    transform: translate(-50%, -50%) !important;
+                    width: 90vw !important;
+                    max-width: 1000px !important;
+                    height: 80vh !important;
+                    z-index: 30 !important;
+                    pointer-events: none !important;
+                `;
+                
+                // Préparer les stats (invisibles au début)
+                elements.statItems.forEach(stat => {
+                    stat.style.opacity = '0';
+                    stat.style.transform = 'translateY(30px) scale(0.8)';
+                    stat.style.transition = 'all 0.4s ease-out';
+                });
+            }
+        }
+        
+        function setupMobileCarousel() {
+            console.log(`📱 ${config.name} - Configuration carrousel mobile`);
+            
+            // Container principal - au-dessus du logo
             elements.stats.style.cssText = `
                 display: block !important;
                 opacity: 1 !important;
                 position: absolute !important;
-                top: 50% !important;
-                left: 50% !important;
-                transform: translate(-50%, -50%) !important;
-                width: 90vw !important;
-                max-width: 1000px !important;
-                height: 80vh !important;
-                z-index: 30 !important;
-                pointer-events: none !important;
+                top: 35% !important;
+                left: 0 !important;
+                right: 0 !important;
+                transform: translateY(-100%) !important;
+                width: 100% !important;
+                height: auto !important;
+                overflow: hidden !important;
+                z-index: 35 !important;
             `;
             
-            // Préparer les stats (invisibles au début)
-            elements.statItems.forEach(stat => {
-                stat.style.opacity = '0';
-                stat.style.transform = 'translateY(30px) scale(0.8)';
-                stat.style.transition = 'all 0.4s ease-out';
+            // Créer le wrapper du carrousel
+            let carouselWrapper = elements.stats.querySelector('.stats-carousel-wrapper');
+            if (!carouselWrapper) {
+                carouselWrapper = document.createElement('div');
+                carouselWrapper.className = 'stats-carousel-wrapper';
+                
+                // Déplacer toutes les stats dans le wrapper
+                while (elements.stats.firstChild) {
+                    carouselWrapper.appendChild(elements.stats.firstChild);
+                }
+                elements.stats.appendChild(carouselWrapper);
+            }
+            
+            // Style du wrapper
+            carouselWrapper.style.cssText = `
+                display: flex !important;
+                transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+                width: ${elements.statItems.length * 100}% !important;
+            `;
+            
+            // Configurer chaque stat
+            elements.statItems.forEach((stat, index) => {
+                stat.style.cssText = `
+                    flex: 0 0 ${100 / elements.statItems.length}% !important;
+                    width: ${100 / elements.statItems.length}% !important;
+                    display: flex !important;
+                    justify-content: center !important;
+                    align-items: center !important;
+                    opacity: 0;
+                    transform: scale(0.8);
+                    transition: all 0.4s ease-out;
+                `;
+            });
+            
+            // Créer les indicateurs (dots)
+            let indicators = elements.stats.querySelector('.carousel-indicators');
+            if (!indicators) {
+                indicators = document.createElement('div');
+                indicators.className = 'carousel-indicators';
+                
+                elements.statItems.forEach((_, index) => {
+                    const dot = document.createElement('span');
+                    dot.className = 'carousel-dot';
+                    if (index === 0) dot.classList.add('active');
+                    dot.dataset.index = index;
+                    
+                    // Click sur un dot
+                    dot.addEventListener('click', () => {
+                        goToSlide(index);
+                    });
+                    
+                    indicators.appendChild(dot);
+                });
+                
+                elements.stats.appendChild(indicators);
+            }
+            
+            // Variables pour le swipe
+            let currentSlide = 0;
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            
+            // Fonction pour aller à un slide
+            function goToSlide(index) {
+                currentSlide = index;
+                const offset = -index * (100 / elements.statItems.length);
+                carouselWrapper.style.transform = `translateX(${offset}%)`;
+                
+                // Mettre à jour les dots
+                indicators.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+            
+            // Auto-rotation toutes les 3 secondes (gauche à droite uniquement)
+            let autoRotateInterval = setInterval(() => {
+                if (!isDragging) {
+                    currentSlide++;
+                    // Si on arrive à la fin, revenir au début
+                    if (currentSlide >= elements.statItems.length) {
+                        currentSlide = 0;
+                    }
+                    goToSlide(currentSlide);
+                }
+            }, 3000);
+            
+            // Gestion du swipe tactile
+            carouselWrapper.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
+                clearInterval(autoRotateInterval);
+            }, { passive: true });
+            
+            carouselWrapper.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                currentX = e.touches[0].clientX;
+                const diff = currentX - startX;
+                const offset = -currentSlide * (100 / elements.statItems.length) + (diff / window.innerWidth) * 100;
+                carouselWrapper.style.transform = `translateX(${offset}%)`;
+            }, { passive: true });
+            
+            carouselWrapper.addEventListener('touchend', () => {
+                if (!isDragging) return;
+                isDragging = false;
+                
+                const diff = currentX - startX;
+                const threshold = window.innerWidth / 4;
+                
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0 && currentSlide > 0) {
+                        currentSlide--;
+                    } else if (diff < 0 && currentSlide < elements.statItems.length - 1) {
+                        currentSlide++;
+                    }
+                }
+                
+                goToSlide(currentSlide);
+                
+                // Redémarrer l'auto-rotation (gauche à droite uniquement)
+                autoRotateInterval = setInterval(() => {
+                    if (!isDragging) {
+                        currentSlide++;
+                        // Si on arrive à la fin, revenir au début
+                        if (currentSlide >= elements.statItems.length) {
+                            currentSlide = 0;
+                        }
+                        goToSlide(currentSlide);
+                    }
+                }, 3000);
             });
         }
         
