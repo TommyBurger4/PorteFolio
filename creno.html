@@ -274,8 +274,10 @@
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
                 <li><a href="#features">Fonctionnalités</a></li>
-                <li><a href="#demo">Démo</a></li>
+                <li><a href="#demo">Comment ça marche</a></li>
+                <li><a href="#technical">Détails Techniques</a></li>
                 <li><a href="#download">Télécharger</a></li>
             </ul>
             <button class="mobile-menu-toggle">
@@ -289,10 +291,56 @@
         <div class="hero-content">
             <img src="assets/images/Creno/icone.png" alt="Créno" class="creno-logo-large">
             <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">Créno</h1>
-            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 3rem;">L'organisation réinventée</p>
-            <a href="#features" class="hover-lift" style="display: inline-block; padding: 1.2rem 3rem; background: var(--creno-yellow); color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                Découvrir les fonctionnalités <i class="fas fa-arrow-down"></i>
+            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 2rem;">L'application qui simplifie l'organisation de sorties entre amis</p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Plus besoin de jongler entre 15 conversations pour trouver un créneau
+            </p>
+            <div class="download-buttons fade-section" style="margin-bottom: 2rem;">
+                <a href="https://apps.apple.com/fr/app/cr%C3%A9no/id6748276669" class="download-btn hover-lift" style="background: #fff; color: #000;">
+                    <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Télécharger sur</div>
+                        <div style="font-size: 1.1rem;">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift" style="background: #fff; color: #000;">
+                    <i class="fab fa-google-play" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Disponible sur</div>
+                        <div style="font-size: 1.1rem;">Google Play</div>
+                    </div>
+                </a>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--creno-yellow); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--creno-yellow);">
+                Découvrir l'histoire <i class="fas fa-arrow-down"></i>
             </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="features-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--creno-yellow);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière Créno
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(255, 198, 5, 0.05); border: 1px solid rgba(255, 198, 5, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Nous organisions pleins de sorties et d'événements avec notre groupe d'amis, mais c'était toujours compliqué de savoir quand tout le monde était disponible.
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--creno-yellow);">Le problème :</strong> Comment trouver facilement des créneaux où tous nos amis sont libres en même temps ? 
+                    Entre les emplois du temps qui changent, les entraînements sportifs, le travail et les études... 
+                    C'était un vrai casse-tête à chaque fois !
+                </p>
+                <blockquote style="border-left: 4px solid var(--creno-yellow); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--creno-yellow); font-size: 1.3rem;">
+                    "Créno centralise toutes les indisponibilités de chacun pour trouver facilement les dates parfaites !"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Plus besoin de groupes WhatsApp interminables ou de sondages Doodle compliqués.
+                    Avec Créno, chacun renseigne ses indisponibilités une fois pour toutes, et l'app trouve automatiquement 
+                    les meilleurs créneaux pour organiser vos sorties !
+                </p>
+            </div>
         </div>
     </section>
 
@@ -300,51 +348,173 @@
     <section id="features" class="features-section">
         <div class="section-container">
             <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
-                Pourquoi choisir Créno ?
+                Fonctionnalités principales
             </h2>
             <div class="features-grid">
                 <div class="feature-card fade-section">
-                    <i class="fas fa-calendar-check feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Synchronisation automatique</h3>
-                    <p style="opacity: 0.8;">Créno analyse les disponibilités de tous les participants et trouve automatiquement le créneau parfait.</p>
+                    <i class="fas fa-calendar-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Calendrier partagé</h3>
+                    <p style="opacity: 0.8;">Chaque membre du groupe peut indiquer ses indisponibilités sur un calendrier partagé en temps réel.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Détection automatique</h3>
+                    <p style="opacity: 0.8;">L'algorithme trouve automatiquement les créneaux où tous les membres sont disponibles simultanément.</p>
                 </div>
                 
                 <div class="feature-card fade-section">
                     <i class="fas fa-users feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Groupes illimités</h3>
-                    <p style="opacity: 0.8;">Créez autant de groupes que vous voulez : amis, famille, collègues, équipe sportive...</p>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Groupes personnalisés</h3>
+                    <p style="opacity: 0.8;">Créez différents groupes pour différents types d'activités : famille, amis, collègues, sport...</p>
                 </div>
                 
                 <div class="feature-card fade-section">
                     <i class="fas fa-bell feature-icon"></i>
                     <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Notifications intelligentes</h3>
-                    <p style="opacity: 0.8;">Recevez des rappels personnalisés pour ne jamais rater un événement important.</p>
+                    <p style="opacity: 0.8;">Recevez des notifications quand de nouveaux créneaux deviennent disponibles ou quand un événement approche.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-clock feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Planification événements</h3>
+                    <p style="opacity: 0.8;">Planifiez vos sorties directement dans l'app avec détails, lieu, et confirmations de présence.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-sync feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Synchronisation temps réel</h3>
+                    <p style="opacity: 0.8;">Toutes les modifications sont synchronisées instantanément entre tous les membres du groupe.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Demo Section -->
+    <!-- How it Works Section -->
     <section id="demo" class="demo-section">
         <div class="section-container">
             <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
-                Simple et intuitif
+                Comment ça marche ?
             </h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; align-items: center; max-width: 1000px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--creno-yellow); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        1
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--creno-yellow);">Créez votre groupe</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Invitez vos amis à rejoindre votre groupe Créno. Chaque groupe a son propre calendrier partagé.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--creno-yellow); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        2
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--creno-yellow);">Renseignez vos indisponibilités</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Chaque membre indique ses créneaux d'indisponibilité : travail, cours, autres engagements...</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--creno-yellow); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        3
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--creno-yellow);">Découvrez les créneaux libres</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Créno calcule automatiquement tous les moments où tout le monde est disponible.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--creno-yellow); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        4
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--creno-yellow);">Organisez votre sortie</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Choisissez un créneau, créez l'événement et envoyez les invitations en un clic !</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="features-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--creno-yellow);">
+                Captures d'écran
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 900px; margin: 0 auto;">
+                <div class="fade-section" style="text-align: center;">
+                    <img src="assets/images/Creno/Agenda.png" alt="Votre agenda" style="width: 100%; max-width: 300px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 1rem;">
+                    <h3 style="color: var(--creno-yellow); margin-bottom: 0.5rem;">Votre agenda</h3>
+                    <p style="opacity: 0.8;">Renseigner ses indisponibilités</p>
+                </div>
+                <div class="fade-section" style="text-align: center;">
+                    <img src="assets/images/Creno/CreerEvent.png" alt="Créer un événement" style="width: 100%; max-width: 300px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 1rem;">
+                    <h3 style="color: var(--creno-yellow); margin-bottom: 0.5rem;">Créer un événement</h3>
+                    <p style="opacity: 0.8;">Planifiez facilement vos sorties</p>
+                </div>
+                <div class="fade-section" style="text-align: center;">
+                    <img src="assets/images/Creno/Evenement.png" alt="Planification d'événement" style="width: 100%; max-width: 300px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.3); margin-bottom: 1rem;">
+                    <h3 style="color: var(--creno-yellow); margin-bottom: 0.5rem;">Vos événements</h3>
+                    <p style="opacity: 0.8;">Retracez tous vos événements</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Details Section -->
+    <section id="technical" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Détails techniques
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1200px; margin: 0 auto;">
                 <div class="fade-section">
-                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">1. Créez votre groupe</h3>
-                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Invitez vos amis en quelques secondes avec un simple lien de partage.</p>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--creno-yellow);">Technologies utilisées</h3>
+                    <div style="space-y: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-react" style="font-size: 1.5rem; color: #61DAFB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>React Native</strong> - Framework mobile cross-platform</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-code" style="font-size: 1.5rem; color: #3178C6; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>TypeScript</strong> - Typage statique pour JavaScript</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-fire" style="font-size: 1.5rem; color: #FFA000; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Firebase</strong> - Backend complet (Auth, Firestore, Functions)</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-mobile-alt" style="font-size: 1.5rem; color: #4630EB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Expo SDK</strong> - Build, déploiement et APIs natives</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-bell" style="font-size: 1.5rem; color: #4630EB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Expo Push Notifications</strong> - Notifications push personnalisées</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-credit-card" style="font-size: 1.5rem; color: #A8B8D8; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>StoreKit</strong> - Achats intégrés iOS</span>
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="fade-section">
-                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">2. Proposez des créneaux</h3>
-                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Chacun indique ses disponibilités, Créno fait le reste.</p>
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--creno-yellow);">Défis techniques relevés</h3>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Algorithme de disponibilité</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Calcul efficace des créneaux communs pour plusieurs utilisateurs</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Synchronisation temps réel</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Mise à jour instantanée des calendriers partagés</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Gestion des fuseaux horaires</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Support des groupes avec membres dans différents fuseaux</p>
+                    </div>
                 </div>
-                
-                <div class="fade-section">
-                    <h3 style="font-size: 2rem; margin-bottom: 1.5rem; color: var(--creno-yellow);">3. C'est parti !</h3>
-                    <p style="font-size: 1.2rem; line-height: 1.8; opacity: 0.9;">Le créneau optimal est trouvé, tout le monde est notifié.</p>
-                </div>
+            </div>
+            <div style="text-align: center; margin-top: 3rem;">
+                <a href="projets/Créno/user-guide.html" class="hover-lift" style="display: inline-block; padding: 1rem 2.5rem; background: var(--creno-yellow); color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <i class="fas fa-book" style="margin-right: 0.5rem;"></i>Guide d'utilisation complet
+                </a>
             </div>
         </div>
     </section>
@@ -354,10 +524,10 @@
         <div class="section-container">
             <h2 class="fade-section">Prêt à simplifier vos sorties ?</h2>
             <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
-                Téléchargez Créno gratuitement et ne ratez plus jamais une sortie entre amis.
+                Rejoignez Créno et ne ratez plus jamais une sortie avec vos amis !
             </p>
             <div class="download-buttons fade-section">
-                <a href="#" class="download-btn hover-lift">
+                <a href="https://apps.apple.com/fr/app/cr%C3%A9no/id6748276669" class="download-btn hover-lift">
                     <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
                     <div>
                         <div style="font-size: 0.8rem; opacity: 0.8;">Télécharger sur</div>
@@ -372,17 +542,35 @@
                     </div>
                 </a>
             </div>
+            <div style="margin-top: 3rem;">
+                <a href="projets/Créno/user-guide.html" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: #000; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600;">
+                    <i class="fas fa-book" style="margin-right: 0.5rem;"></i>Documentation utilisateur
+                </a>
+            </div>
+            <div style="margin-top: 2rem;">
+                <p style="font-size: 0.9rem; color: rgba(0,0,0,0.6);">
+                    En utilisant Créno, vous acceptez notre 
+                    <a href="projets/privacy-policy.html" style="color: #000; text-decoration: underline;">Politique de confidentialité</a>
+                </p>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
-        <a href="index.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600;">
-            ← Retour à l'accueil
-        </a>
-        <p style="opacity: 0.5; font-size: 0.9rem; margin-top: 2rem;">
-            © 2024 Topal. Tous droits réservés.
-        </p>
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="projets/Créno/creno.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600; margin-right: 2rem;">
+                    Voir plus de détails sur Créno
+                </a>
+                <a href="index.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2024 Topal. Tous droits réservés.
+            </p>
+        </div>
     </footer>
 
     <!-- Scripts -->
