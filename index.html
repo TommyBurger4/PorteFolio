@@ -562,6 +562,28 @@
     <script src="assets/js/scroll-controlled-animation.js"></script>
     <!-- Animation simple slide-in pour les descriptions -->
     <script src="assets/js/simple-slide-animation.js"></script>
+    <!-- Configuration des projets depuis le fichier JSON -->
+    <script>
+        // Charger la configuration depuis le fichier JSON pour GitHub Pages
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            fetch('./config/projects-settings.json')
+                .then(response => response.json())
+                .then(settings => {
+                    // Stocker dans localStorage pour que projects-manager.js puisse les utiliser
+                    localStorage.setItem('topal-projects-settings', JSON.stringify(settings));
+                    console.log('Settings loaded from JSON:', settings);
+                    
+                    // Recharger l'affichage des projets après le chargement
+                    if (window.updateProjectsDisplay) {
+                        window.updateProjectsDisplay();
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading settings:', error);
+                });
+        }
+    </script>
+    
     <!-- Gestion dynamique des projets -->
     <script src="assets/js/projects-manager.js"></script>
     <script>
