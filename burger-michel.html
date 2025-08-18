@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger Michel EIRL - Site vitrine artisan couvreur | Topal</title>
+    <meta name="description" content="Site vitrine professionnel pour Burger Michel EIRL, artisan couvreur spécialisé dans la couverture et la toiture.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/BurgerMichelEIRL/Icone.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --burger-orange: #EA580C;
+            --burger-dark: #1a1a1a;
+            --burger-light-orange: #FB923C;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .burger-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .burger-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--burger-orange) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .burger-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(234, 88, 12, 0.05);
+            border: 1px solid rgba(234, 88, 12, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--burger-orange);
+            background: rgba(234, 88, 12, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--burger-orange);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--burger-orange) 0%, var(--burger-light-orange) 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: #fff;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .burger-hero h1 {
+                font-size: 3rem !important;
+            }
+
+            .burger-hero p {
+                font-size: 1.2rem !important;
+            }
+
+            .burger-logo-large {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .features-section, .demo-section {
+                padding: 4rem 0;
+            }
+
+            .features-section h2, .demo-section h2, .cta-section h2 {
+                font-size: 2rem !important;
+            }
+
+            .demo-section h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .cta-section {
+                padding: 4rem 1rem;
+            }
+
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+                margin: 0.5rem 0;
+            }
+
+            /* Navigation mobile */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            nav {
+                padding: 1rem 0;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hover-lift {
+                font-size: 1rem !important;
+                padding: 1rem 2rem !important;
+            }
+        }
+
+        /* Hide mobile menu toggle on desktop */
+        @media (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Retour à l'accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#demo">Réalisations</a></li>
+                <li><a href="#technical">Détails Techniques</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="burger-hero">
+        <div class="hero-content">
+            <img src="assets/images/BurgerMichelEIRL/Icone.png" alt="Burger Michel EIRL" class="burger-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">Burger Michel EIRL</h1>
+            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 2rem;">Site vitrine professionnel pour artisan couvreur</p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Une présence digitale moderne pour un savoir-faire traditionnel
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <a href="#" class="action-btn hover-lift">
+                    <i class="fas fa-external-link-alt" style="font-size: 1.2rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Visiter le</div>
+                        <div style="font-size: 1.1rem;">Site Web</div>
+                    </div>
+                </a>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--burger-orange); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--burger-orange);">
+                Découvrir le projet <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="features-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--burger-orange);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire du projet
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(234, 88, 12, 0.05); border: 1px solid rgba(234, 88, 12, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Burger Michel EIRL est une entreprise artisanale spécialisée dans la couverture et les travaux de toiture.
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--burger-orange);">Le besoin :</strong> L'entreprise avait besoin d'une présence digitale moderne pour présenter ses services, 
+                    son savoir-faire et permettre aux clients de la contacter facilement. 
+                    Un site vitrine professionnel était essentiel pour développer son activité.
+                </p>
+                <blockquote style="border-left: 4px solid var(--burger-orange); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--burger-orange); font-size: 1.3rem;">
+                    "Un site web professionnel qui reflète la qualité et le sérieux de notre savoir-faire artisanal"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Nous avons créé un site vitrine moderne, responsive et optimisé pour présenter les services 
+                    de cette entreprise familiale avec élégance et professionnalisme.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Fonctionnalités développées
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-home feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Page d'accueil attractive</h3>
+                    <p style="opacity: 0.8;">Design moderne et professionnel mettant en valeur l'expertise et les services de l'entreprise.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-wrench feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Présentation des services</h3>
+                    <p style="opacity: 0.8;">Description détaillée de tous les services de couverture avec photos et explications techniques.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-images feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Galerie de réalisations</h3>
+                    <p style="opacity: 0.8;">Portfolio visuel des travaux réalisés pour rassurer et convaincre les prospects.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-envelope feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Formulaire de contact</h3>
+                    <p style="opacity: 0.8;">Système de contact intégré permettant aux clients de demander facilement des devis.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Design responsive</h3>
+                    <p style="opacity: 0.8;">Site parfaitement adapté à tous les écrans : mobile, tablette et ordinateur.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Référencement SEO</h3>
+                    <p style="opacity: 0.8;">Optimisation pour les moteurs de recherche pour améliorer la visibilité locale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, #000);"></div>
+
+    <!-- Achievements Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Réalisations du projet
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--burger-orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-pencil-ruler"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--burger-orange);">Design personnalisé</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Création d'une identité visuelle unique reflétant les valeurs artisanales de l'entreprise.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--burger-orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--burger-orange);">Développement sur mesure</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Code HTML/CSS/JavaScript optimisé pour les performances et le référencement.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--burger-orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--burger-orange);">Mise en ligne</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Déploiement professionnel avec nom de domaine et hébergement optimisé.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--burger-orange); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--burger-orange);">Résultats mesurables</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Amélioration significative de la visibilité en ligne et des demandes de devis.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from black to dark -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #1a1a1a);"></div>
+
+    <!-- Technical Details Section -->
+    <section id="technical" class="demo-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--burger-orange);">
+                Détails techniques
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--burger-orange);">Technologies utilisées</h3>
+                    <div style="space-y: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-html5" style="font-size: 1.5rem; color: #E34F26; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>HTML5</strong> - Structure sémantique moderne</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-css3-alt" style="font-size: 1.5rem; color: #1572B6; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>CSS3</strong> - Design responsive et animations</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-js-square" style="font-size: 1.5rem; color: #F7DF1E; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>JavaScript</strong> - Interactivité et formulaires</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-search" style="font-size: 1.5rem; color: #4285F4; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>SEO</strong> - Optimisation pour les moteurs de recherche</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-server" style="font-size: 1.5rem; color: #FF6B35; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Hébergement Web</strong> - Solution professionnelle</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--burger-orange);">Défis relevés</h3>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Image de marque digitale</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Créer une présence en ligne professionnelle pour un métier traditionnel</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Référencement local</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Optimisation pour apparaître dans les recherches géolocalisées</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Génération de leads</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Conversion des visiteurs en prospects qualifiés</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Design professionnel</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Interface moderne inspirant confiance et crédibilité</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to orange -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, var(--burger-orange));"></div>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section">Besoin d'un site vitrine ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(255,255,255,0.9);">
+                Comme Burger Michel EIRL, donnez une présence digitale moderne à votre entreprise !
+            </p>
+            <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+                <a href="#" class="action-btn hover-lift">
+                    <i class="fas fa-external-link-alt" style="font-size: 1.2rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Visiter le</div>
+                        <div style="font-size: 1.1rem;">Site réalisé</div>
+                    </div>
+                </a>
+                <a href="index.html#contact" class="action-btn hover-lift">
+                    <i class="fas fa-envelope" style="font-size: 1.2rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Nous contacter pour</div>
+                        <div style="font-size: 1.1rem;">Votre projet</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from orange to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--burger-orange), #000);"></div>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--burger-orange); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2025 Topal. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Also force scroll to top on beforeunload (refresh)
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Additional fallback - immediate scroll to top
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

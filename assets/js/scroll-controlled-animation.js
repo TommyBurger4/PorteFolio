@@ -6,7 +6,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         const sections = [
             { name: 'creno', color: '#ffc605' },
-            { name: 'pixshare', color: '#9333ea' }
+            { name: 'pixshare', color: '#9333ea' },
+            { name: 'findmycourt', color: '#FFD700' },
+            { name: 'fakt', color: '#87CEEB' }
         ];
         
         sections.forEach(config => {

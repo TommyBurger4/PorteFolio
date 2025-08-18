@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixShare - Partage de photos simplifié | Topal</title>
+    <meta name="description" content="PixShare transforme le partage de photos en albums privés et sécurisés. Plus jamais de photos dispersées après vos événements.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/PixShare/Icone.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --pixshare-green: #10B981;
+            --pixshare-dark: #1a1a1a;
+            --pixshare-light-green: #34D399;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .pixshare-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pixshare-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--pixshare-green) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .pixshare-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(16, 185, 129, 0.05);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--pixshare-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--pixshare-green);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--pixshare-green) 0%, var(--pixshare-light-green) 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: #000;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .pixshare-hero h1 {
+                font-size: 3rem !important;
+            }
+
+            .pixshare-hero p {
+                font-size: 1.2rem !important;
+            }
+
+            .pixshare-logo-large {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .features-section, .demo-section {
+                padding: 4rem 0;
+            }
+
+            .features-section h2, .demo-section h2, .cta-section h2 {
+                font-size: 2rem !important;
+            }
+
+            .demo-section h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .download-btn {
+                width: 250px;
+                justify-content: center;
+            }
+
+            .cta-section {
+                padding: 4rem 1rem;
+            }
+
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            /* Navigation mobile */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            nav {
+                padding: 1rem 0;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hover-lift {
+                font-size: 1rem !important;
+                padding: 1rem 2rem !important;
+            }
+        }
+
+        /* Hide mobile menu toggle on desktop */
+        @media (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Retour à l'accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#demo">Comment ça marche</a></li>
+                <li><a href="#technical">Détails Techniques</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pixshare-hero">
+        <div class="hero-content">
+            <img src="assets/images/PixShare/Icone.png" alt="PixShare" class="pixshare-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">PixShare</h1>
+            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 2rem;">Partagez vos photos d'événements dans des albums privés sécurisés</p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Plus jamais de photos dispersées après vos sorties !
+            </p>
+            <div class="download-buttons fade-section" style="margin-bottom: 2rem;">
+                <a href="#" class="download-btn hover-lift" style="background: #fff; color: #000;">
+                    <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Bientôt sur</div>
+                        <div style="font-size: 1.1rem;">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift" style="background: #fff; color: #000;">
+                    <i class="fab fa-google-play" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Bientôt sur</div>
+                        <div style="font-size: 1.1rem;">Google Play</div>
+                    </div>
+                </a>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--pixshare-green); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--pixshare-green);">
+                Découvrir l'histoire <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="features-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--pixshare-green);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière PixShare
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Lors d'un voyage avec des amis, nous nous sommes retrouvés avec des dizaines de photos réparties sur différents téléphones.
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--pixshare-green);">Le défi :</strong> Comment rassembler toutes ces photos sans passer par des groupes WhatsApp interminables ou des drives partagés compliqués ? 
+                    Nous voulions un espace privé et sécurisé où chaque participant peut ajouter ses photos, accessible uniquement aux personnes ayant le code d'accès.
+                </p>
+                <blockquote style="border-left: 4px solid var(--pixshare-green); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--pixshare-green); font-size: 1.3rem;">
+                    "Une app où on crée un album, on partage le code, et tout le monde peut ajouter ses photos sans s'embêter avec des comptes compliqués !"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    PixShare est né de cette simplicité recherchée : des albums photo privés accessibles par code, 
+                    où chacun contribue facilement à immortaliser les moments partagés.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Fonctionnalités principales
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-lock feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Albums sécurisés</h3>
+                    <p style="opacity: 0.8;">Chaque album est protégé par un code d'accès unique. Seules les personnes ayant le code peuvent voir et ajouter des photos.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-plus feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Ajout collaboratif</h3>
+                    <p style="opacity: 0.8;">Tous les membres peuvent ajouter leurs photos à l'album partagé. Plus besoin d'envoyer les photos une par une !</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-qrcode feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Codes d'accès simples</h3>
+                    <p style="opacity: 0.8;">Partagez simplement le code d'accès de l'album. Pas besoin de créer des comptes ou d'ajouter des contacts.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-images feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Galerie unifiée</h3>
+                    <p style="opacity: 0.8;">Toutes les photos de l'événement rassemblées au même endroit. Visualisez et téléchargez facilement toutes les photos.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-cloud feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Stockage cloud</h3>
+                    <p style="opacity: 0.8;">Vos photos sont sauvegardées dans le cloud de manière sécurisée. Accédez-y depuis n'importe quel appareil.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-mobile-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Interface intuitive</h3>
+                    <p style="opacity: 0.8;">Design simple et épuré pour une expérience utilisateur fluide. Créez, rejoignez et partagez en quelques clics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, #000);"></div>
+
+    <!-- How it Works Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Comment ça marche ?
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--pixshare-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        1
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--pixshare-green);">Créez votre album</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Donnez un nom à votre album, choisissez une photo de couverture. Un code d'accès unique est automatiquement généré.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--pixshare-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        2
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--pixshare-green);">Partagez le code</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Envoyez le code d'accès à vos amis, famille ou collègues. Ils pourront rejoindre l'album en saisissant ce code.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--pixshare-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        3
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--pixshare-green);">Ajoutez vos photos</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Chaque membre peut ajouter ses photos directement depuis son téléphone. Toutes les photos sont rassemblées dans l'album.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--pixshare-green); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        4
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--pixshare-green);">Profitez de vos souvenirs</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Consultez, téléchargez et partagez toutes les photos de l'événement depuis un seul endroit.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from black to dark -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #1a1a1a);"></div>
+
+    <!-- Technical Details Section -->
+    <section id="technical" class="demo-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--pixshare-green);">
+                Détails techniques
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--pixshare-green);">Technologies utilisées</h3>
+                    <div style="space-y: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-react" style="font-size: 1.5rem; color: #61DAFB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>React Native</strong> - Framework mobile cross-platform</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-mobile-alt" style="font-size: 1.5rem; color: #4630EB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Expo</strong> - Plateforme de développement</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-fire" style="font-size: 1.5rem; color: #FFA000; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Firebase</strong> - Base de données et authentification</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-cloud" style="font-size: 1.5rem; color: #10B981; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Firebase Storage</strong> - Stockage des photos</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-code" style="font-size: 1.5rem; color: #3178C6; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>TypeScript</strong> - Développement typé</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--pixshare-green);">Défis techniques relevés</h3>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Gestion des permissions</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Accès sécurisé aux albums via codes d'accès uniques</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Upload d'images optimisé</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Compression et upload efficace des photos haute résolution</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Interface responsive</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Adaptation automatique à tous types d'écrans mobiles</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Synchronisation temps réel</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Mise à jour instantanée des albums pour tous les membres</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to green -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, var(--pixshare-green));"></div>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section">Prêt à simplifier le partage de photos ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
+                PixShare arrive bientôt ! Ne ratez plus jamais les photos de vos événements.
+            </p>
+            <div class="download-buttons fade-section">
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-apple" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Bientôt sur</div>
+                        <div style="font-size: 1.1rem;">App Store</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-google-play" style="font-size: 1.5rem;"></i>
+                    <div>
+                        <div style="font-size: 0.8rem; opacity: 0.8;">Bientôt sur</div>
+                        <div style="font-size: 1.1rem;">Google Play</div>
+                    </div>
+                </a>
+            </div>
+            <div style="margin-top: 2rem;">
+                <p style="font-size: 0.9rem; color: rgba(0,0,0,0.6);">
+                    En utilisant PixShare, vous acceptez notre 
+                    <a href="projets/privacy-policy.html" style="color: #000; text-decoration: underline;">Politique de confidentialité</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from green to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--pixshare-green), #000);"></div>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--pixshare-green); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2025 Topal. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Also force scroll to top on beforeunload (refresh)
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Additional fallback - immediate scroll to top
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

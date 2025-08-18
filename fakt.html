@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakt - Automatisation de facturation | Topal</title>
+    <meta name="description" content="Automatisez votre facturation Booking.com avec Fakt. Générez vos factures PDF en un clic directement depuis vos réservations.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/Fakt/icone.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --fakt-blue: #87CEEB;
+            --fakt-dark: #1a1a1a;
+            --fakt-light-blue: #ADD8E6;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .fakt-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fakt-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--fakt-blue) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .fakt-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections */
+        .story-section {
+            padding: 8rem 0;
+            background: #1a1a1a;
+        }
+
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .stats-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%);
+        }
+
+        .tech-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        .demo-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%);
+            text-align: center;
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(135, 206, 235, 0.05);
+            border: 1px solid rgba(135, 206, 235, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--fakt-blue);
+            background: rgba(135, 206, 235, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--fakt-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            color: #000;
+        }
+
+        .stat-icon {
+            background: rgba(0, 0, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+        }
+
+        /* Tech details */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(135, 206, 235, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(135, 206, 235, 0.2);
+        }
+
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--fakt-blue);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.5rem;
+        }
+
+        /* Demo container */
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .demo-frame {
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(135, 206, 235, 0.2);
+        }
+
+        /* CTA buttons */
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .fakt-hero h1 {
+                font-size: 3rem !important;
+            }
+
+            .fakt-logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .features-grid, .stats-grid, .tech-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .story-section, .features-section, .stats-section, .tech-section, .demo-section, .cta-section {
+                padding: 4rem 0;
+            }
+
+            .demo-frame {
+                height: 400px;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .download-btn {
+                width: 125px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Retour à l'accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#stats">Statistiques</a></li>
+                <li><a href="#tech">Technique</a></li>
+                <li><a href="#demo">Démonstration</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="fakt-hero">
+        <div class="hero-content">
+            <img src="assets/images/Fakt/icone.png" alt="Fakt" class="fakt-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">Fakt</h1>
+            <p class="fade-section" style="font-size: 2rem; margin: 2rem 0; opacity: 0.8;">
+                Automatisation de facturation
+            </p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                Générez vos factures PDF en un clic directement depuis vos réservations Booking.com
+            </p>
+            <div class="fade-section" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Node.js</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Electron</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">PDF Generation</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Application Bureau</span>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--fakt-blue); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--fakt-blue);">
+                Découvrir l'histoire <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--fakt-blue);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière Fakt
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(135, 206, 235, 0.05); border: 1px solid rgba(135, 206, 235, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    En tant que propriétaires de biens locatifs sur Booking.com, nous étions confrontés à une tâche répétitive et chronophage : 
+                    créer manuellement des factures pour chaque réservation.
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--fakt-blue);">Le problème :</strong> Booking.com ne génère pas automatiquement de factures détaillées 
+                    pour les propriétaires. Il fallait récupérer les informations de chaque réservation et créer manuellement les documents PDF.
+                </p>
+                <blockquote style="border-left: 4px solid var(--fakt-blue); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--fakt-blue); font-size: 1.3rem;">
+                    "Et si on automatisait complètement ce processus pour économiser des heures de travail administratif ?"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    C'est ainsi que Fakt est né : une solution qui transforme vos réservations Booking.com en factures PDF professionnelles 
+                    en quelques clics seulement.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Fonctionnalités principales
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-file-pdf feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Génération PDF automatique</h3>
+                    <p style="opacity: 0.8;">Transformez vos réservations Booking.com en factures PDF professionnelles en un seul clic.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-sync feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Synchronisation Booking</h3>
+                    <p style="opacity: 0.8;">Récupération automatique des données de réservation directement depuis votre compte Booking.com.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-edit feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Templates personnalisables</h3>
+                    <p style="opacity: 0.8;">Créez et personnalisez vos modèles de factures avec votre logo et vos informations d'entreprise.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-calculator feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Calculs automatiques</h3>
+                    <p style="opacity: 0.8;">Gestion automatique des taxes, frais de service et calculs de commission selon vos paramètres.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-folder feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Organisation par dossiers</h3>
+                    <p style="opacity: 0.8;">Classement automatique des factures par mois, propriété ou type de réservation.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Sécurité des données</h3>
+                    <p style="opacity: 0.8;">Toutes vos données restent locales sur votre ordinateur. Aucune information n'est envoyée vers nos serveurs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to blue -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: #000;">
+                En quelques chiffres
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">1,200+</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Factures générées</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Depuis le lancement</p>
+                </div>
+                
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">95%</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Gain de temps</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Par rapport à la création manuelle</p>
+                </div>
+                
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">150+</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Propriétaires utilisateurs</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Qui nous font confiance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from blue to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
+
+    <!-- Technical Details Section -->
+    <section id="tech" class="tech-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Détails techniques
+            </h2>
+            <div class="tech-grid">
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--fakt-blue);">Technologies utilisées</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fab fa-node-js"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Node.js</h4>
+                                <p style="opacity: 0.8; margin: 0;">Runtime JavaScript côté serveur</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Electron</h4>
+                                <p style="opacity: 0.8; margin: 0;">Framework d'application bureau cross-platform</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">PDFKit</h4>
+                                <p style="opacity: 0.8; margin: 0;">Génération de documents PDF</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Web Scraping</h4>
+                                <p style="opacity: 0.8; margin: 0;">Extraction des données Booking.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--fakt-blue);">Défis techniques relevés</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Sécurité des données</h4>
+                                <p style="opacity: 0.8; margin: 0;">Traitement local des informations sensibles sans transmission externe</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Synchronisation fiable</h4>
+                                <p style="opacity: 0.8; margin: 0;">Récupération robuste des données malgré les changements d'interface</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Interface intuitive</h4>
+                                <p style="opacity: 0.8; margin: 0;">Design simple pour une adoption rapide par tous les utilisateurs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from black to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #0a0a0a);"></div>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">
+                Démonstration en action
+            </h2>
+            <p class="fade-section" style="text-align: center; opacity: 0.8; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Découvrez comment Fakt transforme vos réservations Booking.com en factures PDF professionnelles.
+            </p>
+            <div class="demo-container">
+                <div class="demo-frame fade-section">
+                    <div style="width: 100%; height: 100%; background: rgba(135, 206, 235, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center; color: var(--fakt-blue);">
+                            <i class="fas fa-play-circle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Démonstration interactive</h3>
+                            <p style="opacity: 0.8;">Bientôt disponible</p>
+                        </div>
+                    </div>
+                </div>
+                <p style="text-align: center; opacity: 0.6; margin-top: 1rem; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                    Interface de génération de factures Fakt
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to blue -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="color: #000;">Prêt à automatiser votre facturation ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
+                Rejoignez les propriétaires qui économisent des heures grâce à Fakt !
+            </p>
+            <div class="download-buttons fade-section">
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fas fa-download" style="font-size: 1rem;"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger pour</div>
+                        <div style="font-size: 0.9rem;">Windows</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-apple" style="font-size: 1rem;"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger pour</div>
+                        <div style="font-size: 0.9rem;">macOS</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from blue to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--fakt-blue); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2025 Topal. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-links')?.classList.toggle('active');
+        });
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

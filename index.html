@@ -45,8 +45,18 @@
             <ul class="nav-links">
                 <li><a href="#home">Accueil</a></li>
                 <li><a href="#about">Qui sommes-nous</a></li>
-                <li><a href="#creno-showcase">Créno</a></li>
-                <li><a href="#pixshare-showcase">PixShare</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Applications <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu" id="apps-menu">
+                        <!-- Applications seront générées ici -->
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Sites web <i class="fas fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu" id="websites-menu">
+                        <!-- Sites web seront générés ici -->
+                    </ul>
+                </li>
                 <li><a href="#projects">Projets</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -60,7 +70,7 @@
     <section id="home" class="hero-zoom" style="align-items: flex-start; padding-top: 15vh; position: relative;">
         <div class="hero-content">
             <h1 class="headline-massive fade-section">Topal</h1>
-            <p class="product-subtitle fade-section">Innovation Digitale</p>
+            <p class="product-subtitle fade-section" style="margin-top: 2rem;">Innovation Digitale</p>
             <p class="product-tagline fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-top: 1rem; font-weight: 300;">Découvrez notre collection de projets qui transforment les idées en projets concrets.</p>
         </div>
         <!-- Flèche animée dans la même section, en bas -->
@@ -97,7 +107,7 @@
                                 <p style="color: rgba(255, 255, 255, 0.6); font-size: 0.9rem;">On part toujours d'un besoin concret</p>
                             </div>
                             <div class="hover-lift" style="flex: 1; background: rgba(255, 255, 255, 0.05); padding: 1.5rem; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                                <div style="color: #9333ea; font-size: 2rem; margin-bottom: 0.5rem;">
+                                <div style="color: #10B981; font-size: 2rem; margin-bottom: 0.5rem;">
                                     <i class="fas fa-lightbulb"></i>
                                 </div>
                                 <h4 style="color: #fff; margin-bottom: 0.5rem;">Solution créative</h4>
@@ -163,10 +173,10 @@
                     de votre groupe et trouve le créneau parfait.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #fcc60d; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #1a315c; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         Découvrir Créno →
                     </a>
-                    <a href="projets/Créno/user-guide.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #fcc60d; border: 2px solid #fcc60d; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="projets/Créno/user-guide.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #1a315c; border: 2px solid #1a315c; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
                         Documentation
                     </a>
@@ -235,12 +245,81 @@
                     Partagez vos moments en toute simplicité. PixShare révolutionne le partage photo 
                     avec une expérience intuitive et sécurisée.
                 </p>
-                <a href="pixshare.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #9333ea; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                <a href="pixshare.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #10B981; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                     Découvrir PixShare →
                 </a>
             </div>
         </div>
     </section>
+
+    <!-- FindMyCourt Showcase (DJI Style) -->
+    <section class="findmycourt-animation-container" id="findmycourt-showcase">
+        <div class="animation-sticky-section">
+            <!-- Logo central -->
+            <div class="findmycourt-logo-zoom">
+                <img src="assets/images/FindMyCourt/logoFDM.png" alt="FindMyCourt">
+            </div>
+            
+            <!-- Statistiques -->
+            <div class="findmycourt-stats-container">
+                <div class="findmycourt-stat-item stat-item-1">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="2500">0</div>
+                        <div class="stat-label">Terrains référencés</div>
+                    </div>
+                </div>
+                
+                <div class="findmycourt-stat-item stat-item-2">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="850">0</div>
+                        <div class="stat-label">Joueurs actifs</div>
+                    </div>
+                </div>
+                
+                <div class="findmycourt-stat-item stat-item-3">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="4.7">0</div>
+                        <div class="stat-label">Note moyenne</div>
+                    </div>
+                </div>
+                
+                <div class="findmycourt-stat-item stat-item-4">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="15">0</div>
+                        <div class="stat-label">Villes couvertes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Texte et indicateur -->
+            <div class="findmycourt-text-content">
+                <h3 class="product-title">FindMyCourt</h3>
+                <p class="product-subtitle">Trouvez votre terrain idéal</p>
+                <div class="scroll-indicator">
+                    <span>Scroll pour découvrir</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section FindMyCourt -->
+    <section class="scroll-section" style="background: #000; padding: 2rem 0;">
+        <div class="section-container">
+            <div class="slide-in-left" style="text-align: center; width: 100%;">
+                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+                    Découvrez des terrains de sport près de chez vous et connectez-vous avec d'autres joueurs 
+                    grâce à notre plateforme communautaire interactive.
+                </p>
+                <a href="findmycourt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #FFD700; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    Découvrir FindMyCourt →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Conteneur dynamique pour les projets actifs -->
+    <div id="dynamic-projects-container"></div>
 
     <!-- Projets -->
     <section id="projects" class="scroll-section" style="background: #000;">
@@ -261,7 +340,7 @@
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">PixShare</h3>
                         <p style="opacity: 0.8; margin-bottom: 1.5rem;">Plateforme de partage photo nouvelle génération</p>
-                        <a href="pixshare.html" style="color: #9333ea; text-decoration: none; font-weight: 600;">
+                        <a href="pixshare.html" style="color: #10B981; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
@@ -299,6 +378,33 @@
             </div>
         </div>
     </section>
+
+    <!-- INDIVIDUAL_PROJECTS_START -->
+    <!-- Conteneur dynamique pour les projets actifs -->
+    <!-- INDIVIDUAL_PROJECTS_END -->
+
+    <!-- NAVIGATION_ITEMS_START -->
+    <!-- Script de mise à jour automatique des menus -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Par défaut, mettre Créno et PixShare dans Applications
+        const appsMenu = document.getElementById('apps-menu');
+        if (appsMenu) {
+            appsMenu.innerHTML = `
+                        <li><a href="#creno-showcase">Créno</a></li>
+                        <li><a href="#pixshare-showcase">PixShare</a></li>
+                        `;
+        }
+        
+        // Sites web menu reste vide par défaut
+        const websitesMenu = document.getElementById('websites-menu');
+        if (websitesMenu) {
+            websitesMenu.innerHTML = '';
+        }
+    });
+    </script>
+    <!-- NAVIGATION_ITEMS_END -->
+
 
     <!-- Contact -->
     <section id="contact" class="feature-reveal">
@@ -363,7 +469,7 @@
     <!-- Footer -->
     <footer style="background: #000; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
         <p style="opacity: 0.5; font-size: 0.9rem;">
-            © 2024 Topal. Tous droits réservés.
+            © 2025 Topal. Tous droits réservés.
         </p>
     </footer>
 
@@ -390,6 +496,77 @@
     <script src="assets/js/scroll-controlled-animation.js"></script>
     <!-- Animation simple slide-in pour les descriptions -->
     <script src="assets/js/simple-slide-animation.js"></script>
+    <!-- Gestion dynamique des projets -->
+    <script src="assets/js/projects-manager.js"></script>
+    <script>
+        // Forcer la création des sections immédiatement
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                // Lire les paramètres depuis localStorage
+                const settings = JSON.parse(localStorage.getItem('topal-projects-settings') || '{}');
+                console.log('Settings admin:', settings);
+                
+                const container = document.getElementById('dynamic-projects-container');
+                if (container) {
+                    console.log('Container trouvé, création des sections selon paramètres admin...');
+                    
+                    // Configuration des projets
+                    const projects = {
+                        fakt: {
+                            name: 'Fakt',
+                            color: '#498fc3',
+                            description: 'Créez rapidement des devis PDF professionnels pour vos services et locations.',
+                            url: 'fakt.html'
+                        },
+                        'burger-michel': {
+                            name: 'Burger Michel',
+                            color: '#ff6b6b',
+                            description: 'Site web en cours pour une entreprise de couverture.',
+                            url: 'burger-michel.html'
+                        },
+                        'clubs-sportifs': {
+                            name: 'Clubs Sportifs',
+                            color: '#8B5CF6',
+                            description: 'Plateforme de gestion pour clubs sportifs.',
+                            url: 'clubs-sportifs.html'
+                        }
+                    };
+                    
+                    // Créer les sections uniquement pour les projets activés
+                    let sectionsCreated = [];
+                    Object.entries(projects).forEach(([projectId, config]) => {
+                        if (settings[projectId] === true) {
+                            console.log('Création section pour:', config.name);
+                            const section = document.createElement('section');
+                            section.style.cssText = 'background: #000 !important; padding: 4rem 0 !important; min-height: 400px !important; display: block !important;';
+                            section.innerHTML = `
+                                <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+                                    <div style="text-align: center;">
+                                        <h2 style="font-size: 3rem !important; margin-bottom: 2rem !important; color: ${config.color} !important; font-weight: bold !important;">
+                                            ${config.name}
+                                        </h2>
+                                        <p style="font-size: 1.5rem !important; max-width: 700px !important; margin: 0 auto 3rem !important; line-height: 1.8 !important; color: #fff !important;">
+                                            ${config.description}
+                                        </p>
+                                        <a href="${config.url}" style="display: inline-block !important; padding: 1.2rem 3.5rem !important; background: ${config.color} !important; color: #fff !important; text-decoration: none !important; border-radius: 50px !important; font-weight: 600 !important; font-size: 1.1rem !important; transition: all 0.3s !important;">
+                                            Découvrir ${config.name} →
+                                        </a>
+                                    </div>
+                                </div>`;
+                            container.appendChild(section);
+                            sectionsCreated.push(config.name);
+                        } else {
+                            console.log('Projet désactivé:', config.name);
+                        }
+                    });
+                    
+                    console.log('Sections créées:', sectionsCreated.join(', ') || 'Aucune');
+                } else {
+                    console.error('Container non trouvé !');
+                }
+            }, 1000);
+        });
+    </script>
     
     <!-- Firebase (optionnel) -->
     <script type="module">

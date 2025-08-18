@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Clubs Sportifs - Trouvez votre club parfait | Topal</title>
+    <meta name="description" content="Trouvez le club sportif parfait près de chez vous dans toute la France grâce à notre application communautaire.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/AppliClubSportifs/Icone.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --clubs-purple: #7C3AED;
+            --clubs-dark: #1a1a1a;
+            --clubs-light-purple: #8B5CF6;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .clubs-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .clubs-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--clubs-purple) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .clubs-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(124, 58, 237, 0.05);
+            border: 1px solid rgba(124, 58, 237, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--clubs-purple);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--clubs-purple);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--clubs-purple) 0%, var(--clubs-light-purple) 100%);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: #fff;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .clubs-hero h1 {
+                font-size: 3rem !important;
+            }
+
+            .clubs-hero p {
+                font-size: 1.2rem !important;
+            }
+
+            .clubs-logo-large {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .features-section, .demo-section {
+                padding: 4rem 0;
+            }
+
+            .features-section h2, .demo-section h2, .cta-section h2 {
+                font-size: 2rem !important;
+            }
+
+            .demo-section h3 {
+                font-size: 1.5rem !important;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .download-btn {
+                width: 250px;
+                justify-content: center;
+            }
+
+            .cta-section {
+                padding: 4rem 1rem;
+            }
+
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            /* Navigation mobile */
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 2rem;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+                background: none;
+                border: none;
+                color: #fff;
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+
+            nav {
+                padding: 1rem 0;
+            }
+
+            .hero-content {
+                padding: 0 1rem;
+            }
+
+            .hover-lift {
+                font-size: 1rem !important;
+                padding: 1rem 2rem !important;
+            }
+        }
+
+        /* Hide mobile menu toggle on desktop */
+        @media (min-width: 769px) {
+            .mobile-menu-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Retour à l'accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#demo">Comment ça marche</a></li>
+                <li><a href="#technical">Détails Techniques</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="clubs-hero">
+        <div class="hero-content">
+            <img src="assets/images/AppliClubSportifs/Icone.png" alt="Application Clubs Sportifs" class="clubs-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">Clubs Sportifs</h1>
+            <p class="fade-section" style="font-size: 1.5rem; opacity: 0.9; margin-bottom: 2rem;">Trouvez le club sportif parfait près de chez vous</p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                La plus grande base de données de clubs sportifs en France
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <span class="fade-section" style="display: inline-block; background: rgba(255, 255, 255, 0.2); color: #fff; padding: 0.5rem 1.5rem; border-radius: 50px; font-size: 0.9rem; margin-bottom: 2rem;">
+                    <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>En développement
+                </span>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--clubs-purple); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--clubs-purple);">
+                Découvrir le projet <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="features-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--clubs-purple);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière Clubs Sportifs
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(124, 58, 237, 0.05); border: 1px solid rgba(124, 58, 237, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Après le succès de FindMyCourt pour les terrains, nous avons réalisé qu'il manquait quelque chose d'encore plus important : les clubs !
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--clubs-purple);">Le défi :</strong> Comment trouver LE club sportif parfait près de chez soi ? 
+                    Celui qui correspond à son niveau, ses horaires, son budget et ses objectifs ? 
+                    Les informations sont dispersées, souvent obsolètes ou incomplètes.
+                </p>
+                <blockquote style="border-left: 4px solid var(--clubs-purple); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--clubs-purple); font-size: 1.3rem;">
+                    "Une application similaire à FindMyCourt, mais pour tous les clubs sportifs français !"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Un projet ambitieux pour révolutionner la recherche de clubs sportifs. 
+                    Avec des filtres avancés, des avis authentiques et des informations toujours à jour.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Fonctionnalités prévues
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Recherche avancée</h3>
+                    <p style="opacity: 0.8;">Filtrez par sport, niveau, âge, horaires, tarifs et localisation. Trouvez exactement ce que vous cherchez.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Avis authentiques</h3>
+                    <p style="opacity: 0.8;">Consultez les retours d'expérience des membres actuels et anciens pour faire le bon choix.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-calendar feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Horaires et planning</h3>
+                    <p style="opacity: 0.8;">Visualisez les créneaux d'entraînement, les compétitions et les événements de chaque club.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-euro-sign feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Tarifs transparents</h3>
+                    <p style="opacity: 0.8;">Comparez les tarifs d'adhésion, licences et équipements. Aucune surprise !</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Communauté active</h3>
+                    <p style="opacity: 0.8;">Connectez-vous avec d'autres sportifs, partagez vos expériences et trouvez des partenaires d'entraînement.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-map-marked-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Carte interactive</h3>
+                    <p style="opacity: 0.8;">Explorez tous les clubs autour de vous sur une carte détaillée avec itinéraires intégrés.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, #000);"></div>
+
+    <!-- How it Works Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Comment ça fonctionnera ?
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--clubs-purple); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        1
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--clubs-purple);">Définissez vos critères</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Sport pratiqué, niveau souhaité, budget, localisation et disponibilités horaires.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--clubs-purple); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        2
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--clubs-purple);">Explorez les résultats</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Découvrez les clubs correspondant à vos critères avec photos, avis et informations détaillées.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--clubs-purple); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        3
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--clubs-purple);">Comparez et choisissez</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Comparez les clubs, lisez les avis et contactez directement celui qui vous intéresse.</p>
+                </div>
+                
+                <div class="fade-section" style="text-align: center;">
+                    <div style="width: 60px; height: 60px; background: var(--clubs-purple); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: bold; margin: 0 auto 1.5rem;">
+                        4
+                    </div>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--clubs-purple);">Rejoignez la communauté</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.6; opacity: 0.9;">Inscrivez-vous, partagez votre expérience et aidez d'autres sportifs à trouver leur club idéal.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from black to dark -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #1a1a1a);"></div>
+
+    <!-- Technical Details Section -->
+    <section id="technical" class="demo-section" style="background: #1a1a1a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--clubs-purple);">
+                Vision technique
+            </h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1200px; margin: 0 auto;">
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--clubs-purple);">Technologies envisagées</h3>
+                    <div style="space-y: 1rem;">
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fab fa-react" style="font-size: 1.5rem; color: #61DAFB; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>React Native</strong> - Framework mobile éprouvé</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-fire" style="font-size: 1.5rem; color: #FFA000; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Firebase</strong> - Backend et base de données</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-map" style="font-size: 1.5rem; color: #4285F4; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Google Maps API</strong> - Géolocalisation et cartes</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-search" style="font-size: 1.5rem; color: #326ce5; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Elasticsearch</strong> - Recherche avancée</span>
+                        </div>
+                        <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+                            <i class="fas fa-brain" style="font-size: 1.5rem; color: #FF6B6B; margin-right: 1rem; width: 30px;"></i>
+                            <span><strong>Machine Learning</strong> - Recommandations personnalisées</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 1.8rem; margin-bottom: 2rem; color: var(--clubs-purple);">Défis à relever</h3>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Collecte de données massives</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Rassembler les informations de milliers de clubs français</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Algorithme de matching</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Recommander les clubs les plus adaptés à chaque profil</p>
+                    </div>
+                    <div class="feature-card" style="margin-bottom: 1.5rem;">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Mise à jour temps réel</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Maintenir les informations à jour automatiquement</p>
+                    </div>
+                    <div class="feature-card">
+                        <h4 style="font-size: 1.2rem; margin-bottom: 0.5rem;">Modération communautaire</h4>
+                        <p style="opacity: 0.8; font-size: 0.95rem;">Garantir la qualité des avis et informations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to purple -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, var(--clubs-purple));"></div>
+
+    <!-- CTA Section -->
+    <section id="download" class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section">Intéressé par le projet ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(255,255,255,0.9);">
+                L'application Clubs Sportifs est en développement. Restez informé des dernières avancées !
+            </p>
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html#contact" class="hover-lift" style="display: inline-block; padding: 1.5rem 3rem; background: #fff; color: var(--clubs-purple); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <i class="fas fa-envelope" style="margin-right: 0.5rem;"></i>Nous contacter pour plus d'infos
+                </a>
+            </div>
+            <p style="font-size: 0.9rem; color: rgba(255,255,255,0.7);">
+                Suivez l'avancement du projet et soyez les premiers informés du lancement
+            </p>
+        </div>
+    </section>
+
+    <!-- Transition gradient from purple to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--clubs-purple), #000);"></div>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--clubs-purple); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2025 Topal. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Also force scroll to top on beforeunload (refresh)
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Additional fallback - immediate scroll to top
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

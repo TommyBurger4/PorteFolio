@@ -30,7 +30,7 @@ body {
 :root {
     /* Couleurs principales */
     --color-creno: #ffc605;
-    --color-pixshare: #9333ea;
+    --color-pixshare: #10B981;
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: rgba(255, 255, 255, 0.7);
@@ -138,6 +138,111 @@ nav {
 
 .nav-links a:hover {
     color: var(--color-creno);
+}
+
+/* Styles pour les menus déroulants */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.dropdown-toggle i {
+    font-size: 0.8rem;
+    transition: transform var(--transition-fast);
+}
+
+.dropdown:hover .dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    min-width: 200px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all var(--transition-fast);
+    z-index: 1001;
+    list-style: none;
+    padding: 0.5rem 0;
+    margin: 0;
+    margin-top: 1rem;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--color-white);
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    border-radius: 4px;
+    margin: 0 0.5rem;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-creno);
+}
+
+/* Menu mobile */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-white);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        background: transparent;
+        border: none;
+        min-width: auto;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .dropdown-menu a {
+        margin: 0;
+        padding: 0.5rem 0;
+    }
 }
 
 /* ==========================================================================
@@ -381,15 +486,15 @@ nav {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* Styles spécifiques Créno */
+/* Styles spécifiques Créno - Bleu marine */
 .creno-stat-item .stat-box {
-    background: linear-gradient(135deg, rgba(255, 198, 5, 0.1) 0%, rgba(255, 198, 5, 0.05) 100%);
-    border-color: rgba(255, 198, 5, 0.2);
+    background: linear-gradient(135deg, rgba(26, 49, 92, 0.15) 0%, rgba(26, 49, 92, 0.08) 100%);
+    border-color: rgba(26, 49, 92, 0.3);
 }
 
 .creno-stat-item .stat-counter {
-    color: var(--color-creno);
-    text-shadow: 0 0 20px rgba(255, 198, 5, 0.4);
+    color: #1a315c;
+    text-shadow: 0 0 20px rgba(26, 49, 92, 0.6);
 }
 
 /* Styles spécifiques PixShare */
@@ -401,6 +506,17 @@ nav {
 .pixshare-stat-item .stat-counter {
     color: var(--color-pixshare);
     text-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+/* Styles spécifiques FindMyCourt - Jaune */
+.findmycourt-stat-item .stat-box {
+    background: linear-gradient(135deg, rgba(255, 215, 0, 0.12) 0%, rgba(255, 215, 0, 0.06) 100%);
+    border-color: rgba(255, 215, 0, 0.25);
+}
+
+.findmycourt-stat-item .stat-counter {
+    color: #FFD700;
+    text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
 }
 
 /* Compteurs et labels */
@@ -699,4 +815,338 @@ nav {
 .creno-placeholder,
 .pixshare-placeholder {
     display: none !important;
+}
+
+/* ==========================================================================
+   14. FINDMYCOURT SHOWCASE STYLES
+   ========================================================================== */
+
+/* FindMyCourt Animation Container */
+.findmycourt-animation-container {
+    position: relative;
+    height: 80vh;
+    background: var(--color-black);
+    overflow: hidden;
+}
+
+/* Logo central FindMyCourt */
+.findmycourt-logo-zoom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: all 1s ease-out;
+}
+
+.findmycourt-logo-zoom img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(255, 215, 0, 0.3));
+}
+
+/* Conteneur des statistiques FindMyCourt */
+.findmycourt-stats-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Items de statistiques FindMyCourt */
+.findmycourt-stat-item {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s ease-out;
+}
+
+.findmycourt-stat-item.stat-item-1 {
+    top: 15%;
+    left: 12%;
+}
+
+.findmycourt-stat-item.stat-item-2 {
+    top: 25%;
+    right: 8%;
+}
+
+.findmycourt-stat-item.stat-item-3 {
+    bottom: 30%;
+    left: 15%;
+}
+
+.findmycourt-stat-item.stat-item-4 {
+    bottom: 25%;
+    right: 18%;
+}
+
+/* Contenu texte FindMyCourt */
+.findmycourt-text-content {
+    position: absolute;
+    bottom: 10%;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    transition: opacity 1s ease-out 0.5s;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+}
+
+.findmycourt-text-content .product-title {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.findmycourt-text-content .product-subtitle {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.findmycourt-text-content .scroll-indicator {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* ==========================================================================
+   FAKT SHOWCASE ANIMATIONS
+   ========================================================================== */
+
+.fakt-animation-container {
+    position: relative;
+    height: 80vh;
+    background: var(--color-black);
+    overflow: hidden;
+}
+
+/* Logo central Fakt */
+.fakt-logo-zoom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    transition: all 1s ease-out;
+}
+
+.fakt-logo-zoom img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(135, 206, 235, 0.3));
+}
+
+/* Conteneur des statistiques Fakt */
+.fakt-stats-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Items de statistiques Fakt */
+.fakt-stat-item {
+    position: absolute;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.8s ease-out;
+}
+
+.fakt-stat-item.stat-item-1 {
+    top: 15%;
+    left: 12%;
+}
+
+.fakt-stat-item.stat-item-2 {
+    top: 25%;
+    right: 8%;
+}
+
+.fakt-stat-item.stat-item-3 {
+    bottom: 30%;
+    left: 15%;
+}
+
+.fakt-stat-item.stat-item-4 {
+    bottom: 25%;
+    right: 18%;
+}
+
+.fakt-stat-item .stat-box {
+    background: linear-gradient(135deg, rgba(135, 206, 235, 0.12) 0%, rgba(135, 206, 235, 0.06) 100%);
+    border: 1px solid rgba(135, 206, 235, 0.25);
+    border-radius: 15px;
+    padding: 1.5rem 2rem;
+    min-width: 160px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(135, 206, 235, 0.1);
+}
+
+.fakt-stat-item .stat-counter {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #87CEEB;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+}
+
+.fakt-stat-item .stat-label {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Contenu texte Fakt */
+.fakt-text-content {
+    position: absolute;
+    bottom: 10%;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 auto !important;
+    text-align: center !important;
+    opacity: 1 !important;
+    transition: opacity 1s ease-out 0.5s;
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transform: none !important;
+}
+
+.fakt-text-content .product-title {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.fakt-text-content .product-subtitle {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+.fakt-text-content .scroll-indicator {
+    text-align: center !important;
+    margin: 0 auto !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Responsive Fakt */
+@media (max-width: 768px) {
+    .fakt-animation-container {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .fakt-logo-zoom img {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .fakt-logo-zoom {
+        top: 50%;
+        left: 50%;
+    }
+    
+    .fakt-stat-item.stat-item-1 {
+        top: 25%;
+        left: 10%;
+    }
+    
+    .fakt-stat-item.stat-item-2 {
+        top: 20%;
+        right: 5%;
+    }
+    
+    .fakt-stat-item.stat-item-3 {
+        bottom: 35%;
+        left: 8%;
+    }
+    
+    .fakt-stat-item.stat-item-4 {
+        bottom: 30%;
+        right: 12%;
+    }
+    
+    .fakt-stat-item .stat-box {
+        padding: 1rem 1.5rem;
+        min-width: 120px;
+    }
+    
+    .fakt-stat-item .stat-counter {
+        font-size: 2rem;
+    }
+    
+    .fakt-stat-item .stat-label {
+        font-size: 0.8rem;
+    }
+    
+    .fakt-text-content {
+        bottom: 5%;
+    }
+}
+
+/* Responsive FindMyCourt */
+@media (max-width: 768px) {
+    .findmycourt-animation-container {
+        height: auto;
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .findmycourt-logo-zoom img {
+        width: 140px;
+        height: 140px;
+    }
+    
+    .findmycourt-logo-zoom {
+        top: 50%;
+        left: 50%;
+    }
+    
+    .findmycourt-stat-item.stat-item-1 {
+        top: 25%;
+        left: 10%;
+    }
+    
+    .findmycourt-stat-item.stat-item-2 {
+        top: 25%;
+        right: 10%;
+    }
+    
+    .findmycourt-stat-item.stat-item-3 {
+        bottom: 25%;
+        left: 10%;
+    }
+    
+    .findmycourt-stat-item.stat-item-4 {
+        bottom: 25%;
+        right: 10%;
+    }
 }

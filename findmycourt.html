@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FindMyCourt - La carte qui change tout | Topal</title>
+    <meta name="description" content="L'application communautaire qui révolutionne la recherche de terrains de sport. Trouvez instantanément les meilleurs terrains près de vous.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/FindMyCourt/logoFDM.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --findmycourt-yellow: #FFD700;
+            --findmycourt-dark: #1a1a1a;
+            --findmycourt-light-yellow: #FFC107;
+        }
+
+        body {
+            background: #000;
+            color: #fff;
+        }
+
+        /* Hero Section */
+        .findmycourt-hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .findmycourt-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--findmycourt-yellow) 0%, transparent 70%);
+            opacity: 0.1;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.1; }
+            50% { transform: scale(1.1); opacity: 0.15; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .findmycourt-logo-large {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 3rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections */
+        .story-section {
+            padding: 8rem 0;
+            background: #1a1a1a;
+        }
+
+        .features-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .stats-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--findmycourt-yellow) 0%, var(--findmycourt-light-yellow) 100%);
+        }
+
+        .tech-section {
+            padding: 8rem 0;
+            background: #000;
+        }
+
+        .screenshots-section {
+            padding: 8rem 0;
+            background: #1a1a1a;
+        }
+
+        .map-section {
+            padding: 8rem 0;
+            background: #0a0a0a;
+        }
+
+        .cta-section {
+            padding: 8rem 0;
+            background: linear-gradient(135deg, var(--findmycourt-yellow) 0%, var(--findmycourt-light-yellow) 100%);
+            text-align: center;
+        }
+
+        /* Transition gradients between sections */
+        .section-transition-dark-to-darker {
+            height: 50px;
+            background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);
+        }
+
+        .section-transition-darker-to-black {
+            height: 50px;
+            background: linear-gradient(to bottom, #0a0a0a, #000);
+        }
+
+        .section-transition-black-to-dark {
+            height: 50px;
+            background: linear-gradient(to bottom, #000, #1a1a1a);
+        }
+
+        .section-transition-dark-to-black {
+            height: 50px;
+            background: linear-gradient(to bottom, #1a1a1a, #000);
+        }
+
+        .section-transition-black-to-yellow {
+            height: 50px;
+            background: linear-gradient(to bottom, #000, var(--findmycourt-yellow));
+        }
+
+        .section-transition-yellow-to-black {
+            height: 50px;
+            background: linear-gradient(to bottom, var(--findmycourt-yellow), #000);
+        }
+
+        /* Feature cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .feature-card {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--findmycourt-yellow);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--findmycourt-yellow);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            color: #000;
+        }
+
+        .stat-icon {
+            background: rgba(0, 0, 0, 0.1);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            font-size: 2rem;
+        }
+
+        /* Tech details */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .tech-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(255, 215, 0, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .tech-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--findmycourt-yellow);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 1.5rem;
+        }
+
+        /* Screenshots */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .screenshot {
+            text-align: center;
+        }
+
+        .screenshot img {
+            max-width: 250px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .screenshot:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Map iframe */
+        .map-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .map-frame {
+            width: 100%;
+            height: 600px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.2);
+        }
+
+        .map-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* CTA buttons */
+        .download-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .findmycourt-hero h1 {
+                font-size: 3rem !important;
+            }
+
+            .findmycourt-logo-large {
+                width: 150px;
+                height: 150px;
+            }
+
+            .features-grid, .stats-grid, .tech-grid, .screenshots-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+
+            .feature-card {
+                padding: 2rem;
+            }
+
+            .story-section, .features-section, .stats-section, .tech-section, .screenshots-section, .map-section, .cta-section {
+                padding: 4rem 0;
+            }
+
+            .map-frame {
+                height: 400px;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            .download-btn {
+                width: 125px;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
+            </a>
+            <ul class="nav-links">
+                <li><a href="index.html">← Retour à l'accueil</a></li>
+                <li><a href="#story">Histoire</a></li>
+                <li><a href="#features">Fonctionnalités</a></li>
+                <li><a href="#stats">Statistiques</a></li>
+                <li><a href="#tech">Technique</a></li>
+                <li><a href="#screenshots">Captures</a></li>
+                <li><a href="#map">Carte interactive</a></li>
+            </ul>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="findmycourt-hero">
+        <div class="hero-content">
+            <img src="assets/images/FindMyCourt/logoFDM.png" alt="FindMyCourt" class="findmycourt-logo-large">
+            <h1 class="fade-section" style="font-size: 4rem; margin-bottom: 1rem; font-weight: 800;">FindMyCourt</h1>
+            <p class="fade-section" style="font-size: 2rem; margin: 2rem 0; opacity: 0.8;">
+                La carte des sportifs
+            </p>
+            <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+                L'application communautaire qui révolutionne la recherche de terrains de sport
+            </p>
+            <div class="fade-section" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--findmycourt-yellow);">React Native</span>
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--findmycourt-yellow);">Firebase</span>
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--findmycourt-yellow);">Google Maps API</span>
+                <span style="background: rgba(255, 215, 0, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--findmycourt-yellow);">Application Mobile</span>
+            </div>
+            <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--findmycourt-yellow); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--findmycourt-yellow);">
+                Découvrir l'histoire <i class="fas fa-arrow-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Story Section -->
+    <section id="story" class="story-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--findmycourt-yellow);">
+                <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière FindMyCourt
+            </h2>
+            <div style="max-width: 800px; margin: 0 auto; background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 20px; padding: 3rem;">
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    Tout a commencé pendant nos vacances d'été. Tom, passionné de volley, voulait absolument jouer pendant ses congés. 
+                    Il a naturellement cherché sur Google Maps pour trouver des terrains de volley à proximité.
+                </p>
+                <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                    <strong style="color: var(--findmycourt-yellow);">Problème :</strong> la plupart des terrains indiqués n'existaient plus, étaient fermés ou inaccessibles ! 
+                    Frustré par cette expérience décevante, Tom s'est tourné vers Paul avec une idée :
+                </p>
+                <blockquote style="border-left: 4px solid var(--findmycourt-yellow); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--findmycourt-yellow); font-size: 1.3rem;">
+                    "Ce serait génial d'avoir une application où on retrouverait tous les terrains de sport réels et à jour, 
+                    alimentée par la communauté des sportifs !"
+                </blockquote>
+                <p style="font-size: 1.2rem; line-height: 1.8;">
+                    Et c'est ainsi que FindMyCourt est né : une solution par des sportifs, pour des sportifs.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to darker -->
+    <div class="section-transition-dark-to-darker"></div>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Fonctionnalités principales
+            </h2>
+            <div class="features-grid">
+                <div class="feature-card fade-section">
+                    <i class="fas fa-map-marked-alt feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Carte Interactive</h3>
+                    <p style="opacity: 0.8;">Visualisez tous les terrains de sport sur une carte interactive en temps réel. Zoom, navigation fluide et géolocalisation intégrée.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Communauté Active</h3>
+                    <p style="opacity: 0.8;">Les utilisateurs ajoutent, mettent à jour et valident les terrains. Une base de données fiable alimentée par la communauté.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-star feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Avis et Notes</h3>
+                    <p style="opacity: 0.8;">Consultez les avis des autres sportifs sur la qualité des terrains, les équipements disponibles et l'accessibilité.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-filter feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Filtres Avancés</h3>
+                    <p style="opacity: 0.8;">Filtrez par type de sport, distance, qualité du terrain, disponibilité et équipements disponibles.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-comments feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Système d'amis & Chat</h3>
+                    <p style="opacity: 0.8;">Ajoutez des amis et communiquez directement via la messagerie intégrée pour organiser vos sessions sportives.</p>
+                </div>
+                
+                <div class="feature-card fade-section">
+                    <i class="fas fa-route feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Navigation GPS</h3>
+                    <p style="opacity: 0.8;">Intégration avec les applications de navigation pour vous guider directement jusqu'au terrain choisi.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to yellow -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, var(--findmycourt-yellow));"></div>
+
+    <!-- Stats Section -->
+    <section id="stats" class="stats-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: #000;">
+                En quelques chiffres
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">12,500+</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Terrains référencés</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Partout dans le monde</p>
+                </div>
+                
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">8,300+</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Utilisateurs actifs</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Et ça grandit chaque jour</p>
+                </div>
+                
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">25+</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Pays couverts</h3>
+                    <p style="color: rgba(0,0,0,0.7);">Une communauté mondiale</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from yellow to black -->
+    <div class="section-transition-yellow-to-black"></div>
+
+    <!-- Technical Details Section -->
+    <section id="tech" class="tech-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Détails techniques
+            </h2>
+            <div class="tech-grid">
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--findmycourt-yellow);">Technologies utilisées</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fab fa-react"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">React Native</h4>
+                                <p style="opacity: 0.8; margin: 0;">Framework mobile cross-platform</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-fire"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">Firebase</h4>
+                                <p style="opacity: 0.8; margin: 0;">Base de données en temps réel</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">Google Maps API</h4>
+                                <p style="opacity: 0.8; margin: 0;">Cartographie et géolocalisation</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">Expo</h4>
+                                <p style="opacity: 0.8; margin: 0;">Développement et déploiement</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-section">
+                    <h3 style="font-size: 2rem; margin-bottom: 2rem; color: var(--findmycourt-yellow);">Défis techniques relevés</h3>
+                    <div style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">Synchronisation en temps réel</h4>
+                                <p style="opacity: 0.8; margin: 0;">Gestion des mises à jour instantanées de la base de données communautaire</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-tachometer-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">Optimisation des performances</h4>
+                                <p style="opacity: 0.8; margin: 0;">Chargement rapide des cartes avec des milliers de points d'intérêt</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--findmycourt-yellow); margin-bottom: 0.5rem;">UX/UI intuitive</h4>
+                                <p style="opacity: 0.8; margin: 0;">Interface simple et efficace pour tous types d'utilisateurs</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from black to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #0a0a0a);"></div>
+
+    <!-- Interactive Map Demo Section -->
+    <section id="map" class="map-section" style="background: #0a0a0a;">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">
+                Carte interactive en direct
+            </h2>
+            <p class="fade-section" style="text-align: center; opacity: 0.8; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Découvrez la carte interactive FindMyCourt avec 120 terrains sportifs réels ajoutés par la communauté. 
+                Basketball, Football, Padel, Volley et plus encore à travers la France.
+            </p>
+            <div class="map-container">
+                <div class="map-frame fade-section">
+                    <iframe 
+                        src="projets/FMC/findmycourt-map-real.html" 
+                        title="Carte interactive FindMyCourt - Terrains réels"
+                    ></iframe>
+                </div>
+                <p style="text-align: center; opacity: 0.6; margin-top: 1rem; font-size: 0.9rem;">
+                    <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                    120 terrains sportifs réels de la communauté FindMyCourt
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from darker to dark -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);"></div>
+
+    <!-- Screenshots Section -->
+    <section id="screenshots" class="screenshots-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+                Captures d'écran de l'application
+            </h2>
+            <div class="screenshots-grid">
+                <div class="screenshot fade-section">
+                    <img src="assets/images/FindMyCourt/map.jpg" alt="Carte interactive FindMyCourt">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--findmycourt-yellow);">Carte Interactive</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Vue principale avec tous les terrains de sport</p>
+                </div>
+                <div class="screenshot fade-section">
+                    <img src="assets/images/FindMyCourt/exempleterrain.jpg" alt="Détails terrain FindMyCourt">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--findmycourt-yellow);">Exemple de terrain</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Fiche détaillée d'un terrain de sport</p>
+                </div>
+                <div class="screenshot fade-section">
+                    <img src="assets/images/FindMyCourt/messages.jpg" alt="Messages FindMyCourt">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--findmycourt-yellow);">Messages</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Système de messagerie entre utilisateurs</p>
+                </div>
+                <div class="screenshot fade-section">
+                    <img src="assets/images/FindMyCourt/profil.jpg" alt="Profil utilisateur FindMyCourt">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 0.5rem; color: var(--findmycourt-yellow);">Profil utilisateur</h3>
+                    <p style="opacity: 0.8; font-size: 0.9rem;">Gestion du profil et des préférences</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from dark to yellow -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, var(--findmycourt-yellow));"></div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="section-container">
+            <h2 class="fade-section" style="color: #000;">Prêt à découvrir FindMyCourt ?</h2>
+            <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
+                Rejoignez la communauté des sportifs et ne manquez plus jamais un terrain de sport !
+            </p>
+            <div class="download-buttons fade-section">
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-google-play" style="font-size: 1rem;"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger sur</div>
+                        <div style="font-size: 0.9rem;">Google Play</div>
+                    </div>
+                </a>
+                <a href="#" class="download-btn hover-lift">
+                    <i class="fab fa-apple" style="font-size: 1rem;"></i>
+                    <div>
+                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger sur</div>
+                        <div style="font-size: 0.9rem;">App Store</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transition gradient from yellow to black -->
+    <div class="section-transition-yellow-to-black"></div>
+
+    <!-- Footer -->
+    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+        <div class="section-container">
+            <div style="margin-bottom: 2rem;">
+                <a href="index.html" style="color: var(--findmycourt-yellow); text-decoration: none; font-weight: 600;">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+            <p style="opacity: 0.5; font-size: 0.9rem;">
+                © 2025 Topal. Tous droits réservés.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
+            document.querySelector('.nav-links')?.classList.toggle('active');
+        });
+    </script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

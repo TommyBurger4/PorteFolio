@@ -273,12 +273,11 @@
                 <img src="assets/images/TomPaul/logo.png" alt="Topal" style="height: 40px; filter: invert(1);">
             </a>
             <ul class="nav-links">
-                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html">← Retour à l'accueil</a></li>
                 <li><a href="#story">Histoire</a></li>
                 <li><a href="#features">Fonctionnalités</a></li>
                 <li><a href="#demo">Comment ça marche</a></li>
                 <li><a href="#technical">Détails Techniques</a></li>
-                <li><a href="#download">Télécharger</a></li>
             </ul>
             <button class="mobile-menu-toggle">
                 <i class="fas fa-bars"></i>
@@ -344,6 +343,9 @@
         </div>
     </section>
 
+    <!-- Transition gradient from dark to darker -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+
     <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="section-container">
@@ -390,6 +392,9 @@
         </div>
     </section>
 
+    <!-- Transition gradient from darker to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, #000);"></div>
+
     <!-- How it Works Section -->
     <section id="demo" class="demo-section">
         <div class="section-container">
@@ -432,6 +437,9 @@
         </div>
     </section>
 
+    <!-- Transition gradient from black to dark -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, #1a1a1a);"></div>
+
     <!-- Screenshots Section -->
     <section class="features-section" style="background: #1a1a1a;">
         <div class="section-container">
@@ -457,6 +465,9 @@
             </div>
         </div>
     </section>
+
+    <!-- Transition gradient from dark to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #000);"></div>
 
     <!-- Technical Details Section -->
     <section id="technical" class="demo-section">
@@ -519,6 +530,9 @@
         </div>
     </section>
 
+    <!-- Transition gradient from black to yellow -->
+    <div style="height: 50px; background: linear-gradient(to bottom, #000, var(--creno-yellow));"></div>
+
     <!-- CTA Section -->
     <section id="download" class="cta-section">
         <div class="section-container">
@@ -556,24 +570,41 @@
         </div>
     </section>
 
+    <!-- Transition gradient from yellow to black -->
+    <div style="height: 50px; background: linear-gradient(to bottom, var(--creno-yellow), #000);"></div>
+
     <!-- Footer -->
     <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
         <div class="section-container">
             <div style="margin-bottom: 2rem;">
-                <a href="projets/Créno/creno.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600; margin-right: 2rem;">
-                    Voir plus de détails sur Créno
-                </a>
                 <a href="index.html" style="color: var(--creno-yellow); text-decoration: none; font-weight: 600;">
                     ← Retour à l'accueil
                 </a>
             </div>
             <p style="opacity: 0.5; font-size: 0.9rem;">
-                © 2024 Topal. Tous droits réservés.
+                © 2025 Topal. Tous droits réservés.
             </p>
         </div>
     </footer>
 
     <!-- Scripts -->
+    <script>
+        // Force scroll to top on page load/refresh
+        window.addEventListener('load', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Also force scroll to top on beforeunload (refresh)
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
+        
+        // Additional fallback - immediate scroll to top
+        if ('scrollRestoration' in history) {
+            history.scrollRestoration = 'manual';
+        }
+        window.scrollTo(0, 0);
+    </script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Projects Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .scroll-section {
+            background: #111;
+            padding: 2rem 0;
+            min-height: auto;
+            margin: 1rem 0;
+        }
+        
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        #dynamic-projects-container {
+            border: 2px dashed #333;
+            min-height: 100px;
+            margin: 2rem 0;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Projects Manager</h1>
+    
+    <div>
+        <h2>Conteneur dynamique:</h2>
+        <div id="dynamic-projects-container"></div>
+    </div>
+    
+    <div>
+        <h2>Actions de test:</h2>
+        <button onclick="testGeneration()">Tester génération des sections</button>
+        <button onclick="clearContainer()">Vider le conteneur</button>
+        <button onclick="showContainerInfo()">Info conteneur</button>
+    </div>
+    
+    <div id="debug-output" style="margin-top: 2rem; padding: 1rem; background: #222; border-radius: 5px;">
+        <h3>Sortie de débogage:</h3>
+        <pre id="debug-text"></pre>
+    </div>
+
+    <script>
+        // Configuration simplifiée pour le test
+        const projectsConfig = {
+            fakt: {
+                name: 'Fakt',
+                type: 'app',
+                description: 'Créez rapidement des devis PDF professionnels pour vos services et locations.',
+                color: '#498fc3',
+                url: 'fakt.html'
+            },
+            findmycourt: {
+                name: 'FindMyCourt',
+                type: 'app',
+                description: 'Trouvez les terrains de sport près de chez vous grâce à notre carte interactive communautaire.',
+                color: '#4F46E5',
+                url: 'findmycourt.html'
+            }
+        };
+
+        const settings = {
+            fakt: true,
+            findmycourt: true
+        };
+
+        function log(message) {
+            const debugText = document.getElementById('debug-text');
+            debugText.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            console.log(message);
+        }
+
+        function testGeneration() {
+            log('=== DÉBUT TEST GÉNÉRATION ===');
+            
+            const container = document.getElementById('dynamic-projects-container');
+            log('Conteneur trouvé: ' + !!container);
+            
+            if (!container) {
+                log('ERREUR: Conteneur non trouvé!');
+                return;
+            }
+            
+            // Vider le conteneur
+            container.innerHTML = '';
+            log('Conteneur vidé');
+            
+            let sectionsCreated = 0;
+            
+            Object.entries(projectsConfig).forEach(([projectId, config]) => {
+                if (settings[projectId]) {
+                    log(`Création section pour ${config.name}`);
+                    
+                    const section = document.createElement('section');
+                    section.className = 'scroll-section';
+                    section.id = `section-${projectId}`;
+                    section.style.cssText = `
+                        background: #000; 
+                        padding: 4rem 0; 
+                        margin: 2rem 0;
+                        border: 2px solid ${config.color};
+                        min-height: 300px;
+                        display: block;
+                        visibility: visible;
+                        opacity: 1;
+                    `;
+                    
+                    section.innerHTML = `
+                        <div class="section-container">
+                            <div class="project-showcase" style="text-align: center;">
+                                <h2 style="font-size: 3rem; margin-bottom: 2rem; color: ${config.color};">
+                                    ${config.name}
+                                </h2>
+                                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+                                    ${config.description}
+                                </p>
+                                <a href="${config.url}" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: ${config.color}; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                                    Découvrir ${config.name} →
+                                </a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    container.appendChild(section);
+                    sectionsCreated++;
+                    log(`Section ${config.name} ajoutée (ID: ${section.id})`);
+                }
+            });
+            
+            log(`Total sections créées: ${sectionsCreated}`);
+            
+            // Vérifier la visibilité
+            setTimeout(() => {
+                log('=== VÉRIFICATION VISIBILITÉ ===');
+                Array.from(container.children).forEach((child, index) => {
+                    const rect = child.getBoundingClientRect();
+                    log(`Section ${index}: visible=${rect.height > 0 && rect.width > 0}, height=${rect.height}, width=${rect.width}`);
+                });
+            }, 100);
+        }
+
+        function clearContainer() {
+            const container = document.getElementById('dynamic-projects-container');
+            if (container) {
+                container.innerHTML = '';
+                log('Conteneur vidé');
+            }
+        }
+
+        function showContainerInfo() {
+            const container = document.getElementById('dynamic-projects-container');
+            if (container) {
+                const rect = container.getBoundingClientRect();
+                const computed = window.getComputedStyle(container);
+                log(`Info conteneur: display=${computed.display}, visibility=${computed.visibility}, height=${rect.height}, width=${rect.width}, children=${container.children.length}`);
+            }
+        }
+
+        // Test automatique au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            log('DOM chargé, test automatique...');
+            setTimeout(testGeneration, 500);
+        });
+    </script>
+</body>
+</html>
