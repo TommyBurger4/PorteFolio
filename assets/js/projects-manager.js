@@ -56,8 +56,9 @@
         }
     };
 
-    // Charger les paramètres depuis localStorage
+    // Charger les paramètres depuis localStorage ou le fichier de config
     function loadProjectsSettings() {
+        // D'abord, essayer de charger depuis le fichier config/projects-settings.json
         const defaultSettings = {
             creno: true,
             pixshare: true,
@@ -67,6 +68,15 @@
             'clubs-sportifs': false
         };
         
+        // En production (GitHub Pages), utiliser le fichier JSON
+        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+            // Charger depuis le fichier JSON en production
+            return fetch('/config/projects-settings.json')
+                .then(response => response.json())
+                .catch(() => defaultSettings);
+        }
+        
+        // En local, utiliser localStorage pour les tests
         const savedSettings = localStorage.getItem('topal-projects-settings');
         if (savedSettings) {
             try {
