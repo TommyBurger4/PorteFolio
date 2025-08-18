@@ -318,6 +318,72 @@
         </div>
     </section>
 
+    <!-- Fakt Showcase (DJI Style) -->
+    <section class="fakt-animation-container" id="fakt-showcase">
+        <div class="animation-sticky-section">
+            <!-- Logo central -->
+            <div class="fakt-logo-zoom">
+                <img src="assets/images/Fakt/icone.png" alt="Fakt">
+            </div>
+            
+            <!-- Statistiques -->
+            <div class="fakt-stats-container">
+                <div class="fakt-stat-item stat-item-1">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="1200">0</div>
+                        <div class="stat-label">Factures générées</div>
+                    </div>
+                </div>
+                
+                <div class="fakt-stat-item stat-item-2">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="95">0</div>
+                        <div class="stat-label">% Gain de temps</div>
+                    </div>
+                </div>
+                
+                <div class="fakt-stat-item stat-item-3">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="150">0</div>
+                        <div class="stat-label">Propriétaires utilisateurs</div>
+                    </div>
+                </div>
+                
+                <div class="fakt-stat-item stat-item-4">
+                    <div class="stat-box">
+                        <div class="stat-counter" data-target="24">0</div>
+                        <div class="stat-label">Heures économisées/mois</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Texte et indicateur -->
+            <div class="fakt-text-content">
+                <h3 class="product-title">Fakt</h3>
+                <p class="product-subtitle">Automatisation de facturation</p>
+                <div class="scroll-indicator">
+                    <span>Scroll pour découvrir</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Section Fakt -->
+    <section class="scroll-section" style="background: #000; padding: 2rem 0;">
+        <div class="section-container">
+            <div class="slide-in-left" style="text-align: center; width: 100%;">
+                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+                    Automatisez votre facturation Booking.com. Générez vos factures PDF professionnelles 
+                    en un clic directement depuis vos réservations.
+                </p>
+                <a href="fakt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    Découvrir Fakt →
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Conteneur dynamique pour les projets actifs -->
     <div id="dynamic-projects-container"></div>
 
@@ -358,9 +424,9 @@
                 
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Fakt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations Booking</p>
-                        <a href="#" style="color: #4ecdc4; text-decoration: none; font-weight: 600;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">FindMyCourt</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu près de chez vous</p>
+                        <a href="findmycourt.html" style="color: #FFD700; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
@@ -368,9 +434,9 @@
                 
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">FindMyCourt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu près de chez vous</p>
-                        <a href="#" style="color: #45b7d1; text-decoration: none; font-weight: 600;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Fakt</h3>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations Booking.com</p>
+                        <a href="fakt.html" style="color: #87CEEB; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
@@ -499,6 +565,38 @@
     <!-- Gestion dynamique des projets -->
     <script src="assets/js/projects-manager.js"></script>
     <script>
+        // Supprimer tout contenu Fakt en doublon dans le conteneur dynamique
+        document.addEventListener('DOMContentLoaded', function() {
+            const dynamicContainer = document.getElementById('dynamic-projects-container');
+            if (dynamicContainer) {
+                // Observer les changements dans le conteneur
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        mutation.addedNodes.forEach(function(node) {
+                            if (node.nodeType === 1 && node.tagName === 'SECTION') {
+                                const content = node.textContent.toLowerCase();
+                                if (content.includes('fakt') || content.includes('facturation') || content.includes('booking')) {
+                                    node.remove();
+                                }
+                            }
+                        });
+                    });
+                });
+                
+                // Observer le conteneur pour les ajouts futurs
+                observer.observe(dynamicContainer, { childList: true });
+                
+                // Nettoyer le contenu existant
+                const faktSections = dynamicContainer.querySelectorAll('section');
+                faktSections.forEach(section => {
+                    const content = section.textContent.toLowerCase();
+                    if (content.includes('fakt') || content.includes('facturation') || content.includes('booking')) {
+                        section.remove();
+                    }
+                });
+            }
+        });
+        
         // Forcer la création des sections immédiatement
         window.addEventListener('load', function() {
             setTimeout(function() {

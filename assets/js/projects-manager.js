@@ -141,6 +141,16 @@
                 findmycourtSection.style.display = settings.findmycourt ? 'block' : 'none';
             }
         }
+        
+        // Gérer Fakt
+        const faktShowcase = document.getElementById('fakt-showcase');
+        const faktSection = faktShowcase?.nextElementSibling;
+        if (faktShowcase) {
+            faktShowcase.style.display = settings.fakt ? 'block' : 'none';
+            if (faktSection && faktSection.classList.contains('scroll-section')) {
+                faktSection.style.display = settings.fakt ? 'block' : 'none';
+            }
+        }
     }
 
     // Mettre à jour les cartes de projets dans la grille
@@ -182,83 +192,6 @@
         
         // Vider le conteneur
         container.innerHTML = '';
-        
-        // Créer d'abord le showcase de Fakt s'il est activé
-        if (settings.fakt) {
-            const faktConfig = projectsConfig.fakt;
-            const faktShowcaseSection = document.createElement('section');
-            faktShowcaseSection.className = 'fakt-animation-container';
-            faktShowcaseSection.id = 'fakt-showcase';
-            faktShowcaseSection.innerHTML = `
-                <div class="animation-sticky-section">
-                    <!-- Logo central -->
-                    <div class="fakt-logo-zoom">
-                        <img src="assets/images/Fakt/icone.png" alt="Fakt">
-                    </div>
-                    
-                    <!-- Statistiques -->
-                    <div class="fakt-stats-container">
-                        <div class="fakt-stat-item stat-item-1">
-                            <div class="stat-box">
-                                <div class="stat-counter" data-target="1200">0</div>
-                                <div class="stat-label">Factures générées</div>
-                            </div>
-                        </div>
-                        
-                        <div class="fakt-stat-item stat-item-2">
-                            <div class="stat-box">
-                                <div class="stat-counter" data-target="95">0</div>
-                                <div class="stat-label">% Gain de temps</div>
-                            </div>
-                        </div>
-                        
-                        <div class="fakt-stat-item stat-item-3">
-                            <div class="stat-box">
-                                <div class="stat-counter" data-target="150">0</div>
-                                <div class="stat-label">Propriétaires utilisateurs</div>
-                            </div>
-                        </div>
-                        
-                        <div class="fakt-stat-item stat-item-4">
-                            <div class="stat-box">
-                                <div class="stat-counter" data-target="24">0</div>
-                                <div class="stat-label">Heures économisées/mois</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Texte et indicateur -->
-                    <div class="fakt-text-content">
-                        <h3 class="product-title">Fakt</h3>
-                        <p class="product-subtitle">Automatisation de facturation</p>
-                        <div class="scroll-indicator">
-                            <span>Scroll pour découvrir</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                    </div>
-                </div>
-            `;
-            container.appendChild(faktShowcaseSection);
-            
-            // Ajouter la section descriptive de Fakt
-            const faktDescSection = document.createElement('section');
-            faktDescSection.className = 'scroll-section';
-            faktDescSection.style.cssText = 'background: #000; padding: 2rem 0;';
-            faktDescSection.innerHTML = `
-                <div class="section-container">
-                    <div class="slide-in-left" style="text-align: center; width: 100%;">
-                        <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                            Automatisez votre facturation Booking.com. Générez vos factures PDF professionnelles 
-                            en un clic directement depuis vos réservations.
-                        </p>
-                        <a href="fakt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                            Découvrir Fakt →
-                        </a>
-                    </div>
-                </div>
-            `;
-            container.appendChild(faktDescSection);
-        }
         
         // Générer les sections pour chaque projet actif (sauf ceux qui ont leurs propres sections showcase)
         Object.entries(projectsConfig).forEach(([projectId, config]) => {

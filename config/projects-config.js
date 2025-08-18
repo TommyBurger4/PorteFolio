@@ -11,29 +11,21 @@ const projectsConfig = {
             active: true, 
             order: 2,
             featured: true
+        },
+        findmycourt: {
+            active: true,
+            order: 3,
+            featured: true
+        },
+        fakt: {
+            active: true,
+            order: 4,
+            featured: true
         }
     },
     
     // Projets cachés (accessibles par URL directe uniquement)
     hidden: {
-        findmycourt: {
-            active: false,
-            order: 3,
-            featured: false,
-            url: 'findmycourt.html',
-            title: 'FindMyCourt',
-            description: 'Carte interactive des terrains de sport',
-            color: '#4F46E5'
-        },
-        fakt: {
-            active: false,
-            order: 4, 
-            featured: false,
-            url: 'fakt.html',
-            title: 'Fakt',
-            description: 'Générateur de devis PDF professionnel',
-            color: '#498fc3'
-        },
         clubs_sportifs: {
             active: false,
             order: 5,
