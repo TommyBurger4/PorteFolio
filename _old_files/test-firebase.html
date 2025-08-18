@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Firebase</title>
+</head>
+<body>
+    <h1>Test de connexion Firebase</h1>
+    <div id="result">Chargement...</div>
+    
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore-compat.js"></script>
+    
+    <script>
+        // Configuration Firebase CATIMINI
+        const firebaseConfig = {
+            apiKey: "AIzaSyApPmmL0e_ewgdwqKGv9Rp796i0pdY9Pg0",
+            authDomain: "catimini-256a1.firebaseapp.com",
+            projectId: "catimini-256a1",
+            storageBucket: "catimini-256a1.appspot.com",
+            messagingSenderId: "426239063773",
+            appId: "1:426239063773:web:eb996e6651a50b9ef48d34"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+        
+        const resultDiv = document.getElementById('result');
+        
+        // Test de la collection events
+        db.collection('events').get()
+            .then(querySnapshot => {
+                resultDiv.innerHTML = `
+                    <h2>Succès!</h2>
+                    <p>Nombre d'événements dans la collection 'events': <strong>${querySnapshot.size}</strong></p>
+                `;
+                console.log("Nombre d'événements:", querySnapshot.size);
+                
+                // Afficher quelques détails
+                if (querySnapshot.size > 0) {
+                    resultDiv.innerHTML += "<h3>Premiers événements:</h3><ul>";
+                    let count = 0;
+                    querySnapshot.forEach(doc => {
+                        if (count < 5) {
+                            resultDiv.innerHTML += `<li>ID: ${doc.id}</li>`;
+                            console.log("Document:", doc.id, doc.data());
+                            count++;
+                        }
+                    });
+                    resultDiv.innerHTML += "</ul>";
+                }
+            })
+            .catch(error => {
+                resultDiv.innerHTML = `
+                    <h2 style="color: red;">Erreur!</h2>
+                    <p>Code: ${error.code}</p>
+                    <p>Message: ${error.message}</p>
+                    <p>Vérifiez les règles de sécurité Firestore pour la collection 'events'</p>
+                `;
+                console.error("Erreur:", error);
+            });
+    </script>
+</body>
+</html>

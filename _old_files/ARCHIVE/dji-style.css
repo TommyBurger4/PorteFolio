@@ -1,0 +1,877 @@
+/* DJI/Apple Style Animations and Effects */
+
+/* Scroll-triggered zoom effects */
+.hero-zoom {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    scroll-snap-align: start;
+}
+
+.hero-zoom-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1) translateZ(0);
+    text-align: center;
+    width: 100%;
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+.hero-zoom.zoomed .hero-zoom-content {
+    transform: translate(-50%, -50%) scale(0.9) translateZ(0);
+    opacity: 0.3; /* Changed from 0 to 0.3 to keep content visible */
+}
+
+/* Cinematic text reveal */
+.text-reveal {
+    overflow: hidden;
+}
+
+.text-reveal-content {
+    display: inline-block;
+    transform: translateY(100%);
+    animation: textReveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) forwards;
+    animation-delay: 0.5s; /* Increased delay to ensure proper timing */
+}
+
+@keyframes textReveal {
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Product showcase with dramatic zoom */
+.product-showcase-dji {
+    position: relative;
+    min-height: 100vh;
+    background: #000;
+    overflow: visible; /* Changed from hidden to show stats */
+    scroll-snap-align: start;
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: translateY(0); /* Changed from translateY(50px) to translateY(0) */
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.product-showcase-dji.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation fluide pour les logos des applications */
+.app-logo-hero {
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: scale(1) translateY(0); /* Changed from scale(0.8) translateY(30px) to scale(1) translateY(0) */
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.3s;
+}
+
+.product-showcase-dji.in-view .app-logo-hero {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Animation pour les titres des sections */
+.headline-massive {
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: translateY(0); /* Changed from translateY(30px) to translateY(0) */
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.5s;
+}
+
+.product-showcase-dji.in-view .headline-massive {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les sous-titres */
+.creno-subtitle,
+.pixshare-subtitle {
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: translateY(0); /* Changed from translateY(20px) to translateY(0) */
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.7s;
+}
+
+.product-showcase-dji.in-view .creno-subtitle,
+.product-showcase-dji.in-view .pixshare-subtitle {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les boutons */
+.hover-lift {
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: translateY(0); /* Changed from translateY(20px) to translateY(0) */
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.9s;
+}
+
+.product-showcase-dji.in-view .hover-lift {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Amélioration de l'effet hover sur les boutons */
+.hover-lift:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation fluide pour les sections de transition */
+.transition-section {
+    opacity: 1; /* Changed from 0 to 1 to ensure visibility */
+    transform: translateY(0); /* Changed from translateY(30px) to translateY(0) */
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.transition-section.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.product-image-container {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image {
+    width: 80%;
+    max-width: 800px;
+    transform: scale(0.5) translateZ(0);
+    opacity: 0;
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.product-image.in-view {
+    transform: scale(1) translateZ(0);
+    opacity: 1;
+}
+
+.product-image.zoomed {
+    transform: scale(1.5) translateZ(0);
+}
+
+/* Feature reveal sections */
+.feature-reveal {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    overflow: hidden;
+    scroll-snap-align: start;
+}
+
+.feature-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+.feature-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    transform: scale(1.1);
+    transition: all 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.feature-reveal.active .feature-bg-image {
+    transform: scale(1);
+    opacity: 0.7;
+}
+
+/* Cinematic headline */
+.headline-massive {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    line-height: 0.9;
+    color: #fff;
+    margin: 0;
+}
+
+.headline-gradient {
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Phone mockup animations */
+.phone-mockup {
+    position: relative;
+    width: 300px;
+    height: 600px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+    transform: perspective(1000px) rotateY(25deg);
+    transition: transform 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.phone-mockup:hover {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+}
+
+/* Parallax scroll sections */
+.parallax-container {
+    position: relative;
+    height: 150vh;
+    overflow: hidden;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.parallax-layer-back {
+    transform: translateZ(-2px) scale(3);
+}
+
+.parallax-layer-mid {
+    transform: translateZ(-1px) scale(2);
+}
+
+.parallax-layer-front {
+    transform: translateZ(0) scale(1);
+}
+
+/* Video-style reveals */
+.video-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+    z-index: 1;
+}
+
+.video-content {
+    position: absolute;
+    bottom: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 2;
+    color: #fff;
+}
+
+/* Smooth fade sections */
+.fade-section {
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.fade-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Number counter animations */
+.stat-number {
+    font-size: 5rem;
+    font-weight: 900;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.stat-number.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Grille des projets - Animations améliorées */
+.feature-grid-dji {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-top: 4rem;
+}
+
+.feature-card-dji {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    transform: translateY(40px);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card-dji::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.feature-card-dji:hover::before {
+    opacity: 1;
+}
+
+.feature-card-dji.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation progressive pour chaque carte */
+.feature-card-dji:nth-child(1) { transition-delay: 0.1s; }
+.feature-card-dji:nth-child(2) { transition-delay: 0.2s; }
+.feature-card-dji:nth-child(3) { transition-delay: 0.3s; }
+.feature-card-dji:nth-child(4) { transition-delay: 0.4s; }
+.feature-card-dji:nth-child(5) { transition-delay: 0.5s; }
+.feature-card-dji:nth-child(6) { transition-delay: 0.6s; }
+
+/* Effet hover amélioré */
+.feature-card-dji:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation des logos dans les cartes */
+.feature-card-dji .app-logo {
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scale(1);
+}
+
+.feature-card-dji:hover .app-logo {
+    transform: scale(1.1) rotateZ(5deg);
+    filter: brightness(1.2) contrast(1.1);
+}
+
+/* Cinematic transitions */
+.scene-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.scene-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Hover effects */
+.hover-lift {
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.hover-lift:hover {
+    transform: translateY(-20px) scale(1.02);
+}
+
+/* Text animations */
+.word-by-word {
+    opacity: 0;
+}
+
+.word-by-word .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.word-by-word.visible .word {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.word-by-word .word:nth-child(1) { transition-delay: 0.1s; }
+.word-by-word .word:nth-child(2) { transition-delay: 0.2s; }
+.word-by-word .word:nth-child(3) { transition-delay: 0.3s; }
+.word-by-word .word:nth-child(4) { transition-delay: 0.4s; }
+.word-by-word .word:nth-child(5) { transition-delay: 0.5s; }
+
+/* Scroll progress indicator */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.1);
+    z-index: 9998;
+}
+
+.scroll-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #fff 0%, #888 100%);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Loading screen - Fixed and improved */
+.loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    animation: hideLoadingScreen 3s ease-in-out forwards;
+}
+
+.loading-screen.loaded {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    display: none;
+}
+
+@keyframes hideLoadingScreen {
+    0%, 80% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
+    }
+}
+
+.loading-logo {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loading-logo img {
+    width: 100%;
+    height: auto;
+    filter: invert(1);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+/* Mouse follower */
+.mouse-follower {
+    position: fixed;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+}
+
+/* Smooth scroll sections */
+.scroll-section {
+    position: relative;
+    padding: 10vh 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: auto;
+    contain: layout style paint;
+    width: 100%;
+    overflow: visible;
+    scroll-snap-align: start;
+}
+
+/* Reveal on scroll masks - Version améliorée et plus fluide */
+.mask-reveal {
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mask-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Suppression de l'ancien effet de balayage */
+.mask-reveal::before {
+    display: none;
+}
+
+.mask-reveal-content {
+    opacity: 1;
+    transition: none;
+    transition-delay: 0s;
+}
+
+.mask-reveal.revealed .mask-reveal-content {
+    opacity: 1;
+}
+
+/* Animation plus douce pour les éléments enfants */
+.mask-reveal .headline-massive,
+.mask-reveal p,
+.mask-reveal a {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition-delay: 0.3s;
+}
+
+.mask-reveal.revealed .headline-massive,
+.mask-reveal.revealed p,
+.mask-reveal.revealed a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Délai progressif pour les éléments multiples */
+.mask-reveal p:nth-child(2) {
+    transition-delay: 0.5s;
+}
+
+.mask-reveal a {
+    transition-delay: 0.7s;
+}
+
+/* Stats showcase containers */
+.creno-stats-showcase,
+.pixshare-stats-showcase {
+    pointer-events: none; /* Don't block interaction */
+}
+
+.creno-stat,
+.pixshare-stat {
+    position: absolute !important;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+/* Ensure sections don't clip content */
+.creno-scroll-trigger,
+.pixshare-scroll-trigger {
+    overflow: visible !important;
+}
+
+/* Remove any black borders on large screens */
+@media (min-width: 1920px) {
+    .product-showcase-dji {
+        background: transparent;
+    }
+    
+    .scroll-section {
+        max-width: none !important;
+        width: 100% !important;
+    }
+}
+
+/* Mobile-specific optimizations for better UX */
+@media (max-width: 768px) {
+    /* Reduce animation wrapper heights for mobile */
+    .animation-wrapper {
+        min-height: 120vh !important; /* Much smaller than desktop */
+    }
+    
+    /* Optimize stats showcase for mobile */
+    .creno-stats-showcase,
+    .pixshare-stats-showcase {
+        width: 95vw !important;
+        max-width: 350px !important;
+        height: 80vh !important;
+        max-height: 400px !important;
+    }
+    
+    /* Adjust stat positioning for mobile */
+    .creno-stat,
+    .pixshare-stat {
+        position: absolute !important;
+        top: 15% !important;
+        padding: 1rem !important;
+    }
+    
+    .creno-stat:nth-child(1),
+    .pixshare-stat:nth-child(1) {
+        left: 2% !important;
+        right: auto !important;
+    }
+    
+    .creno-stat:nth-child(2),
+    .pixshare-stat:nth-child(2) {
+        right: 2% !important;
+        left: auto !important;
+    }
+    
+    /* Reduce stat box sizes on mobile */
+    .creno-stat > div,
+    .pixshare-stat > div {
+        padding: 0.8rem 1rem !important;
+        border-radius: 15px !important;
+    }
+    
+    .creno-stat .stat-number,
+    .pixshare-stat .stat-number {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.2rem !important;
+    }
+    
+    .creno-stat div:last-child,
+    .pixshare-stat div:last-child {
+        font-size: 0.7rem !important;
+    }
+    
+    /* Optimize product showcase for mobile */
+    .product-showcase-dji {
+        min-height: 80vh !important;
+        padding: 2rem 1rem !important;
+    }
+    
+    /* Reduce logo sizes on mobile */
+    .app-logo-hero {
+        width: 120px !important;
+        height: 120px !important;
+    }
+    
+    /* Optimize text sizes for mobile */
+    .headline-massive {
+        font-size: 2rem !important;
+        line-height: 1.2 !important;
+        margin-bottom: 1rem !important;
+    }
+    
+    .creno-subtitle,
+    .pixshare-subtitle {
+        font-size: 1rem !important;
+        line-height: 1.4 !important;
+    }
+    
+    /* Improve scroll sections on mobile */
+    .scroll-section {
+        padding: 5vh 1rem !important;
+        min-height: 80vh !important;
+    }
+    
+    /* Optimize feature grid for mobile */
+    .feature-grid-dji {
+        grid-template-columns: 1fr !important;
+        gap: 2rem !important;
+        margin-top: 2rem !important;
+    }
+    
+    .feature-card-dji {
+        padding: 2rem 1.5rem !important;
+    }
+    
+    /* Reduce animation delays on mobile for faster response */
+    .mask-reveal .headline-massive,
+    .mask-reveal p,
+    .mask-reveal a {
+        transition-delay: 0.1s !important;
+    }
+    
+    .mask-reveal p:nth-child(2) {
+        transition-delay: 0.2s !important;
+    }
+    
+    .mask-reveal a {
+        transition-delay: 0.3s !important;
+    }
+    
+    /* Optimize transitions for mobile performance */
+    .product-showcase-dji,
+    .app-logo-hero,
+    .headline-massive,
+    .creno-subtitle,
+    .pixshare-subtitle {
+        transition-duration: 0.8s !important;
+    }
+    
+    /* Loading screen mobile optimization */
+    .loading-logo {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    /* Navigation mobile optimization */
+    .nav-menu {
+        display: none !important;
+    }
+    
+    .mobile-menu-toggle {
+        display: block !important;
+    }
+    
+    .nav-menu.mobile-active {
+        display: flex !important;
+        position: absolute !important;
+        top: 100% !important;
+        left: 0 !important;
+        right: 0 !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        flex-direction: column !important;
+        padding: 2rem !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+        gap: 1.5rem !important;
+        backdrop-filter: blur(10px) !important;
+    }
+    
+    /* Hero section mobile optimization */
+    .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 1.5rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 2rem !important;
+    }
+    
+    /* Button mobile optimization */
+    .cta-button {
+        padding: 1rem 2rem !important;
+        font-size: 1rem !important;
+        border-radius: 25px !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .animation-wrapper {
+        min-height: 100vh !important;
+    }
+    
+    .creno-stats-showcase,
+    .pixshare-stats-showcase {
+        width: 98vw !important;
+        max-width: 300px !important;
+        height: 70vh !important;
+        max-height: 350px !important;
+    }
+    
+    .headline-massive {
+        font-size: 1.8rem !important;
+    }
+    
+    .app-logo-hero {
+        width: 100px !important;
+        height: 100px !important;
+    }
+    
+    .loading-logo {
+        width: 80px !important;
+        height: 80px !important;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem !important;
+    }
+    
+    .cta-button {
+        padding: 0.8rem 1.5rem !important;
+        font-size: 0.9rem !important;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    /* Increase touch targets */
+    .feature-card-dji,
+    .cta-button,
+    .nav-menu a {
+        min-height: 44px !important;
+        min-width: 44px !important;
+    }
+    
+    /* Disable hover effects on touch devices */
+    .feature-card-dji:hover,
+    .app-logo-hero:hover,
+    .cta-button:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* Optimize scroll performance */
+    .animation-wrapper,
+    .product-showcase-dji,
+    .scroll-section {
+        will-change: auto !important;
+        transform: translateZ(0) !important;
+    }
+}

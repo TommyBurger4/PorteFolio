@@ -2,7 +2,7 @@
   "creno": true,
   "pixshare": true,
   "burger-michel": false,
-  "fakt": true,
-  "findmycourt": true,
+  "fakt": false,
+  "findmycourt": false,
   "clubs-sportifs": false
 }

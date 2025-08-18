@@ -1,0 +1,45 @@
+/* FIX D'URGENCE - DÉBLOQUER LE SCROLL */
+
+/* 1. Forcer le scroll à fonctionner */
+html, body {
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    height: auto !important;
+    position: static !important;
+}
+
+/* 2. Supprimer toutes les positions fixed qui bloquent */
+body.scroll-locked,
+body[style*="fixed"] {
+    position: static !important;
+    overflow: auto !important;
+}
+
+/* 3. Forcer la disparition du loading screen */
+.loading-screen {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* 4. S'assurer que les sections ne bloquent pas */
+section {
+    position: relative !important;
+    overflow: visible !important;
+}
+
+/* 5. Désactiver temporairement les animations complexes */
+.creno-animation-container,
+.pixshare-animation-container {
+    min-height: 100vh !important; /* Au lieu de 200vh */
+}
+
+.animation-sticky-section {
+    position: relative !important; /* Au lieu de sticky */
+}
+
+/* 6. Rendre tout visible */
+* {
+    opacity: 1 !important;
+    visibility: visible !important;
+}

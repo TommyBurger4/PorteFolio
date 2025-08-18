@@ -12,7 +12,10 @@
       "Bash(python3:*)",
       "Bash(grep:*)",
       "Bash(chmod:*)",
-      "Bash(touch:*)"
+      "Bash(touch:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }

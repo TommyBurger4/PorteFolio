@@ -1,0 +1,266 @@
+/* STYLES EXACTS POUR ANIMATION DJI */
+
+/* Reset des anciens styles conflictuels */
+html {
+    scroll-snap-type: none !important;
+}
+
+/* Containers principaux */
+.creno-animation-container,
+.pixshare-animation-container {
+    position: relative;
+    height: 200vh; /* Hauteur pour permettre le scroll progressif */
+    background: #000;
+}
+
+/* Section sticky qui reste en place pendant le scroll */
+.animation-sticky-section {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Logo central */
+.creno-logo-zoom,
+.pixshare-logo-zoom {
+    position: relative;
+    z-index: 10;
+    transition: transform 0.3s ease-out;
+    will-change: transform;
+}
+
+.creno-logo-zoom img,
+.pixshare-logo-zoom img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+}
+
+/* Container de stats - centré et invisible au départ */
+.creno-stats-container,
+.pixshare-stats-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    max-width: 1000px;
+    height: 80vh;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.6s ease-out;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Stats items */
+.creno-stat-item,
+.pixshare-stat-item {
+    position: absolute;
+    opacity: 0;
+    transform: translateY(30px) scale(0.8);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Positions optimisées pour ne pas se superposer */
+.stat-item-1 {
+    top: 15%;
+    left: 10%;
+}
+
+.stat-item-2 {
+    top: 15%;
+    right: 10%;
+}
+
+.stat-item-3 {
+    bottom: 25%;
+    left: 15%;
+}
+
+.stat-item-4 {
+    bottom: 25%;
+    right: 15%;
+}
+
+/* Boîtes de stats avec effet glassmorphism */
+.stat-box {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem 3rem;
+    text-align: center;
+    min-width: 200px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Thème Créno */
+.creno-stat-item .stat-box {
+    background: linear-gradient(135deg, rgba(255, 198, 5, 0.1) 0%, rgba(255, 198, 5, 0.05) 100%);
+    border-color: rgba(255, 198, 5, 0.2);
+}
+
+/* Thème PixShare */
+.pixshare-stat-item .stat-box {
+    background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(147, 51, 234, 0.05) 100%);
+    border-color: rgba(147, 51, 234, 0.2);
+}
+
+/* Compteurs animés */
+.stat-counter {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+}
+
+.creno-stat-item .stat-counter {
+    color: #ffc605;
+    text-shadow: 0 0 20px rgba(255, 198, 5, 0.4);
+}
+
+.pixshare-stat-item .stat-counter {
+    color: #9333ea;
+    text-shadow: 0 0 20px rgba(147, 51, 234, 0.4);
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Texte et indicateur de scroll */
+.creno-text-content,
+.pixshare-text-content {
+    position: absolute;
+    bottom: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 5;
+    transition: all 0.3s ease-out;
+    will-change: opacity, transform;
+}
+
+.product-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.03em;
+    color: #fff;
+}
+
+.product-subtitle {
+    font-size: clamp(1.2rem, 2vw, 1.8rem);
+    opacity: 0.7;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+/* Indicateur de scroll animé */
+.scroll-indicator {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease-out;
+    animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-indicator span {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.scroll-indicator i {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes scrollBounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(10px);
+    }
+    60% {
+        transform: translateY(5px);
+    }
+}
+
+/* Section de contenu après l'animation */
+.scroll-section {
+    background: #111;
+    padding: 5rem 0;
+    min-height: 50vh;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .creno-animation-container,
+    .pixshare-animation-container {
+        height: 150vh; /* Moins de hauteur sur mobile */
+    }
+    
+    .creno-logo-zoom img,
+    .pixshare-logo-zoom img {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .stat-counter {
+        font-size: 2rem;
+    }
+    
+    .stat-box {
+        padding: 1.5rem 2rem;
+        min-width: 140px;
+    }
+    
+    .product-title {
+        font-size: 2.5rem;
+    }
+    
+    .product-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    /* Ajuster les positions */
+    .stat-item-1,
+    .stat-item-2 {
+        top: 10%;
+    }
+    
+    .stat-item-3,
+    .stat-item-4 {
+        bottom: 30%;
+    }
+}
+
+/* Suppression définitive des anciens wrappers */
+.animation-wrapper,
+.creno-wrapper,
+.pixshare-wrapper,
+.creno-placeholder,
+.pixshare-placeholder {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+}
