@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <script>
+        // Forcer immédiatement le scroll en haut
+        window.history.scrollRestoration = 'manual';
+        window.scrollTo(0, 0);
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Fakt | Guide d'utilisation</title>
+    <meta name="description" content="Guide complet d'utilisation de l'application Fakt - Gestion de factures simplifiée">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/favicon.png">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Styles globaux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0b1e;
+            color: #fff;
+            padding-top: 80px;
+            overflow-x: hidden;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #003580;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: #003580;
+        }
+        
+        /* Menu mobile */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .desktop-only {
+            display: flex;
+        }
+        
+        /* Menu Mobile Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 9999;
+            display: none;
+            overflow-y: auto;
+        }
+        
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+        
+        .mobile-menu-content {
+            padding: 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        .mobile-menu-sections {
+            margin-top: 4rem;
+        }
+        
+        .mobile-menu-section {
+            margin-bottom: 3rem;
+        }
+        
+        .mobile-menu-section h4 {
+            color: #003580;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .mobile-menu-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .mobile-menu-section li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .mobile-menu-section a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+            display: block;
+            padding: 0.5rem 0;
+        }
+        
+        .mobile-menu-section a:hover {
+            color: #003580;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding-top: 60px;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .desktop-only {
+                display: none;
+            }
+            
+            .doc-section {
+                padding: 2rem 1.5rem !important;
+            }
+            
+            .doc-container {
+                padding: 1rem;
+            }
+        }
+        
+        /* Container principal */
+        .doc-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* Header de documentation */
+        .doc-header {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(0, 53, 128, 0.1), rgba(0, 82, 204, 0.05));
+            border-radius: 20px;
+            margin-bottom: 3rem;
+        }
+        
+        .doc-header i {
+            font-size: 4rem;
+            color: #003580;
+            margin-bottom: 1rem;
+        }
+        
+        .doc-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #003580, #0052cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .doc-header p {
+            font-size: 1.3rem;
+            opacity: 0.8;
+        }
+        
+        /* Sections de documentation */
+        .doc-section {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 3rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .doc-section h2 {
+            color: #003580;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(0, 53, 128, 0.3);
+        }
+        
+        .doc-section h3 {
+            color: #fff;
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem;
+        }
+        
+        .doc-section p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Steps */
+        .step {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            border-radius: 15px;
+            border-left: 4px solid #003580;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #003580;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        /* Feature grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .feature-card h4 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-card p {
+            opacity: 0.8;
+            font-size: 0.95rem;
+        }
+        
+        /* Tips et warnings */
+        .tip {
+            background: rgba(0, 82, 204, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #0052cc;
+        }
+        
+        .warning {
+            background: rgba(255, 107, 107, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #FF6B6B;
+        }
+        
+        .info {
+            background: rgba(79, 195, 247, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+            border-left: 4px solid #4FC3F7;
+        }
+        
+        /* Navigation de documentation */
+        .doc-nav {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 1rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .doc-nav a {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .doc-nav a:hover {
+            background: rgba(0, 53, 128, 0.2);
+            color: #0052cc;
+        }
+        
+        /* Bouton retour */
+        .back-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: linear-gradient(135deg, #003580, #0052cc);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0, 53, 128, 0.3);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 53, 128, 0.4);
+        }
+        
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        footer p {
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+        
+        /* Exemples de code */
+        .code-example {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        
+        /* Listes stylisées */
+        ul.styled-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        ul.styled-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        ul.styled-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #003580;
+        }
+        
+        /* Animations */
+        .fade-section {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: linear-gradient(135deg, #003580, #0052cc);
+            color: #fff;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin: 0 0.25rem;
+        }
+        
+        .badge.new {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+        }
+        
+        .badge.premium {
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <a href="#" class="nav-logo">
+                <i class="fas fa-file-invoice"></i> Fakt
+            </a>
+            <ul class="nav-links desktop-only">
+                <li><a href="#home">Accueil</a></li>
+                <li><a href="#invoice">Facturation</a></li>
+                <li><a href="#list">Historique</a></li>
+                <li><a href="#settings">Paramètres</a></li>
+                <li><a href="#email">Emails</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Menu Mobile Overlay -->
+    <div class="mobile-menu-overlay" id="mobileMenu">
+        <div class="mobile-menu-content">
+            <button class="mobile-menu-close" id="closeMenuBtn">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="mobile-menu-sections">
+                <!-- Liens de documentation -->
+                <div class="mobile-menu-section">
+                    <h4>Documentation Fakt</h4>
+                    <ul>
+                        <li><a href="#invoice">Créer une facture</a></li>
+                        <li><a href="#list">Historique</a></li>
+                        <li><a href="#settings">Paramètres</a></li>
+                        <li><a href="#email">Configuration Email</a></li>
+                        <li><a href="#faq">Questions fréquentes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Container principal -->
+    <div class="doc-container">
+        
+        <!-- Header de documentation -->
+        <div class="doc-header fade-section" id="home">
+            <i class="fas fa-file-invoice"></i>
+            <h1>Guide d'utilisation Fakt</h1>
+            <p>Documentation complète pour la gestion de vos factures de location</p>
+        </div>
+
+        <!-- Navigation rapide -->
+        <div class="doc-nav">
+            <a href="#invoice">Facturation</a>
+            <a href="#list">Historique</a>
+            <a href="#settings">Paramètres</a>
+            <a href="#email">Emails</a>
+            <a href="#integration">Intégrations</a>
+            <a href="#faq">FAQ</a>
+        </div>
+
+        <!-- Section Introduction -->
+        <div class="doc-section fade-section">
+            <h2><i class="fas fa-info-circle" style="margin-right: 1rem;"></i>Présentation de Fakt</h2>
+            
+            <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
+                Fakt est une application mobile professionnelle conçue pour simplifier la création et la gestion de factures pour les propriétaires de locations saisonnières. 
+                Compatible avec les réservations Booking.com, elle automatise la génération de factures conformes et leur envoi par email.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Création rapide</h4>
+                    <p>Générez des factures professionnelles en moins de 30 secondes</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cloud-download-alt" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Stockage sécurisé</h4>
+                    <p>Toutes vos factures sont sauvegardées localement et accessibles hors ligne</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-envelope" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Envoi automatisé</h4>
+                    <p>Envoyez directement les factures par email avec modèles personnalisables</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-pdf" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>PDF professionnel</h4>
+                    <p>Format PDF standard avec toutes les mentions légales requises</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <i class="fas fa-mobile-alt" style="margin-right: 0.5rem;"></i>
+                <strong>Compatibilité :</strong> L'application est disponible sur Android et iOS. Elle fonctionne également en mode hors ligne pour la création et la consultation des factures.
+            </div>
+        </div>
+
+        <!-- Section Création de facture -->
+        <div class="doc-section fade-section" id="invoice">
+            <h2><i class="fas fa-file-invoice-dollar" style="margin-right: 1rem;"></i>Créer une facture</h2>
+            
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                L'onglet "Nouvelle Facture" vous permet de créer rapidement des factures professionnelles. 
+                Le formulaire est optimisé pour les réservations Booking.com avec calcul automatique des montants.
+            </p>
+
+            <h3>Étapes de création</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Informations client</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Prénom et nom du client</li>
+                    <li>Adresse email (pour l'envoi automatique)</li>
+                    <li>Adresse postale (optionnelle)</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Dates du séjour</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Date d'arrivée (format JJ/MM/AAAA)</li>
+                    <li>Date de départ (format JJ/MM/AAAA)</li>
+                    <li>Le nombre de nuits est calculé automatiquement</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Montants</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Prix par nuit (HT)</li>
+                    <li>Taxe de séjour (montant total)</li>
+                    <li>Le total est calculé automatiquement</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Options Booking.com</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Cochez "Réservation Booking" si applicable</li>
+                    <li>Entrez le numéro de réservation Booking</li>
+                    <li>Activez "Tarif Genius" si le client en bénéficie</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">5</span>
+                <strong>Génération et envoi</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Appuyez sur "Générer la facture"</li>
+                    <li>Le PDF est créé automatiquement</li>
+                    <li>L'email s'ouvre avec le PDF en pièce jointe</li>
+                </ul>
+            </div>
+
+            <div class="tip">
+                <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
+                <strong>Astuce :</strong> Le numéro de facture est généré automatiquement selon le format : FACTURE-AAAAMM-XXX (où XXX est un compteur incrémental).
+            </div>
+
+            <h3>Fonctionnalités avancées</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Facture au nom du client</h4>
+                    <p>Activez cette option pour établir la facture au nom du client avec son adresse complète</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Calcul automatique</h4>
+                    <p>Les montants TTC et le total sont calculés automatiquement selon les données saisies</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Mentions légales</h4>
+                    <p>Toutes les mentions obligatoires sont automatiquement incluses dans le PDF</p>
+                </div>
+            </div>
+
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
+                <strong>Important :</strong> Assurez-vous de remplir vos informations dans les Paramètres avant de créer votre première facture. Ces informations apparaîtront sur toutes vos factures.
+            </div>
+        </div>
+
+        <!-- Section Historique -->
+        <div class="doc-section fade-section" id="list">
+            <h2><i class="fas fa-history" style="margin-right: 1rem;"></i>Historique des factures</h2>
+            
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                L'onglet "Historique" affiche toutes vos factures créées, triées par date. Vous pouvez consulter, partager ou supprimer vos factures depuis cet écran.
+            </p>
+
+            <h3>Fonctionnalités de l'historique</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-search" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Recherche rapide</h4>
+                    <p>Retrouvez facilement une facture par numéro, nom de client ou date</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-share-alt" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Partage multiple</h4>
+                    <p>Renvoyez une facture par email, WhatsApp ou autres applications</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-eye" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Visualisation</h4>
+                    <p>Consultez le PDF directement dans l'application</p>
+                </div>
+            </div>
+
+            <h3>Actions disponibles</h3>
+            
+            <div class="step">
+                <strong><i class="fas fa-eye"></i> Visualiser</strong>
+                <p>Appuyez sur une facture pour ouvrir le PDF dans le visualiseur intégré</p>
+            </div>
+            
+            <div class="step">
+                <strong><i class="fas fa-share"></i> Partager</strong>
+                <p>Utilisez le bouton partage pour envoyer la facture via n'importe quelle application</p>
+            </div>
+            
+            <div class="step">
+                <strong><i class="fas fa-trash"></i> Supprimer</strong>
+                <p>Glissez vers la gauche ou utilisez le bouton supprimer (action irréversible)</p>
+            </div>
+
+            <div class="info">
+                <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                <strong>Stockage :</strong> Les factures sont stockées localement sur votre appareil. Pensez à faire des sauvegardes régulières de vos données.
+            </div>
+        </div>
+
+        <!-- Section Paramètres -->
+        <div class="doc-section fade-section" id="settings">
+            <h2><i class="fas fa-cog" style="margin-right: 1rem;"></i>Paramètres</h2>
+            
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                La configuration des paramètres est essentielle pour le bon fonctionnement de l'application. 
+                Ces informations apparaîtront sur toutes vos factures.
+            </p>
+
+            <h3>Informations du propriétaire</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Identité</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Prénom et nom du propriétaire</li>
+                    <li>Email de contact</li>
+                    <li>Numéro de téléphone</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Établissement</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Nom commercial (si différent)</li>
+                    <li>Adresse complète de la location</li>
+                    <li>Code postal et ville</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Informations légales</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Numéro SIRET ou identifiant fiscal</li>
+                    <li>Numéro d'enregistrement de la location</li>
+                    <li>Mentions légales additionnelles</li>
+                </ul>
+            </div>
+
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
+                <strong>Obligatoire :</strong> Ces informations sont requises pour générer des factures conformes à la législation française.
+            </div>
+
+            <h3>Options avancées</h3>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Copie cachée (BCC)</h4>
+                    <p>Recevez automatiquement une copie de chaque facture envoyée</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Sauvegarde automatique</h4>
+                    <p>Les paramètres sont sauvegardés automatiquement à chaque modification</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Réinitialisation</h4>
+                    <p>Possibilité de réinitialiser tous les paramètres aux valeurs par défaut</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Configuration Email -->
+        <div class="doc-section fade-section" id="email">
+            <h2><i class="fas fa-envelope" style="margin-right: 1rem;"></i>Configuration des emails</h2>
+            
+            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
+                Personnalisez complètement vos emails d'envoi de factures avec des modèles prédéfinis ou créez vos propres templates.
+            </p>
+
+            <h3>Email par défaut</h3>
+            
+            <div class="code-example">
+                <strong>Objet :</strong> Facture séjour [VILLE] - [NOM] [PRÉNOM]<br>
+                <strong>Corps :</strong><br>
+                Bonjour,<br><br>
+                Veuillez trouver ci-joint la facture de votre séjour [VILLE] pour le mois de [MOIS] [ANNÉE].<br><br>
+                En vous souhaitant bonne réception,<br><br>
+                [SIGNATURE]
+            </div>
+
+            <h3>Personnalisation avec variables</h3>
+            
+            <p>Vous pouvez utiliser les variables suivantes dans vos modèles d'email :</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>{VILLE}</h4>
+                    <p>Le nom de votre ville/location</p>
+                </div>
+                <div class="feature-card">
+                    <h4>{NOM} / {PRENOM}</h4>
+                    <p>Nom et prénom du client</p>
+                </div>
+                <div class="feature-card">
+                    <h4>{MOIS} / {ANNEE}</h4>
+                    <p>Mois et année du séjour</p>
+                </div>
+                <div class="feature-card">
+                    <h4>{NOM-PROPRIETAIRE}</h4>
+                    <p>Votre nom complet</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Activer l'email personnalisé</strong>
+                <p>Dans Paramètres, activez "Utiliser un email personnalisé"</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Créer votre modèle</strong>
+                <p>Rédigez l'objet et le corps de l'email en utilisant les variables</p>
+            </div>
+            
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Tester et valider</strong>
+                <p>Créez une facture test pour vérifier le rendu final</p>
+            </div>
+
+            <div class="tip">
+                <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
+                <strong>Conseil :</strong> Créez différents modèles selon la langue de vos clients en utilisant l'option de personnalisation.
+            </div>
+        </div>
+
+        <!-- Section Intégrations -->
+        <div class="doc-section fade-section" id="integration">
+            <h2><i class="fas fa-plug" style="margin-right: 1rem;"></i>Intégrations</h2>
+            
+            <h3>Booking.com</h3>
+            
+            <p style="margin-bottom: 2rem;">
+                Fakt est optimisé pour les propriétaires utilisant Booking.com. L'intégration permet une gestion simplifiée des réservations.
+            </p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Numéro de réservation</h4>
+                    <p>Ajoutez le numéro Booking pour référence sur la facture</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Tarif Genius</h4>
+                    <p>Identifiez facilement les réservations avec tarif préférentiel</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Commission</h4>
+                    <p>Calcul automatique possible des montants nets</p>
+                </div>
+            </div>
+
+            <h3>Formats d'export</h3>
+            
+            <div class="step">
+                <strong><i class="fas fa-file-pdf"></i> PDF</strong>
+                <p>Format standard pour l'envoi et l'archivage</p>
+            </div>
+            
+            <div class="step">
+                <strong><i class="fas fa-envelope"></i> Email</strong>
+                <p>Envoi direct via votre application de messagerie</p>
+            </div>
+            
+            <div class="step">
+                <strong><i class="fas fa-share-alt"></i> Applications tierces</strong>
+                <p>WhatsApp, Telegram, Drive, Dropbox, etc.</p>
+            </div>
+        </div>
+
+        <!-- Section FAQ -->
+        <div class="doc-section fade-section" id="faq">
+            <h2><i class="fas fa-question-circle" style="margin-right: 1rem;"></i>Questions fréquentes</h2>
+            
+            <h3>Comment modifier une facture déjà créée ?</h3>
+            <p>Les factures ne peuvent pas être modifiées après création pour des raisons légales. Vous devez supprimer la facture et en créer une nouvelle avec les bonnes informations.</p>
+            
+            <h3>Où sont stockées mes factures ?</h3>
+            <p>Les factures sont stockées localement sur votre appareil dans un dossier sécurisé de l'application. Elles restent accessibles même hors ligne.</p>
+            
+            <h3>Puis-je utiliser l'application pour plusieurs locations ?</h3>
+            <p>Oui, vous pouvez modifier les informations de l'établissement dans les paramètres selon la location concernée. Pensez à vérifier les informations avant chaque facture.</p>
+            
+            <h3>Comment sauvegarder mes factures ?</h3>
+            <p>Nous recommandons :</p>
+            <ul class="styled-list" style="padding-left: 1.5rem;">
+                <li>Activez la copie cachée (BCC) pour recevoir une copie par email</li>
+                <li>Exportez régulièrement vos factures vers un service cloud</li>
+                <li>Conservez une copie sur un disque externe</li>
+            </ul>
+            
+            <h3>L'application nécessite-t-elle une connexion internet ?</h3>
+            <p>Non pour la création et consultation des factures. Oui pour l'envoi par email et les mises à jour.</p>
+            
+            <h3>Les factures sont-elles conformes légalement ?</h3>
+            <p>Oui, les factures incluent toutes les mentions légales obligatoires en France :</p>
+            <ul class="styled-list" style="padding-left: 1.5rem;">
+                <li>Date et numéro de facture</li>
+                <li>Identité complète du prestataire</li>
+                <li>Identité du client</li>
+                <li>Description détaillée de la prestation</li>
+                <li>Montants HT, TVA et TTC</li>
+                <li>Mentions légales spécifiques</li>
+            </ul>
+            
+            <h3>Comment contacter le support ?</h3>
+            <p>Pour toute question ou problème technique, vous pouvez nous contacter via l'onglet "À propos" dans les paramètres de l'application.</p>
+
+            <div class="info">
+                <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
+                <strong>Mise à jour :</strong> L'application est régulièrement mise à jour pour améliorer les fonctionnalités et corriger les bugs. Pensez à installer les mises à jour disponibles.
+            </div>
+        </div>
+
+        <!-- Section Conseils -->
+        <div class="doc-section fade-section">
+            <h2><i class="fas fa-star" style="margin-right: 1rem;"></i>Conseils d'utilisation</h2>
+            
+            <div class="tip">
+                <i class="fas fa-check" style="margin-right: 0.5rem;"></i>
+                <strong>Vérifiez toujours</strong> les informations avant de générer une facture. Une fois créée, elle ne peut plus être modifiée.
+            </div>
+            
+            <div class="tip">
+                <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>
+                <strong>Créez vos factures rapidement</strong> après le départ des clients pour ne pas oublier les détails.
+            </div>
+            
+            <div class="tip">
+                <i class="fas fa-folder" style="margin-right: 0.5rem;"></i>
+                <strong>Organisez vos factures</strong> en utilisant un système de numérotation cohérent (automatique dans l'app).
+            </div>
+            
+            <div class="tip">
+                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>
+                <strong>Sauvegardez régulièrement</strong> vos factures sur un service cloud ou un disque externe.
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton retour fixe -->
+    <a href="#home" class="back-button">
+        <i class="fas fa-arrow-up" style="margin-right: 0.5rem;"></i>
+        Haut de page
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 Fakt. Tous droits réservés. Application développée pour simplifier la gestion de vos locations.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Forcer le scroll en haut au chargement
+        window.onbeforeunload = function () {
+            window.scrollTo(0, 0);
+        };
+        
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 0);
+        });
+        
+        // Gestion du menu mobile
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMenuBtn = document.getElementById('closeMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            // Ouvrir le menu
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            }
+            
+            // Fermer le menu
+            if (closeMenuBtn) {
+                closeMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            }
+            
+            // Fermer le menu quand on clique sur un lien
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            // Fermer le menu si on clique en dehors
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+            
+            // Animation fade-in au scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.fade-section').forEach(section => {
+                section.style.animationPlayState = 'paused';
+                observer.observe(section);
+            });
+            
+            // Smooth scroll pour les ancres
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
