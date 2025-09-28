@@ -18,10 +18,10 @@
     
     function setupAnimation(config) {
         console.log(`📦 Configuration ${config.name}...`);
-        
+
         const container = document.querySelector(`.${config.name}-animation-container`);
         if (!container) return;
-        
+
         const elements = {
             container,
             sticky: container.querySelector('.animation-sticky-section'),
@@ -30,105 +30,93 @@
             statItems: container.querySelectorAll(`.${config.name}-stat-item`),
             text: container.querySelector(`.${config.name}-text-content`)
         };
-        
+
         let state = {
             triggered: false,
-            blocking: false,
             scrollStart: 0,
-            blockProgress: 0,
             animationsComplete: false
         };
-        
+
+        // Détection iOS Safari
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isIOSSafari = isIOS && isSafari;
+
+        // Utiliser Intersection Observer pour une meilleure détection sur mobile
+        if ('IntersectionObserver' in window) {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: [0.3, 0.5, 0.7] // Plusieurs seuils pour capturer le passage
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0.4 && !state.triggered) {
+                        console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE (Observer)!`);
+                        state.triggered = true;
+                        state.scrollStart = window.scrollY;
+                        startAnimation();
+                    }
+                });
+            }, observerOptions);
+
+            // Observer le logo qui est l'élément central
+            if (elements.logo) {
+                observer.observe(elements.logo);
+            }
+        }
+
         function checkAnimation() {
             const rect = container.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
-            
+
             if (!elements.logo || !elements.text) return;
-            
+
             // Point de déclenchement
             const logoRect = elements.logo.getBoundingClientRect();
             const textRect = elements.text.getBoundingClientRect();
             const triggerPoint = (logoRect.top + logoRect.height/2 + textRect.top) / 2;
             const distance = Math.abs(triggerPoint - viewportHeight/2);
-            
+
             // Debug proche du centre
             if (distance < 200 && !state.triggered) {
                 console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px`);
             }
-            
-            // DÉCLENCHER LE BLOCAGE - Zone élargie pour capturer le scroll rapide
-            // On vérifie aussi si on a dépassé la zone (triggerPoint est au-dessus du centre)
-            const hasPassedTrigger = triggerPoint < viewportHeight/2 && rect.top < 0;
-            
-            if ((distance < 150 || hasPassedTrigger) && !state.triggered) {
-                console.log(`🎯 ${config.name} - BLOCAGE ACTIVÉ!`);
+
+            // DÉCLENCHER L'ANIMATION - Zone élargie pour iOS
+            const threshold = isIOSSafari ? 250 : 150; // Plus grande zone sur iOS
+            if (distance < threshold && !state.triggered) {
+                console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE!`);
                 state.triggered = true;
-                state.blocking = true;
                 state.scrollStart = window.scrollY;
-                
-                // Si on a dépassé la zone, on force le scroll à revenir
-                if (hasPassedTrigger) {
-                    const targetScroll = window.scrollY - (viewportHeight/2 - triggerPoint);
-                    window.scrollTo({
-                        top: targetScroll,
-                        behavior: 'instant'
-                    });
-                }
-                
-                startScrollBlock();
+
+                // Démarrer l'animation sans bloquer le scroll
+                startAnimation();
             }
-            
+
             // PAS DE RESET - Une fois jouée, l'animation reste figée jusqu'au rafraîchissement
             // Les stats restent visibles en permanence après l'animation
         }
         
-        function startScrollBlock() {
-            console.log(`🔒 ${config.name} - Scroll bloqué pendant l'animation`);
+        function startAnimation() {
+            console.log(`▶️ ${config.name} - Animation démarrée`);
             
-            // Détecter iOS
-            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-            
-            if (isIOS) {
-                // Animation automatique pour iOS sans bloquer le scroll
-                startIOSAnimation();
-                return;
-            }
-            
-            // Bloquer le scroll pendant l'animation
-            const blockScroll = (e) => {
-                if (state.blocking) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    return false;
-                }
-            };
-            
-            // Ajouter les event listeners pour bloquer
-            window.addEventListener('wheel', blockScroll, { passive: false, capture: true });
-            window.addEventListener('touchmove', blockScroll, { passive: false, capture: true });
-            window.addEventListener('keydown', blockScroll, { passive: false, capture: true });
-            
-            // Bloquer avec overflow hidden uniquement
-            document.body.style.overflow = 'hidden';
-            document.documentElement.style.overflow = 'hidden';
-            
-            // Animation automatique pendant le blocage
-            const duration = 2000; // 2 secondes
+            // Animation automatique sans blocage
+            const duration = 2500; // 2.5 secondes
             const startTime = Date.now();
             
             function animate() {
                 const elapsed = Date.now() - startTime;
                 const progress = Math.min(1, elapsed / duration);
                 
-                state.blockProgress = progress;
                 applyScrollAnimation(progress);
                 
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
-                    console.log(`🔓 ${config.name} - Animation terminée, déblocage`);
+                    console.log(`✅ ${config.name} - Animation terminée`);
                     state.animationsComplete = true;
-                    state.blocking = false;
                     
                     // S'assurer que les stats restent visibles
                     elements.stats.style.display = 'block';
@@ -139,45 +127,12 @@
                         stat.style.opacity = '1';
                         stat.style.transform = 'translateY(0) scale(1)';
                     });
-                    
-                    // Retirer les event listeners
-                    window.removeEventListener('wheel', blockScroll);
-                    window.removeEventListener('touchmove', blockScroll);
-                    window.removeEventListener('keydown', blockScroll);
-                    
-                    // Restaurer le scroll
-                    document.body.style.overflow = '';
-                    document.documentElement.style.overflow = '';
                 }
             }
             
             requestAnimationFrame(animate);
         }
         
-        // Animation automatique pour iOS
-        function startIOSAnimation() {
-            console.log(`📱 ${config.name} - Animation iOS sans blocage`);
-            
-            const duration = 3000; // 3 secondes
-            const startTime = Date.now();
-            
-            function animate() {
-                const elapsed = Date.now() - startTime;
-                const progress = Math.min(1, elapsed / duration);
-                
-                state.blockProgress = progress;
-                applyScrollAnimation(progress);
-                
-                if (progress < 1) {
-                    requestAnimationFrame(animate);
-                } else {
-                    console.log(`✅ ${config.name} - Animation iOS terminée`);
-                    state.animationsComplete = true;
-                }
-            }
-            
-            requestAnimationFrame(animate);
-        }
         
         function applyScrollAnimation(progress) {
             // PHASE 1 (0-40%) : Logo et texte reculent et s'assombrissent
@@ -477,21 +432,46 @@
         
         // Écouter le scroll et la molette pour une détection plus rapide
         let ticking = false;
-        
+        let lastScrollY = window.scrollY;
+
         function handleScrollCheck() {
-            if (!ticking && !state.blocking) {
+            if (!ticking) {
                 requestAnimationFrame(function() {
                     checkAnimation();
+                    lastScrollY = window.scrollY;
                     ticking = false;
                 });
                 ticking = true;
             }
         }
-        
-        // Double détection pour capturer les scrolls rapides
-        window.addEventListener('scroll', handleScrollCheck);
-        window.addEventListener('wheel', handleScrollCheck, { passive: true });
-        window.addEventListener('touchmove', handleScrollCheck, { passive: true });
+
+        // Pour iOS Safari, utiliser aussi touchend et scrollend
+        if (isIOSSafari) {
+            // Sur iOS, le scroll continue après le touch (momentum scrolling)
+            let scrollTimeout;
+
+            const checkWithDebounce = () => {
+                checkAnimation();
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    checkAnimation(); // Vérifier une dernière fois après l'arrêt
+                }, 100);
+            };
+
+            window.addEventListener('scroll', checkWithDebounce, { passive: true });
+            window.addEventListener('touchmove', handleScrollCheck, { passive: true });
+            window.addEventListener('touchend', () => {
+                // Vérifier après le touchend car le scroll continue
+                setTimeout(checkAnimation, 50);
+                setTimeout(checkAnimation, 150);
+                setTimeout(checkAnimation, 300);
+            }, { passive: true });
+        } else {
+            // Desktop et Android
+            window.addEventListener('scroll', handleScrollCheck);
+            window.addEventListener('wheel', handleScrollCheck, { passive: true });
+            window.addEventListener('touchmove', handleScrollCheck, { passive: true });
+        }
         
         console.log(`✅ ${config.name} prêt - Scroll pour contrôler l'animation`);
     }
