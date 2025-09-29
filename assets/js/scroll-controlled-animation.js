@@ -46,14 +46,19 @@
         if ('IntersectionObserver' in window) {
             const observerOptions = {
                 root: null,
-                rootMargin: '0px',
-                threshold: [0.3, 0.5, 0.7] // Plusieurs seuils pour capturer le passage
+                rootMargin: isIOSSafari ? '-10% 0px -10% 0px' : '0px', // Zone plus large sur iOS
+                threshold: isIOSSafari
+                    ? [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8] // Plus de seuils sur iOS
+                    : [0.3, 0.5, 0.7]
             };
 
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio > 0.4 && !state.triggered) {
-                        console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE (Observer)!`);
+                    // Sur iOS, déclencher dès 20% de visibilité pour compenser le momentum scroll
+                    const triggerRatio = isIOSSafari ? 0.2 : 0.4;
+
+                    if (entry.isIntersecting && entry.intersectionRatio > triggerRatio && !state.triggered) {
+                        console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE (Observer ${Math.round(entry.intersectionRatio * 100)}%)!`);
                         state.triggered = true;
                         state.scrollStart = window.scrollY;
                         startAnimation();
@@ -61,9 +66,9 @@
                 });
             }, observerOptions);
 
-            // Observer le logo qui est l'élément central
-            if (elements.logo) {
-                observer.observe(elements.logo);
+            // Observer le conteneur entier, pas juste le logo
+            if (elements.container) {
+                observer.observe(elements.container);
             }
         }
 
@@ -449,23 +454,49 @@
         if (isIOSSafari) {
             // Sur iOS, le scroll continue après le touch (momentum scrolling)
             let scrollTimeout;
+            let checkInterval;
 
             const checkWithDebounce = () => {
                 checkAnimation();
                 clearTimeout(scrollTimeout);
+                clearInterval(checkInterval);
+
+                // Vérifier toutes les 50ms pendant le momentum scroll
+                checkInterval = setInterval(checkAnimation, 50);
+
                 scrollTimeout = setTimeout(() => {
-                    checkAnimation(); // Vérifier une dernière fois après l'arrêt
-                }, 100);
+                    clearInterval(checkInterval);
+                    checkAnimation(); // Vérification finale
+                }, 500); // Attendre 500ms après le dernier scroll
             };
 
             window.addEventListener('scroll', checkWithDebounce, { passive: true });
             window.addEventListener('touchmove', handleScrollCheck, { passive: true });
-            window.addEventListener('touchend', () => {
-                // Vérifier après le touchend car le scroll continue
-                setTimeout(checkAnimation, 50);
-                setTimeout(checkAnimation, 150);
-                setTimeout(checkAnimation, 300);
+            window.addEventListener('touchstart', () => {
+                // Vérifier dès le début du touch
+                checkAnimation();
             }, { passive: true });
+            window.addEventListener('touchend', () => {
+                // Vérifier plusieurs fois après le touchend car le scroll continue
+                for (let i = 0; i < 10; i++) {
+                    setTimeout(checkAnimation, i * 100);
+                }
+            }, { passive: true });
+
+            // Vérification périodique supplémentaire sur iOS pour capturer le scroll
+            const iosCheckInterval = setInterval(() => {
+                if (!state.triggered) {
+                    checkAnimation();
+                }
+            }, 200);
+
+            // Nettoyer l'interval quand l'animation est déclenchée
+            const originalStartAnimation = startAnimation;
+            startAnimation = function() {
+                clearInterval(iosCheckInterval);
+                clearInterval(checkInterval);
+                originalStartAnimation();
+            };
         } else {
             // Desktop et Android
             window.addEventListener('scroll', handleScrollCheck);
