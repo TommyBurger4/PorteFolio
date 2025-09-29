@@ -15,8 +15,15 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: none;
+    scroll-snap-type: y mandatory;
     overflow-x: hidden;
+}
+
+/* Désactiver scroll snap sur desktop, activer sur mobile */
+@media (min-width: 769px) {
+    html {
+        scroll-snap-type: none;
+    }
 }
 
 body {
@@ -255,6 +262,13 @@ nav {
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    scroll-snap-align: start;
+}
+
+@media (min-width: 769px) {
+    .hero-zoom {
+        scroll-snap-align: none;
+    }
 }
 
 .hero-content {
@@ -282,11 +296,26 @@ nav {
 
 /* Container principal pour l'animation */
 .creno-animation-container,
-.pixshare-animation-container {
+.pixshare-animation-container,
+.findmycourt-animation-container,
+.fakt-animation-container {
     position: relative;
     height: 80vh;
     background: var(--color-black);
     overflow: hidden;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+}
+
+/* Désactiver scroll snap sur ces sections en desktop */
+@media (min-width: 769px) {
+    .creno-animation-container,
+    .pixshare-animation-container,
+    .findmycourt-animation-container,
+    .fakt-animation-container {
+        scroll-snap-align: none;
+        scroll-snap-stop: normal;
+    }
 }
 
 /* Section sticky */

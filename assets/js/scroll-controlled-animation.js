@@ -42,6 +42,10 @@
         const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
         const isIOSSafari = isIOS && isSafari;
 
+        if (isIOSSafari) {
+            console.log(`🍎 ${config.name} - Mode iOS Safari activé`);
+        }
+
         // Utiliser Intersection Observer pour une meilleure détection sur mobile
         if ('IntersectionObserver' in window) {
             const observerOptions = {
@@ -84,15 +88,19 @@
             const triggerPoint = (logoRect.top + logoRect.height/2 + textRect.top) / 2;
             const distance = Math.abs(triggerPoint - viewportHeight/2);
 
-            // Debug proche du centre
-            if (distance < 200 && !state.triggered) {
+            // Debug proche du centre - Plus verbeux sur iOS
+            if (isIOSSafari && !state.triggered) {
+                if (distance < 400) {
+                    console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px | Scroll: ${Math.round(window.scrollY)}px | Container top: ${Math.round(rect.top)}px`);
+                }
+            } else if (distance < 200 && !state.triggered) {
                 console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px`);
             }
 
             // DÉCLENCHER L'ANIMATION - Zone élargie pour iOS
             const threshold = isIOSSafari ? 250 : 150; // Plus grande zone sur iOS
             if (distance < threshold && !state.triggered) {
-                console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE!`);
+                console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE! Distance: ${Math.round(distance)}px, Threshold: ${threshold}px`);
                 state.triggered = true;
                 state.scrollStart = window.scrollY;
 
@@ -484,6 +492,7 @@
             }, { passive: true });
 
             // Vérification périodique supplémentaire sur iOS pour capturer le scroll
+            console.log(`⏰ ${config.name} - Démarrage vérification périodique iOS (toutes les 200ms)`);
             const iosCheckInterval = setInterval(() => {
                 if (!state.triggered) {
                     checkAnimation();
