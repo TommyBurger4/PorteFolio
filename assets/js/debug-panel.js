@@ -40,11 +40,34 @@
 
     document.body.appendChild(debugPanel);
 
+    // Créer l'indicateur rouge central
+    const snapIndicator = document.createElement('div');
+    snapIndicator.id = 'snap-indicator';
+    snapIndicator.style.cssText = `
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        width: 80px !important;
+        height: 80px !important;
+        background: rgba(255, 0, 0, 0.7) !important;
+        border: 4px solid #ff0000 !important;
+        border-radius: 50% !important;
+        z-index: 999998 !important;
+        display: none !important;
+        opacity: 0 !important;
+        transition: opacity 0.3s ease !important;
+        pointer-events: none !important;
+        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8) !important;
+    `;
+    document.body.appendChild(snapIndicator);
+
     // Variables de tracking
     let currentSection = 'none';
     let lastScrollY = 0;
     let scrollDirection = 'none';
     let scrollEvents = 0;
+    let shouldSnap = false;
 
     function updateDebugPanel() {
         try {
@@ -145,6 +168,20 @@
             sectionHeight = Math.round(currentSectionElement.offsetHeight);
         }
 
+        // Afficher l'indicateur rouge si la section devrait être snappée
+        const topSectionPercent = sectionsData[0]?.percentVisible || 0;
+        shouldSnap = topSectionPercent > 80 && sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
+
+        if (shouldSnap) {
+            snapIndicator.style.display = 'block';
+            snapIndicator.style.opacity = '1';
+        } else {
+            snapIndicator.style.opacity = '0';
+            setTimeout(() => {
+                if (!shouldSnap) snapIndicator.style.display = 'none';
+            }, 300);
+        }
+
         // Construire le message de debug - TOP 5 sections
         let topSections = sectionsData.slice(0, 5).map((s, i) => {
             const indicator = i === 0 ? '→' : ' ';
@@ -176,6 +213,11 @@
                 Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
                 Events: ${scrollEvents}<br>
                 Viewport: ${viewportHeight}px<br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>SNAP STATUS:</strong><br>
+                <span style="color: ${shouldSnap ? '#f00' : '#fff'}; font-weight: bold;">
+                    ${shouldSnap ? '🔴 SHOULD SNAP' : '⚪ FREE SCROLL'}
+                </span><br>
                 <hr style="border-color: #0f0; margin: 3px 0;">
                 <strong>TOP 5 SECTIONS:</strong><br>
                 ${topSections}
