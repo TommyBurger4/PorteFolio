@@ -48,18 +48,18 @@
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) !important;
-        width: 80px !important;
-        height: 80px !important;
-        background: rgba(255, 0, 0, 0.7) !important;
-        border: 4px solid #ff0000 !important;
+        width: 100px !important;
+        height: 100px !important;
+        background: rgba(255, 0, 0, 0.9) !important;
+        border: 6px solid #ff0000 !important;
         border-radius: 50% !important;
-        z-index: 999998 !important;
-        display: none !important;
-        opacity: 0 !important;
+        z-index: 9999999 !important;
         transition: opacity 0.3s ease !important;
         pointer-events: none !important;
-        box-shadow: 0 0 30px rgba(255, 0, 0, 0.8) !important;
+        box-shadow: 0 0 50px rgba(255, 0, 0, 1), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
     `;
+    snapIndicator.style.display = 'none';
+    snapIndicator.style.opacity = '0';
     document.body.appendChild(snapIndicator);
 
     // Variables de tracking
