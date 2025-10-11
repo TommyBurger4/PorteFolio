@@ -38,31 +38,13 @@
         box-shadow: 0 0 20px rgba(0, 255, 0, 0.5) !important;
     `;
 
+    // Cacher le panneau de debug
+    debugPanel.style.display = 'none';
     document.body.appendChild(debugPanel);
 
-    // Créer l'indicateur rouge central en HTML pur
-    const snapIndicatorHTML = `
-        <div id="snap-indicator" style="
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 120px;
-            height: 120px;
-            background: red;
-            border: 8px solid #ff0000;
-            border-radius: 50%;
-            z-index: 9999999;
-            pointer-events: none;
-            box-shadow: 0 0 50px rgba(255, 0, 0, 1);
-            display: none;
-            opacity: 0;
-        ">
-            <div style="color: white; font-size: 20px; font-weight: bold; text-align: center; line-height: 120px; font-family: Arial;">SNAP</div>
-        </div>
-    `;
-    document.body.insertAdjacentHTML('beforeend', snapIndicatorHTML);
-    const snapIndicator = document.getElementById('snap-indicator');
+    // Pas de rond rouge pour le test IRL
+    // const snapIndicatorHTML = `...`;
+    const snapIndicator = { style: { setProperty: () => {} } }; // Mock object
 
     // Variables de tracking
     let currentSection = 'none';
@@ -181,11 +163,11 @@
         const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
         const topSectionName = sectionsData[0]?.name || '';
 
-        // Liste des sections qui doivent être bloquées (uniquement les projets)
-        const sectionsToBlock = ['CRÉNO', 'PIXSHARE', 'FINDMYCOURT', 'FAKT', 'SCROLL-DESC'];
+        // Liste des sections qui doivent être bloquées (uniquement les animations de stats)
+        const sectionsToBlock = ['CRÉNO', 'PIXSHARE', 'FINDMYCOURT', 'FAKT'];
 
         // Sections qui ne doivent JAMAIS être bloquées
-        const sectionsToNeverBlock = ['HOME', 'ABOUT', 'PROJECTS', 'CONTACT', 'UPCOMING'];
+        const sectionsToNeverBlock = ['HOME', 'ABOUT', 'PROJECTS', 'CONTACT', 'UPCOMING', 'SCROLL-DESC'];
 
         const isBlockableSection = sectionsToBlock.includes(topSectionName);
         const isNeverBlockSection = sectionsToNeverBlock.includes(topSectionName);
