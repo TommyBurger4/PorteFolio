@@ -51,30 +51,45 @@
         }
         lastScrollY = scrollY;
 
-        // Trouver la section actuelle
+        // Trouver la section actuelle - celle qui occupe le plus de viewport
         const sections = [
-            'home',
-            'creno-showcase',
-            'pixshare-showcase',
-            'findmycourt-showcase',
-            'fakt-showcase'
+            { id: 'home', selector: '#home' },
+            { id: 'about', selector: '#about' },
+            { id: 'creno-showcase', selector: '.creno-animation-container' },
+            { id: 'pixshare-showcase', selector: '.pixshare-animation-container' },
+            { id: 'findmycourt-showcase', selector: '.findmycourt-animation-container' },
+            { id: 'fakt-showcase', selector: '.fakt-animation-container' }
         ];
 
         let nearestSection = 'none';
+        let maxVisibleArea = 0;
         let minDistance = Infinity;
 
-        sections.forEach(sectionId => {
-            const section = document.getElementById(sectionId) ||
-                           document.querySelector(`#${sectionId}`) ||
-                           document.querySelector(`.${sectionId.replace('-showcase', '-animation-container')}`);
+        sections.forEach(sectionConfig => {
+            const section = document.querySelector(sectionConfig.selector);
 
             if (section) {
                 const rect = section.getBoundingClientRect();
-                const distance = Math.abs(rect.top);
 
-                if (distance < minDistance) {
+                // Calculer combien de la section est visible dans le viewport
+                const visibleTop = Math.max(0, rect.top);
+                const visibleBottom = Math.min(viewportHeight, rect.bottom);
+                const visibleHeight = Math.max(0, visibleBottom - visibleTop);
+
+                // Calculer la distance du centre de la section au centre du viewport
+                const sectionCenter = rect.top + rect.height / 2;
+                const viewportCenter = viewportHeight / 2;
+                const distance = Math.abs(sectionCenter - viewportCenter);
+
+                // La section avec la plus grande zone visible est la section actuelle
+                if (visibleHeight > maxVisibleArea) {
+                    maxVisibleArea = visibleHeight;
+                    nearestSection = sectionConfig.id;
                     minDistance = distance;
-                    nearestSection = sectionId;
+                } else if (visibleHeight === maxVisibleArea && distance < minDistance) {
+                    // Si égalité, prendre celle qui est la plus centrée
+                    minDistance = distance;
+                    nearestSection = sectionConfig.id;
                 }
             }
         });
@@ -85,6 +100,14 @@
         const htmlElement = document.documentElement;
         const computedStyle = window.getComputedStyle(htmlElement);
         const scrollSnapType = computedStyle.scrollSnapType || computedStyle.webkitScrollSnapType || 'none';
+
+        // Vérifier si on est sur une section showcase
+        const currentSectionElement = document.querySelector(`.${currentSection.replace('-showcase', '-animation-container')}`);
+        let sectionSnapAlign = 'N/A';
+        if (currentSectionElement) {
+            const sectionStyle = window.getComputedStyle(currentSectionElement);
+            sectionSnapAlign = sectionStyle.scrollSnapAlign || sectionStyle.webkitScrollSnapAlign || 'none';
+        }
 
         // Construire le message de debug
         debugPanel.innerHTML = `
@@ -97,12 +120,14 @@
             <hr style="border-color: #0f0; margin: 5px 0;">
             Viewport: ${viewportHeight}px<br>
             Doc Height: ${docHeight}px<br>
+            Visible Area: ${Math.round(maxVisibleArea)}px<br>
             <hr style="border-color: #0f0; margin: 5px 0;">
             Section: <span style="color: #ff0;">${currentSection}</span><br>
             Distance: ${Math.round(minDistance)}px<br>
             <hr style="border-color: #0f0; margin: 5px 0;">
-            Snap Type: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
-            Touch Scroll: ${computedStyle.webkitOverflowScrolling || 'none'}
+            HTML Snap: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
+            Section Snap: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
+            Touch Scroll: ${computedStyle.webkitOverflowScrolling || 'auto'}
         `;
     }
 
