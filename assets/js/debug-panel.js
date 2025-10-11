@@ -1,4 +1,4 @@
-// PANNEAU DE DEBUG POUR SAFARI iOS
+// PANNEAU DE DEBUG POUR SAFARI iOS - VERSION DÉTAILLÉE
 (function() {
     // Détecter iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -17,16 +17,18 @@
         position: fixed;
         top: 80px;
         right: 10px;
-        background: rgba(0, 0, 0, 0.9);
+        background: rgba(0, 0, 0, 0.95);
         color: #0f0;
         font-family: 'Courier New', monospace;
-        font-size: 10px;
-        padding: 10px;
+        font-size: 9px;
+        padding: 8px;
         border-radius: 8px;
         z-index: 99999;
-        max-width: 200px;
+        max-width: 220px;
+        max-height: 80vh;
+        overflow-y: auto;
         border: 2px solid #0f0;
-        line-height: 1.4;
+        line-height: 1.3;
         pointer-events: none;
     `;
 
@@ -51,83 +53,127 @@
         }
         lastScrollY = scrollY;
 
-        // Trouver la section actuelle - celle qui occupe le plus de viewport
-        const sections = [
-            { id: 'home', selector: '#home' },
-            { id: 'about', selector: '#about' },
-            { id: 'creno-showcase', selector: '.creno-animation-container' },
-            { id: 'pixshare-showcase', selector: '.pixshare-animation-container' },
-            { id: 'findmycourt-showcase', selector: '.findmycourt-animation-container' },
-            { id: 'fakt-showcase', selector: '.fakt-animation-container' }
-        ];
+        // Trouver TOUTES les sections du DOM (avec ou sans ID)
+        const allSections = document.querySelectorAll('section');
 
-        let nearestSection = 'none';
-        let maxVisibleArea = 0;
-        let minDistance = Infinity;
+        // Analyser chaque section
+        let sectionsData = [];
+        let maxVisibleSection = null;
+        let maxVisibleHeight = 0;
 
-        sections.forEach(sectionConfig => {
-            const section = document.querySelector(sectionConfig.selector);
-
+        allSections.forEach((section, index) => {
             if (section) {
+                // Déterminer le nom de la section
+                let sectionName = section.id || section.className || `Section-${index}`;
+
+                // Simplifier les noms de classes
+                if (sectionName.includes('creno')) sectionName = 'CRÉNO';
+                else if (sectionName.includes('pixshare')) sectionName = 'PIXSHARE';
+                else if (sectionName.includes('findmycourt')) sectionName = 'FINDMYCOURT';
+                else if (sectionName.includes('fakt')) sectionName = 'FAKT';
+                else if (sectionName.includes('scroll-section')) sectionName = 'SCROLL-DESC';
+                else if (sectionName.includes('upcoming')) sectionName = 'UPCOMING';
+                else if (sectionName === 'home') sectionName = 'HOME';
+                else if (sectionName === 'about') sectionName = 'ABOUT';
+                else if (sectionName === 'projects') sectionName = 'PROJECTS';
+                else if (sectionName === 'contact') sectionName = 'CONTACT';
+
                 const rect = section.getBoundingClientRect();
 
-                // Calculer combien de la section est visible dans le viewport
+                // Calculer la partie visible
                 const visibleTop = Math.max(0, rect.top);
                 const visibleBottom = Math.min(viewportHeight, rect.bottom);
                 const visibleHeight = Math.max(0, visibleBottom - visibleTop);
 
-                // Calculer la distance du centre de la section au centre du viewport
+                // Calculer le pourcentage visible
+                const percentVisible = rect.height > 0 ? Math.round((visibleHeight / rect.height) * 100) : 0;
+
+                // Calculer la distance du centre au viewport
                 const sectionCenter = rect.top + rect.height / 2;
                 const viewportCenter = viewportHeight / 2;
-                const distance = Math.abs(sectionCenter - viewportCenter);
+                const centerDistance = Math.round(Math.abs(sectionCenter - viewportCenter));
 
-                // La section avec la plus grande zone visible est la section actuelle
-                if (visibleHeight > maxVisibleArea) {
-                    maxVisibleArea = visibleHeight;
-                    nearestSection = sectionConfig.id;
-                    minDistance = distance;
-                } else if (visibleHeight === maxVisibleArea && distance < minDistance) {
-                    // Si égalité, prendre celle qui est la plus centrée
-                    minDistance = distance;
-                    nearestSection = sectionConfig.id;
+                sectionsData.push({
+                    name: sectionName,
+                    id: sectionId,
+                    visibleHeight: visibleHeight,
+                    percentVisible: percentVisible,
+                    centerDistance: centerDistance,
+                    rectTop: Math.round(rect.top),
+                    rectBottom: Math.round(rect.bottom),
+                    height: Math.round(rect.height),
+                    index: index
+                });
+
+                // Trouver la section la plus visible
+                if (visibleHeight > maxVisibleHeight) {
+                    maxVisibleHeight = visibleHeight;
+                    maxVisibleSection = sectionName;
                 }
             }
         });
 
-        currentSection = nearestSection;
+        // Trier par visibilité décroissante
+        sectionsData.sort((a, b) => b.visibleHeight - a.visibleHeight);
+
+        currentSection = maxVisibleSection || 'none';
 
         // Vérifier les propriétés CSS
         const htmlElement = document.documentElement;
         const computedStyle = window.getComputedStyle(htmlElement);
         const scrollSnapType = computedStyle.scrollSnapType || computedStyle.webkitScrollSnapType || 'none';
+        const webkitOverflow = computedStyle.webkitOverflowScrolling || 'auto';
 
-        // Vérifier si on est sur une section showcase
-        const currentSectionElement = document.querySelector(`.${currentSection.replace('-showcase', '-animation-container')}`);
+        // Vérifier la section actuelle
+        const currentSectionElement = document.getElementById(sectionsData[0]?.id);
         let sectionSnapAlign = 'N/A';
+        let sectionHeight = 0;
         if (currentSectionElement) {
             const sectionStyle = window.getComputedStyle(currentSectionElement);
             sectionSnapAlign = sectionStyle.scrollSnapAlign || sectionStyle.webkitScrollSnapAlign || 'none';
+            sectionHeight = Math.round(currentSectionElement.offsetHeight);
         }
 
-        // Construire le message de debug
+        // Construire le message de debug - TOP 5 sections
+        let topSections = sectionsData.slice(0, 5).map((s, i) => {
+            const indicator = i === 0 ? '→' : ' ';
+            const name = s.name.length > 12 ? s.name.substring(0, 12) : s.name;
+            return `${indicator} #${s.index} ${name}: ${Math.round(s.visibleHeight)}px (${s.percentVisible}%)`;
+        }).join('<br>');
+
+        // Détails de la section actuelle
+        const topSection = sectionsData[0];
+        let sectionDetails = '';
+        if (topSection) {
+            sectionDetails = `
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>ACTUELLE:</strong><br>
+                #${topSection.index} <span style="color: #ff0;">${topSection.name}</span><br>
+                ID: ${topSection.id}<br>
+                Height: ${topSection.height}px<br>
+                Visible: ${Math.round(topSection.visibleHeight)}px<br>
+                ${topSection.percentVisible}%<br>
+                Top: ${topSection.rectTop}px<br>
+                Btm: ${topSection.rectBottom}px
+            `;
+        }
+
         debugPanel.innerHTML = `
-            <strong>🐛 DEBUG iOS</strong><br>
-            Device: iPhone 16 Pro<br>
-            <hr style="border-color: #0f0; margin: 5px 0;">
-            Scroll Y: ${Math.round(scrollY)}px<br>
-            Direction: ${scrollDirection}<br>
+            <strong>🐛 iOS DEBUG</strong><br>
+            iPhone 16 Pro<br>
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
             Events: ${scrollEvents}<br>
-            <hr style="border-color: #0f0; margin: 5px 0;">
             Viewport: ${viewportHeight}px<br>
-            Doc Height: ${docHeight}px<br>
-            Visible Area: ${Math.round(maxVisibleArea)}px<br>
-            <hr style="border-color: #0f0; margin: 5px 0;">
-            Section: <span style="color: #ff0;">${currentSection}</span><br>
-            Distance: ${Math.round(minDistance)}px<br>
-            <hr style="border-color: #0f0; margin: 5px 0;">
-            HTML Snap: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
-            Section Snap: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
-            Touch Scroll: ${computedStyle.webkitOverflowScrolling || 'auto'}
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            <strong>TOP 5 SECTIONS:</strong><br>
+            ${topSections}
+            ${sectionDetails}
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            <strong>CSS SNAP:</strong><br>
+            HTML: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
+            Section: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
+            webkit-scroll: ${webkitOverflow}
         `;
     }
 
@@ -165,28 +211,11 @@
         updateDebugPanel();
     }, { passive: true });
 
-    // Écouter les changements de sections
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    console.log('👁️ Section visible:', entry.target.id || entry.target.className, 'Ratio:', entry.intersectionRatio);
-                }
-            });
-        }, {
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]
-        });
-
-        document.querySelectorAll('.creno-animation-container, .pixshare-animation-container, .findmycourt-animation-container, .fakt-animation-container, .hero-zoom').forEach(el => {
-            observer.observe(el);
-        });
-    }
-
     // Initial update
     updateDebugPanel();
 
     // Update toutes les 500ms
     setInterval(updateDebugPanel, 500);
 
-    console.log('✅ Panneau de debug actif');
+    console.log('✅ Panneau de debug détaillé actif');
 })();

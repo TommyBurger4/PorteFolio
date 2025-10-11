@@ -15,7 +15,8 @@
       "Bash(touch:*)",
       "Bash(mkdir:*)",
       "Bash(rm:*)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(open:*)"
     ],
     "deny": []
   }
