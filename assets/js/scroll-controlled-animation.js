@@ -1,8 +1,8 @@
 // ANIMATION CONTRÔLÉE PAR LE SCROLL - LOGO RECULE ET S'ASSOMBRIT
 
 (function() {
-    console.log('🎯 Scroll Controlled Animation - Version finale');
-    
+    // // console.log('🎯 Scroll Controlled Animation - Version finale');
+
     document.addEventListener('DOMContentLoaded', function() {
         const sections = [
             { name: 'creno', color: '#ffc605' },
@@ -10,14 +10,14 @@
             { name: 'findmycourt', color: '#FFD700' },
             { name: 'fakt', color: '#87CEEB' }
         ];
-        
+
         sections.forEach(config => {
             setupAnimation(config);
         });
     });
-    
+
     function setupAnimation(config) {
-        console.log(`📦 Configuration ${config.name}...`);
+        // // console.log(`📦 Configuration ${config.name}...`);
 
         const container = document.querySelector(`.${config.name}-animation-container`);
         if (!container) return;
@@ -43,7 +43,7 @@
         const isIOSSafari = isIOS && isSafari;
 
         if (isIOSSafari) {
-            console.log(`🍎 ${config.name} - Mode iOS Safari activé`);
+            // console.log(`🍎 ${config.name} - Mode iOS Safari activé`);
         }
 
         // Utiliser Intersection Observer pour une meilleure détection sur mobile
@@ -62,7 +62,7 @@
                     const triggerRatio = isIOSSafari ? 0.2 : 0.4;
 
                     if (entry.isIntersecting && entry.intersectionRatio > triggerRatio && !state.triggered) {
-                        console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE (Observer ${Math.round(entry.intersectionRatio * 100)}%)!`);
+                        // console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE (Observer ${Math.round(entry.intersectionRatio * 100)}%)!`);
                         state.triggered = true;
                         state.scrollStart = window.scrollY;
                         startAnimation();
@@ -91,16 +91,16 @@
             // Debug proche du centre - Plus verbeux sur iOS
             if (isIOSSafari && !state.triggered) {
                 if (distance < 400) {
-                    console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px | Scroll: ${Math.round(window.scrollY)}px | Container top: ${Math.round(rect.top)}px`);
+                    // console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px | Scroll: ${Math.round(window.scrollY)}px | Container top: ${Math.round(rect.top)}px`);
                 }
             } else if (distance < 200 && !state.triggered) {
-                console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px`);
+                // console.log(`📏 ${config.name} - Distance: ${Math.round(distance)}px`);
             }
 
             // DÉCLENCHER L'ANIMATION - Zone élargie pour iOS
             const threshold = isIOSSafari ? 250 : 150; // Plus grande zone sur iOS
             if (distance < threshold && !state.triggered) {
-                console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE! Distance: ${Math.round(distance)}px, Threshold: ${threshold}px`);
+                // console.log(`🎯 ${config.name} - ANIMATION DÉCLENCHÉE! Distance: ${Math.round(distance)}px, Threshold: ${threshold}px`);
                 state.triggered = true;
                 state.scrollStart = window.scrollY;
 
@@ -113,7 +113,7 @@
         }
         
         function startAnimation() {
-            console.log(`▶️ ${config.name} - Animation démarrée`);
+            // console.log(`▶️ ${config.name} - Animation démarrée`);
             
             // Animation automatique sans blocage
             const duration = 2500; // 2.5 secondes
@@ -128,7 +128,7 @@
                 if (progress < 1) {
                     requestAnimationFrame(animate);
                 } else {
-                    console.log(`✅ ${config.name} - Animation terminée`);
+                    // console.log(`✅ ${config.name} - Animation terminée`);
                     state.animationsComplete = true;
                     
                     // S'assurer que les stats restent visibles
@@ -229,7 +229,7 @@
         }
         
         function showStats() {
-            console.log(`📊 ${config.name} - Préparation des stats`);
+            // console.log(`📊 ${config.name} - Préparation des stats`);
             
             // Détecter si on est sur mobile
             const isMobile = window.innerWidth <= 768;
@@ -263,7 +263,7 @@
         }
         
         function setupMobileCarousel() {
-            console.log(`📱 ${config.name} - Configuration carrousel mobile`);
+            // console.log(`📱 ${config.name} - Configuration carrousel mobile`);
             
             // Container principal - au-dessus du logo
             elements.stats.style.cssText = `
@@ -492,7 +492,7 @@
             }, { passive: true });
 
             // Vérification périodique supplémentaire sur iOS pour capturer le scroll
-            console.log(`⏰ ${config.name} - Démarrage vérification périodique iOS (toutes les 200ms)`);
+            // console.log(`⏰ ${config.name} - Démarrage vérification périodique iOS (toutes les 200ms)`);
             const iosCheckInterval = setInterval(() => {
                 if (!state.triggered) {
                     checkAnimation();
@@ -513,6 +513,6 @@
             window.addEventListener('touchmove', handleScrollCheck, { passive: true });
         }
         
-        console.log(`✅ ${config.name} prêt - Scroll pour contrôler l'animation`);
+        // console.log(`✅ ${config.name} prêt - Scroll pour contrôler l'animation`);
     }
 })();

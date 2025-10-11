@@ -73,6 +73,9 @@
     let scrollBlocked = false;
     let touchStartY = 0;
     let touchEndY = 0;
+    let animationProgress = 0; // 0 = début, 100 = animations finies
+    let sectionScrollPhase = 'locked'; // 'locked', 'animating', 'unlocked'
+    let swipeCount = 0;
 
     function updateDebugPanel() {
         try {
@@ -189,18 +192,37 @@
 
         shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection;
 
-        // Bloquer le scroll seulement sur les sections de projets
-        scrollBlocked = shouldSnap;
-
-        if (shouldSnap) {
+        // Gérer les phases de scroll sur les sections bloquées
+        if (shouldSnap && sectionScrollPhase === 'locked') {
+            // Phase initiale: section bloquée, attente de swipes pour animations
+            scrollBlocked = true;
             snapIndicator.style.setProperty('display', 'block', 'important');
             snapIndicator.style.setProperty('opacity', '1', 'important');
             snapIndicator.style.setProperty('visibility', 'visible', 'important');
 
-            // Bloquer le scroll immédiatement
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
+        } else if (shouldSnap && sectionScrollPhase === 'animating') {
+            // Phase animations: on laisse le script d'animations gérer
+            scrollBlocked = false;
+            snapIndicator.style.setProperty('opacity', '0.3', 'important');
+        } else if (shouldSnap && sectionScrollPhase === 'unlocked') {
+            // Phase finale: animations finies, on peut passer à la suite
+            scrollBlocked = false;
+            snapIndicator.style.setProperty('opacity', '0', 'important');
+            setTimeout(() => {
+                snapIndicator.style.setProperty('display', 'none', 'important');
+            }, 300);
+
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         } else {
+            // Pas de snap: scroll libre
+            scrollBlocked = false;
+            sectionScrollPhase = 'locked';
+            swipeCount = 0;
+            animationProgress = 0;
+
             snapIndicator.style.setProperty('opacity', '0', 'important');
             setTimeout(() => {
                 if (!shouldSnap) {
@@ -209,20 +231,9 @@
                 }
             }, 300);
 
-            // Débloquer le scroll
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         }
-
-        // Log pour debug
-        console.log('🔴 SNAP DEBUG:', {
-            name: sectionsData[0]?.name,
-            percent: topSectionPercent,
-            snapAlign: sectionSnapAlign,
-            hasSnapAlign: hasSnapAlign,
-            shouldSnap: shouldSnap,
-            scrollBlocked: scrollBlocked
-        });
 
         // Construire le message de debug - TOP 5 sections
         let topSections = sectionsData.slice(0, 5).map((s, i) => {
@@ -248,34 +259,33 @@
             `;
         }
 
+            let phaseText = 'LIBRE';
+            let phaseColor = '#0f0';
+            if (sectionScrollPhase === 'locked') {
+                phaseText = '🔒 LOCKED';
+                phaseColor = '#f00';
+            } else if (sectionScrollPhase === 'animating') {
+                phaseText = '🎬 ANIMATING';
+                phaseColor = '#ff0';
+            } else if (sectionScrollPhase === 'unlocked') {
+                phaseText = '✓ UNLOCKED';
+                phaseColor = '#0f0';
+            }
+
             debugPanel.innerHTML = `
                 <strong>🐛 iOS DEBUG</strong><br>
-                iPhone 16 Pro<br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>PHASE:</strong><br>
+                <span style="color: ${phaseColor}; font-weight: bold; font-size: 16px;">
+                    ${phaseText}
+                </span><br>
+                Swipes: ${swipeCount}/3<br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>ACTUELLE:</strong><br>
+                #${topSection?.index} <span style="color: #ff0;">${topSection?.name}</span><br>
+                ${topSection?.percentVisible}% visible<br>
                 <hr style="border-color: #0f0; margin: 3px 0;">
                 Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
-                Events: ${scrollEvents}<br>
-                Viewport: ${viewportHeight}px<br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>SCROLL STATUS:</strong><br>
-                <span style="color: ${scrollBlocked ? '#f00' : '#0f0'}; font-weight: bold; font-size: 14px;">
-                    ${scrollBlocked ? '🔒 BLOQUÉ' : '✓ LIBRE'}
-                </span><br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>SNAP STATUS:</strong><br>
-                <span style="color: ${shouldSnap ? '#f00' : '#fff'}; font-weight: bold;">
-                    ${shouldSnap ? '🔴 SHOULD SNAP' : '⚪ FREE SCROLL'}
-                </span><br>
-                Percent: ${topSectionPercent}%<br>
-                Has snap-align: ${hasSnapAlign ? 'YES' : 'NO'}<br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>TOP 5 SECTIONS:</strong><br>
-                ${topSections}
-                ${sectionDetails}
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>CSS SNAP:</strong><br>
-                HTML: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
-                Section: <span style="color: ${sectionSnapAlign === 'none' || sectionSnapAlign === 'N/A' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
-                webkit-scroll: ${webkitOverflow}
             `;
         } catch (error) {
             debugPanel.innerHTML = `
@@ -293,7 +303,6 @@
         if (scrollBlocked) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('🚫 WHEEL BLOQUÉ');
         }
     }, { passive: false });
 
@@ -305,30 +314,43 @@
         // Si le scroll est bloqué, remettre à la position verrouillée
         if (scrollBlocked && lastScrollY !== 0) {
             window.scrollTo(0, lastScrollY);
-            console.log('🚫 SCROLL FORCÉ À:', lastScrollY);
         }
 
         updateDebugPanel();
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            console.log('📊 Scroll stopped at:', {
-                scrollY: window.scrollY,
-                section: currentSection,
-                direction: scrollDirection
-            });
+            // Scroll stopped - pas de log
         }, 150);
     }, { passive: false });
 
     // Écouter touchstart
-    window.addEventListener('touchstart', function() {
-        console.log('👆 Touch start at Y:', window.scrollY);
+    window.addEventListener('touchstart', function(e) {
+        touchStartY = e.touches[0].clientY;
         updateDebugPanel();
     }, { passive: true });
 
-    // Écouter touchend
-    window.addEventListener('touchend', function() {
-        console.log('👆 Touch end at Y:', window.scrollY);
+    // Écouter touchend et gérer progression des animations
+    window.addEventListener('touchend', function(e) {
+        touchEndY = e.changedTouches[0].clientY;
+        const swipeDistance = touchStartY - touchEndY;
+
+        // Si on est sur une section bloquée et qu'on swipe down (>50px)
+        if (scrollBlocked && swipeDistance > 50) {
+            swipeCount++;
+
+            // Premier swipe: débloquer complètement et laisser les animations se faire
+            if (sectionScrollPhase === 'locked') {
+                sectionScrollPhase = 'unlocked';
+                scrollBlocked = false;
+                document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+
+                // Trigger le scroll pour lancer les animations existantes
+                window.scrollBy(0, 1);
+            }
+        }
+
         setTimeout(updateDebugPanel, 100);
         setTimeout(updateDebugPanel, 500);
     }, { passive: true });
@@ -338,7 +360,6 @@
         if (scrollBlocked) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('🚫 SCROLL BLOQUÉ');
         }
         updateDebugPanel();
     }, { passive: false });
