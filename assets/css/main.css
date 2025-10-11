@@ -24,6 +24,13 @@ html {
         scroll-snap-type: y mandatory;
         -webkit-scroll-snap-type: y mandatory;
         -webkit-overflow-scrolling: touch;
+        overflow-y: scroll;
+        height: 100vh;
+    }
+
+    body {
+        height: 100vh;
+        overflow-y: scroll;
     }
 }
 
@@ -269,6 +276,8 @@ nav {
     .hero-zoom {
         scroll-snap-align: start;
         -webkit-scroll-snap-align: start;
+        scroll-snap-stop: always;
+        -webkit-scroll-snap-stop: always;
     }
 }
 
@@ -316,7 +325,8 @@ nav {
         overflow: hidden;
         scroll-snap-align: start;
         -webkit-scroll-snap-align: start;
-        scroll-snap-stop: normal;
+        scroll-snap-stop: always;
+        -webkit-scroll-snap-stop: always;
     }
 }
 
@@ -627,7 +637,8 @@ nav {
         min-height: 100vh;
         scroll-snap-align: start;
         -webkit-scroll-snap-align: start;
-        scroll-snap-stop: normal;
+        scroll-snap-stop: always;
+        -webkit-scroll-snap-stop: always;
     }
 }
 
