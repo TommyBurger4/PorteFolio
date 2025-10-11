@@ -176,9 +176,15 @@
         // Afficher l'indicateur rouge si la section devrait être snappée
         const topSectionPercent = sectionsData[0]?.percentVisible || 0;
         const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
-        shouldSnap = topSectionPercent > 70 && hasSnapAlign;
+        const topSectionName = sectionsData[0]?.name || '';
 
-        // Bloquer le scroll quand shouldSnap est true
+        // Liste des sections qui doivent être bloquées
+        const sectionsToBlock = ['CRÉNO', 'PIXSHARE', 'FINDMYCOURT', 'FAKT', 'SCROLL-DESC'];
+        const isBlockableSection = sectionsToBlock.includes(topSectionName);
+
+        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection;
+
+        // Bloquer le scroll seulement sur les sections de projets
         scrollBlocked = shouldSnap;
 
         if (shouldSnap) {
