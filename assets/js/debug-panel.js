@@ -194,7 +194,7 @@
 
         // Gérer les phases de scroll sur les sections bloquées
         if (shouldSnap && sectionScrollPhase === 'locked') {
-            // Phase initiale: section bloquée, attente de swipes pour animations
+            // Phase initiale: section bloquée, attente de swipe pour lancer animations
             scrollBlocked = true;
             snapIndicator.style.setProperty('display', 'block', 'important');
             snapIndicator.style.setProperty('opacity', '1', 'important');
@@ -203,11 +203,14 @@
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'animating') {
-            // Phase animations: on laisse le script d'animations gérer
-            scrollBlocked = false;
-            snapIndicator.style.setProperty('opacity', '0.3', 'important');
+            // Phase animations: RESTER BLOQUÉ pendant les animations
+            scrollBlocked = true;
+            snapIndicator.style.setProperty('opacity', '0.5', 'important'); // Légèrement transparent
+
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'unlocked') {
-            // Phase finale: animations finies, on peut passer à la suite
+            // Phase finale: animations finies, débloquer pour passer à la suite
             scrollBlocked = false;
             snapIndicator.style.setProperty('opacity', '0', 'important');
             setTimeout(() => {
@@ -261,15 +264,19 @@
 
             let phaseText = 'LIBRE';
             let phaseColor = '#0f0';
+            let phaseInfo = '';
             if (sectionScrollPhase === 'locked') {
                 phaseText = '🔒 LOCKED';
                 phaseColor = '#f00';
+                phaseInfo = 'Swipe ↓ pour animer';
             } else if (sectionScrollPhase === 'animating') {
                 phaseText = '🎬 ANIMATING';
                 phaseColor = '#ff0';
+                phaseInfo = 'Animations en cours...';
             } else if (sectionScrollPhase === 'unlocked') {
                 phaseText = '✓ UNLOCKED';
                 phaseColor = '#0f0';
+                phaseInfo = 'Scroll libre';
             }
 
             debugPanel.innerHTML = `
@@ -279,7 +286,7 @@
                 <span style="color: ${phaseColor}; font-weight: bold; font-size: 16px;">
                     ${phaseText}
                 </span><br>
-                Swipes: ${swipeCount}/3<br>
+                <span style="color: #aaa; font-size: 11px;">${phaseInfo}</span><br>
                 <hr style="border-color: #0f0; margin: 3px 0;">
                 <strong>ACTUELLE:</strong><br>
                 #${topSection?.index} <span style="color: #ff0;">${topSection?.name}</span><br>
@@ -339,15 +346,22 @@
         if (scrollBlocked && swipeDistance > 50) {
             swipeCount++;
 
-            // Premier swipe: débloquer complètement et laisser les animations se faire
+            // Premier swipe: lancer les animations MAIS RESTER BLOQUÉ
             if (sectionScrollPhase === 'locked') {
-                sectionScrollPhase = 'unlocked';
-                scrollBlocked = false;
-                document.body.style.overflow = '';
-                document.documentElement.style.overflow = '';
+                sectionScrollPhase = 'animating';
 
                 // Trigger le scroll pour lancer les animations existantes
                 window.scrollBy(0, 1);
+
+                // Après 2.5 secondes (durée des animations), débloquer automatiquement
+                setTimeout(() => {
+                    if (sectionScrollPhase === 'animating') {
+                        sectionScrollPhase = 'unlocked';
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        updateDebugPanel();
+                    }
+                }, 2500); // 2.5 secondes = durée des animations dans scroll-controlled-animation.js
             }
         }
 
