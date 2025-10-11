@@ -272,12 +272,11 @@ nav {
     overflow: hidden;
 }
 
+/* Pas de scroll-snap sur hero-zoom (section HOME) */
 @media (max-width: 768px) {
     .hero-zoom {
-        scroll-snap-align: start;
-        -webkit-scroll-snap-align: start;
-        scroll-snap-stop: always;
-        -webkit-scroll-snap-stop: always;
+        scroll-snap-align: none;
+        -webkit-scroll-snap-align: none;
     }
 }
 

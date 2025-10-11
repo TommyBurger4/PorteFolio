@@ -178,11 +178,16 @@
         const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
         const topSectionName = sectionsData[0]?.name || '';
 
-        // Liste des sections qui doivent être bloquées
+        // Liste des sections qui doivent être bloquées (uniquement les projets)
         const sectionsToBlock = ['CRÉNO', 'PIXSHARE', 'FINDMYCOURT', 'FAKT', 'SCROLL-DESC'];
-        const isBlockableSection = sectionsToBlock.includes(topSectionName);
 
-        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection;
+        // Sections qui ne doivent JAMAIS être bloquées
+        const sectionsToNeverBlock = ['HOME', 'ABOUT', 'PROJECTS', 'CONTACT', 'UPCOMING'];
+
+        const isBlockableSection = sectionsToBlock.includes(topSectionName);
+        const isNeverBlockSection = sectionsToNeverBlock.includes(topSectionName);
+
+        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection;
 
         // Bloquer le scroll seulement sur les sections de projets
         scrollBlocked = shouldSnap;
