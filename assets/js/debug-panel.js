@@ -47,9 +47,10 @@
     let scrollEvents = 0;
 
     function updateDebugPanel() {
-        const scrollY = window.scrollY;
-        const viewportHeight = window.innerHeight;
-        const docHeight = document.documentElement.scrollHeight;
+        try {
+            const scrollY = window.scrollY;
+            const viewportHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
 
         // Déterminer la direction
         if (scrollY > lastScrollY) {
@@ -84,6 +85,9 @@
                 else if (sectionName === 'projects') sectionName = 'PROJECTS';
                 else if (sectionName === 'contact') sectionName = 'CONTACT';
 
+                // Définir l'ID de la section
+                const sectionId = section.id || `no-id-${index}`;
+
                 const rect = section.getBoundingClientRect();
 
                 // Calculer la partie visible
@@ -102,6 +106,7 @@
                 sectionsData.push({
                     name: sectionName,
                     id: sectionId,
+                    element: section,
                     visibleHeight: visibleHeight,
                     percentVisible: percentVisible,
                     centerDistance: centerDistance,
@@ -131,7 +136,7 @@
         const webkitOverflow = computedStyle.webkitOverflowScrolling || 'auto';
 
         // Vérifier la section actuelle
-        const currentSectionElement = document.getElementById(sectionsData[0]?.id);
+        const currentSectionElement = sectionsData[0]?.element;
         let sectionSnapAlign = 'N/A';
         let sectionHeight = 0;
         if (currentSectionElement) {
@@ -164,23 +169,32 @@
             `;
         }
 
-        debugPanel.innerHTML = `
-            <strong>🐛 iOS DEBUG</strong><br>
-            iPhone 16 Pro<br>
-            <hr style="border-color: #0f0; margin: 3px 0;">
-            Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
-            Events: ${scrollEvents}<br>
-            Viewport: ${viewportHeight}px<br>
-            <hr style="border-color: #0f0; margin: 3px 0;">
-            <strong>TOP 5 SECTIONS:</strong><br>
-            ${topSections}
-            ${sectionDetails}
-            <hr style="border-color: #0f0; margin: 3px 0;">
-            <strong>CSS SNAP:</strong><br>
-            HTML: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
-            Section: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
-            webkit-scroll: ${webkitOverflow}
-        `;
+            debugPanel.innerHTML = `
+                <strong>🐛 iOS DEBUG</strong><br>
+                iPhone 16 Pro<br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
+                Events: ${scrollEvents}<br>
+                Viewport: ${viewportHeight}px<br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>TOP 5 SECTIONS:</strong><br>
+                ${topSections}
+                ${sectionDetails}
+                <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>CSS SNAP:</strong><br>
+                HTML: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
+                Section: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
+                webkit-scroll: ${webkitOverflow}
+            `;
+        } catch (error) {
+            debugPanel.innerHTML = `
+                <strong>🐛 iOS DEBUG - ERROR</strong><br>
+                <hr style="border-color: #f00; margin: 3px 0;">
+                <span style="color: #f00;">Error: ${error.message}</span><br>
+                <span style="color: #f00;">Stack: ${error.stack ? error.stack.substring(0, 200) : 'N/A'}</span>
+            `;
+            console.error('Debug panel error:', error);
+        }
     }
 
     // Écouter tous les événements de scroll
