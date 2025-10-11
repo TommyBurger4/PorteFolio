@@ -170,7 +170,8 @@
 
         // Afficher l'indicateur rouge si la section devrait être snappée
         const topSectionPercent = sectionsData[0]?.percentVisible || 0;
-        shouldSnap = topSectionPercent > 80 && sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
+        const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
+        shouldSnap = topSectionPercent > 50 && hasSnapAlign;
 
         if (shouldSnap) {
             snapIndicator.style.display = 'block';
@@ -180,6 +181,18 @@
             setTimeout(() => {
                 if (!shouldSnap) snapIndicator.style.display = 'none';
             }, 300);
+        }
+
+        // Log pour debug
+        if (topSectionPercent > 50) {
+            console.log('Section >50%:', {
+                name: sectionsData[0]?.name,
+                id: sectionsData[0]?.id,
+                percent: topSectionPercent,
+                snapAlign: sectionSnapAlign,
+                hasSnapAlign: hasSnapAlign,
+                shouldSnap: shouldSnap
+            });
         }
 
         // Construire le message de debug - TOP 5 sections
@@ -218,6 +231,8 @@
                 <span style="color: ${shouldSnap ? '#f00' : '#fff'}; font-weight: bold;">
                     ${shouldSnap ? '🔴 SHOULD SNAP' : '⚪ FREE SCROLL'}
                 </span><br>
+                Percent: ${topSectionPercent}%<br>
+                Has snap-align: ${hasSnapAlign ? 'YES' : 'NO'}<br>
                 <hr style="border-color: #0f0; margin: 3px 0;">
                 <strong>TOP 5 SECTIONS:</strong><br>
                 ${topSections}
@@ -225,7 +240,7 @@
                 <hr style="border-color: #0f0; margin: 3px 0;">
                 <strong>CSS SNAP:</strong><br>
                 HTML: <span style="color: ${scrollSnapType === 'none' ? '#f00' : '#0f0'}">${scrollSnapType}</span><br>
-                Section: <span style="color: ${sectionSnapAlign === 'none' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
+                Section: <span style="color: ${sectionSnapAlign === 'none' || sectionSnapAlign === 'N/A' ? '#f00' : '#0f0'}">${sectionSnapAlign}</span><br>
                 webkit-scroll: ${webkitOverflow}
             `;
         } catch (error) {
