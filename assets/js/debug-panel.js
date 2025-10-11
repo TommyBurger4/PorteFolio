@@ -40,27 +40,29 @@
 
     document.body.appendChild(debugPanel);
 
-    // Créer l'indicateur rouge central
-    const snapIndicator = document.createElement('div');
-    snapIndicator.id = 'snap-indicator';
-    snapIndicator.style.cssText = `
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        width: 100px !important;
-        height: 100px !important;
-        background: rgba(255, 0, 0, 0.9) !important;
-        border: 6px solid #ff0000 !important;
-        border-radius: 50% !important;
-        z-index: 9999999 !important;
-        transition: opacity 0.3s ease !important;
-        pointer-events: none !important;
-        box-shadow: 0 0 50px rgba(255, 0, 0, 1), inset 0 0 20px rgba(255, 255, 255, 0.3) !important;
+    // Créer l'indicateur rouge central en HTML pur
+    const snapIndicatorHTML = `
+        <div id="snap-indicator" style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: red;
+            border: 8px solid #ff0000;
+            border-radius: 50%;
+            z-index: 9999999;
+            pointer-events: none;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 1);
+            display: none;
+            opacity: 0;
+        ">
+            <div style="color: white; font-size: 20px; font-weight: bold; text-align: center; line-height: 120px; font-family: Arial;">SNAP</div>
+        </div>
     `;
-    snapIndicator.style.display = 'none';
-    snapIndicator.style.opacity = '0';
-    document.body.appendChild(snapIndicator);
+    document.body.insertAdjacentHTML('beforeend', snapIndicatorHTML);
+    const snapIndicator = document.getElementById('snap-indicator');
 
     // Variables de tracking
     let currentSection = 'none';
@@ -68,6 +70,9 @@
     let scrollDirection = 'none';
     let scrollEvents = 0;
     let shouldSnap = false;
+    let scrollBlocked = false;
+    let touchStartY = 0;
+    let touchEndY = 0;
 
     function updateDebugPanel() {
         try {
@@ -171,29 +176,42 @@
         // Afficher l'indicateur rouge si la section devrait être snappée
         const topSectionPercent = sectionsData[0]?.percentVisible || 0;
         const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
-        shouldSnap = topSectionPercent > 50 && hasSnapAlign;
+        shouldSnap = topSectionPercent > 70 && hasSnapAlign;
+
+        // Bloquer le scroll quand shouldSnap est true
+        scrollBlocked = shouldSnap;
 
         if (shouldSnap) {
-            snapIndicator.style.display = 'block';
-            snapIndicator.style.opacity = '1';
+            snapIndicator.style.setProperty('display', 'block', 'important');
+            snapIndicator.style.setProperty('opacity', '1', 'important');
+            snapIndicator.style.setProperty('visibility', 'visible', 'important');
+
+            // Bloquer le scroll immédiatement
+            document.body.style.overflow = 'hidden';
+            document.documentElement.style.overflow = 'hidden';
         } else {
-            snapIndicator.style.opacity = '0';
+            snapIndicator.style.setProperty('opacity', '0', 'important');
             setTimeout(() => {
-                if (!shouldSnap) snapIndicator.style.display = 'none';
+                if (!shouldSnap) {
+                    snapIndicator.style.setProperty('display', 'none', 'important');
+                    snapIndicator.style.setProperty('visibility', 'hidden', 'important');
+                }
             }, 300);
+
+            // Débloquer le scroll
+            document.body.style.overflow = '';
+            document.documentElement.style.overflow = '';
         }
 
         // Log pour debug
-        if (topSectionPercent > 50) {
-            console.log('Section >50%:', {
-                name: sectionsData[0]?.name,
-                id: sectionsData[0]?.id,
-                percent: topSectionPercent,
-                snapAlign: sectionSnapAlign,
-                hasSnapAlign: hasSnapAlign,
-                shouldSnap: shouldSnap
-            });
-        }
+        console.log('🔴 SNAP DEBUG:', {
+            name: sectionsData[0]?.name,
+            percent: topSectionPercent,
+            snapAlign: sectionSnapAlign,
+            hasSnapAlign: hasSnapAlign,
+            shouldSnap: shouldSnap,
+            scrollBlocked: scrollBlocked
+        });
 
         // Construire le message de debug - TOP 5 sections
         let topSections = sectionsData.slice(0, 5).map((s, i) => {
@@ -227,6 +245,11 @@
                 Events: ${scrollEvents}<br>
                 Viewport: ${viewportHeight}px<br>
                 <hr style="border-color: #0f0; margin: 3px 0;">
+                <strong>SCROLL STATUS:</strong><br>
+                <span style="color: ${scrollBlocked ? '#f00' : '#0f0'}; font-weight: bold; font-size: 14px;">
+                    ${scrollBlocked ? '🔒 BLOQUÉ' : '✓ LIBRE'}
+                </span><br>
+                <hr style="border-color: #0f0; margin: 3px 0;">
                 <strong>SNAP STATUS:</strong><br>
                 <span style="color: ${shouldSnap ? '#f00' : '#fff'}; font-weight: bold;">
                     ${shouldSnap ? '🔴 SHOULD SNAP' : '⚪ FREE SCROLL'}
@@ -254,10 +277,26 @@
         }
     }
 
+    // Bloquer le scroll avec wheel (souris/trackpad)
+    window.addEventListener('wheel', function(e) {
+        if (scrollBlocked) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🚫 WHEEL BLOQUÉ');
+        }
+    }, { passive: false });
+
     // Écouter tous les événements de scroll
     let scrollTimeout;
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function(e) {
         scrollEvents++;
+
+        // Si le scroll est bloqué, remettre à la position verrouillée
+        if (scrollBlocked && lastScrollY !== 0) {
+            window.scrollTo(0, lastScrollY);
+            console.log('🚫 SCROLL FORCÉ À:', lastScrollY);
+        }
+
         updateDebugPanel();
 
         clearTimeout(scrollTimeout);
@@ -268,7 +307,7 @@
                 direction: scrollDirection
             });
         }, 150);
-    }, { passive: true });
+    }, { passive: false });
 
     // Écouter touchstart
     window.addEventListener('touchstart', function() {
@@ -283,10 +322,15 @@
         setTimeout(updateDebugPanel, 500);
     }, { passive: true });
 
-    // Écouter touchmove
-    window.addEventListener('touchmove', function() {
+    // Écouter touchmove et bloquer si nécessaire
+    window.addEventListener('touchmove', function(e) {
+        if (scrollBlocked) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('🚫 SCROLL BLOQUÉ');
+        }
         updateDebugPanel();
-    }, { passive: true });
+    }, { passive: false });
 
     // Initial update
     updateDebugPanel();
