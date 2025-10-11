@@ -8,43 +8,7 @@
         return;
     }
 
-    console.log('📱 iPhone détecté - Création du panneau de debug');
-
-    // Créer le panneau de debug
-    const debugPanel = document.createElement('div');
-    debugPanel.id = 'debug-panel';
-    debugPanel.style.cssText = `
-        position: fixed !important;
-        top: 80px !important;
-        right: 10px !important;
-        background: rgba(0, 0, 0, 0.95) !important;
-        color: #0f0 !important;
-        font-family: 'Courier New', monospace !important;
-        font-size: 11px !important;
-        padding: 12px !important;
-        border-radius: 8px !important;
-        z-index: 999999 !important;
-        min-width: 250px !important;
-        max-width: 280px !important;
-        min-height: 300px !important;
-        max-height: 85vh !important;
-        overflow-y: auto !important;
-        border: 3px solid #0f0 !important;
-        line-height: 1.5 !important;
-        pointer-events: none !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5) !important;
-    `;
-
-    // Cacher le panneau de debug
-    debugPanel.style.display = 'none';
-    document.body.appendChild(debugPanel);
-
-    // Pas de rond rouge pour le test IRL
-    // const snapIndicatorHTML = `...`;
-    const snapIndicator = { style: { setProperty: () => {} } }; // Mock object
+    console.log('📱 iPhone détecté - Système de blocage actif (sans UI)');
 
     // Variables de tracking
     let currentSection = 'none';
@@ -178,27 +142,16 @@
         if (shouldSnap && sectionScrollPhase === 'locked') {
             // Phase initiale: section bloquée, attente de swipe pour lancer animations
             scrollBlocked = true;
-            snapIndicator.style.setProperty('display', 'block', 'important');
-            snapIndicator.style.setProperty('opacity', '1', 'important');
-            snapIndicator.style.setProperty('visibility', 'visible', 'important');
-
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'animating') {
             // Phase animations: RESTER BLOQUÉ pendant les animations
             scrollBlocked = true;
-            snapIndicator.style.setProperty('opacity', '0.5', 'important'); // Légèrement transparent
-
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'unlocked') {
             // Phase finale: animations finies, débloquer pour passer à la suite
             scrollBlocked = false;
-            snapIndicator.style.setProperty('opacity', '0', 'important');
-            setTimeout(() => {
-                snapIndicator.style.setProperty('display', 'none', 'important');
-            }, 300);
-
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         } else {
@@ -207,83 +160,13 @@
             sectionScrollPhase = 'locked';
             swipeCount = 0;
             animationProgress = 0;
-
-            snapIndicator.style.setProperty('opacity', '0', 'important');
-            setTimeout(() => {
-                if (!shouldSnap) {
-                    snapIndicator.style.setProperty('display', 'none', 'important');
-                    snapIndicator.style.setProperty('visibility', 'hidden', 'important');
-                }
-            }, 300);
-
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         }
 
-        // Construire le message de debug - TOP 5 sections
-        let topSections = sectionsData.slice(0, 5).map((s, i) => {
-            const indicator = i === 0 ? '→' : ' ';
-            const name = s.name.length > 12 ? s.name.substring(0, 12) : s.name;
-            return `${indicator} #${s.index} ${name}: ${Math.round(s.visibleHeight)}px (${s.percentVisible}%)`;
-        }).join('<br>');
-
-        // Détails de la section actuelle
-        const topSection = sectionsData[0];
-        let sectionDetails = '';
-        if (topSection) {
-            sectionDetails = `
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>ACTUELLE:</strong><br>
-                #${topSection.index} <span style="color: #ff0;">${topSection.name}</span><br>
-                ID: ${topSection.id}<br>
-                Height: ${topSection.height}px<br>
-                Visible: ${Math.round(topSection.visibleHeight)}px<br>
-                ${topSection.percentVisible}%<br>
-                Top: ${topSection.rectTop}px<br>
-                Btm: ${topSection.rectBottom}px
-            `;
-        }
-
-            let phaseText = 'LIBRE';
-            let phaseColor = '#0f0';
-            let phaseInfo = '';
-            if (sectionScrollPhase === 'locked') {
-                phaseText = '🔒 LOCKED';
-                phaseColor = '#f00';
-                phaseInfo = 'Swipe ↓ pour animer';
-            } else if (sectionScrollPhase === 'animating') {
-                phaseText = '🎬 ANIMATING';
-                phaseColor = '#ff0';
-                phaseInfo = 'Animations en cours...';
-            } else if (sectionScrollPhase === 'unlocked') {
-                phaseText = '✓ UNLOCKED';
-                phaseColor = '#0f0';
-                phaseInfo = 'Scroll libre';
-            }
-
-            debugPanel.innerHTML = `
-                <strong>🐛 iOS DEBUG</strong><br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>PHASE:</strong><br>
-                <span style="color: ${phaseColor}; font-weight: bold; font-size: 16px;">
-                    ${phaseText}
-                </span><br>
-                <span style="color: #aaa; font-size: 11px;">${phaseInfo}</span><br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                <strong>ACTUELLE:</strong><br>
-                #${topSection?.index} <span style="color: #ff0;">${topSection?.name}</span><br>
-                ${topSection?.percentVisible}% visible<br>
-                <hr style="border-color: #0f0; margin: 3px 0;">
-                Y: ${Math.round(scrollY)}px ${scrollDirection}<br>
-            `;
+        // Pas d'UI debug pour le test IRL
         } catch (error) {
-            debugPanel.innerHTML = `
-                <strong>🐛 iOS DEBUG - ERROR</strong><br>
-                <hr style="border-color: #f00; margin: 3px 0;">
-                <span style="color: #f00;">Error: ${error.message}</span><br>
-                <span style="color: #f00;">Stack: ${error.stack ? error.stack.substring(0, 200) : 'N/A'}</span>
-            `;
-            console.error('Debug panel error:', error);
+            console.error('Erreur système blocage:', error);
         }
     }
 
@@ -305,11 +188,11 @@
             window.scrollTo(0, lastScrollY);
         }
 
-        updateDebugPanel();
+        updateDebugPanel(); // Mise à jour du système de blocage
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            // Scroll stopped - pas de log
+            // Scroll stopped
         }, 150);
     }, { passive: false });
 
@@ -363,8 +246,8 @@
     // Initial update
     updateDebugPanel();
 
-    // Update toutes les 500ms
+    // Update périodique pour détecter les changements
     setInterval(updateDebugPanel, 500);
 
-    console.log('✅ Panneau de debug détaillé actif');
+    console.log('✅ Système de blocage actif (sans UI)');
 })();
