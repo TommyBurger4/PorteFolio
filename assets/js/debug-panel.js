@@ -136,7 +136,18 @@
         const isBlockableSection = sectionsToBlock.includes(topSectionName);
         const isNeverBlockSection = sectionsToNeverBlock.includes(topSectionName);
 
-        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection;
+        // Déterminer la direction du scroll
+        if (scrollY > lastScrollY) {
+            scrollDirection = 'DOWN';
+        } else if (scrollY < lastScrollY) {
+            scrollDirection = 'UP';
+        }
+
+        // Bloquer uniquement si on scroll DOWN
+        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection === 'DOWN';
+
+        // Mettre à jour lastScrollY
+        lastScrollY = scrollY;
 
         // Gérer les phases de scroll sur les sections bloquées
         if (shouldSnap && sectionScrollPhase === 'locked') {
@@ -218,7 +229,7 @@
                 // Trigger le scroll pour lancer les animations existantes
                 window.scrollBy(0, 1);
 
-                // Après 2.5 secondes (durée des animations), débloquer automatiquement
+                // Après 1.5 secondes, débloquer automatiquement (plus rapide)
                 setTimeout(() => {
                     if (sectionScrollPhase === 'animating') {
                         sectionScrollPhase = 'unlocked';
@@ -226,7 +237,7 @@
                         document.documentElement.style.overflow = '';
                         updateDebugPanel();
                     }
-                }, 2500); // 2.5 secondes = durée des animations dans scroll-controlled-animation.js
+                }, 1500); // 1.5 secondes pour un arrêt plus court
             }
         }
 
