@@ -621,6 +621,16 @@ nav {
     min-height: auto;
 }
 
+/* Activer scroll snap sur les scroll-sections uniquement sur mobile */
+@media (max-width: 768px) {
+    .scroll-section {
+        min-height: 100vh;
+        scroll-snap-align: start;
+        -webkit-scroll-snap-align: start;
+        scroll-snap-stop: normal;
+    }
+}
+
 .transition-section {
     height: 100vh;
     background: linear-gradient(180deg, #111 0%, #000 50%, #111 100%);
