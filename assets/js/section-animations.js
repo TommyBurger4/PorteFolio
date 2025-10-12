@@ -82,51 +82,53 @@ function initSectionAnimations() {
                 console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
                 state.phase = 'snapped';
 
-                // BLOQUER le scroll UNIQUEMENT SUR MOBILE (overflow: hidden)
                 if (isMobile) {
+                    // MOBILE : Système 2-phases avec blocage
                     document.body.style.overflow = 'hidden';
                     document.documentElement.style.overflow = 'hidden';
                     console.log(`🔒 SCROLL BLOQUÉ (mobile)`);
-                } else {
-                    console.log(`📋 Pas de blocage sur desktop`);
-                }
 
-                // Préparer le logo et le texte (arrière-plan)
-                prepareSection(section, sectionName);
+                    // Préparer le logo et le texte (arrière-plan)
+                    prepareSection(section, sectionName);
 
-                console.log(`⏳ En attente d'un geste de scroll...`);
+                    console.log(`⏳ En attente d'un geste de scroll...`);
 
-                // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
-                let scrollAttempts = 0;
+                    // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
+                    let scrollAttempts = 0;
 
-                const unlockAndAnimate = () => {
-                    if (state.phase === 'snapped') {
-                        scrollAttempts++;
-                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
+                    const unlockAndAnimate = () => {
+                        if (state.phase === 'snapped') {
+                            scrollAttempts++;
+                            console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
 
-                        if (scrollAttempts >= 1) { // Dès la première tentative
-                            console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
-                            state.phase = 'animated';
+                            if (scrollAttempts >= 1) { // Dès la première tentative
+                                console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
+                                state.phase = 'animated';
 
-                            // DÉBLOQUER le scroll (seulement si on avait bloqué sur mobile)
-                            if (isMobile) {
+                                // DÉBLOQUER le scroll
                                 document.body.style.overflow = '';
                                 document.documentElement.style.overflow = '';
                                 console.log(`🔓 SCROLL DÉBLOQUÉ (mobile)`);
+
+                                // Retirer les listeners
+                                window.removeEventListener('touchmove', unlockAndAnimate);
+                                window.removeEventListener('wheel', unlockAndAnimate);
+
+                                triggerSectionAnimation(section, sectionName);
                             }
-
-                            // Retirer les listeners
-                            window.removeEventListener('touchmove', unlockAndAnimate);
-                            window.removeEventListener('wheel', unlockAndAnimate);
-
-                            triggerSectionAnimation(section, sectionName);
                         }
-                    }
-                };
+                    };
 
-                // Écouter les tentatives de scroll
-                window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
-                window.addEventListener('wheel', unlockAndAnimate, { passive: true });
+                    // Écouter les tentatives de scroll
+                    window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
+                    window.addEventListener('wheel', unlockAndAnimate, { passive: true });
+                } else {
+                    // DESKTOP : Affichage direct des stats sans blocage
+                    console.log(`🖥️ DESKTOP: Affichage direct des stats`);
+                    state.phase = 'animated';
+                    prepareSection(section, sectionName);
+                    triggerSectionAnimation(section, sectionName);
+                }
             }
 
             // Si la section sort du viewport, reset ET débloquer
@@ -170,6 +172,8 @@ function initSectionAnimations() {
             logo.style.transform = 'translate(-50%, -50%) scale(0.9)';
             logo.style.opacity = '0.8';
             logo.style.filter = 'brightness(0.7)';
+            // Z-index bas pour passer derrière les stats
+            logo.style.zIndex = '10';
         }
 
         const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
@@ -177,9 +181,11 @@ function initSectionAnimations() {
             text.style.transition = 'all 0.3s ease-out';
             text.style.opacity = '0.7';
             text.style.transform = 'translateY(20px) scale(0.9)';
+            // Z-index bas pour passer derrière les stats
+            text.style.zIndex = '15';
         }
 
-        console.log(`✅ Section préparée - Logo et texte en arrière-plan`);
+        console.log(`✅ Section préparée - Logo et texte en arrière-plan (z-index 10-15)`);
     }
 
     // PHASE 2 : Déclencher les animations des stats
@@ -212,12 +218,19 @@ function initSectionAnimations() {
 
             console.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
 
-            // Positions fixes pour chaque stat (layout desktop)
-            const statPositions = [
-                { top: '15%', left: '10%', right: 'auto', bottom: 'auto' },    // stat-1
-                { top: '15%', right: '10%', left: 'auto', bottom: 'auto' },    // stat-2
-                { bottom: '25%', left: '15%', top: 'auto', right: 'auto' },    // stat-3
-                { bottom: '15%', right: '12%', top: 'auto', left: 'auto' }     // stat-4
+            // Positions fixes pour chaque stat
+            // Sur mobile : positions plus basses pour éviter le texte en haut
+            // Sur desktop : positions équilibrées autour du logo
+            const statPositions = isMobile ? [
+                { top: '20%', left: '5%', right: 'auto', bottom: 'auto' },      // stat-1 (haut gauche)
+                { top: '20%', right: '5%', left: 'auto', bottom: 'auto' },      // stat-2 (haut droit)
+                { bottom: '20%', left: '5%', top: 'auto', right: 'auto' },      // stat-3 (bas gauche)
+                { bottom: '20%', right: '5%', top: 'auto', left: 'auto' }       // stat-4 (bas droit)
+            ] : [
+                { top: '15%', left: '10%', right: 'auto', bottom: 'auto' },     // stat-1
+                { top: '15%', right: '10%', left: 'auto', bottom: 'auto' },     // stat-2
+                { bottom: '25%', left: '15%', top: 'auto', right: 'auto' },     // stat-3
+                { bottom: '15%', right: '12%', top: 'auto', left: 'auto' }      // stat-4
             ];
 
             statItems.forEach((item, index) => {
