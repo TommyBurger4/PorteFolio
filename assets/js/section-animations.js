@@ -206,17 +206,17 @@ function initSectionAnimations() {
                 item.style.setProperty('z-index', '100', 'important'); // Au-dessus de tout
 
                 // FORCER les positions desktop (autour du logo)
-                if (statPositions[index]) {
-                    const pos = statPositions[index];
+                const pos = statPositions[index];
+                if (pos) {
                     item.style.setProperty('top', pos.top, 'important');
                     item.style.setProperty('left', pos.left, 'important');
                     item.style.setProperty('right', pos.right, 'important');
                     item.style.setProperty('bottom', pos.bottom, 'important');
-                }
 
-                // Log de la position réelle
-                const posInfo = pos.top !== 'auto' ? `top:${pos.top}` : `bottom:${pos.bottom}`;
-                console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
+                    // Log de la position réelle
+                    const posInfo = pos.top !== 'auto' ? `top:${pos.top}` : `bottom:${pos.bottom}`;
+                    console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
+                }
 
                 // Forcer opacity à 0 initialement
                 item.style.setProperty('opacity', '0', 'important');
