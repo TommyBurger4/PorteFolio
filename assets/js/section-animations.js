@@ -104,17 +104,19 @@ function initSectionAnimations() {
 
     // Fonction pour déclencher les animations spécifiques
     function triggerSectionAnimation(section, sectionName) {
-        // Zoom du logo
+        // Phase 1 : Logo et texte reculent légèrement en arrière-plan
         const logo = section.querySelector(`[class*="${sectionName}-logo-zoom"]`);
         if (logo) {
-            logo.style.transform = 'translate(-50%, -50%) scale(0.3)';
-            logo.style.opacity = '0.3';
+            logo.style.transform = 'translate(-50%, -50%) scale(0.9)'; // Léger zoom arrière
+            logo.style.opacity = '0.8'; // Encore visible
+            logo.style.filter = 'brightness(0.7)'; // Légèrement assombri
         }
 
-        // Afficher le texte
+        // Le texte reste visible mais en retrait
         const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
         if (text) {
-            text.style.opacity = '0';
+            text.style.opacity = '0.7'; // Encore visible
+            text.style.transform = 'translateY(20px) scale(0.9)'; // Léger décalage
         }
 
         // Afficher les stats après 300ms
