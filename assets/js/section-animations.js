@@ -180,8 +180,12 @@ function initSectionAnimations() {
 
         const statsContainer = section.querySelector(`[class*="${sectionName}-stats-container"]`);
         if (statsContainer) {
-            statsContainer.style.display = 'block';
-            statsContainer.style.opacity = '1';
+            // FORCER le container à être visible avec !important
+            statsContainer.style.setProperty('display', 'block', 'important');
+            statsContainer.style.setProperty('opacity', '1', 'important');
+            statsContainer.style.setProperty('pointer-events', 'auto', 'important');
+            statsContainer.style.setProperty('visibility', 'visible', 'important');
+            console.log(`📦 Container ${sectionName}: FORCÉ visible (display:block, opacity:1)`);
 
             // Animer chaque stat item
             const statItems = statsContainer.querySelectorAll(`[class*="${sectionName}-stat-item"]`);
