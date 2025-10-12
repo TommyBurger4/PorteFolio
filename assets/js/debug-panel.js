@@ -290,9 +290,25 @@
             scrollBlocked: ${scrollBlocked ? 'YES' : 'NO'}<br>
             Y: ${Math.round(scrollY)}px<br>
         `;
+
+        // LOGS POUR CONSOLE SAFARI
+        console.log('━━━━━━━━━━━━━━━━━━━━━━');
+        console.log(`📱 SECTION: ${topSection?.name} (#${topSection?.index})`);
+        console.log(`📊 VISIBLE: ${topSection?.percentVisible}%`);
+        console.log(`📍 RECT TOP: ${topSection?.rectTop}px`);
+        console.log(`🎯 IS CENTERED: ${isCentered ? 'YES ✓' : 'NO ✗'}`);
+        console.log(`🔒 SHOULD SNAP: ${shouldSnap ? 'YES ✓' : 'NO ✗'}`);
+        console.log(`🚫 SCROLL BLOCKED: ${scrollBlocked ? 'YES ✓' : 'NO ✗'}`);
+        console.log(`⬆️ DIRECTION: ${scrollDirection}`);
+        console.log(`📝 PHASE: ${phaseText}`);
+        console.log(`🔧 hasSnapAlign: ${hasSnapAlign ? 'YES' : 'NO'}`);
+        console.log(`🎬 isBlockableSection: ${isBlockableSection ? 'YES' : 'NO'}`);
+        console.log(`🚷 isNeverBlockSection: ${isNeverBlockSection ? 'YES' : 'NO'}`);
+        console.log(`🍎 isIOS: ${isIOS ? 'YES' : 'NO'}`);
+        console.log('━━━━━━━━━━━━━━━━━━━━━━');
         } catch (error) {
             debugPanel.innerHTML = `ERROR: ${error.message}`;
-            console.error('Erreur système blocage:', error);
+            console.error('❌ Erreur système blocage:', error);
         }
     }
 
