@@ -85,45 +85,20 @@ function initSectionAnimations() {
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
 
-                // Attendre un geste de scroll pour passer à l'animation
-                console.log(`⏳ En attente d'un scroll pour lancer l'animation...`);
+                console.log(`⏳ En attente d'un mouvement de scroll pour animer les stats...`);
+            }
 
-                // Ajouter un listener de scroll temporaire pour détecter le prochain mouvement
-                let scrollHandler;
-                let touchHandler;
-
-                scrollHandler = () => {
-                    if (state.phase === 'snapped') {
-                        console.log(`🚨 PHASE 2: Scroll détecté - DÉCLENCHEMENT ANIMATION!`);
-                        state.phase = 'animated';
-                        triggerSectionAnimation(section, sectionName);
-
-                        // Retirer les listeners
-                        window.removeEventListener('scroll', scrollHandler);
-                        window.removeEventListener('touchmove', touchHandler);
-                    }
-                };
-
-                touchHandler = () => {
-                    if (state.phase === 'snapped') {
-                        console.log(`🚨 PHASE 2: Touch détecté - DÉCLENCHEMENT ANIMATION!`);
-                        state.phase = 'animated';
-                        triggerSectionAnimation(section, sectionName);
-
-                        // Retirer les listeners
-                        window.removeEventListener('scroll', scrollHandler);
-                        window.removeEventListener('touchmove', touchHandler);
-                    }
-                };
-
-                // Ajouter les listeners
-                window.addEventListener('scroll', scrollHandler, { passive: true });
-                window.addEventListener('touchmove', touchHandler, { passive: true });
+            // PHASE 2 : Détecter quand la section commence à sortir (= scroll down détecté)
+            // La section était snappée (>70%) et descend maintenant entre 50-69% = l'utilisateur scroll
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5 && entry.intersectionRatio < 0.7 && state.phase === 'snapped') {
+                console.log(`🚨 PHASE 2: Scroll down détecté (${ratio}% visible) - DÉCLENCHEMENT ANIMATION!`);
+                state.phase = 'animated';
+                triggerSectionAnimation(section, sectionName);
             }
 
             // Si la section sort du viewport, reset
             if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
-                if (state.phase === 'snapped') {
+                if (state.phase === 'snapped' || state.phase === 'animated') {
                     console.log(`⬅️ Section sortie - Reset de la phase`);
                     state.phase = 'waiting';
                 }
