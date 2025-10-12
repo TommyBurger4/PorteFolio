@@ -157,10 +157,14 @@ function initSectionAnimations() {
             console.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
 
             statItems.forEach((item, index) => {
-                // FORCER position absolute même sur mobile (override le CSS)
+                // ANNULER COMPLÈTEMENT le CSS mobile (carrousel flex)
                 item.style.setProperty('position', 'absolute', 'important');
+                item.style.setProperty('flex', 'none', 'important');
+                item.style.setProperty('width', 'auto', 'important');
+                item.style.setProperty('display', 'block', 'important');
+                item.style.setProperty('padding', '0', 'important');
 
-                console.log(`  Stat ${index + 1}: position forcée à absolute`);
+                console.log(`  Stat ${index + 1}: styles desktop forcés sur mobile`);
 
                 // Animation avec délai progressif
                 setTimeout(() => {
