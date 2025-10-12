@@ -8,7 +8,60 @@
         return;
     }
 
-    console.log('📱 iPhone détecté - Système de blocage actif (sans UI)');
+    console.log('📱 iPhone détecté - Création du panneau de debug');
+
+    // Créer le panneau de debug
+    const debugPanel = document.createElement('div');
+    debugPanel.id = 'debug-panel';
+    debugPanel.style.cssText = `
+        position: fixed !important;
+        top: 80px !important;
+        right: 10px !important;
+        background: rgba(0, 0, 0, 0.95) !important;
+        color: #0f0 !important;
+        font-family: 'Courier New', monospace !important;
+        font-size: 11px !important;
+        padding: 12px !important;
+        border-radius: 8px !important;
+        z-index: 999999 !important;
+        min-width: 250px !important;
+        max-width: 280px !important;
+        min-height: 200px !important;
+        max-height: 85vh !important;
+        overflow-y: auto !important;
+        border: 3px solid #0f0 !important;
+        line-height: 1.5 !important;
+        pointer-events: none !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.5) !important;
+    `;
+    document.body.appendChild(debugPanel);
+
+    // Créer l'indicateur rouge central
+    const snapIndicatorHTML = `
+        <div id="snap-indicator" style="
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: red;
+            border: 8px solid #ff0000;
+            border-radius: 50%;
+            z-index: 9999999;
+            pointer-events: none;
+            box-shadow: 0 0 50px rgba(255, 0, 0, 1);
+            display: none;
+            opacity: 0;
+        ">
+            <div style="color: white; font-size: 20px; font-weight: bold; text-align: center; line-height: 120px; font-family: Arial;">SNAP</div>
+        </div>
+    `;
+    document.body.insertAdjacentHTML('beforeend', snapIndicatorHTML);
+    const snapIndicator = document.getElementById('snap-indicator');
 
     // Variables de tracking
     let currentSection = 'none';
@@ -143,8 +196,8 @@
             scrollDirection = 'UP';
         }
 
-        // Bloquer uniquement si on scroll DOWN
-        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection === 'DOWN';
+        // Bloquer sauf si on scroll UP
+        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
@@ -153,16 +206,27 @@
         if (shouldSnap && sectionScrollPhase === 'locked') {
             // Phase initiale: section bloquée, attente de swipe pour lancer animations
             scrollBlocked = true;
+            snapIndicator.style.setProperty('display', 'block', 'important');
+            snapIndicator.style.setProperty('opacity', '1', 'important');
+            snapIndicator.style.setProperty('visibility', 'visible', 'important');
+
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'animating') {
             // Phase animations: RESTER BLOQUÉ pendant les animations
             scrollBlocked = true;
+            snapIndicator.style.setProperty('opacity', '0.5', 'important');
+
             document.body.style.overflow = 'hidden';
             document.documentElement.style.overflow = 'hidden';
         } else if (shouldSnap && sectionScrollPhase === 'unlocked') {
             // Phase finale: animations finies, débloquer pour passer à la suite
             scrollBlocked = false;
+            snapIndicator.style.setProperty('opacity', '0', 'important');
+            setTimeout(() => {
+                snapIndicator.style.setProperty('display', 'none', 'important');
+            }, 300);
+
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         } else {
@@ -171,12 +235,52 @@
             sectionScrollPhase = 'locked';
             swipeCount = 0;
             animationProgress = 0;
+
+            snapIndicator.style.setProperty('opacity', '0', 'important');
+            setTimeout(() => {
+                if (!shouldSnap) {
+                    snapIndicator.style.setProperty('display', 'none', 'important');
+                }
+            }, 300);
+
             document.body.style.overflow = '';
             document.documentElement.style.overflow = '';
         }
 
-        // Pas d'UI debug pour le test IRL
+        // Afficher le debug
+        const topSection = sectionsData[0];
+        let phaseText = 'LIBRE';
+        let phaseColor = '#0f0';
+        if (sectionScrollPhase === 'locked') {
+            phaseText = '🔒 LOCKED';
+            phaseColor = '#f00';
+        } else if (sectionScrollPhase === 'animating') {
+            phaseText = '🎬 ANIMATING';
+            phaseColor = '#ff0';
+        } else if (sectionScrollPhase === 'unlocked') {
+            phaseText = '✓ UNLOCKED';
+            phaseColor = '#0f0';
+        }
+
+        debugPanel.innerHTML = `
+            <strong>🐛 iOS DEBUG</strong><br>
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            <strong>PHASE:</strong><br>
+            <span style="color: ${phaseColor}; font-weight: bold; font-size: 16px;">
+                ${phaseText}
+            </span><br>
+            Dir: ${scrollDirection}<br>
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            <strong>ACTUELLE:</strong><br>
+            #${topSection?.index} <span style="color: #ff0;">${topSection?.name}</span><br>
+            ${topSection?.percentVisible}% visible<br>
+            <hr style="border-color: #0f0; margin: 3px 0;">
+            shouldSnap: ${shouldSnap ? 'YES' : 'NO'}<br>
+            scrollBlocked: ${scrollBlocked ? 'YES' : 'NO'}<br>
+            Y: ${Math.round(scrollY)}px<br>
+        `;
         } catch (error) {
+            debugPanel.innerHTML = `ERROR: ${error.message}`;
             console.error('Erreur système blocage:', error);
         }
     }
