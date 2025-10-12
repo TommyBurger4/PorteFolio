@@ -82,6 +82,11 @@ function initSectionAnimations() {
                 console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
                 state.phase = 'snapped';
 
+                // BLOQUER le scroll (overflow: hidden)
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+                console.log(`🔒 SCROLL BLOQUÉ`);
+
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
 
@@ -93,14 +98,25 @@ function initSectionAnimations() {
             if (entry.isIntersecting && entry.intersectionRatio >= 0.5 && entry.intersectionRatio < 0.7 && state.phase === 'snapped') {
                 console.log(`🚨 PHASE 2: Scroll down détecté (${ratio}% visible) - DÉCLENCHEMENT ANIMATION!`);
                 state.phase = 'animated';
+
+                // DÉBLOQUER le scroll
+                document.body.style.overflow = '';
+                document.documentElement.style.overflow = '';
+                console.log(`🔓 SCROLL DÉBLOQUÉ`);
+
                 triggerSectionAnimation(section, sectionName);
             }
 
-            // Si la section sort du viewport, reset
+            // Si la section sort du viewport, reset ET débloquer
             if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
                 if (state.phase === 'snapped' || state.phase === 'animated') {
                     console.log(`⬅️ Section sortie - Reset de la phase`);
                     state.phase = 'waiting';
+
+                    // S'assurer que le scroll est débloqué
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+                    console.log(`🔓 SCROLL DÉBLOQUÉ (sortie)`);
                 }
             }
 
@@ -171,6 +187,7 @@ function initSectionAnimations() {
                 item.style.setProperty('width', 'auto', 'important');
                 item.style.setProperty('display', 'block', 'important');
                 item.style.setProperty('padding', '0', 'important');
+                item.style.setProperty('z-index', '100', 'important'); // Au-dessus de tout
 
                 // FORCER les positions desktop (autour du logo)
                 if (statPositions[index]) {
@@ -181,12 +198,18 @@ function initSectionAnimations() {
                     item.style.setProperty('bottom', pos.bottom, 'important');
                 }
 
-                console.log(`  Stat ${index + 1}: position ${statPositions[index]?.top || statPositions[index]?.bottom} forcée`);
+                // Log de la position réelle
+                const posInfo = pos.top !== 'auto' ? `top:${pos.top}` : `bottom:${pos.bottom}`;
+                console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
+
+                // Forcer opacity à 0 initialement
+                item.style.setProperty('opacity', '0', 'important');
+                item.style.setProperty('transform', 'translateY(30px) scale(0.8)', 'important');
 
                 // Animation avec délai progressif
                 setTimeout(() => {
-                    item.style.opacity = '1';
-                    item.style.transform = 'translateY(0) scale(1)';
+                    item.style.setProperty('opacity', '1', 'important');
+                    item.style.setProperty('transform', 'translateY(0) scale(1)', 'important');
 
                     // Animer le compteur
                     const counter = item.querySelector('.stat-counter');
