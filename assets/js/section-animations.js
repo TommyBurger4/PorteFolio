@@ -90,21 +90,37 @@ function initSectionAnimations() {
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
 
-                console.log(`⏳ En attente d'un mouvement de scroll pour animer les stats...`);
-            }
+                console.log(`⏳ En attente d'un geste de scroll...`);
 
-            // PHASE 2 : Détecter quand la section commence à sortir (= scroll down détecté)
-            // La section était snappée (>70%) et descend maintenant entre 50-69% = l'utilisateur scroll
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.5 && entry.intersectionRatio < 0.7 && state.phase === 'snapped') {
-                console.log(`🚨 PHASE 2: Scroll down détecté (${ratio}% visible) - DÉCLENCHEMENT ANIMATION!`);
-                state.phase = 'animated';
+                // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
+                let scrollAttempts = 0;
 
-                // DÉBLOQUER le scroll
-                document.body.style.overflow = '';
-                document.documentElement.style.overflow = '';
-                console.log(`🔓 SCROLL DÉBLOQUÉ`);
+                const unlockAndAnimate = () => {
+                    if (state.phase === 'snapped') {
+                        scrollAttempts++;
+                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
 
-                triggerSectionAnimation(section, sectionName);
+                        if (scrollAttempts >= 1) { // Dès la première tentative
+                            console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
+                            state.phase = 'animated';
+
+                            // DÉBLOQUER le scroll
+                            document.body.style.overflow = '';
+                            document.documentElement.style.overflow = '';
+                            console.log(`🔓 SCROLL DÉBLOQUÉ`);
+
+                            // Retirer les listeners
+                            window.removeEventListener('touchmove', unlockAndAnimate);
+                            window.removeEventListener('wheel', unlockAndAnimate);
+
+                            triggerSectionAnimation(section, sectionName);
+                        }
+                    }
+                };
+
+                // Écouter les tentatives de scroll
+                window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
+                window.addEventListener('wheel', unlockAndAnimate, { passive: true });
             }
 
             // Si la section sort du viewport, reset ET débloquer
