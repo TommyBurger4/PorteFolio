@@ -1,7 +1,27 @@
 // Système d'animations basé sur IntersectionObserver
 // Propre, fiable, fonctionne sur tous les écrans
 
-(function() {
+console.log('🚀 SCRIPT SECTION-ANIMATIONS.JS CHARGÉ !');
+console.log('🌍 User Agent:', navigator.userAgent);
+console.log('📄 Document ready state:', document.readyState);
+
+// Attendre que le DOM soit prêt
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('✅ DOM READY - Démarrage du système d\'animations');
+    initSectionAnimations();
+});
+
+// Si le DOM est déjà prêt (script chargé après DOMContentLoaded)
+if (document.readyState === 'loading') {
+    console.log('⏳ En attente du DOM...');
+} else {
+    console.log('✅ DOM déjà prêt - Démarrage immédiat');
+    initSectionAnimations();
+}
+
+function initSectionAnimations() {
+    console.log('🔥 INIT SECTION ANIMATIONS !');
+
     // Détecter le device
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isAndroid = /Android/.test(navigator.userAgent);
@@ -10,10 +30,19 @@
     console.log(`📱 Section Animations - Device: ${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Desktop'}`);
 
     // Sélectionner toutes les sections avec animations
+    console.log('🔍 Recherche des sections avec [class*="-animation-container"]...');
     const animationSections = document.querySelectorAll('[class*="-animation-container"]');
+    console.log('📦 Sections trouvées:', animationSections.length);
+
+    // Logger chaque section trouvée
+    animationSections.forEach((section, index) => {
+        console.log(`  ${index + 1}. ${section.className}`);
+    });
 
     if (animationSections.length === 0) {
         console.log('⚠️ Aucune section d\'animation trouvée');
+        console.log('🔍 Vérification du DOM...');
+        console.log('Toutes les sections:', document.querySelectorAll('section').length);
         return;
     }
 
@@ -140,4 +169,4 @@
     }
 
     console.log('✅ Section Animations - IntersectionObserver actif');
-})();
+}
