@@ -156,6 +156,14 @@ function initSectionAnimations() {
 
             console.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
 
+            // Positions fixes pour chaque stat (layout desktop)
+            const statPositions = [
+                { top: '15%', left: '10%', right: 'auto', bottom: 'auto' },    // stat-1
+                { top: '15%', right: '10%', left: 'auto', bottom: 'auto' },    // stat-2
+                { bottom: '25%', left: '15%', top: 'auto', right: 'auto' },    // stat-3
+                { bottom: '15%', right: '12%', top: 'auto', left: 'auto' }     // stat-4
+            ];
+
             statItems.forEach((item, index) => {
                 // ANNULER COMPLÈTEMENT le CSS mobile (carrousel flex)
                 item.style.setProperty('position', 'absolute', 'important');
@@ -164,7 +172,16 @@ function initSectionAnimations() {
                 item.style.setProperty('display', 'block', 'important');
                 item.style.setProperty('padding', '0', 'important');
 
-                console.log(`  Stat ${index + 1}: styles desktop forcés sur mobile`);
+                // FORCER les positions desktop (autour du logo)
+                if (statPositions[index]) {
+                    const pos = statPositions[index];
+                    item.style.setProperty('top', pos.top, 'important');
+                    item.style.setProperty('left', pos.left, 'important');
+                    item.style.setProperty('right', pos.right, 'important');
+                    item.style.setProperty('bottom', pos.bottom, 'important');
+                }
+
+                console.log(`  Stat ${index + 1}: position ${statPositions[index]?.top || statPositions[index]?.bottom} forcée`);
 
                 // Animation avec délai progressif
                 setTimeout(() => {
