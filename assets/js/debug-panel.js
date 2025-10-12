@@ -197,8 +197,16 @@
             scrollDirection = 'UP';
         }
 
-        // Bloquer sauf si on scroll UP (98% = section presque plein écran)
-        shouldSnap = topSectionPercent >= 98 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
+        // Vérifier si la section est centrée dans le viewport
+        const topSection = sectionsData[0];
+        const isCentered = topSection && Math.abs(topSection.rectTop) < 50; // Top de la section près de 0
+
+        // Bloquer seulement si:
+        // - iOS uniquement
+        // - Section visible à 95%+
+        // - Section est centrée (rectTop proche de 0)
+        // - Pas en train de scroller UP
+        shouldSnap = isIOS && topSectionPercent >= 95 && isCentered && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
@@ -275,7 +283,9 @@
             <strong>ACTUELLE:</strong><br>
             #${topSection?.index} <span style="color: #ff0;">${topSection?.name}</span><br>
             ${topSection?.percentVisible}% visible<br>
+            rectTop: ${topSection?.rectTop}px<br>
             <hr style="border-color: #0f0; margin: 3px 0;">
+            isCentered: ${isCentered ? 'YES' : 'NO'}<br>
             shouldSnap: ${shouldSnap ? 'YES' : 'NO'}<br>
             scrollBlocked: ${scrollBlocked ? 'YES' : 'NO'}<br>
             Y: ${Math.round(scrollY)}px<br>

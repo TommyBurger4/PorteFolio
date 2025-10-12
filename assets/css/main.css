@@ -16,13 +16,13 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    scroll-snap-type: y mandatory;
+    -webkit-scroll-snap-type: y mandatory;
 }
 
-/* Activer scroll snap uniquement sur mobile */
+/* Activer scroll snap sur mobile avec propriétés iOS */
 @media (max-width: 768px) {
     html {
-        scroll-snap-type: y mandatory;
-        -webkit-scroll-snap-type: y mandatory;
         -webkit-overflow-scrolling: touch;
         overflow-y: scroll;
         height: 100vh;
@@ -314,7 +314,18 @@ nav {
     overflow: visible;
 }
 
-/* Activer scroll snap sur ces sections uniquement sur mobile */
+/* Activer scroll snap sur ces sections */
+.creno-animation-container,
+.pixshare-animation-container,
+.findmycourt-animation-container,
+.fakt-animation-container {
+    scroll-snap-align: start;
+    -webkit-scroll-snap-align: start;
+    scroll-snap-stop: always;
+    -webkit-scroll-snap-stop: always;
+}
+
+/* Sur mobile: forcer hauteur 100vh */
 @media (max-width: 768px) {
     .creno-animation-container,
     .pixshare-animation-container,
@@ -322,10 +333,6 @@ nav {
     .fakt-animation-container {
         height: 100vh;
         overflow: hidden;
-        scroll-snap-align: start;
-        -webkit-scroll-snap-align: start;
-        scroll-snap-stop: always;
-        -webkit-scroll-snap-stop: always;
     }
 }
 
