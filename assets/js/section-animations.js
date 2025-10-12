@@ -24,12 +24,22 @@
         entries.forEach(entry => {
             const section = entry.target;
             const sectionName = section.className.match(/(\w+)-animation-container/)?.[1] || 'unknown';
+            const ratio = Math.round(entry.intersectionRatio * 100);
+
+            // Logger TOUS les changements de visibilité
+            console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+            console.log(`📱 SECTION: ${sectionName.toUpperCase()}`);
+            console.log(`👁️ VISIBLE: ${ratio}%`);
+            console.log(`🎯 IS INTERSECTING: ${entry.isIntersecting ? 'YES' : 'NO'}`);
+            console.log(`🔒 ALREADY ANIMATED: ${section.dataset.animated === 'true' ? 'YES' : 'NO'}`);
+            console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // Détecter l'entrée dans le viewport (>50% visible)
             if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+                console.log(`✅ CONDITION MET: >=50% visible`);
 
                 if (!section.dataset.animated) {
-                    console.log(`🎬 Animation START: ${sectionName.toUpperCase()} (${Math.round(entry.intersectionRatio * 100)}% visible)`);
+                    console.log(`🚨 DÉCLENCHEMENT ANIMATION: ${sectionName.toUpperCase()} (${ratio}% visible)`);
 
                     section.dataset.animated = 'true';
                     section.classList.add('section-visible');
@@ -38,8 +48,17 @@
                     setTimeout(() => {
                         triggerSectionAnimation(section, sectionName);
                     }, 100);
+                } else {
+                    console.log(`⏭️ SKIP: Animation déjà lancée`);
+                }
+            } else {
+                if (ratio < 50) {
+                    console.log(`⚠️ CONDITION NOT MET: Seulement ${ratio}% visible (besoin >=50%)`);
+                } else if (!entry.isIntersecting) {
+                    console.log(`⚠️ CONDITION NOT MET: Pas dans le viewport`);
                 }
             }
+            console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
         });
     }, {
         // Plusieurs seuils pour détecter progressivement
