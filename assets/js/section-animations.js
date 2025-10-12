@@ -250,6 +250,13 @@ function initSectionAnimations() {
                     item.style.setProperty('opacity', '1', 'important');
                     item.style.setProperty('transform', 'translateY(0) scale(1)', 'important');
 
+                    console.log(`  🎬 Stat ${index + 1}: Animation déclenchée - opacity devrait être 1`);
+
+                    // Vérifier la position réelle calculée
+                    const rect = item.getBoundingClientRect();
+                    console.log(`  📍 Stat ${index + 1}: Position réelle - top:${Math.round(rect.top)}px, left:${Math.round(rect.left)}px, width:${Math.round(rect.width)}px, height:${Math.round(rect.height)}px`);
+                    console.log(`  👁️ Stat ${index + 1}: Visible dans viewport? ${rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth ? 'OUI' : 'NON'}`);
+
                     // Animer le compteur
                     const counter = item.querySelector('.stat-counter');
                     if (counter) {
