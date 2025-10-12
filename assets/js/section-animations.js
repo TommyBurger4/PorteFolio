@@ -218,6 +218,29 @@ function initSectionAnimations() {
                     console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
                 }
 
+                // FORCER la stat-box à être VISIBLE avec un fond blanc/gris clair
+                const statBox = item.querySelector('.stat-box');
+                if (statBox) {
+                    // Background bien visible (blanc semi-transparent sur fond noir)
+                    statBox.style.setProperty('background', 'rgba(255, 255, 255, 0.95)', 'important');
+                    statBox.style.setProperty('border', '2px solid rgba(255, 255, 255, 0.2)', 'important');
+                    statBox.style.setProperty('box-shadow', '0 20px 60px rgba(0, 0, 0, 0.5)', 'important');
+                    console.log(`  ✅ Stat ${index + 1}: Background forcé à rgba(255,255,255,0.95)`);
+                }
+
+                // Forcer le texte à être VISIBLE (noir sur fond blanc)
+                const statCounter = item.querySelector('.stat-counter');
+                if (statCounter) {
+                    statCounter.style.setProperty('color', '#000', 'important');
+                    console.log(`  ✅ Stat ${index + 1}: Texte counter forcé à noir`);
+                }
+
+                const statLabel = item.querySelector('.stat-label');
+                if (statLabel) {
+                    statLabel.style.setProperty('color', '#333', 'important');
+                    console.log(`  ✅ Stat ${index + 1}: Texte label forcé à gris foncé`);
+                }
+
                 // Forcer opacity à 0 initialement
                 item.style.setProperty('opacity', '0', 'important');
                 item.style.setProperty('transform', 'translateY(30px) scale(0.8)', 'important');
