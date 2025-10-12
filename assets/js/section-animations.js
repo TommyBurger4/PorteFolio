@@ -82,10 +82,14 @@ function initSectionAnimations() {
                 console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
                 state.phase = 'snapped';
 
-                // BLOQUER le scroll (overflow: hidden)
-                document.body.style.overflow = 'hidden';
-                document.documentElement.style.overflow = 'hidden';
-                console.log(`🔒 SCROLL BLOQUÉ`);
+                // BLOQUER le scroll UNIQUEMENT SUR MOBILE (overflow: hidden)
+                if (isMobile) {
+                    document.body.style.overflow = 'hidden';
+                    document.documentElement.style.overflow = 'hidden';
+                    console.log(`🔒 SCROLL BLOQUÉ (mobile)`);
+                } else {
+                    console.log(`📋 Pas de blocage sur desktop`);
+                }
 
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
@@ -104,10 +108,12 @@ function initSectionAnimations() {
                             console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
                             state.phase = 'animated';
 
-                            // DÉBLOQUER le scroll
-                            document.body.style.overflow = '';
-                            document.documentElement.style.overflow = '';
-                            console.log(`🔓 SCROLL DÉBLOQUÉ`);
+                            // DÉBLOQUER le scroll (seulement si on avait bloqué sur mobile)
+                            if (isMobile) {
+                                document.body.style.overflow = '';
+                                document.documentElement.style.overflow = '';
+                                console.log(`🔓 SCROLL DÉBLOQUÉ (mobile)`);
+                            }
 
                             // Retirer les listeners
                             window.removeEventListener('touchmove', unlockAndAnimate);
@@ -129,10 +135,12 @@ function initSectionAnimations() {
                     console.log(`⬅️ Section sortie - Reset de la phase`);
                     state.phase = 'waiting';
 
-                    // S'assurer que le scroll est débloqué
-                    document.body.style.overflow = '';
-                    document.documentElement.style.overflow = '';
-                    console.log(`🔓 SCROLL DÉBLOQUÉ (sortie)`);
+                    // S'assurer que le scroll est débloqué (seulement sur mobile)
+                    if (isMobile) {
+                        document.body.style.overflow = '';
+                        document.documentElement.style.overflow = '';
+                        console.log(`🔓 SCROLL DÉBLOQUÉ (sortie mobile)`);
+                    }
                 }
             }
 
@@ -185,7 +193,19 @@ function initSectionAnimations() {
             statsContainer.style.setProperty('opacity', '1', 'important');
             statsContainer.style.setProperty('pointer-events', 'auto', 'important');
             statsContainer.style.setProperty('visibility', 'visible', 'important');
-            console.log(`📦 Container ${sectionName}: FORCÉ visible (display:block, opacity:1)`);
+
+            // ANNULER les propriétés mobile qui cachent les stats
+            statsContainer.style.setProperty('overflow', 'visible', 'important');
+            statsContainer.style.setProperty('transform', 'none', 'important');
+            statsContainer.style.setProperty('position', 'absolute', 'important');
+            statsContainer.style.setProperty('top', '0', 'important');
+            statsContainer.style.setProperty('left', '0', 'important');
+            statsContainer.style.setProperty('right', '0', 'important');
+            statsContainer.style.setProperty('bottom', '0', 'important');
+            statsContainer.style.setProperty('width', '100%', 'important');
+            statsContainer.style.setProperty('height', '100%', 'important');
+
+            console.log(`📦 Container ${sectionName}: FORCÉ visible + overflow:visible + transform:none`);
 
             // Animer chaque stat item
             const statItems = statsContainer.querySelectorAll(`[class*="${sectionName}-stat-item"]`);
@@ -222,27 +242,45 @@ function initSectionAnimations() {
                     console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
                 }
 
-                // FORCER la stat-box à être VISIBLE avec un fond blanc/gris clair
+                // FORCER les couleurs selon la section (Créno = bleu, PixShare = violet)
                 const statBox = item.querySelector('.stat-box');
                 if (statBox) {
-                    // Background bien visible (blanc semi-transparent sur fond noir)
-                    statBox.style.setProperty('background', 'rgba(255, 255, 255, 0.95)', 'important');
-                    statBox.style.setProperty('border', '2px solid rgba(255, 255, 255, 0.2)', 'important');
+                    if (sectionName === 'creno') {
+                        // Créno : fond bleu semi-transparent avec border bleu
+                        statBox.style.setProperty('background', 'linear-gradient(135deg, rgba(26, 49, 92, 0.25) 0%, rgba(26, 49, 92, 0.15) 100%)', 'important');
+                        statBox.style.setProperty('border', '2px solid rgba(26, 49, 92, 0.4)', 'important');
+                        statBox.style.setProperty('backdrop-filter', 'blur(20px)', 'important');
+                        statBox.style.setProperty('-webkit-backdrop-filter', 'blur(20px)', 'important');
+                        console.log(`  ✅ Stat ${index + 1}: Background bleu Créno`);
+                    } else if (sectionName === 'pixshare') {
+                        // PixShare : fond violet semi-transparent avec border violet
+                        statBox.style.setProperty('background', 'linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(147, 51, 234, 0.1) 100%)', 'important');
+                        statBox.style.setProperty('border', '2px solid rgba(147, 51, 234, 0.3)', 'important');
+                        statBox.style.setProperty('backdrop-filter', 'blur(20px)', 'important');
+                        statBox.style.setProperty('-webkit-backdrop-filter', 'blur(20px)', 'important');
+                        console.log(`  ✅ Stat ${index + 1}: Background violet PixShare`);
+                    }
                     statBox.style.setProperty('box-shadow', '0 20px 60px rgba(0, 0, 0, 0.5)', 'important');
-                    console.log(`  ✅ Stat ${index + 1}: Background forcé à rgba(255,255,255,0.95)`);
                 }
 
-                // Forcer le texte à être VISIBLE (noir sur fond blanc)
+                // Forcer le texte avec les bonnes couleurs
                 const statCounter = item.querySelector('.stat-counter');
                 if (statCounter) {
-                    statCounter.style.setProperty('color', '#000', 'important');
-                    console.log(`  ✅ Stat ${index + 1}: Texte counter forcé à noir`);
+                    if (sectionName === 'creno') {
+                        statCounter.style.setProperty('color', '#1a315c', 'important');
+                        statCounter.style.setProperty('text-shadow', '0 0 20px rgba(26, 49, 92, 0.6)', 'important');
+                        console.log(`  ✅ Stat ${index + 1}: Texte counter bleu Créno`);
+                    } else if (sectionName === 'pixshare') {
+                        statCounter.style.setProperty('color', '#9333ea', 'important');
+                        statCounter.style.setProperty('text-shadow', '0 0 20px rgba(147, 51, 234, 0.6)', 'important');
+                        console.log(`  ✅ Stat ${index + 1}: Texte counter violet PixShare`);
+                    }
                 }
 
                 const statLabel = item.querySelector('.stat-label');
                 if (statLabel) {
-                    statLabel.style.setProperty('color', '#333', 'important');
-                    console.log(`  ✅ Stat ${index + 1}: Texte label forcé à gris foncé`);
+                    statLabel.style.setProperty('color', 'rgba(255, 255, 255, 0.8)', 'important');
+                    console.log(`  ✅ Stat ${index + 1}: Texte label blanc`);
                 }
 
                 // Forcer opacity à 0 initialement
