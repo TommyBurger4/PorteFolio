@@ -257,7 +257,6 @@
         }
 
         // Afficher le debug
-        const topSection = sectionsData[0];
         let phaseText = 'LIBRE';
         let phaseColor = '#0f0';
         if (sectionScrollPhase === 'locked') {
