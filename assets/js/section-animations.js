@@ -77,8 +77,8 @@ function initSectionAnimations() {
             console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
-            // >= 70% visible = section bien au centre après le snap
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.7 && state.phase === 'waiting') {
+            // >= 85% visible = section bien au centre après le snap (plus tard pour voir "scroll pour découvrir")
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.85 && state.phase === 'waiting') {
                 console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
                 state.phase = 'snapped';
 
@@ -150,7 +150,7 @@ function initSectionAnimations() {
         });
     }, {
         // Plusieurs seuils pour détecter progressivement
-        threshold: [0, 0.25, 0.5, 0.7, 0.75, 1],
+        threshold: [0, 0.25, 0.5, 0.7, 0.75, 0.85, 1],
         // Marge pour anticiper l'entrée
         rootMargin: '0px 0px -10% 0px'
     });
@@ -230,14 +230,14 @@ function initSectionAnimations() {
 
             console.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
 
-            // Positions fixes pour chaque stat
-            // Sur mobile : positions plus basses pour éviter le texte en haut
+            // Positions fixes pour chaque stat - esthétique améliorée
+            // Sur mobile : bien espacées autour du logo central, sans chevaucher le titre
             // Sur desktop : positions équilibrées autour du logo
             const statPositions = isMobile ? [
-                { top: '20%', left: '5%', right: 'auto', bottom: 'auto' },      // stat-1 (haut gauche)
-                { top: '20%', right: '5%', left: 'auto', bottom: 'auto' },      // stat-2 (haut droit)
-                { bottom: '20%', left: '5%', top: 'auto', right: 'auto' },      // stat-3 (bas gauche)
-                { bottom: '20%', right: '5%', top: 'auto', left: 'auto' }       // stat-4 (bas droit)
+                { top: '25%', left: '3%', right: 'auto', bottom: 'auto' },      // stat-1 (téléchargements) - haut gauche
+                { top: '28%', right: '3%', left: 'auto', bottom: 'auto' },      // stat-2 (événements) - haut droit, légèrement plus bas
+                { bottom: '23%', left: '5%', top: 'auto', right: 'auto' },      // stat-3 (note) - bas gauche
+                { bottom: '18%', right: '2%', top: 'auto', left: 'auto' }       // stat-4 (stores) - bas droit
             ] : [
                 { top: '15%', left: '10%', right: 'auto', bottom: 'auto' },     // stat-1
                 { top: '15%', right: '10%', left: 'auto', bottom: 'auto' },     // stat-2
@@ -287,18 +287,29 @@ function initSectionAnimations() {
                     }
                     statBox.style.setProperty('box-shadow', '0 20px 60px rgba(0, 0, 0, 0.5)', 'important');
 
-                    // Sur mobile : stats plus petites
+                    // Sur mobile : stats plus petites avec variations esthétiques
                     if (isMobile) {
                         statBox.style.setProperty('padding', '1rem 1.5rem', 'important');
                         statBox.style.setProperty('border-radius', '16px', 'important');
                         statBox.style.setProperty('min-width', '120px', 'important');
-                        console.log(`  📱 Stat ${index + 1}: Taille mobile réduite`);
-                    }
 
-                    // Incliner la stat-4 (disponible stores) - effet DJI
-                    if (index === 3) {
-                        statBox.style.setProperty('transform', 'rotate(3deg) scale(0.9)', 'important');
-                        console.log(`  🔄 Stat ${index + 1}: Inclinée 3deg`);
+                        // Variations esthétiques par stat pour dynamisme
+                        if (index === 0) {
+                            // Stat 1 : légère inclinaison gauche
+                            statBox.style.setProperty('transform', 'rotate(-2deg)', 'important');
+                        } else if (index === 1) {
+                            // Stat 2 : légère inclinaison droite
+                            statBox.style.setProperty('transform', 'rotate(2deg)', 'important');
+                        } else if (index === 2) {
+                            // Stat 3 : légèrement plus petite
+                            statBox.style.setProperty('transform', 'scale(0.95) rotate(-1deg)', 'important');
+                        } else if (index === 3) {
+                            // Stat 4 (stores) : forte inclinaison + petit - effet DJI
+                            statBox.style.setProperty('transform', 'rotate(8deg) scale(0.85)', 'important');
+                            console.log(`  🔄 Stat ${index + 1}: Inclinée 8deg + scale 0.85`);
+                        }
+
+                        console.log(`  📱 Stat ${index + 1}: Taille mobile réduite avec rotation`);
                     }
                 }
 
