@@ -202,16 +202,28 @@ function initSectionAnimations() {
 
             // ANNULER les propriétés mobile qui cachent les stats
             statsContainer.style.setProperty('overflow', 'visible', 'important');
-            statsContainer.style.setProperty('transform', 'none', 'important');
             statsContainer.style.setProperty('position', 'absolute', 'important');
-            statsContainer.style.setProperty('top', '0', 'important');
-            statsContainer.style.setProperty('left', '0', 'important');
-            statsContainer.style.setProperty('right', '0', 'important');
-            statsContainer.style.setProperty('bottom', '0', 'important');
-            statsContainer.style.setProperty('width', '100%', 'important');
-            statsContainer.style.setProperty('height', '100%', 'important');
 
-            console.log(`📦 Container ${sectionName}: FORCÉ visible + overflow:visible + transform:none`);
+            if (isMobile) {
+                // Sur mobile : plein écran simple
+                statsContainer.style.setProperty('transform', 'none', 'important');
+                statsContainer.style.setProperty('top', '0', 'important');
+                statsContainer.style.setProperty('left', '0', 'important');
+                statsContainer.style.setProperty('right', '0', 'important');
+                statsContainer.style.setProperty('bottom', '0', 'important');
+                statsContainer.style.setProperty('width', '100%', 'important');
+                statsContainer.style.setProperty('height', '100%', 'important');
+                console.log(`📦 Container ${sectionName}: Mobile - plein écran`);
+            } else {
+                // Sur desktop : centré avec transform
+                statsContainer.style.setProperty('top', '50%', 'important');
+                statsContainer.style.setProperty('left', '50%', 'important');
+                statsContainer.style.setProperty('transform', 'translate(-50%, -50%)', 'important');
+                statsContainer.style.setProperty('width', '90vw', 'important');
+                statsContainer.style.setProperty('max-width', '1000px', 'important');
+                statsContainer.style.setProperty('height', '80vh', 'important');
+                console.log(`📦 Container ${sectionName}: Desktop - centré`);
+            }
 
             // Animer chaque stat item
             const statItems = statsContainer.querySelectorAll(`[class*="${sectionName}-stat-item"]`);
@@ -274,6 +286,20 @@ function initSectionAnimations() {
                         console.log(`  ✅ Stat ${index + 1}: Background violet PixShare`);
                     }
                     statBox.style.setProperty('box-shadow', '0 20px 60px rgba(0, 0, 0, 0.5)', 'important');
+
+                    // Sur mobile : stats plus petites
+                    if (isMobile) {
+                        statBox.style.setProperty('padding', '1rem 1.5rem', 'important');
+                        statBox.style.setProperty('border-radius', '16px', 'important');
+                        statBox.style.setProperty('min-width', '120px', 'important');
+                        console.log(`  📱 Stat ${index + 1}: Taille mobile réduite`);
+                    }
+
+                    // Incliner la stat-4 (disponible stores) - effet DJI
+                    if (index === 3) {
+                        statBox.style.setProperty('transform', 'rotate(3deg) scale(0.9)', 'important');
+                        console.log(`  🔄 Stat ${index + 1}: Inclinée 3deg`);
+                    }
                 }
 
                 // Forcer le texte avec les bonnes couleurs
@@ -288,11 +314,23 @@ function initSectionAnimations() {
                         statCounter.style.setProperty('text-shadow', '0 0 20px rgba(147, 51, 234, 0.6)', 'important');
                         console.log(`  ✅ Stat ${index + 1}: Texte counter violet PixShare`);
                     }
+
+                    // Sur mobile : texte plus petit
+                    if (isMobile) {
+                        statCounter.style.setProperty('font-size', '1.8rem', 'important');
+                        statCounter.style.setProperty('margin-bottom', '0.3rem', 'important');
+                    }
                 }
 
                 const statLabel = item.querySelector('.stat-label');
                 if (statLabel) {
                     statLabel.style.setProperty('color', 'rgba(255, 255, 255, 0.8)', 'important');
+
+                    // Sur mobile : label plus petit
+                    if (isMobile) {
+                        statLabel.style.setProperty('font-size', '0.75rem', 'important');
+                    }
+
                     console.log(`  ✅ Stat ${index + 1}: Texte label blanc`);
                 }
 
