@@ -1,15 +1,21 @@
-// PANNEAU DE DEBUG POUR SAFARI iOS - VERSION DÉTAILLÉE
+// PANNEAU DE DEBUG POUR MOBILE (iOS & Android) - VERSION DÉTAILLÉE
 (function() {
-    // Détecter iOS
+    // Détecter iOS et Android
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+    const isMobile = isIOS || isAndroid;
 
     // ACTIVER LE DEBUG SUR TOUS LES APPAREILS pour débogage
-    // if (!isIOS) {
+    // if (!isMobile) {
     //     console.log('🖥️ Desktop détecté - Pas de panneau de debug');
     //     return;
     // }
 
-    console.log(isIOS ? '📱 iPhone détecté - Création du panneau de debug' : '🖥️ Desktop détecté - Création du panneau de debug');
+    let deviceType = '🖥️ Desktop';
+    if (isIOS) deviceType = '📱 iPhone/iPad';
+    if (isAndroid) deviceType = '🤖 Android';
+
+    console.log(`${deviceType} détecté - Création du panneau de debug`);
 
     // Créer le panneau de debug
     const debugPanel = document.createElement('div');
@@ -104,17 +110,23 @@
                 // Déterminer le nom de la section
                 let sectionName = section.id || section.className || `Section-${index}`;
 
-                // Simplifier les noms de classes
-                if (sectionName.includes('creno')) sectionName = 'CRÉNO';
-                else if (sectionName.includes('pixshare')) sectionName = 'PIXSHARE';
-                else if (sectionName.includes('findmycourt')) sectionName = 'FINDMYCOURT';
-                else if (sectionName.includes('fakt')) sectionName = 'FAKT';
-                else if (sectionName.includes('scroll-section')) sectionName = 'SCROLL-DESC';
-                else if (sectionName.includes('upcoming')) sectionName = 'UPCOMING';
-                else if (sectionName === 'home') sectionName = 'HOME';
+                // Simplifier les noms de classes - détection automatique
+                if (sectionName === 'home') sectionName = 'HOME';
                 else if (sectionName === 'about') sectionName = 'ABOUT';
                 else if (sectionName === 'projects') sectionName = 'PROJECTS';
                 else if (sectionName === 'contact') sectionName = 'CONTACT';
+                else if (sectionName.includes('upcoming')) sectionName = 'UPCOMING';
+                else if (sectionName.includes('scroll-section')) sectionName = 'SCROLL-DESC';
+                // Détection automatique des sections d'apps (ex: creno-animation-container → CRÉNO)
+                else if (sectionName.includes('-animation-container')) {
+                    const appName = sectionName.replace('-animation-container', '').toUpperCase();
+                    sectionName = appName;
+                }
+                // Détection pour les showcase (ex: pixshare-showcase → PIXSHARE)
+                else if (sectionName.includes('-showcase')) {
+                    const appName = sectionName.replace('-showcase', '').toUpperCase();
+                    sectionName = appName;
+                }
 
                 // Définir l'ID de la section
                 const sectionId = section.id || `no-id-${index}`;
@@ -180,14 +192,22 @@
         const topSectionPercent = sectionsData[0]?.percentVisible || 0;
         const hasSnapAlign = sectionSnapAlign !== 'none' && sectionSnapAlign !== 'N/A';
         const topSectionName = sectionsData[0]?.name || '';
-
-        // Liste des sections qui doivent être bloquées (uniquement les animations de stats)
-        const sectionsToBlock = ['CRÉNO', 'PIXSHARE', 'FINDMYCOURT', 'FAKT'];
+        const topSectionElement = sectionsData[0]?.element;
 
         // Sections qui ne doivent JAMAIS être bloquées
         const sectionsToNeverBlock = ['HOME', 'ABOUT', 'PROJECTS', 'CONTACT', 'UPCOMING', 'SCROLL-DESC'];
 
-        const isBlockableSection = sectionsToBlock.includes(topSectionName);
+        // Détecter automatiquement les sections blockables:
+        // Toute section avec une classe finissant par "-animation-container"
+        let isBlockableSection = false;
+        if (topSectionElement) {
+            const classList = Array.from(topSectionElement.classList);
+            isBlockableSection = classList.some(className =>
+                className.endsWith('-animation-container') ||
+                className.includes('showcase')
+            );
+        }
+
         const isNeverBlockSection = sectionsToNeverBlock.includes(topSectionName);
 
         // Déterminer la direction du scroll
@@ -201,12 +221,10 @@
         const topSection = sectionsData[0];
         const isCentered = topSection && Math.abs(topSection.rectTop) < 50; // Top de la section près de 0
 
-        // Bloquer seulement si:
-        // - iOS uniquement
-        // - Section visible à 95%+
-        // - Section est centrée (rectTop proche de 0)
-        // - Pas en train de scroller UP
-        shouldSnap = isIOS && topSectionPercent >= 95 && isCentered && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
+        // Bloquer dès qu'on entre dans une section blockable (entre 70% et 100%)
+        // Cela évite de rater le blocage si on scroll trop vite
+        // Fonctionne sur iOS ET Android
+        shouldSnap = isMobile && topSectionPercent >= 70 && topSectionPercent <= 100 && isCentered && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
@@ -271,7 +289,8 @@
         }
 
         debugPanel.innerHTML = `
-            <strong>🐛 iOS DEBUG</strong><br>
+            <strong>🐛 MOBILE DEBUG</strong><br>
+            <span style="font-size: 10px;">${deviceType}</span><br>
             <hr style="border-color: #0f0; margin: 3px 0;">
             <strong>PHASE:</strong><br>
             <span style="color: ${phaseColor}; font-weight: bold; font-size: 16px;">
@@ -290,7 +309,7 @@
             Y: ${Math.round(scrollY)}px<br>
         `;
 
-        // LOGS POUR CONSOLE SAFARI
+        // LOGS POUR CONSOLE MOBILE (iOS/Android)
         console.log('━━━━━━━━━━━━━━━━━━━━━━');
         console.log(`📱 SECTION: ${topSection?.name} (#${topSection?.index})`);
         console.log(`📊 VISIBLE: ${topSection?.percentVisible}%`);
@@ -303,7 +322,8 @@
         console.log(`🔧 hasSnapAlign: ${hasSnapAlign ? 'YES' : 'NO'}`);
         console.log(`🎬 isBlockableSection: ${isBlockableSection ? 'YES' : 'NO'}`);
         console.log(`🚷 isNeverBlockSection: ${isNeverBlockSection ? 'YES' : 'NO'}`);
-        console.log(`🍎 isIOS: ${isIOS ? 'YES' : 'NO'}`);
+        console.log(`📱 DEVICE: ${deviceType}`);
+        console.log(`🍎 isIOS: ${isIOS ? 'YES' : 'NO'} | 🤖 isAndroid: ${isAndroid ? 'YES' : 'NO'}`);
         console.log('━━━━━━━━━━━━━━━━━━━━━━');
         } catch (error) {
             debugPanel.innerHTML = `ERROR: ${error.message}`;

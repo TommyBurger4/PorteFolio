@@ -1,12 +1,15 @@
-// Corrections spécifiques pour iOS Safari
+// Corrections pour iOS Safari & Android
 
 (function() {
-    // Détecter iOS
+    // Détecter iOS et Android
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    
-    if (!isIOS) return;
-    
-    console.log('📱 iOS détecté - Application des correctifs');
+    const isAndroid = /Android/.test(navigator.userAgent);
+    const isMobile = isIOS || isAndroid;
+
+    if (!isMobile) return;
+
+    let deviceType = isIOS ? '📱 iOS' : '🤖 Android';
+    console.log(`${deviceType} détecté - Application des correctifs`);
     
     // 1. Fix pour le viewport height sur iOS
     function setViewportHeight() {
@@ -18,12 +21,14 @@
     window.addEventListener('resize', setViewportHeight);
     window.addEventListener('orientationchange', setViewportHeight);
     
-    // 2. Désactiver le bounce scroll
-    document.body.addEventListener('touchmove', function(e) {
-        if (document.body.scrollHeight <= window.innerHeight) {
-            e.preventDefault();
-        }
-    }, { passive: false });
+    // 2. Désactiver le bounce scroll (iOS uniquement)
+    if (isIOS) {
+        document.body.addEventListener('touchmove', function(e) {
+            if (document.body.scrollHeight <= window.innerHeight) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
     
     // 3. Fix pour les animations qui ne se déclenchent pas
     document.addEventListener('DOMContentLoaded', function() {
@@ -72,5 +77,5 @@
         document.documentElement.style.setProperty('--transition-slow', '0.6s');
     }
     
-    console.log('✅ Correctifs iOS appliqués');
+    console.log(`✅ Correctifs ${deviceType} appliqués`);
 })();

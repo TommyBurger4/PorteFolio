@@ -303,34 +303,21 @@ nav {
    6. ANIMATIONS DJI STYLE
    ========================================================================== */
 
-/* Container principal pour l'animation */
-.creno-animation-container,
-.pixshare-animation-container,
-.findmycourt-animation-container,
-.fakt-animation-container {
+/* Container principal pour l'animation - GÉNÉRIQUE pour toutes les apps */
+[class*="-animation-container"] {
     position: relative;
     height: 80vh;
     background: var(--color-black);
     overflow: visible;
-}
-
-/* Activer scroll snap sur ces sections */
-.creno-animation-container,
-.pixshare-animation-container,
-.findmycourt-animation-container,
-.fakt-animation-container {
     scroll-snap-align: start;
     -webkit-scroll-snap-align: start;
     scroll-snap-stop: always;
     -webkit-scroll-snap-stop: always;
 }
 
-/* Sur mobile: forcer hauteur 100vh */
+/* Sur mobile: forcer hauteur 100vh pour toutes les apps */
 @media (max-width: 768px) {
-    .creno-animation-container,
-    .pixshare-animation-container,
-    .findmycourt-animation-container,
-    .fakt-animation-container {
+    [class*="-animation-container"] {
         height: 100vh;
         overflow: hidden;
     }
@@ -911,15 +898,8 @@ nav {
         padding: 0.5rem;
         z-index: 1000;
     }
-    
-    /* Animations DJI mobile */
-    .creno-animation-container,
-    .pixshare-animation-container,
-    .findmycourt-animation-container,
-    .fakt-animation-container {
-        height: 100vh;
-        padding: 0;
-    }
+
+    /* Animations DJI mobile - déjà géré par [class*="-animation-container"] */
 
     .animation-sticky-section {
         position: relative;
