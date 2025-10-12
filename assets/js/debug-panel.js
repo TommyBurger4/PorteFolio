@@ -3,12 +3,13 @@
     // Détecter iOS
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-    if (!isIOS) {
-        console.log('🖥️ Desktop détecté - Pas de panneau de debug');
-        return;
-    }
+    // ACTIVER LE DEBUG SUR TOUS LES APPAREILS pour débogage
+    // if (!isIOS) {
+    //     console.log('🖥️ Desktop détecté - Pas de panneau de debug');
+    //     return;
+    // }
 
-    console.log('📱 iPhone détecté - Création du panneau de debug');
+    console.log(isIOS ? '📱 iPhone détecté - Création du panneau de debug' : '🖥️ Desktop détecté - Création du panneau de debug');
 
     // Créer le panneau de debug
     const debugPanel = document.createElement('div');
@@ -196,8 +197,8 @@
             scrollDirection = 'UP';
         }
 
-        // Bloquer sauf si on scroll UP
-        shouldSnap = topSectionPercent > 70 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
+        // Bloquer sauf si on scroll UP (85% pour bloquer plus bas)
+        shouldSnap = topSectionPercent > 85 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
