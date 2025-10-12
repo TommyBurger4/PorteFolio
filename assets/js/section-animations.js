@@ -82,53 +82,45 @@ function initSectionAnimations() {
                 console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
                 state.phase = 'snapped';
 
-                if (isMobile) {
-                    // MOBILE : Système 2-phases avec blocage
-                    document.body.style.overflow = 'hidden';
-                    document.documentElement.style.overflow = 'hidden';
-                    console.log(`🔒 SCROLL BLOQUÉ (mobile)`);
+                // Système 2-phases avec blocage pour TOUS les devices
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+                console.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
-                    // Préparer le logo et le texte (arrière-plan)
-                    prepareSection(section, sectionName);
+                // Préparer le logo et le texte (arrière-plan)
+                prepareSection(section, sectionName);
 
-                    console.log(`⏳ En attente d'un geste de scroll...`);
+                console.log(`⏳ En attente d'un geste de scroll...`);
 
-                    // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
-                    let scrollAttempts = 0;
+                // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
+                let scrollAttempts = 0;
 
-                    const unlockAndAnimate = () => {
-                        if (state.phase === 'snapped') {
-                            scrollAttempts++;
-                            console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
+                const unlockAndAnimate = () => {
+                    if (state.phase === 'snapped') {
+                        scrollAttempts++;
+                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
 
-                            if (scrollAttempts >= 1) { // Dès la première tentative
-                                console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
-                                state.phase = 'animated';
+                        if (scrollAttempts >= 1) { // Dès la première tentative
+                            console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
+                            state.phase = 'animated';
 
-                                // DÉBLOQUER le scroll
-                                document.body.style.overflow = '';
-                                document.documentElement.style.overflow = '';
-                                console.log(`🔓 SCROLL DÉBLOQUÉ (mobile)`);
+                            // DÉBLOQUER le scroll
+                            document.body.style.overflow = '';
+                            document.documentElement.style.overflow = '';
+                            console.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
-                                // Retirer les listeners
-                                window.removeEventListener('touchmove', unlockAndAnimate);
-                                window.removeEventListener('wheel', unlockAndAnimate);
+                            // Retirer les listeners
+                            window.removeEventListener('touchmove', unlockAndAnimate);
+                            window.removeEventListener('wheel', unlockAndAnimate);
 
-                                triggerSectionAnimation(section, sectionName);
-                            }
+                            triggerSectionAnimation(section, sectionName);
                         }
-                    };
+                    }
+                };
 
-                    // Écouter les tentatives de scroll
-                    window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
-                    window.addEventListener('wheel', unlockAndAnimate, { passive: true });
-                } else {
-                    // DESKTOP : Affichage direct des stats sans blocage
-                    console.log(`🖥️ DESKTOP: Affichage direct des stats`);
-                    state.phase = 'animated';
-                    prepareSection(section, sectionName);
-                    triggerSectionAnimation(section, sectionName);
-                }
+                // Écouter les tentatives de scroll
+                window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
+                window.addEventListener('wheel', unlockAndAnimate, { passive: true });
             }
 
             // Si la section sort du viewport, reset ET débloquer
@@ -137,12 +129,10 @@ function initSectionAnimations() {
                     console.log(`⬅️ Section sortie - Reset de la phase`);
                     state.phase = 'waiting';
 
-                    // S'assurer que le scroll est débloqué (seulement sur mobile)
-                    if (isMobile) {
-                        document.body.style.overflow = '';
-                        document.documentElement.style.overflow = '';
-                        console.log(`🔓 SCROLL DÉBLOQUÉ (sortie mobile)`);
-                    }
+                    // S'assurer que le scroll est débloqué (tous les devices)
+                    document.body.style.overflow = '';
+                    document.documentElement.style.overflow = '';
+                    console.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);
                 }
             }
 

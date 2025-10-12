@@ -16,21 +16,14 @@
 html {
     scroll-behavior: auto; /* Pas de smooth pour arrêt brutal */
     overflow-x: hidden;
+    /* PAS de scroll-snap : JavaScript gère l'arrêt brutal sur TOUS les devices */
+    scroll-snap-type: none;
+    -webkit-scroll-snap-type: none;
 }
 
-/* Desktop : scroll-snap fluide */
-@media (min-width: 769px) {
-    html {
-        scroll-snap-type: y mandatory;
-        -webkit-scroll-snap-type: y mandatory;
-    }
-}
-
-/* Mobile : PAS de scroll-snap, JavaScript gère l'arrêt */
+/* Mobile : configuration spécifique */
 @media (max-width: 768px) {
     html {
-        scroll-snap-type: none; /* DÉSACTIVER scroll-snap pour arrêt brutal JS */
-        -webkit-scroll-snap-type: none;
         -webkit-overflow-scrolling: touch;
         overflow-y: scroll;
         height: 100vh;
