@@ -62,7 +62,8 @@ function initSectionAnimations() {
             if (!sectionStates.has(section)) {
                 sectionStates.set(section, {
                     phase: 'waiting', // waiting → snapped → animated
-                    readyForAnimation: false
+                    readyForAnimation: false,
+                    savedScrollY: 0 // Pour Android
                 });
             }
 
@@ -83,6 +84,14 @@ function initSectionAnimations() {
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
+                // Sur Android, il faut aussi bloquer avec position: fixed
+                if (isAndroid) {
+                    state.savedScrollY = window.scrollY;
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${state.savedScrollY}px`;
+                    document.body.style.width = '100%';
+                    console.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed à ${state.savedScrollY}px)`);
+                }
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
                 console.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
@@ -94,19 +103,30 @@ function initSectionAnimations() {
 
                 // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
                 let scrollAttempts = 0;
+                const requiredAttempts = isMobile ? 1 : 5; // Mobile: 1 tentative, Desktop: 5 tentatives
 
                 const unlockAndAnimate = () => {
                     if (state.phase === 'snapped') {
                         scrollAttempts++;
-                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts})`);
+                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts}/${requiredAttempts})`);
 
-                        if (scrollAttempts >= 1) { // Dès la première tentative
+                        if (scrollAttempts >= requiredAttempts) {
                             console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
                             state.phase = 'animated';
 
                             // DÉBLOQUER le scroll
                             document.body.style.overflow = '';
                             document.documentElement.style.overflow = '';
+
+                            // Sur Android, restaurer la position du scroll
+                            if (isAndroid) {
+                                document.body.style.position = '';
+                                document.body.style.top = '';
+                                document.body.style.width = '';
+                                window.scrollTo(0, state.savedScrollY);
+                                console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px)`);
+                            }
+
                             console.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
                             // Retirer les listeners
@@ -132,6 +152,16 @@ function initSectionAnimations() {
                     // S'assurer que le scroll est débloqué (tous les devices)
                     document.body.style.overflow = '';
                     document.documentElement.style.overflow = '';
+
+                    // Sur Android, restaurer la position du scroll
+                    if (isAndroid && state.savedScrollY !== undefined) {
+                        document.body.style.position = '';
+                        document.body.style.top = '';
+                        document.body.style.width = '';
+                        window.scrollTo(0, state.savedScrollY);
+                        console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px)`);
+                    }
+
                     console.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);
                 }
             }
