@@ -197,8 +197,8 @@
             scrollDirection = 'UP';
         }
 
-        // Bloquer sauf si on scroll UP (85% pour bloquer plus bas)
-        shouldSnap = topSectionPercent > 85 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
+        // Bloquer sauf si on scroll UP (98% = section presque plein écran)
+        shouldSnap = topSectionPercent >= 98 && hasSnapAlign && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
@@ -294,14 +294,26 @@
         }
     }, { passive: false });
 
+    // Stocker la position de scroll verrouillée
+    let lockedScrollPosition = 0;
+
     // Écouter tous les événements de scroll
     let scrollTimeout;
     window.addEventListener('scroll', function(e) {
         scrollEvents++;
 
         // Si le scroll est bloqué, remettre à la position verrouillée
-        if (scrollBlocked && lastScrollY !== 0) {
-            window.scrollTo(0, lastScrollY);
+        if (scrollBlocked) {
+            e.preventDefault();
+            e.stopPropagation();
+            window.scrollTo({
+                top: lockedScrollPosition,
+                behavior: 'instant'
+            });
+            return false;
+        } else {
+            // Mettre à jour la position verrouillée quand scroll libre
+            lockedScrollPosition = window.scrollY;
         }
 
         updateDebugPanel(); // Mise à jour du système de blocage
