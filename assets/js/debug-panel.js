@@ -76,6 +76,7 @@
     let scrollDirection = 'none';
     let scrollEvents = 0;
     let shouldSnap = false;
+    let lastShouldSnap = false; // Pour détecter les changements
     let scrollBlocked = false;
     let touchStartY = 0;
     let touchEndY = 0;
@@ -172,6 +173,21 @@
 
         currentSection = maxVisibleSection || 'none';
 
+        // ANTICIPATION: Détecter la section suivante qui approche
+        const nextSection = sectionsData.find(s => s.rectTop > 0 && s.rectTop < viewportHeight);
+        if (nextSection && scrollDirection === 'DOWN') {
+            const nextSectionElement = nextSection.element;
+            const nextIsBlockable = Array.from(nextSectionElement.classList).some(className =>
+                className.endsWith('-animation-container') || className.includes('showcase')
+            );
+
+            // Si on approche une section blockable (dans les 200px), pré-calculer
+            if (nextIsBlockable && nextSection.rectTop < 200 && nextSection.rectTop > 0) {
+                // Préparer le blocage à l'avance
+                lockedScrollPosition = window.scrollY;
+            }
+        }
+
         // Vérifier les propriétés CSS
         const htmlElement = document.documentElement;
         const computedStyle = window.getComputedStyle(htmlElement);
@@ -219,12 +235,12 @@
 
         // Vérifier si la section est centrée dans le viewport
         const topSection = sectionsData[0];
-        const isCentered = topSection && Math.abs(topSection.rectTop) < 50; // Top de la section près de 0
+        const isCentered = topSection && Math.abs(topSection.rectTop) < 150; // Zone élargie pour détecter plus tôt
 
-        // Bloquer dès qu'on entre dans une section blockable (entre 70% et 100%)
-        // Cela évite de rater le blocage si on scroll trop vite
+        // Bloquer dès qu'on entre dans une section blockable (entre 50% et 100%)
+        // Seuil abaissé à 50% pour éviter de rater le blocage en scrolling rapide
         // Fonctionne sur iOS ET Android
-        shouldSnap = isMobile && topSectionPercent >= 70 && topSectionPercent <= 100 && isCentered && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
+        shouldSnap = isMobile && topSectionPercent >= 50 && topSectionPercent <= 100 && isCentered && isBlockableSection && !isNeverBlockSection && scrollDirection !== 'UP';
 
         // Mettre à jour lastScrollY
         lastScrollY = scrollY;
@@ -309,22 +325,25 @@
             Y: ${Math.round(scrollY)}px<br>
         `;
 
-        // LOGS POUR CONSOLE MOBILE (iOS/Android)
-        console.log('━━━━━━━━━━━━━━━━━━━━━━');
-        console.log(`📱 SECTION: ${topSection?.name} (#${topSection?.index})`);
-        console.log(`📊 VISIBLE: ${topSection?.percentVisible}%`);
-        console.log(`📍 RECT TOP: ${topSection?.rectTop}px`);
-        console.log(`🎯 IS CENTERED: ${isCentered ? 'YES ✓' : 'NO ✗'}`);
-        console.log(`🔒 SHOULD SNAP: ${shouldSnap ? 'YES ✓' : 'NO ✗'}`);
-        console.log(`🚫 SCROLL BLOCKED: ${scrollBlocked ? 'YES ✓' : 'NO ✗'}`);
-        console.log(`⬆️ DIRECTION: ${scrollDirection}`);
-        console.log(`📝 PHASE: ${phaseText}`);
-        console.log(`🔧 hasSnapAlign: ${hasSnapAlign ? 'YES' : 'NO'}`);
-        console.log(`🎬 isBlockableSection: ${isBlockableSection ? 'YES' : 'NO'}`);
-        console.log(`🚷 isNeverBlockSection: ${isNeverBlockSection ? 'YES' : 'NO'}`);
-        console.log(`📱 DEVICE: ${deviceType}`);
-        console.log(`🍎 isIOS: ${isIOS ? 'YES' : 'NO'} | 🤖 isAndroid: ${isAndroid ? 'YES' : 'NO'}`);
-        console.log('━━━━━━━━━━━━━━━━━━━━━━');
+        // LOGS POUR CONSOLE MOBILE (iOS/Android) - Uniquement sur changements importants
+        if (shouldSnap !== lastShouldSnap) {
+            console.log('━━━━━━━━━━━━━━━━━━━━━━');
+            console.log(`📱 SECTION: ${topSection?.name} (#${topSection?.index})`);
+            console.log(`📊 VISIBLE: ${topSection?.percentVisible}%`);
+            console.log(`📍 RECT TOP: ${topSection?.rectTop}px`);
+            console.log(`🎯 IS CENTERED: ${isCentered ? 'YES ✓' : 'NO ✗'}`);
+            console.log(`🔒 SHOULD SNAP: ${shouldSnap ? 'YES ✓' : 'NO ✗'} ${shouldSnap ? '🚨 BLOCAGE!' : '✅ LIBRE'}`);
+            console.log(`🚫 SCROLL BLOCKED: ${scrollBlocked ? 'YES ✓' : 'NO ✗'}`);
+            console.log(`⬆️ DIRECTION: ${scrollDirection}`);
+            console.log(`📝 PHASE: ${phaseText}`);
+            console.log(`🔧 hasSnapAlign: ${hasSnapAlign ? 'YES' : 'NO'}`);
+            console.log(`🎬 isBlockableSection: ${isBlockableSection ? 'YES' : 'NO'}`);
+            console.log(`🚷 isNeverBlockSection: ${isNeverBlockSection ? 'YES' : 'NO'}`);
+            console.log(`📱 DEVICE: ${deviceType}`);
+            console.log(`🍎 isIOS: ${isIOS ? 'YES' : 'NO'} | 🤖 isAndroid: ${isAndroid ? 'YES' : 'NO'}`);
+            console.log('━━━━━━━━━━━━━━━━━━━━━━');
+            lastShouldSnap = shouldSnap;
+        }
         } catch (error) {
             debugPanel.innerHTML = `ERROR: ${error.message}`;
             console.error('❌ Erreur système blocage:', error);
@@ -341,6 +360,18 @@
 
     // Stocker la position de scroll verrouillée
     let lockedScrollPosition = 0;
+
+    // Utiliser requestAnimationFrame pour des checks ultra-fluides
+    let rafPending = false;
+    function scheduleUpdate() {
+        if (!rafPending) {
+            rafPending = true;
+            requestAnimationFrame(() => {
+                updateDebugPanel();
+                rafPending = false;
+            });
+        }
+    }
 
     // Écouter tous les événements de scroll
     let scrollTimeout;
@@ -361,7 +392,8 @@
             lockedScrollPosition = window.scrollY;
         }
 
-        updateDebugPanel(); // Mise à jour du système de blocage
+        // Utiliser RAF pour un check fluide à chaque scroll
+        scheduleUpdate();
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
@@ -372,7 +404,7 @@
     // Écouter touchstart
     window.addEventListener('touchstart', function(e) {
         touchStartY = e.touches[0].clientY;
-        updateDebugPanel();
+        scheduleUpdate();
     }, { passive: true });
 
     // Écouter touchend et gérer progression des animations
@@ -403,8 +435,9 @@
             }
         }
 
-        setTimeout(updateDebugPanel, 100);
-        setTimeout(updateDebugPanel, 500);
+        // Mettre à jour immédiatement après touchend
+        scheduleUpdate();
+        setTimeout(scheduleUpdate, 100);
     }, { passive: true });
 
     // Écouter touchmove et bloquer si nécessaire
@@ -413,14 +446,14 @@
             e.preventDefault();
             e.stopPropagation();
         }
-        updateDebugPanel();
+        scheduleUpdate();
     }, { passive: false });
 
     // Initial update
     updateDebugPanel();
 
-    // Update périodique pour détecter les changements
-    setInterval(updateDebugPanel, 500);
+    // Update périodique plus rapide pour détecter les changements (200ms au lieu de 500ms)
+    setInterval(scheduleUpdate, 200);
 
-    console.log('✅ Système de blocage actif (sans UI)');
+    console.log('✅ Système de blocage actif avec optimisation RAF');
 })();
