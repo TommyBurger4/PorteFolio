@@ -84,13 +84,15 @@ function initSectionAnimations() {
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
-                // Sur Android, il faut aussi bloquer avec position: fixed
+                // Sur Android, il faut aussi bloquer avec position: fixed + touch-action
                 if (isAndroid) {
                     state.savedScrollY = window.scrollY;
                     document.body.style.position = 'fixed';
                     document.body.style.top = `-${state.savedScrollY}px`;
                     document.body.style.width = '100%';
-                    console.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed à ${state.savedScrollY}px)`);
+                    document.body.style.touchAction = 'none';
+                    document.documentElement.style.touchAction = 'none';
+                    console.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
                 }
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
@@ -124,13 +126,15 @@ function initSectionAnimations() {
                             document.body.style.overflow = '';
                             document.documentElement.style.overflow = '';
 
-                            // Sur Android, restaurer la position du scroll
+                            // Sur Android, restaurer la position du scroll et touch-action
                             if (isAndroid) {
                                 document.body.style.position = '';
                                 document.body.style.top = '';
                                 document.body.style.width = '';
+                                document.body.style.touchAction = '';
+                                document.documentElement.style.touchAction = '';
                                 window.scrollTo(0, state.savedScrollY);
-                                console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px)`);
+                                console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                             }
 
                             console.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
@@ -176,13 +180,15 @@ function initSectionAnimations() {
                     document.body.style.overflow = '';
                     document.documentElement.style.overflow = '';
 
-                    // Sur Android, restaurer la position du scroll
+                    // Sur Android, restaurer la position du scroll et touch-action
                     if (isAndroid && state.savedScrollY !== undefined) {
                         document.body.style.position = '';
                         document.body.style.top = '';
                         document.body.style.width = '';
+                        document.body.style.touchAction = '';
+                        document.documentElement.style.touchAction = '';
                         window.scrollTo(0, state.savedScrollY);
-                        console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px)`);
+                        console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                     }
 
                     console.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);

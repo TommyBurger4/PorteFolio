@@ -310,16 +310,20 @@ nav {
     height: 100vh;  /* 100vh partout pour que scroll-snap fonctionne bien */
     background: var(--color-black);
     overflow: visible;
-    scroll-snap-align: start;
-    -webkit-scroll-snap-align: start;
-    scroll-snap-stop: always;
-    -webkit-scroll-snap-stop: always;
+    /* PAS de scroll-snap sur les containers d'animation - JavaScript gère le blocage */
+    scroll-snap-align: none;
+    -webkit-scroll-snap-align: none;
+    scroll-snap-stop: normal;
+    -webkit-scroll-snap-stop: normal;
 }
 
 /* Sur mobile: overflow hidden */
 @media (max-width: 768px) {
     [class*="-animation-container"] {
         overflow: hidden;
+        /* Confirmer: PAS de scroll-snap sur mobile non plus */
+        scroll-snap-align: none;
+        -webkit-scroll-snap-align: none;
     }
 }
 
