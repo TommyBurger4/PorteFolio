@@ -78,10 +78,10 @@ function initSectionAnimations() {
             console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
-            // >= 82% visible sur Android (pour voir le "scroll pour découvrir")
-            const triggerThreshold = isAndroid ? 0.82 : 0.85;
+            // >= 85% visible sur Android (même seuil que desktop)
+            const triggerThreshold = 0.85;
 
-            // Fallback: Si la section est VRAIMENT bien centrée dans le viewport
+            // Fallback: Si la section est PARFAITEMENT centrée dans le viewport
             const viewportCenter = window.innerHeight / 2;
             const sectionTop = entry.boundingClientRect.top;
             const sectionBottom = entry.boundingClientRect.bottom;
@@ -90,11 +90,11 @@ function initSectionAnimations() {
 
             // Distance entre le centre de la section et le centre du viewport
             const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
-            const wellCentered = distanceFromCenter < (window.innerHeight * 0.10); // < 10% de l'écran (plus strict)
+            const wellCentered = distanceFromCenter < (window.innerHeight * 0.05); // < 5% de l'écran (très strict)
 
-            // Déclencher si: ratio suffisant OU vraiment bien centré + visible à 70%+
+            // Déclencher si: ratio suffisant OU parfaitement centré + visible à 75%+
             const shouldTrigger = (entry.intersectionRatio >= triggerThreshold) ||
-                                  (wellCentered && entry.intersectionRatio >= 0.70);
+                                  (wellCentered && entry.intersectionRatio >= 0.75);
 
             if (entry.isIntersecting && shouldTrigger && state.phase === 'waiting') {
                 console.log(`🎯 PHASE 1: Section snappée au centre`);
@@ -247,20 +247,29 @@ function initSectionAnimations() {
 
         const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
         if (text) {
-            text.style.transition = 'all 0.3s ease-out';
-            // INVISIBLE complètement pour éviter la superposition avec les stats
-            text.style.opacity = '0';
-            text.style.transform = 'translateY(40px) scale(0.9)';
+            text.style.transition = 'all 0.5s ease-out';
+            // Le texte reste visible mais recule légèrement
+            text.style.opacity = '0.6';
+            text.style.transform = 'translateY(20px) scale(0.95)';
             // Z-index bas pour passer derrière les stats
             text.style.zIndex = '5';
         }
 
-        console.log(`✅ Section préparée - Logo en arrière-plan, texte invisible (z-index 5-10)`);
+        console.log(`✅ Section préparée - Logo et texte en arrière-plan (z-index 5-10)`);
     }
 
     // PHASE 2 : Déclencher les animations des stats
     function triggerSectionAnimation(section, sectionName) {
         console.log(`🎬 PHASE 2: Animation des stats pour ${sectionName.toUpperCase()}`)
+
+        // Faire disparaître complètement le texte sur mobile pour éviter superposition
+        const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
+        if (text && isMobile) {
+            text.style.transition = 'all 0.3s ease-out';
+            text.style.opacity = '0';
+            text.style.transform = 'translateY(60px) scale(0.9)';
+            console.log(`📱 Texte caché complètement sur mobile`);
+        }
 
         const statsContainer = section.querySelector(`[class*="${sectionName}-stats-container"]`);
         if (statsContainer) {
