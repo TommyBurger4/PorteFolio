@@ -78,9 +78,23 @@ function initSectionAnimations() {
             console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
-            // >= 85% visible = section bien au centre après le snap (plus tard pour voir "scroll pour découvrir")
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.85 && state.phase === 'waiting') {
-                console.log(`🎯 PHASE 1: Section snappée au centre (${ratio}% visible)`);
+            // >= 70% visible sur Android (Chrome Android parfois ne monte pas à 85%)
+            const triggerThreshold = isAndroid ? 0.70 : 0.85;
+
+            // Fallback: Si la section est centrée dans le viewport (même si ratio bas)
+            const viewportCenter = window.innerHeight / 2;
+            const sectionTop = entry.boundingClientRect.top;
+            const sectionBottom = entry.boundingClientRect.bottom;
+            const sectionCentered = sectionTop < viewportCenter && sectionBottom > viewportCenter;
+
+            // Déclencher si: ratio suffisant OU section centrée + visible à 50%+
+            const shouldTrigger = (entry.intersectionRatio >= triggerThreshold) ||
+                                  (sectionCentered && entry.intersectionRatio >= 0.5);
+
+            if (entry.isIntersecting && shouldTrigger && state.phase === 'waiting') {
+                console.log(`🎯 PHASE 1: Section snappée au centre`);
+                console.log(`   - Visible: ${ratio}%, Seuil: ${triggerThreshold * 100}%`);
+                console.log(`   - Centrée: ${sectionCentered ? 'OUI' : 'NON'}`);
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
