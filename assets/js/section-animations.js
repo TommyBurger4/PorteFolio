@@ -78,8 +78,8 @@ function initSectionAnimations() {
             console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
-            // >= 78% visible sur Android (Chrome Android parfois ne monte pas à 85%)
-            const triggerThreshold = isAndroid ? 0.78 : 0.85;
+            // >= 82% visible sur Android (pour voir le "scroll pour découvrir")
+            const triggerThreshold = isAndroid ? 0.82 : 0.85;
 
             // Fallback: Si la section est VRAIMENT bien centrée dans le viewport
             const viewportCenter = window.innerHeight / 2;
@@ -90,11 +90,11 @@ function initSectionAnimations() {
 
             // Distance entre le centre de la section et le centre du viewport
             const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
-            const wellCentered = distanceFromCenter < (window.innerHeight * 0.15); // < 15% de l'écran
+            const wellCentered = distanceFromCenter < (window.innerHeight * 0.10); // < 10% de l'écran (plus strict)
 
-            // Déclencher si: ratio suffisant OU vraiment bien centré + visible à 65%+
+            // Déclencher si: ratio suffisant OU vraiment bien centré + visible à 70%+
             const shouldTrigger = (entry.intersectionRatio >= triggerThreshold) ||
-                                  (wellCentered && entry.intersectionRatio >= 0.65);
+                                  (wellCentered && entry.intersectionRatio >= 0.70);
 
             if (entry.isIntersecting && shouldTrigger && state.phase === 'waiting') {
                 console.log(`🎯 PHASE 1: Section snappée au centre`);
@@ -248,13 +248,14 @@ function initSectionAnimations() {
         const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
         if (text) {
             text.style.transition = 'all 0.3s ease-out';
-            text.style.opacity = '0.7';
-            text.style.transform = 'translateY(20px) scale(0.9)';
+            // INVISIBLE complètement pour éviter la superposition avec les stats
+            text.style.opacity = '0';
+            text.style.transform = 'translateY(40px) scale(0.9)';
             // Z-index bas pour passer derrière les stats
-            text.style.zIndex = '15';
+            text.style.zIndex = '5';
         }
 
-        console.log(`✅ Section préparée - Logo et texte en arrière-plan (z-index 10-15)`);
+        console.log(`✅ Section préparée - Logo en arrière-plan, texte invisible (z-index 5-10)`);
     }
 
     // PHASE 2 : Déclencher les animations des stats
@@ -268,6 +269,8 @@ function initSectionAnimations() {
             statsContainer.style.setProperty('opacity', '1', 'important');
             statsContainer.style.setProperty('pointer-events', 'auto', 'important');
             statsContainer.style.setProperty('visibility', 'visible', 'important');
+            // Z-index élevé pour passer au-dessus du texte
+            statsContainer.style.setProperty('z-index', '50', 'important');
 
             // ANNULER les propriétés mobile qui cachent les stats
             statsContainer.style.setProperty('overflow', 'visible', 'important');
