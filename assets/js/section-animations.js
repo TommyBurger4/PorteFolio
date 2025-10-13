@@ -105,8 +105,14 @@ function initSectionAnimations() {
                 let scrollAttempts = 0;
                 const requiredAttempts = isMobile ? 1 : 5; // Mobile: 1 tentative, Desktop: 5 tentatives
 
-                const unlockAndAnimate = () => {
+                const unlockAndAnimate = (e) => {
                     if (state.phase === 'snapped') {
+                        // Sur tous les navigateurs sauf Safari, bloquer le scroll avec preventDefault
+                        if (!isIOS) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+
                         scrollAttempts++;
                         console.log(`📍 Tentative de scroll détectée (#${scrollAttempts}/${requiredAttempts})`);
 
@@ -130,6 +136,7 @@ function initSectionAnimations() {
                             console.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
                             // Retirer les listeners
+                            window.removeEventListener('touchstart', unlockAndAnimate);
                             window.removeEventListener('touchmove', unlockAndAnimate);
                             window.removeEventListener('wheel', unlockAndAnimate);
 
@@ -139,8 +146,24 @@ function initSectionAnimations() {
                 };
 
                 // Écouter les tentatives de scroll
-                window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
-                window.addEventListener('wheel', unlockAndAnimate, { passive: true });
+                // Safari iOS: passive: true (fonctionne déjà parfaitement)
+                // Tous les autres (Android + Desktop Chrome/Firefox/Edge): passive: false pour vraiment bloquer
+                if (isIOS) {
+                    window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
+                    console.log(`👂 Listeners iOS/Safari actifs (passive: true)`);
+                } else {
+                    // Android + Desktop (Chrome, Firefox, Edge, etc.)
+                    if (isMobile) {
+                        // Mobile Android: écouter touchstart et touchmove
+                        window.addEventListener('touchstart', unlockAndAnimate, { passive: false });
+                        window.addEventListener('touchmove', unlockAndAnimate, { passive: false });
+                        console.log(`👂 Listeners Android actifs (passive: false)`);
+                    } else {
+                        // Desktop: écouter wheel pour la molette
+                        window.addEventListener('wheel', unlockAndAnimate, { passive: false });
+                        console.log(`👂 Listeners Desktop (Chrome/Firefox/Edge) actifs (passive: false)`);
+                    }
+                }
             }
 
             // Si la section sort du viewport, reset ET débloquer
