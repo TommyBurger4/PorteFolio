@@ -78,23 +78,29 @@ function initSectionAnimations() {
             console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
-            // >= 70% visible sur Android (Chrome Android parfois ne monte pas à 85%)
-            const triggerThreshold = isAndroid ? 0.70 : 0.85;
+            // >= 78% visible sur Android (Chrome Android parfois ne monte pas à 85%)
+            const triggerThreshold = isAndroid ? 0.78 : 0.85;
 
-            // Fallback: Si la section est centrée dans le viewport (même si ratio bas)
+            // Fallback: Si la section est VRAIMENT bien centrée dans le viewport
             const viewportCenter = window.innerHeight / 2;
             const sectionTop = entry.boundingClientRect.top;
             const sectionBottom = entry.boundingClientRect.bottom;
-            const sectionCentered = sectionTop < viewportCenter && sectionBottom > viewportCenter;
+            const sectionHeight = sectionBottom - sectionTop;
+            const sectionCenter = sectionTop + (sectionHeight / 2);
 
-            // Déclencher si: ratio suffisant OU section centrée + visible à 50%+
+            // Distance entre le centre de la section et le centre du viewport
+            const distanceFromCenter = Math.abs(sectionCenter - viewportCenter);
+            const wellCentered = distanceFromCenter < (window.innerHeight * 0.15); // < 15% de l'écran
+
+            // Déclencher si: ratio suffisant OU vraiment bien centré + visible à 65%+
             const shouldTrigger = (entry.intersectionRatio >= triggerThreshold) ||
-                                  (sectionCentered && entry.intersectionRatio >= 0.5);
+                                  (wellCentered && entry.intersectionRatio >= 0.65);
 
             if (entry.isIntersecting && shouldTrigger && state.phase === 'waiting') {
                 console.log(`🎯 PHASE 1: Section snappée au centre`);
                 console.log(`   - Visible: ${ratio}%, Seuil: ${triggerThreshold * 100}%`);
-                console.log(`   - Centrée: ${sectionCentered ? 'OUI' : 'NON'}`);
+                console.log(`   - Distance du centre: ${Math.round(distanceFromCenter)}px`);
+                console.log(`   - Bien centrée: ${wellCentered ? 'OUI' : 'NON'}`);
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
