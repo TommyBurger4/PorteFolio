@@ -1,8 +1,8 @@
 {
   "creno": true,
-  "pixshare": true,
+  "pixshare": false,
   "burger-michel": false,
-  "fakt": false,
+  "fakt": true,
   "findmycourt": false,
   "clubs-sportifs": false
 }
