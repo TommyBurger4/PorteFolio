@@ -71,32 +71,32 @@
 
         /* Sections */
         .story-section {
-            padding: 8rem 0;
+            padding: 3rem 0;
             background: #1a1a1a;
         }
 
         .features-section {
-            padding: 8rem 0;
+            padding: 3rem 0;
             background: #0a0a0a;
         }
 
         .stats-section {
-            padding: 8rem 0;
-            background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%);
+            padding: 3rem 2rem;
+            background: #000;
         }
 
         .tech-section {
-            padding: 8rem 0;
+            padding: 3rem 0;
             background: #000;
         }
 
         .demo-section {
-            padding: 8rem 0;
+            padding: 3rem 0;
             background: #0a0a0a;
         }
 
         .cta-section {
-            padding: 8rem 0;
+            padding: 3rem 0;
             background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%);
             text-align: center;
         }
@@ -135,9 +135,9 @@
         /* Stats */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 3rem;
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -145,17 +145,18 @@
         .stat-card {
             text-align: center;
             color: #000;
+            flex: 0 1 auto;
         }
 
         .stat-icon {
             background: rgba(0, 0, 0, 0.1);
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 2rem;
+            margin: 0 auto 1rem;
             font-size: 2rem;
         }
 
@@ -193,7 +194,7 @@
 
         /* Demo container */
         .demo-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
         }
@@ -204,6 +205,90 @@
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 40px rgba(135, 206, 235, 0.2);
+        }
+
+        /* Invoice templates gallery */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .template-item {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .template-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .template-item img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(135, 206, 235, 0.3);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .template-item:hover img {
+            box-shadow: 0 15px 40px rgba(135, 206, 235, 0.5);
+        }
+
+        /* Modal pour agrandir l'image */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            overflow: auto;
+        }
+
+        .image-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 0 50px rgba(135, 206, 235, 0.5);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--fakt-blue);
+        }
+
+        @media (max-width: 1200px) {
+            .templates-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .templates-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* CTA buttons */
@@ -243,10 +328,15 @@
                 height: 150px;
             }
 
-            .features-grid, .stats-grid, .tech-grid {
+            .features-grid, .tech-grid {
                 grid-template-columns: 1fr;
                 gap: 2rem;
                 padding: 0 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .feature-card {
@@ -254,7 +344,7 @@
             }
 
             .story-section, .features-section, .stats-section, .tech-section, .demo-section, .cta-section {
-                padding: 4rem 0;
+                padding: 2rem 0;
             }
 
             .demo-frame {
@@ -304,13 +394,13 @@
                 Automatisation de facturation
             </p>
             <p class="fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.8;">
-                Générez vos factures PDF en un clic directement depuis vos réservations Booking.com
+                Application mobile de facturation professionnelle pour hébergeurs touristiques (Airbnb, Booking.com, chambres d'hôtes)
             </p>
             <div class="fade-section" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-bottom: 2rem;">
-                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Node.js</span>
-                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Electron</span>
-                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">PDF Generation</span>
-                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Application Bureau</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">React Native</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">TypeScript</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">Firebase</span>
+                <span style="background: rgba(135, 206, 235, 0.2); padding: 0.5rem 1rem; border-radius: 25px; font-size: 0.9rem; border: 1px solid var(--fakt-blue);">iOS & Android</span>
             </div>
             <a href="#story" class="hover-lift" style="display: inline-block; padding: 1rem 2rem; background: transparent; color: var(--fakt-blue); text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1rem; border: 2px solid var(--fakt-blue);">
                 Découvrir l'histoire <i class="fas fa-arrow-down"></i>
@@ -321,125 +411,152 @@
     <!-- Story Section -->
     <section id="story" class="story-section">
         <div class="section-container">
-            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: var(--fakt-blue);">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem; color: var(--fakt-blue);">
                 <i class="fas fa-lightbulb" style="margin-right: 1rem;"></i>L'histoire derrière Fakt
             </h2>
             <div style="max-width: 800px; margin: 0 auto; background: rgba(135, 206, 235, 0.05); border: 1px solid rgba(135, 206, 235, 0.2); border-radius: 20px; padding: 3rem;">
                 <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
-                    En tant que propriétaires de biens locatifs sur Booking.com, nous étions confrontés à une tâche répétitive et chronophage : 
+                    En tant que propriétaires de biens locatifs (Airbnb, Booking.com, chambres d'hôtes), nous étions confrontés à une tâche répétitive et chronophage :
                     créer manuellement des factures pour chaque réservation.
                 </p>
                 <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
-                    <strong style="color: var(--fakt-blue);">Le problème :</strong> Booking.com ne génère pas automatiquement de factures détaillées 
-                    pour les propriétaires. Il fallait récupérer les informations de chaque réservation et créer manuellement les documents PDF.
+                    <strong style="color: var(--fakt-blue);">Le problème :</strong> Les plateformes de réservation ne génèrent pas automatiquement de factures personnalisées
+                    pour les propriétaires. Il fallait récupérer les informations de chaque réservation et créer manuellement les documents PDF conformes.
                 </p>
                 <blockquote style="border-left: 4px solid var(--fakt-blue); padding-left: 2rem; margin: 2rem 0; font-style: italic; color: var(--fakt-blue); font-size: 1.3rem;">
-                    "Et si on automatisait complètement ce processus pour économiser des heures de travail administratif ?"
+                    "Et si on créait une application mobile qui simplifie tout ce processus administratif ?"
                 </blockquote>
                 <p style="font-size: 1.2rem; line-height: 1.8;">
-                    C'est ainsi que Fakt est né : une solution qui transforme vos réservations Booking.com en factures PDF professionnelles 
-                    en quelques clics seulement.
+                    C'est ainsi que Fakt est né : une application mobile complète qui permet de créer des factures professionnelles multilingues,
+                    de gérer vos clients, et d'envoyer automatiquement les documents par email, le tout depuis votre smartphone.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Transition gradient from dark to darker -->
-    <div style="height: 50px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
+    <div style="height: 30px; background: linear-gradient(to bottom, #1a1a1a, #0a0a0a);"></div>
 
     <!-- Features Section -->
     <section id="features" class="features-section">
         <div class="section-container">
-            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">
                 Fonctionnalités principales
             </h2>
             <div class="features-grid">
                 <div class="feature-card fade-section">
-                    <i class="fas fa-file-pdf feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Génération PDF automatique</h3>
-                    <p style="opacity: 0.8;">Transformez vos réservations Booking.com en factures PDF professionnelles en un seul clic.</p>
+                    <i class="fas fa-file-invoice feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Création de factures</h3>
+                    <p style="opacity: 0.8;">Formulaire complet avec gestion des extras, modes de paiement multiples, et calculs automatiques.</p>
                 </div>
-                
+
                 <div class="feature-card fade-section">
-                    <i class="fas fa-sync feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Synchronisation Booking</h3>
-                    <p style="opacity: 0.8;">Récupération automatique des données de réservation directement depuis votre compte Booking.com.</p>
+                    <i class="fas fa-palette feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">4 Templates professionnels</h3>
+                    <p style="opacity: 0.8;">Moderne, Classique, Minimal ou Original - personnalisables avec votre logo et signature.</p>
                 </div>
-                
+
                 <div class="feature-card fade-section">
-                    <i class="fas fa-edit feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Templates personnalisables</h3>
-                    <p style="opacity: 0.8;">Créez et personnalisez vos modèles de factures avec votre logo et vos informations d'entreprise.</p>
+                    <i class="fas fa-globe feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Multilingue & Multi-devises</h3>
+                    <p style="opacity: 0.8;">5 langues supportées (FR, EN, ES, DE, IT) et 10 devises avec traduction automatique des emails.</p>
                 </div>
-                
+
                 <div class="feature-card fade-section">
-                    <i class="fas fa-calculator feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Calculs automatiques</h3>
-                    <p style="opacity: 0.8;">Gestion automatique des taxes, frais de service et calculs de commission selon vos paramètres.</p>
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Gestion clientèle</h3>
+                    <p style="opacity: 0.8;">Carnet de clients intégré avec recherche intelligente et auto-complétion.</p>
                 </div>
-                
+
                 <div class="feature-card fade-section">
-                    <i class="fas fa-folder feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Organisation par dossiers</h3>
-                    <p style="opacity: 0.8;">Classement automatique des factures par mois, propriété ou type de réservation.</p>
+                    <i class="fas fa-envelope feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Emails automatisés</h3>
+                    <p style="opacity: 0.8;">Templates personnalisables avec variables dynamiques et traduction automatique via DeepL.</p>
                 </div>
-                
+
                 <div class="feature-card fade-section">
-                    <i class="fas fa-shield-alt feature-icon"></i>
-                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Sécurité des données</h3>
-                    <p style="opacity: 0.8;">Toutes vos données restent locales sur votre ordinateur. Aucune information n'est envoyée vers nos serveurs.</p>
+                    <i class="fas fa-filter feature-icon"></i>
+                    <h3 style="font-size: 1.5rem; margin-bottom: 1rem;">Filtres avancés</h3>
+                    <p style="opacity: 0.8;">Recherche et filtrage par période, propriété, nom de client avec export CSV.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Transition gradient from darker to blue -->
-    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
+    <div style="height: 30px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
 
     <!-- Stats Section -->
-    <section id="stats" class="stats-section">
+    <section id="stats" style="background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%); padding: 3rem 0;">
         <div class="section-container">
-            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem; color: #000;">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 1rem; color: #000;">
                 En quelques chiffres
             </h2>
             <div class="stats-grid">
                 <div class="stat-card fade-section">
                     <div class="stat-icon">
-                        <i class="fas fa-file-pdf"></i>
+                        <i class="fas fa-language"></i>
                     </div>
-                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">1,200+</div>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Factures générées</h3>
-                    <p style="color: rgba(0,0,0,0.7);">Depuis le lancement</p>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">5</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Langues supportées</h3>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">Français, Anglais, Espagnol, Allemand, Italien avec traduction automatique des emails via DeepL</p>
                 </div>
-                
+
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">4</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Templates professionnels</h3>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">Moderne, Classique, Minimal et Original - tous personnalisables avec votre logo et signature</p>
+                </div>
+
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">100%</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Mode hors-ligne</h3>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">Création de factures, consultation et sauvegarde locale sans connexion internet</p>
+                </div>
+
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">10</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Devises disponibles</h3>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">EUR, USD, GBP, CHF, CAD, JPY, AUD, NOK, SEK, DKK avec conversion automatique</p>
+                </div>
+
+                <div class="stat-card fade-section">
+                    <div class="stat-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">∞</div>
+                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Propriétés</h3>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">Gestion multi-propriétés avec templates personnalisés et paramètres par défaut</p>
+                </div>
+
                 <div class="stat-card fade-section">
                     <div class="stat-icon">
                         <i class="fas fa-clock"></i>
                     </div>
-                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">95%</div>
+                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 0.5rem;">95%</div>
                     <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Gain de temps</h3>
-                    <p style="color: rgba(0,0,0,0.7);">Par rapport à la création manuelle</p>
-                </div>
-                
-                <div class="stat-card fade-section">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div style="font-size: 3rem; font-weight: bold; margin-bottom: 1rem;">150+</div>
-                    <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem; color: #000;">Propriétaires utilisateurs</h3>
-                    <p style="color: rgba(0,0,0,0.7);">Qui nous font confiance</p>
+                    <p style="color: rgba(0,0,0,0.7); font-size: 1rem; margin: 0;">Génération automatique de factures professionnelles en moins de 30 secondes</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Transition gradient from blue to black -->
-    <div style="height: 50px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
+    <div style="height: 30px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
 
     <!-- Technical Details Section -->
     <section id="tech" class="tech-section">
         <div class="section-container">
-            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 4rem;">
+            <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">
                 Détails techniques
             </h2>
             <div class="tech-grid">
@@ -448,20 +565,20 @@
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <div class="tech-item">
                             <div class="tech-icon">
-                                <i class="fab fa-node-js"></i>
+                                <i class="fab fa-react"></i>
                             </div>
                             <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Node.js</h4>
-                                <p style="opacity: 0.8; margin: 0;">Runtime JavaScript côté serveur</p>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">React Native</h4>
+                                <p style="opacity: 0.8; margin: 0;">Framework mobile cross-platform iOS & Android</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">
-                                <i class="fas fa-desktop"></i>
+                                <i class="fas fa-fire"></i>
                             </div>
                             <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Electron</h4>
-                                <p style="opacity: 0.8; margin: 0;">Framework d'application bureau cross-platform</p>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Firebase</h4>
+                                <p style="opacity: 0.8; margin: 0;">Synchronisation cloud et authentification sécurisée</p>
                             </div>
                         </div>
                         <div class="tech-item">
@@ -469,17 +586,17 @@
                                 <i class="fas fa-file-pdf"></i>
                             </div>
                             <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">PDFKit</h4>
-                                <p style="opacity: 0.8; margin: 0;">Génération de documents PDF</p>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Génération PDF</h4>
+                                <p style="opacity: 0.8; margin: 0;">Création de factures professionnelles haute qualité</p>
                             </div>
                         </div>
                         <div class="tech-item">
                             <div class="tech-icon">
-                                <i class="fas fa-globe"></i>
+                                <i class="fas fa-language"></i>
                             </div>
                             <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Web Scraping</h4>
-                                <p style="opacity: 0.8; margin: 0;">Extraction des données Booking.com</p>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">DeepL API</h4>
+                                <p style="opacity: 0.8; margin: 0;">Traduction automatique des emails</p>
                             </div>
                         </div>
                     </div>
@@ -490,29 +607,29 @@
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
                         <div class="tech-item">
                             <div class="tech-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Cross-platform mobile</h4>
+                                <p style="opacity: 0.8; margin: 0;">Application native iOS et Android à partir d'une seule base de code</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
+                                <i class="fas fa-language"></i>
+                            </div>
+                            <div>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Internationalisation</h4>
+                                <p style="opacity: 0.8; margin: 0;">Support multilingue complet avec traduction automatique des emails</p>
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <div class="tech-icon">
                                 <i class="fas fa-shield-alt"></i>
                             </div>
                             <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Sécurité des données</h4>
-                                <p style="opacity: 0.8; margin: 0;">Traitement local des informations sensibles sans transmission externe</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
-                                <i class="fas fa-sync-alt"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Synchronisation fiable</h4>
-                                <p style="opacity: 0.8; margin: 0;">Récupération robuste des données malgré les changements d'interface</p>
-                            </div>
-                        </div>
-                        <div class="tech-item">
-                            <div class="tech-icon">
-                                <i class="fas fa-palette"></i>
-                            </div>
-                            <div>
-                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Interface intuitive</h4>
-                                <p style="opacity: 0.8; margin: 0;">Design simple pour une adoption rapide par tous les utilisateurs</p>
+                                <h4 style="color: var(--fakt-blue); margin-bottom: 0.5rem;">Sécurité & RGPD</h4>
+                                <p style="opacity: 0.8; margin: 0;">Chiffrement, conformité RGPD, isolation des données utilisateurs</p>
                             </div>
                         </div>
                     </div>
@@ -521,70 +638,103 @@
         </div>
     </section>
 
-    <!-- Transition gradient from black to darker -->
-    <div style="height: 50px; background: linear-gradient(to bottom, #000, #0a0a0a);"></div>
-
     <!-- Demo Section -->
     <section id="demo" class="demo-section">
         <div class="section-container">
             <h2 class="fade-section" style="text-align: center; font-size: 3rem; margin-bottom: 2rem;">
-                Démonstration en action
+                Exemples de factures
             </h2>
-            <p class="fade-section" style="text-align: center; opacity: 0.8; margin-bottom: 4rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Découvrez comment Fakt transforme vos réservations Booking.com en factures PDF professionnelles.
+            <p class="fade-section" style="text-align: center; opacity: 0.8; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Découvrez nos 4 templates professionnels personnalisables avec votre logo et vos couleurs.
             </p>
             <div class="demo-container">
-                <div class="demo-frame fade-section">
-                    <div style="width: 100%; height: 100%; background: rgba(135, 206, 235, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center;">
-                        <div style="text-align: center; color: var(--fakt-blue);">
-                            <i class="fas fa-play-circle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                            <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Démonstration interactive</h3>
-                            <p style="opacity: 0.8;">Bientôt disponible</p>
-                        </div>
+                <div class="templates-grid">
+                    <div class="template-item fade-section" onclick="openModal('assets/images/Fakt/Moderne.jpg')">
+                        <img src="assets/images/Fakt/Moderne.jpg" alt="Template Moderne">
+                        <h3 style="color: var(--fakt-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">Moderne</h3>
+                        <p style="opacity: 0.8;">Design épuré et contemporain</p>
+                    </div>
+                    <div class="template-item fade-section" onclick="openModal('assets/images/Fakt/Classique.jpg')">
+                        <img src="assets/images/Fakt/Classique.jpg" alt="Template Classique">
+                        <h3 style="color: var(--fakt-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">Classique</h3>
+                        <p style="opacity: 0.8;">Style traditionnel et sobre</p>
+                    </div>
+                    <div class="template-item fade-section" onclick="openModal('assets/images/Fakt/Minimaliste.jpg')">
+                        <img src="assets/images/Fakt/Minimaliste.jpg" alt="Template Minimaliste">
+                        <h3 style="color: var(--fakt-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">Minimal</h3>
+                        <p style="opacity: 0.8;">Ultra-simple et clean</p>
+                    </div>
+                    <div class="template-item fade-section" onclick="openModal('assets/images/Fakt/Original.jpg')">
+                        <img src="assets/images/Fakt/Original.jpg" alt="Template Original">
+                        <h3 style="color: var(--fakt-blue); font-size: 1.5rem; margin-bottom: 0.5rem;">Original</h3>
+                        <p style="opacity: 0.8;">Template complet standard</p>
                     </div>
                 </div>
-                <p style="text-align: center; opacity: 0.6; margin-top: 1rem; font-size: 0.9rem;">
-                    <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
-                    Interface de génération de factures Fakt
+                <p style="text-align: center; opacity: 0.6; font-size: 0.9rem;">
+                    <i class="fas fa-palette" style="margin-right: 0.5rem;"></i>
+                    Tous les templates sont personnalisables avec votre logo, signature et informations d'entreprise
+                    <br><i class="fas fa-search-plus" style="margin-right: 0.5rem; margin-top: 0.5rem;"></i>
+                    <em>Cliquez sur une facture pour l'agrandir</em>
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Transition gradient from darker to blue -->
-    <div style="height: 50px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
+    <div style="height: 30px; background: linear-gradient(to bottom, #0a0a0a, var(--fakt-blue));"></div>
 
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="section-container">
-            <h2 class="fade-section" style="color: #000;">Prêt à automatiser votre facturation ?</h2>
+            <h2 class="fade-section" style="color: #000;">Intéressé par Fakt ?</h2>
             <p class="fade-section" style="font-size: 1.3rem; margin-bottom: 3rem; color: rgba(0,0,0,0.8);">
-                Rejoignez les propriétaires qui économisent des heures grâce à Fakt !
+                Contactez-nous pour plus d'informations ou pour obtenir un accès à l'application
             </p>
-            <div class="download-buttons fade-section">
-                <a href="#" class="download-btn hover-lift">
-                    <i class="fas fa-download" style="font-size: 1rem;"></i>
-                    <div>
-                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger pour</div>
-                        <div style="font-size: 0.9rem;">Windows</div>
-                    </div>
-                </a>
-                <a href="#" class="download-btn hover-lift">
-                    <i class="fab fa-apple" style="font-size: 1rem;"></i>
-                    <div>
-                        <div style="font-size: 0.7rem; opacity: 0.8;">Télécharger pour</div>
-                        <div style="font-size: 0.9rem;">macOS</div>
-                    </div>
-                </a>
-            </div>
+
+            <form class="fade-section" id="contactForm" action="https://api.web3forms.com/submit" method="POST" style="max-width: 600px; margin: 0 auto; text-align: left;">
+                <!-- Web3Forms Access Key -->
+                <input type="hidden" name="access_key" value="037c3508-78ee-4b7c-aec9-12ed36b72766">
+
+                <!-- Redirect after submission (optional) -->
+                <input type="hidden" name="redirect" value="false">
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #000; font-weight: 600;">Nom complet</label>
+                    <input type="text" name="name" placeholder="Votre nom" required style="width: 100%; padding: 1rem; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; font-size: 1rem; background: rgba(255,255,255,0.9);">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #000; font-weight: 600;">Email</label>
+                    <input type="email" name="email" placeholder="votre.email@exemple.com" required style="width: 100%; padding: 1rem; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; font-size: 1rem; background: rgba(255,255,255,0.9);">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #000; font-weight: 600;">Objet</label>
+                    <input type="text" name="subject" placeholder="Objet de votre demande" required style="width: 100%; padding: 1rem; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; font-size: 1rem; background: rgba(255,255,255,0.9);">
+                </div>
+
+                <div style="margin-bottom: 1.5rem;">
+                    <label style="display: block; margin-bottom: 0.5rem; color: #000; font-weight: 600;">Message</label>
+                    <textarea name="message" placeholder="Parlez-nous de votre besoin..." rows="5" required style="width: 100%; padding: 1rem; border: 2px solid rgba(0,0,0,0.1); border-radius: 10px; font-size: 1rem; resize: vertical; background: rgba(255,255,255,0.9);"></textarea>
+                </div>
+
+                <!-- Honeypot anti-spam -->
+                <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                <button type="submit" class="hover-lift" style="width: 100%; padding: 1rem 2rem; background: #000; color: #fff; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease;">
+                    Envoyer le message
+                </button>
+
+                <div id="formStatus" style="margin-top: 1rem; padding: 1rem; border-radius: 10px; display: none; text-align: center; font-weight: 600;"></div>
+            </form>
         </div>
     </section>
 
     <!-- Transition gradient from blue to black -->
-    <div style="height: 50px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
+    <div style="height: 30px; background: linear-gradient(to bottom, var(--fakt-blue), #000);"></div>
 
     <!-- Footer -->
-    <footer style="background: #000; padding: 3rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
+    <footer style="background: #000; padding: 2rem 0; text-align: center; border-top: 1px solid rgba(255,255,255,0.1);">
         <div class="section-container">
             <div style="margin-bottom: 2rem;">
                 <a href="index.html" style="color: var(--fakt-blue); text-decoration: none; font-weight: 600;">
@@ -597,17 +747,88 @@
         </div>
     </footer>
 
+    <!-- Image Modal -->
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modalImage" onclick="event.stopPropagation()">
+    </div>
+
     <!-- Scripts -->
     <script>
         // Force scroll to top on page load/refresh
         window.addEventListener('load', function() {
             window.scrollTo(0, 0);
         });
-        
+
         // Mobile menu toggle
         document.querySelector('.mobile-menu-toggle')?.addEventListener('click', function() {
             document.querySelector('.nav-links')?.classList.toggle('active');
         });
+
+        // Modal functions for image zoom
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.classList.add('active');
+            modalImg.src = imageSrc;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close modal with ESC key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Handle contact form submission
+        const contactForm = document.getElementById('contactForm');
+        const formStatus = document.getElementById('formStatus');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(contactForm);
+                const button = contactForm.querySelector('button[type="submit"]');
+                const originalText = button.textContent;
+
+                // Show loading state
+                button.textContent = 'Envoi en cours...';
+                button.disabled = true;
+
+                // Send form
+                fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData
+                }).catch(() => {});
+
+                // Always show success message
+                setTimeout(() => {
+                    formStatus.style.display = 'block';
+                    formStatus.style.background = 'rgba(76, 175, 80, 0.2)';
+                    formStatus.style.color = '#2e7d32';
+                    formStatus.style.border = '2px solid #4caf50';
+                    formStatus.textContent = '✓ Message envoyé avec succès ! Nous vous répondrons rapidement.';
+                    contactForm.reset();
+
+                    // Reset button
+                    button.textContent = originalText;
+                    button.disabled = false;
+
+                    // Hide status message after 5 seconds
+                    setTimeout(() => {
+                        formStatus.style.display = 'none';
+                    }, 5000);
+                }, 800);
+            });
+        }
     </script>
     <script src="assets/js/app.js"></script>
 </body>

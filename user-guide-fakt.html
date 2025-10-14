@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation Fakt | Guide d'utilisation</title>
-    <meta name="description" content="Guide complet d'utilisation de l'application Fakt - Gestion de factures simplifiée">
+    <meta name="description" content="Guide complet d'utilisation de l'application mobile Fakt - Application de facturation pour hébergeurs touristiques">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -464,7 +464,7 @@
                 <i class="fas fa-file-invoice"></i> Fakt
             </a>
             <ul class="nav-links desktop-only">
-                <li><a href="#home">Accueil</a></li>
+                <li><a href="fakt.html">← Retour à l'accueil</a></li>
                 <li><a href="#invoice">Facturation</a></li>
                 <li><a href="#list">Historique</a></li>
                 <li><a href="#settings">Paramètres</a></li>
@@ -505,9 +505,9 @@
         
         <!-- Header de documentation -->
         <div class="doc-header fade-section" id="home">
-            <i class="fas fa-file-invoice"></i>
+            <i class="fas fa-mobile-alt"></i>
             <h1>Guide d'utilisation Fakt</h1>
-            <p>Documentation complète pour la gestion de vos factures de location</p>
+            <p>Application mobile de facturation pour hébergeurs touristiques</p>
         </div>
 
         <!-- Navigation rapide -->
@@ -525,36 +525,46 @@
             <h2><i class="fas fa-info-circle" style="margin-right: 1rem;"></i>Présentation de Fakt</h2>
             
             <p style="font-size: 1.2rem; line-height: 1.8; margin-bottom: 2rem;">
-                Fakt est une application mobile professionnelle conçue pour simplifier la création et la gestion de factures pour les propriétaires de locations saisonnières. 
-                Compatible avec les réservations Booking.com, elle automatise la génération de factures conformes et leur envoi par email.
+                <strong>FAKT</strong> est votre assistant personnel pour créer des factures professionnelles en quelques clics.
+                Spécialement conçue pour les propriétaires d'hébergements touristiques : Airbnb, Booking.com, chambres d'hôtes, gîtes et petite hôtellerie.
             </p>
 
             <div class="feature-grid">
                 <div class="feature-card">
-                    <i class="fas fa-bolt" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Création rapide</h4>
-                    <p>Générez des factures professionnelles en moins de 30 secondes</p>
+                    <i class="fas fa-key" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Système d'activation</h4>
+                    <p>Codes d'activation sécurisés avec différents types d'abonnements (7 jours gratuit, mensuel, annuel, vie)</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-cloud-download-alt" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Stockage sécurisé</h4>
-                    <p>Toutes vos factures sont sauvegardées localement et accessibles hors ligne</p>
+                    <i class="fas fa-globe" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Multilingue</h4>
+                    <p>5 langues supportées (FR, EN, ES, DE, IT) avec traduction automatique des emails</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-envelope" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Envoi automatisé</h4>
-                    <p>Envoyez directement les factures par email avec modèles personnalisables</p>
+                    <i class="fas fa-palette" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Templates professionnels</h4>
+                    <p>4 designs au choix : Moderne, Classique, Minimal, Original</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-file-pdf" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>PDF professionnel</h4>
-                    <p>Format PDF standard avec toutes les mentions légales requises</p>
+                    <i class="fas fa-coins" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Multi-devises</h4>
+                    <p>10 devises disponibles : EUR, USD, GBP, CHF, CAD, JPY, AUD, NOK, SEK, DKK</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Carnet de clients</h4>
+                    <p>Sauvegarde automatique avec recherche intelligente et auto-complétion</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-cloud" style="font-size: 2rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Mode hors-ligne</h4>
+                    <p>Stockage hybride local + Firebase pour fonctionner sans connexion</p>
                 </div>
             </div>
 
             <div class="info">
                 <i class="fas fa-mobile-alt" style="margin-right: 0.5rem;"></i>
-                <strong>Compatibilité :</strong> L'application est disponible sur Android et iOS. Elle fonctionne également en mode hors ligne pour la création et la consultation des factures.
+                <strong>Compatibilité :</strong> L'application est disponible sur iOS (11+) et Android (6+). Elle fonctionne entièrement hors ligne pour la création et la consultation des factures.
             </div>
         </div>
 
@@ -563,59 +573,76 @@
             <h2><i class="fas fa-file-invoice-dollar" style="margin-right: 1rem;"></i>Créer une facture</h2>
             
             <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet "Nouvelle Facture" vous permet de créer rapidement des factures professionnelles. 
-                Le formulaire est optimisé pour les réservations Booking.com avec calcul automatique des montants.
+                L'onglet "Nouvelle" vous permet de créer rapidement des factures professionnelles.
+                Le formulaire est optimisé avec calcul automatique des montants et support multilingue.
             </p>
 
             <h3>Étapes de création</h3>
-            
+
             <div class="step">
                 <span class="step-number">1</span>
                 <strong>Informations client</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Prénom et nom du client</li>
-                    <li>Adresse email (pour l'envoi automatique)</li>
-                    <li>Adresse postale (optionnelle)</li>
+                    <li>Prénom et nom (obligatoires)</li>
+                    <li>Email (validation automatique)</li>
+                    <li>Adresse complète optionnelle (rue, code postal, ville)</li>
+                    <li>Utilisez "Anciens clients" pour auto-complétion</li>
                 </ul>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">2</span>
-                <strong>Dates du séjour</strong>
+                <strong>Détails de réservation</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Date d'arrivée (format JJ/MM/AAAA)</li>
-                    <li>Date de départ (format JJ/MM/AAAA)</li>
-                    <li>Le nombre de nuits est calculé automatiquement</li>
+                    <li>Dates d'arrivée et départ (calendrier intégré)</li>
+                    <li>Calcul automatique du nombre de nuits</li>
+                    <li>Prix par nuit configurable</li>
+                    <li>Montant des taxes avec option "collecte plateforme"</li>
+                    <li>Indicateur "tarif Genius" Booking.com</li>
+                    <li>Numéro de réservation plateforme</li>
                 </ul>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">3</span>
-                <strong>Montants</strong>
+                <strong>Modes de paiement</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Prix par nuit (HT)</li>
-                    <li>Taxe de séjour (montant total)</li>
-                    <li>Le total est calculé automatiquement</li>
+                    <li>Plateforme (Airbnb, Booking.com...)</li>
+                    <li>Espèces</li>
+                    <li>Carte bancaire</li>
+                    <li>Virement bancaire</li>
+                    <li>Chèque</li>
                 </ul>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">4</span>
-                <strong>Options Booking.com</strong>
+                <strong>Extras et services</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Cochez "Réservation Booking" si applicable</li>
-                    <li>Entrez le numéro de réservation Booking</li>
-                    <li>Activez "Tarif Genius" si le client en bénéficie</li>
+                    <li>Extras prédéfinis multilingues (ménage, petit-déjeuner, linge, parking, transfert)</li>
+                    <li>Extras personnalisés avec quantité et prix</li>
+                    <li>Calculs automatiques des totaux</li>
                 </ul>
             </div>
-            
+
             <div class="step">
                 <span class="step-number">5</span>
+                <strong>Langue et devise</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Choisir la langue de la facture (FR, EN, ES, DE, IT)</li>
+                    <li>Choisir la devise (10 devises disponibles)</li>
+                    <li>Sélectionner le template de facture</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">6</span>
                 <strong>Génération et envoi</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
                     <li>Appuyez sur "Générer la facture"</li>
                     <li>Le PDF est créé automatiquement</li>
                     <li>L'email s'ouvre avec le PDF en pièce jointe</li>
+                    <li>Le client est automatiquement ajouté au carnet</li>
                 </ul>
             </div>
 
@@ -624,26 +651,35 @@
                 <strong>Astuce :</strong> Le numéro de facture est généré automatiquement selon le format : FACTURE-AAAAMM-XXX (où XXX est un compteur incrémental).
             </div>
 
-            <h3>Fonctionnalités avancées</h3>
-            
+            <h3>Templates de factures</h3>
+
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h4>Facture au nom du client</h4>
-                    <p>Activez cette option pour établir la facture au nom du client avec son adresse complète</p>
+                    <h4><i class="fas fa-sparkles" style="margin-right: 0.5rem;"></i> Moderne</h4>
+                    <p>Design épuré et contemporain pour une image professionnelle</p>
                 </div>
                 <div class="feature-card">
-                    <h4>Calcul automatique</h4>
-                    <p>Les montants TTC et le total sont calculés automatiquement selon les données saisies</p>
+                    <h4><i class="fas fa-landmark" style="margin-right: 0.5rem;"></i> Classique</h4>
+                    <p>Style traditionnel et sobre pour un aspect intemporel</p>
                 </div>
                 <div class="feature-card">
-                    <h4>Mentions légales</h4>
-                    <p>Toutes les mentions obligatoires sont automatiquement incluses dans le PDF</p>
+                    <h4><i class="fas fa-minus" style="margin-right: 0.5rem;"></i> Minimal</h4>
+                    <p>Ultra-simple et clean, l'essentiel au premier coup d'œil</p>
                 </div>
+                <div class="feature-card">
+                    <h4><i class="fas fa-file" style="margin-right: 0.5rem;"></i> Original</h4>
+                    <p>Template de base complet avec toutes les informations</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <i class="fas fa-palette" style="margin-right: 0.5rem;"></i>
+                <strong>Personnalisation :</strong> Ajoutez votre logo d'entreprise et votre signature numérique pour un rendu 100% personnalisé.
             </div>
 
             <div class="warning">
                 <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
-                <strong>Important :</strong> Assurez-vous de remplir vos informations dans les Paramètres avant de créer votre première facture. Ces informations apparaîtront sur toutes vos factures.
+                <strong>Important :</strong> Configurez vos paramètres d'entreprise avant de créer votre première facture. Ces informations apparaîtront sur toutes vos factures.
             </div>
         </div>
 
@@ -652,26 +688,32 @@
             <h2><i class="fas fa-history" style="margin-right: 1rem;"></i>Historique des factures</h2>
             
             <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet "Historique" affiche toutes vos factures créées, triées par date. Vous pouvez consulter, partager ou supprimer vos factures depuis cet écran.
+                L'onglet "Mes Factures" affiche toutes vos factures créées, triées par date (plus récentes en premier).
+                Vous pouvez consulter, partager, filtrer ou supprimer vos factures depuis cet écran.
             </p>
 
-            <h3>Fonctionnalités de l'historique</h3>
-            
+            <h3>Filtres avancés</h3>
+
             <div class="feature-grid">
                 <div class="feature-card">
+                    <i class="fas fa-calendar" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Filtrage par période</h4>
+                    <p>7, 30, 90 derniers jours ou plage personnalisée</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-home" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Filtrage par propriété</h4>
+                    <p>Si vous gérez plusieurs propriétés</p>
+                </div>
+                <div class="feature-card">
                     <i class="fas fa-search" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Recherche rapide</h4>
-                    <p>Retrouvez facilement une facture par numéro, nom de client ou date</p>
+                    <h4>Recherche textuelle</h4>
+                    <p>Par nom de client ou email</p>
                 </div>
                 <div class="feature-card">
-                    <i class="fas fa-share-alt" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Partage multiple</h4>
-                    <p>Renvoyez une facture par email, WhatsApp ou autres applications</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-eye" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
-                    <h4>Visualisation</h4>
-                    <p>Consultez le PDF directement dans l'application</p>
+                    <i class="fas fa-file-csv" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Export CSV</h4>
+                    <p>Compatible Excel/LibreOffice pour comptabilité</p>
                 </div>
             </div>
 
@@ -693,8 +735,8 @@
             </div>
 
             <div class="info">
-                <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
-                <strong>Stockage :</strong> Les factures sont stockées localement sur votre appareil. Pensez à faire des sauvegardes régulières de vos données.
+                <i class="fas fa-cloud" style="margin-right: 0.5rem;"></i>
+                <strong>Stockage hybride :</strong> Les factures sont synchronisées avec Firebase Cloud et stockées localement. Vous pouvez y accéder même hors-ligne.
             </div>
         </div>
 
@@ -703,62 +745,57 @@
             <h2><i class="fas fa-cog" style="margin-right: 1rem;"></i>Paramètres</h2>
             
             <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                La configuration des paramètres est essentielle pour le bon fonctionnement de l'application. 
-                Ces informations apparaîtront sur toutes vos factures.
+                La configuration des paramètres est essentielle. Ces informations apparaîtront sur toutes vos factures et permettent
+                de personnaliser complètement votre expérience.
             </p>
 
-            <h3>Informations du propriétaire</h3>
-            
+            <h3>Informations entreprise</h3>
+
             <div class="step">
                 <span class="step-number">1</span>
-                <strong>Identité</strong>
-                <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Prénom et nom du propriétaire</li>
-                    <li>Email de contact</li>
-                    <li>Numéro de téléphone</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Établissement</strong>
-                <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Nom commercial (si différent)</li>
-                    <li>Adresse complète de la location</li>
-                    <li>Code postal et ville</li>
-                </ul>
-            </div>
-            
-            <div class="step">
-                <span class="step-number">3</span>
                 <strong>Informations légales</strong>
                 <ul class="styled-list" style="margin-top: 0.5rem;">
-                    <li>Numéro SIRET ou identifiant fiscal</li>
-                    <li>Numéro d'enregistrement de la location</li>
-                    <li>Mentions légales additionnelles</li>
+                    <li>Nom et prénom du propriétaire</li>
+                    <li>Raison sociale de l'entreprise</li>
+                    <li>Adresse complète du siège</li>
+                    <li>Téléphone et email de contact</li>
+                    <li>Numéro d'établissement/SIRET</li>
+                    <li>Identifiant d'entité légale</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>Paramètres TVA</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Statut assujetti TVA (oui/non)</li>
+                    <li>Taux de TVA : 10% (réduit), 15% (DOM-TOM), 20% (normal)</li>
+                    <li>Taux personnalisé possible</li>
+                    <li>Calculs automatiques sur factures</li>
+                </ul>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>Branding visuel</strong>
+                <ul class="styled-list" style="margin-top: 0.5rem;">
+                    <li>Upload de logo entreprise</li>
+                    <li>Signature numérique pour emails</li>
+                    <li>Sélection de template par défaut</li>
+                    <li>Aperçu en temps réel</li>
                 </ul>
             </div>
 
             <div class="warning">
                 <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
-                <strong>Obligatoire :</strong> Ces informations sont requises pour générer des factures conformes à la législation française.
+                <strong>Obligatoire :</strong> Ces informations sont requises pour générer des factures conformes à la législation.
             </div>
 
-            <h3>Options avancées</h3>
-            
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>Copie cachée (BCC)</h4>
-                    <p>Recevez automatiquement une copie de chaque facture envoyée</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Sauvegarde automatique</h4>
-                    <p>Les paramètres sont sauvegardés automatiquement à chaque modification</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Réinitialisation</h4>
-                    <p>Possibilité de réinitialiser tous les paramètres aux valeurs par défaut</p>
-                </div>
+            <h3>Gestion des propriétés</h3>
+
+            <div class="info">
+                <i class="fas fa-home" style="margin-right: 0.5rem;"></i>
+                <strong>Templates de propriétés multiples :</strong> Créez des profils pour chaque propriété avec sélection rapide des informations et paramètres par défaut configurables.
             </div>
         </div>
 
@@ -767,40 +804,53 @@
             <h2><i class="fas fa-envelope" style="margin-right: 1rem;"></i>Configuration des emails</h2>
             
             <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                Personnalisez complètement vos emails d'envoi de factures avec des modèles prédéfinis ou créez vos propres templates.
+                Personnalisez complètement vos emails d'envoi de factures avec des templates multilingues et
+                une traduction automatique via DeepL.
             </p>
 
-            <h3>Email par défaut</h3>
-            
-            <div class="code-example">
-                <strong>Objet :</strong> Facture séjour [VILLE] - [NOM] [PRÉNOM]<br>
-                <strong>Corps :</strong><br>
-                Bonjour,<br><br>
-                Veuillez trouver ci-joint la facture de votre séjour [VILLE] pour le mois de [MOIS] [ANNÉE].<br><br>
-                En vous souhaitant bonne réception,<br><br>
-                [SIGNATURE]
+            <h3>Templates email multilingues</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-language" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Traduction automatique</h4>
+                    <p>Les emails sont traduits automatiquement via l'API DeepL selon la langue sélectionnée</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-copy" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Copie cachée (BCC)</h4>
+                    <p>Recevez automatiquement une copie de chaque facture envoyée</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-signature" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Signature intégrée</h4>
+                    <p>Votre signature avec image est automatiquement ajoutée aux emails</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-envelope-open-text" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Templates personnalisés</h4>
+                    <p>Créez vos propres modèles d'emails avec variables dynamiques</p>
+                </div>
             </div>
 
-            <h3>Personnalisation avec variables</h3>
-            
-            <p>Vous pouvez utiliser les variables suivantes dans vos modèles d'email :</p>
-            
+            <h3>Variables automatiques disponibles</h3>
+
             <div class="feature-grid">
                 <div class="feature-card">
                     <h4>{VILLE}</h4>
-                    <p>Le nom de votre ville/location</p>
+                    <p>Ville de la propriété</p>
                 </div>
                 <div class="feature-card">
                     <h4>{NOM} / {PRENOM}</h4>
-                    <p>Nom et prénom du client</p>
+                    <p>Nom et prénom du client (NOM en majuscules)</p>
                 </div>
                 <div class="feature-card">
                     <h4>{MOIS} / {ANNEE}</h4>
-                    <p>Mois et année du séjour</p>
+                    <p>Mois et année de la réservation</p>
                 </div>
                 <div class="feature-card">
-                    <h4>{NOM-PROPRIETAIRE}</h4>
-                    <p>Votre nom complet</p>
+                    <h4>{NOM-PROPRIETAIRE} / {PRENOM-PROPRIETAIRE}</h4>
+                    <p>Nom et prénom du propriétaire</p>
                 </div>
             </div>
 
@@ -824,7 +874,7 @@
 
             <div class="tip">
                 <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
-                <strong>Conseil :</strong> Créez différents modèles selon la langue de vos clients en utilisant l'option de personnalisation.
+                <strong>Conseil :</strong> La langue de la facture et la langue de l'email peuvent être différentes. Utilisez la traduction automatique pour une clientèle internationale.
             </div>
         </div>
 
@@ -832,42 +882,53 @@
         <div class="doc-section fade-section" id="integration">
             <h2><i class="fas fa-plug" style="margin-right: 1rem;"></i>Intégrations</h2>
             
-            <h3>Booking.com</h3>
-            
+            <h3>Plateformes de réservation</h3>
+
             <p style="margin-bottom: 2rem;">
-                Fakt est optimisé pour les propriétaires utilisant Booking.com. L'intégration permet une gestion simplifiée des réservations.
+                Fakt est optimisé pour tous les hébergeurs touristiques, quelle que soit la plateforme utilisée.
             </p>
-            
+
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h4>Numéro de réservation</h4>
-                    <p>Ajoutez le numéro Booking pour référence sur la facture</p>
+                    <i class="fas fa-bed" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Booking.com</h4>
+                    <p>Support du tarif Genius et numéro de réservation</p>
                 </div>
                 <div class="feature-card">
-                    <h4>Tarif Genius</h4>
-                    <p>Identifiez facilement les réservations avec tarif préférentiel</p>
+                    <i class="fab fa-airbnb" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Airbnb</h4>
+                    <p>Gestion des réservations courte durée</p>
                 </div>
                 <div class="feature-card">
-                    <h4>Commission</h4>
-                    <p>Calcul automatique possible des montants nets</p>
+                    <i class="fas fa-home" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Chambres d'hôtes & Gîtes</h4>
+                    <p>Adapté aux réservations directes</p>
                 </div>
             </div>
 
-            <h3>Formats d'export</h3>
-            
-            <div class="step">
-                <strong><i class="fas fa-file-pdf"></i> PDF</strong>
-                <p>Format standard pour l'envoi et l'archivage</p>
-            </div>
-            
-            <div class="step">
-                <strong><i class="fas fa-envelope"></i> Email</strong>
-                <p>Envoi direct via votre application de messagerie</p>
-            </div>
-            
-            <div class="step">
-                <strong><i class="fas fa-share-alt"></i> Applications tierces</strong>
-                <p>WhatsApp, Telegram, Drive, Dropbox, etc.</p>
+            <h3>Export et partage</h3>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-file-pdf" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>PDF haute qualité</h4>
+                    <p>Format A4 standard avec métadonnées, prêt pour impression</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-csv" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Export CSV</h4>
+                    <p>Compatible Excel/LibreOffice pour votre comptabilité</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-share-alt" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Partage multi-plateformes</h4>
+                    <p>Email, WhatsApp, Drive, Dropbox et autres</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fab fa-google-drive" style="font-size: 1.5rem; color: #003580; margin-bottom: 1rem;"></i>
+                    <h4>Google Drive (optionnel)</h4>
+                    <p>Sauvegarde automatique sur le cloud avec OAuth sécurisé</p>
+                </div>
             </div>
         </div>
 
@@ -875,39 +936,38 @@
         <div class="doc-section fade-section" id="faq">
             <h2><i class="fas fa-question-circle" style="margin-right: 1rem;"></i>Questions fréquentes</h2>
             
+            <h3>Comment activer mon code d'activation ?</h3>
+            <p>Saisissez votre code à 16 caractères (format XXXX-XXXX-XXXX-XXXX) au premier lancement de l'application. Un code = un seul appareil pour des raisons de sécurité.</p>
+
+            <h3>Quels sont les types d'abonnements ?</h3>
+            <ul class="styled-list" style="padding-left: 1.5rem;">
+                <li>Essai gratuit : 7 jours</li>
+                <li>Mensuel : 1 mois (4,99€)</li>
+                <li>Trimestriel : 3 mois (12,99€)</li>
+                <li>Annuel : 1 an (19,99€)</li>
+                <li>Vie : Permanent (49,99€)</li>
+            </ul>
+
             <h3>Comment modifier une facture déjà créée ?</h3>
-            <p>Les factures ne peuvent pas être modifiées après création pour des raisons légales. Vous devez supprimer la facture et en créer une nouvelle avec les bonnes informations.</p>
-            
+            <p>Les factures ne peuvent pas être modifiées après création pour des raisons légales. Vous devez supprimer la facture et en créer une nouvelle.</p>
+
             <h3>Où sont stockées mes factures ?</h3>
-            <p>Les factures sont stockées localement sur votre appareil dans un dossier sécurisé de l'application. Elles restent accessibles même hors ligne.</p>
-            
-            <h3>Puis-je utiliser l'application pour plusieurs locations ?</h3>
-            <p>Oui, vous pouvez modifier les informations de l'établissement dans les paramètres selon la location concernée. Pensez à vérifier les informations avant chaque facture.</p>
-            
-            <h3>Comment sauvegarder mes factures ?</h3>
-            <p>Nous recommandons :</p>
-            <ul class="styled-list" style="padding-left: 1.5rem;">
-                <li>Activez la copie cachée (BCC) pour recevoir une copie par email</li>
-                <li>Exportez régulièrement vos factures vers un service cloud</li>
-                <li>Conservez une copie sur un disque externe</li>
-            </ul>
-            
-            <h3>L'application nécessite-t-elle une connexion internet ?</h3>
-            <p>Non pour la création et consultation des factures. Oui pour l'envoi par email et les mises à jour.</p>
-            
-            <h3>Les factures sont-elles conformes légalement ?</h3>
-            <p>Oui, les factures incluent toutes les mentions légales obligatoires en France :</p>
-            <ul class="styled-list" style="padding-left: 1.5rem;">
-                <li>Date et numéro de facture</li>
-                <li>Identité complète du prestataire</li>
-                <li>Identité du client</li>
-                <li>Description détaillée de la prestation</li>
-                <li>Montants HT, TVA et TTC</li>
-                <li>Mentions légales spécifiques</li>
-            </ul>
-            
+            <p>Les factures sont stockées localement ET synchronisées sur Firebase Cloud (stockage hybride). Elles restent accessibles hors ligne et sont automatiquement synchronisées quand vous êtes connecté.</p>
+
+            <h3>Puis-je utiliser l'application pour plusieurs propriétés ?</h3>
+            <p>Oui ! Créez des templates de propriétés multiples dans les paramètres avec sélection rapide et paramètres par défaut configurables.</p>
+
+            <h3>L'application fonctionne-t-elle hors ligne ?</h3>
+            <p>Oui, totalement ! Création de factures, consultation de l'historique et sauvegarde locale temporaire. La synchronisation se fait automatiquement quand vous êtes connecté.</p>
+
+            <h3>Comment gérer mes clients internationaux ?</h3>
+            <p>Fakt supporte 5 langues (FR, EN, ES, DE, IT) et 10 devises. Les emails sont traduits automatiquement via DeepL. Vous pouvez choisir une langue de facture et une langue d'email différentes.</p>
+
+            <h3>Les factures sont-elles conformes RGPD ?</h3>
+            <p>Oui, 100% conformes RGPD. Données stockées en Europe (Firebase EU), chiffrement en transit et au repos, pas de partage avec des tiers, isolation complète entre utilisateurs.</p>
+
             <h3>Comment contacter le support ?</h3>
-            <p>Pour toute question ou problème technique, vous pouvez nous contacter via l'onglet "À propos" dans les paramètres de l'application.</p>
+            <p>Email : contact@topal.fr - Réponse sous 24h. Pour toute question technique, consultez d'abord cette documentation.</p>
 
             <div class="info">
                 <i class="fas fa-info-circle" style="margin-right: 0.5rem;"></i>
@@ -920,23 +980,28 @@
             <h2><i class="fas fa-star" style="margin-right: 1rem;"></i>Conseils d'utilisation</h2>
             
             <div class="tip">
-                <i class="fas fa-check" style="margin-right: 0.5rem;"></i>
-                <strong>Vérifiez toujours</strong> les informations avant de générer une facture. Une fois créée, elle ne peut plus être modifiée.
+                <i class="fas fa-cog" style="margin-right: 0.5rem;"></i>
+                <strong>Configurez d'abord vos paramètres</strong> avant de créer votre première facture pour un rendu professionnel.
             </div>
-            
+
             <div class="tip">
-                <i class="fas fa-clock" style="margin-right: 0.5rem;"></i>
-                <strong>Créez vos factures rapidement</strong> après le départ des clients pour ne pas oublier les détails.
+                <i class="fas fa-palette" style="margin-right: 0.5rem;"></i>
+                <strong>Ajoutez votre logo</strong> dès le début pour personnaliser toutes vos factures avec votre image de marque.
             </div>
-            
+
             <div class="tip">
-                <i class="fas fa-folder" style="margin-right: 0.5rem;"></i>
-                <strong>Organisez vos factures</strong> en utilisant un système de numérotation cohérent (automatique dans l'app).
+                <i class="fas fa-users" style="margin-right: 0.5rem;"></i>
+                <strong>Utilisez le carnet de clients</strong> avec auto-complétion pour gagner du temps sur les clients récurrents.
             </div>
-            
+
             <div class="tip">
-                <i class="fas fa-save" style="margin-right: 0.5rem;"></i>
-                <strong>Sauvegardez régulièrement</strong> vos factures sur un service cloud ou un disque externe.
+                <i class="fas fa-language" style="margin-right: 0.5rem;"></i>
+                <strong>Testez les différentes langues</strong> si vous avez une clientèle internationale pour optimiser vos communications.
+            </div>
+
+            <div class="tip">
+                <i class="fas fa-file-csv" style="margin-right: 0.5rem;"></i>
+                <strong>Exportez régulièrement en CSV</strong> pour votre comptabilité et conservez une trace de toutes vos factures.
             </div>
         </div>
     </div>
@@ -949,7 +1014,8 @@
 
     <!-- Footer -->
     <footer>
-        <p>© 2025 Fakt. Tous droits réservés. Application développée pour simplifier la gestion de vos locations.</p>
+        <p>© 2025 Fakt. Tous droits réservés. Application mobile React Native + TypeScript + Firebase.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">Version actuelle : Production stable | Contact : contact@topal.fr</p>
     </footer>
 
     <!-- Scripts -->
