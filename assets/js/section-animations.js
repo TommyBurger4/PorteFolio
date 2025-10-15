@@ -125,7 +125,7 @@ function initSectionAnimations() {
 
                 // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
                 let scrollAttempts = 0;
-                const requiredAttempts = isMobile ? 1 : 5; // Mobile: 1 tentative, Desktop: 5 tentatives
+                const requiredAttempts = isMobile ? 1 : 15; // Mobile: 1 tentative, Desktop: 15 tentatives (blocage fort)
 
                 const unlockAndAnimate = (e) => {
                     if (state.phase === 'snapped') {
