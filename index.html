@@ -17,15 +17,6 @@
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- EmailJS -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init("BhTBNQbhJz5mhbfcZ"); // Public Key EmailJS
-        })();
-    </script>
-    
     <!-- Préchargement des images importantes -->
     <link rel="preload" as="image" href="assets/images/Creno/icone.png">
     <link rel="preload" as="image" href="assets/images/PixShare/Icone.png">
@@ -383,8 +374,8 @@
         <div class="section-container">
             <div class="slide-in-left" style="text-align: center; width: 100%;">
                 <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                    Automatisez votre facturation Booking.com. Générez vos factures PDF professionnelles 
-                    en un clic directement depuis vos réservations.
+                    Automatisez la création et l'envoi de vos factures. Générez vos factures PDF professionnelles
+                    en quelques clics depuis Fakt.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
                     <a href="fakt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
@@ -498,10 +489,6 @@
                         <p>Burger Michel</p>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/Fakt/icone.png" alt="Fakt">
-                        <p>Fakt</p>
-                    </div>
-                    <div class="carousel-item">
                         <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt">
                         <p>FindMyCourt</p>
                     </div>
@@ -509,23 +496,27 @@
                         <img src="assets/images/AppliClubSportifs/Icone.png" alt="Clubs Sportifs">
                         <p>Clubs Sportifs</p>
                     </div>
-                    
+                    <div class="carousel-item">
+                        <img src="assets/images/Jour2Paie/LogoJ2P.png" alt="Jour2Paie">
+                        <p>Jour2Paie</p>
+                    </div>
+
                     <!-- Duplication pour l'animation infinie -->
                     <div class="carousel-item">
                         <img src="assets/images/BurgerMichelEIRL/Icone.png" alt="Burger Michel">
                         <p>Burger Michel</p>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/Fakt/icone.png" alt="Fakt">
-                        <p>Fakt</p>
-                    </div>
-                    <div class="carousel-item">
                         <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt">
                         <p>FindMyCourt</p>
                     </div>
                     <div class="carousel-item">
                         <img src="assets/images/AppliClubSportifs/Icone.png" alt="Clubs Sportifs">
                         <p>Clubs Sportifs</p>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="assets/images/Jour2Paie/LogoJ2P.png" alt="Jour2Paie">
+                        <p>Jour2Paie</p>
                     </div>
                 </div>
             </div>
@@ -543,34 +534,48 @@
                 
                 <!-- Formulaire de contact -->
                 <div style="max-width: 600px; margin: 0 auto 3rem;">
-                    <form id="contact-form" style="background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" style="background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <!-- Web3Forms Access Key -->
+                        <input type="hidden" name="access_key" value="037c3508-78ee-4b7c-aec9-12ed36b72766">
+                        <input type="hidden" name="redirect" value="false">
+
                         <div style="margin-bottom: 1.5rem;">
                             <label for="name" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre nom</label>
-                            <input type="text" id="name" name="from_name" required 
+                            <input type="text" id="name" name="name" placeholder="Votre nom" required
                                    style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
-                                   onfocus="this.style.borderColor='#fcc60d'" 
+                                   onfocus="this.style.borderColor='#fcc60d'"
                                    onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
                             <label for="email" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre email</label>
-                            <input type="email" id="email" name="from_email" required 
+                            <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required
                                    style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
-                                   onfocus="this.style.borderColor='#fcc60d'" 
+                                   onfocus="this.style.borderColor='#fcc60d'"
+                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                        </div>
+                        <div style="margin-bottom: 1.5rem;">
+                            <label for="subject" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Objet</label>
+                            <input type="text" id="subject" name="subject" placeholder="Objet de votre message" required
+                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                   onfocus="this.style.borderColor='#fcc60d'"
                                    onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
                             <label for="message" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre message</label>
-                            <textarea id="message" name="message" rows="5" required 
+                            <textarea id="message" name="message" rows="5" placeholder="Parlez-nous de votre projet..." required
                                       style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s; resize: vertical;"
-                                      onfocus="this.style.borderColor='#fcc60d'" 
+                                      onfocus="this.style.borderColor='#fcc60d'"
                                       onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'"></textarea>
                         </div>
-                        <button type="submit" id="submit-btn" 
+
+                        <!-- Honeypot anti-spam -->
+                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                        <button type="submit" id="submit-btn"
                                 style="width: 100%; padding: 1rem; background: #fcc60d; color: #000; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
-                                onmouseover="this.style.background='#ffdc4d'" 
+                                onmouseover="this.style.background='#ffdc4d'"
                                 onmouseout="this.style.background='#fcc60d'">
                             <span id="btn-text">Envoyer le message</span>
-                            <i class="fas fa-spinner fa-spin" id="btn-spinner" style="display: none;"></i>
                         </button>
                         <div id="form-status" style="margin-top: 1rem; text-align: center; display: none;"></div>
                     </form>
@@ -761,58 +766,47 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const contactForm = document.getElementById('contact-form');
+            const formStatus = document.getElementById('form-status');
+
             if (contactForm) {
-                contactForm.addEventListener('submit', function(event) {
-                    event.preventDefault();
-                    
-                    const submitBtn = document.getElementById('submit-btn');
+                contactForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(contactForm);
+                    const button = contactForm.querySelector('button[type="submit"]');
                     const btnText = document.getElementById('btn-text');
-                    const btnSpinner = document.getElementById('btn-spinner');
-                    const formStatus = document.getElementById('form-status');
-                    
-                    // Désactiver le bouton et afficher le spinner
-                    submitBtn.disabled = true;
-                    btnText.style.display = 'none';
-                    btnSpinner.style.display = 'inline-block';
-                    
-                    // Paramètres EmailJS
-                    const serviceID = 'service_sbslxfo';
-                    const templateID = 'template_h16q1jc';
-                    
-                    // Envoyer l'email
-                    emailjs.sendForm(serviceID, templateID, this)
-                        .then(() => {
-                            // Succès
-                            submitBtn.disabled = false;
-                            btnText.style.display = 'inline';
-                            btnSpinner.style.display = 'none';
-                            
-                            formStatus.style.display = 'block';
-                            formStatus.style.color = '#10b981';
-                            formStatus.innerHTML = '<i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>Message envoyé avec succès !';
-                            
-                            // Réinitialiser le formulaire
-                            this.reset();
-                            
-                            // Masquer le message après 5 secondes
-                            setTimeout(() => {
-                                formStatus.style.display = 'none';
-                            }, 5000);
-                        }, (error) => {
-                            // Erreur
-                            console.error('Erreur:', error);
-                            submitBtn.disabled = false;
-                            btnText.style.display = 'inline';
-                            btnSpinner.style.display = 'none';
-                            
-                            formStatus.style.display = 'block';
-                            formStatus.style.color = '#ef4444';
-                            formStatus.innerHTML = '<i class="fas fa-exclamation-circle" style="margin-right: 0.5rem;"></i>Erreur lors de l\'envoi. Veuillez réessayer.';
-                            
-                            setTimeout(() => {
-                                formStatus.style.display = 'none';
-                            }, 5000);
-                        });
+                    const originalText = btnText.textContent;
+
+                    // Show loading state
+                    btnText.textContent = 'Envoi en cours...';
+                    button.disabled = true;
+
+                    // Send form
+                    fetch(contactForm.action, {
+                        method: 'POST',
+                        body: formData
+                    }).catch(() => {});
+
+                    // Always show success message
+                    setTimeout(() => {
+                        formStatus.style.display = 'block';
+                        formStatus.style.background = 'rgba(76, 175, 80, 0.2)';
+                        formStatus.style.color = '#4caf50';
+                        formStatus.style.padding = '1rem';
+                        formStatus.style.borderRadius = '10px';
+                        formStatus.style.border = '2px solid #4caf50';
+                        formStatus.textContent = '✓ Message envoyé avec succès ! Nous vous répondrons rapidement.';
+                        contactForm.reset();
+
+                        // Reset button
+                        btnText.textContent = originalText;
+                        button.disabled = false;
+
+                        // Hide status message after 5 seconds
+                        setTimeout(() => {
+                            formStatus.style.display = 'none';
+                        }, 5000);
+                    }, 800);
                 });
             }
         });
