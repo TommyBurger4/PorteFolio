@@ -456,7 +456,8 @@ function initSectionAnimations() {
 
     // Animation de compteur
     function animateCounter(element) {
-        const target = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+        // Lire la valeur cible depuis l'attribut data-target
+        const target = parseFloat(element.getAttribute('data-target'));
         if (isNaN(target)) return;
 
         const duration = 1000;
@@ -464,13 +465,16 @@ function initSectionAnimations() {
         const increment = target / (duration / 16);
         let current = start;
 
+        // Vérifier si la valeur cible a une décimale
+        const hasDecimal = target % 1 !== 0;
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
-                element.textContent = target + (element.textContent.includes('+') ? '+' : '');
+                element.textContent = hasDecimal ? target.toFixed(1) : target;
                 clearInterval(timer);
             } else {
-                element.textContent = Math.floor(current) + (element.textContent.includes('+') ? '+' : '');
+                element.textContent = hasDecimal ? current.toFixed(1) : Math.floor(current);
             }
         }, 16);
     }
