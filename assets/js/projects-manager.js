@@ -83,13 +83,13 @@
         const settings = loadProjectsSettings();
         const appsMenu = document.getElementById('apps-menu');
         const websitesMenu = document.getElementById('websites-menu');
-        
+
         if (!appsMenu || !websitesMenu) return;
-        
+
         // Réinitialiser les menus
         appsMenu.innerHTML = '';
         websitesMenu.innerHTML = '';
-        
+
         // Ajouter les projets actifs aux menus appropriés
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
             if (settings[projectId]) {
@@ -98,7 +98,7 @@
                 link.href = config.menuAnchor || config.url;
                 link.textContent = config.name;
                 menuItem.appendChild(link);
-                
+
                 if (config.type === 'app') {
                     appsMenu.appendChild(menuItem);
                 } else {
@@ -106,6 +106,16 @@
                 }
             }
         });
+
+        // Cacher le dropdown "Sites web" si aucun site web n'est actif
+        const websitesDropdown = websitesMenu.closest('.dropdown');
+        if (websitesDropdown) {
+            if (websitesMenu.children.length === 0) {
+                websitesDropdown.style.display = 'none';
+            } else {
+                websitesDropdown.style.display = '';
+            }
+        }
     }
 
     // Mettre à jour la visibilité des sections showcase

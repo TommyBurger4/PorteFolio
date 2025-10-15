@@ -502,7 +502,7 @@
                         <p>Fakt</p>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/FindMyCourt/logoFDM.png" alt="FindMyCourt">
+                        <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt">
                         <p>FindMyCourt</p>
                     </div>
                     <div class="carousel-item">
@@ -520,7 +520,7 @@
                         <p>Fakt</p>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/images/FindMyCourt/logoFDM.png" alt="FindMyCourt">
+                        <img src="assets/images/FIndMyCourt/logoFDM.png" alt="FindMyCourt">
                         <p>FindMyCourt</p>
                     </div>
                     <div class="carousel-item">
@@ -626,17 +626,20 @@
     <script>
         // Charger la configuration depuis le fichier JSON pour GitHub Pages
         if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            fetch('./config/projects-settings.json')
+            // Ajouter un cache-buster pour forcer le rechargement
+            fetch('./config/projects-settings.json?v=' + Date.now())
                 .then(response => response.json())
                 .then(settings => {
                     // Stocker dans localStorage pour que projects-manager.js puisse les utiliser
                     localStorage.setItem('topal-projects-settings', JSON.stringify(settings));
                     console.log('Settings loaded from JSON:', settings);
-                    
+
                     // Recharger l'affichage des projets après le chargement
-                    if (window.updateProjectsDisplay) {
-                        window.updateProjectsDisplay();
-                    }
+                    setTimeout(() => {
+                        if (window.updateProjectsDisplay) {
+                            window.updateProjectsDisplay();
+                        }
+                    }, 100);
                 })
                 .catch(error => {
                     console.error('Error loading settings:', error);
