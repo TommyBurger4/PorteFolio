@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Politique de Confidentialité - Fakt</title>
+    <meta name="description" content="Politique de confidentialité et protection des données de l'application Fakt">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/Fakt/icone.png">
+
+    <style>
+        :root {
+            --fakt-blue: #87CEEB;
+            --fakt-dark: #1a1a1a;
+            --fakt-light-blue: #ADD8E6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, var(--fakt-blue) 0%, var(--fakt-light-blue) 100%);
+            color: #000;
+        }
+
+        header img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header .date {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 2rem 0;
+            color: var(--fakt-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+
+        .section {
+            background: rgba(135, 206, 235, 0.05);
+            border: 1px solid rgba(135, 206, 235, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .section h2 {
+            color: var(--fakt-blue);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--fakt-light-blue);
+            font-size: 1.2rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .section ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section li {
+            margin-bottom: 0.5rem;
+            opacity: 0.9;
+        }
+
+        .section strong {
+            color: var(--fakt-blue);
+        }
+
+        .highlight-box {
+            background: rgba(135, 206, 235, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--fakt-blue);
+            margin: 1.5rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            opacity: 0.5;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .section h2 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="assets/images/Fakt/icone.png" alt="Fakt">
+        <h1>Politique de Confidentialité</h1>
+        <p class="date">Dernière mise à jour : Janvier 2025</p>
+    </header>
+
+    <div class="container">
+        <a href="fakt.html" class="back-link">← Retour à Fakt</a>
+
+        <div class="section">
+            <h2>📊 1. Données collectées</h2>
+            <p>Fakt collecte et stocke les informations suivantes :</p>
+            <ul>
+                <li>Adresse email (authentification)</li>
+                <li>Informations d'entreprise (nom, adresse, SIRET, TVA)</li>
+                <li>Données de facturation (factures créées, clients, propriétés)</li>
+                <li>Préférences d'application (langue, devise, templates)</li>
+                <li>Logo et signature numérisée (optionnels)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ 2. Utilisation des données</h2>
+            <p>Vos données sont utilisées exclusivement pour :</p>
+            <ul>
+                <li>Générer vos factures professionnelles personnalisées</li>
+                <li>Synchroniser vos données entre vos appareils</li>
+                <li>Envoyer vos factures par email à vos clients</li>
+                <li>Traduire automatiquement vos emails via DeepL API</li>
+                <li>Améliorer les fonctionnalités de l'application</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔗 3. Partage des données</h2>
+            <p>Vos données sont partagées uniquement avec :</p>
+            <ul>
+                <li><strong>Firebase (Google Cloud) :</strong> Hébergement sécurisé et authentification</li>
+                <li><strong>DeepL API :</strong> Traduction automatique des emails</li>
+                <li><strong>Service email :</strong> Envoi des factures à vos clients</li>
+            </ul>
+            <div class="highlight-box">
+                <strong>Nous ne vendons jamais vos données à des tiers.</strong>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔒 4. Sécurité et stockage</h2>
+            <ul>
+                <li>Chiffrement des données en transit (HTTPS/TLS)</li>
+                <li>Chiffrement des données au repos sur Firebase</li>
+                <li>Isolation stricte entre utilisateurs</li>
+                <li>Authentification sécurisée via Firebase Auth</li>
+                <li>Sauvegarde locale pour fonctionnement hors-ligne</li>
+                <li>Conformité RGPD (hébergement UE disponible)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>✅ 5. Vos droits</h2>
+            <p>Conformément au RGPD, vous disposez des droits suivants :</p>
+            <ul>
+                <li><strong>Accès :</strong> Consultez toutes vos données dans l'application</li>
+                <li><strong>Modification :</strong> Modifiez vos informations à tout moment</li>
+                <li><strong>Export :</strong> Exportez vos factures au format CSV/PDF</li>
+                <li><strong>Suppression :</strong> Supprimez votre compte et toutes vos données</li>
+                <li><strong>Portabilité :</strong> Récupérez vos données dans un format standard</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📱 6. Mode hors-ligne</h2>
+            <p>
+                Fakt fonctionne en mode hors-ligne. Vos données sont stockées localement sur votre appareil et synchronisées avec le cloud uniquement quand vous êtes connecté. Vous gardez le contrôle total sur vos informations.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>👥 7. Données de vos clients</h2>
+            <p>
+                Les informations de vos clients (nom, email, adresse) sont stockées de manière sécurisée et utilisées uniquement pour la génération et l'envoi de factures. Vos clients ne sont pas contactés par Fakt pour d'autres raisons.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>📧 8. Contact</h2>
+            <p>
+                Pour toute question concernant cette politique de confidentialité ou vos données personnelles, contactez-nous via le <a href="fakt.html#demo" style="color: var(--fakt-blue);">formulaire de contact</a> ou par email à l'adresse indiquée dans l'application.
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>⚖️ 9. Base légale (RGPD)</h2>
+            <p>Nous traitons vos données sur la base de :</p>
+            <ul>
+                <li><strong>Exécution du contrat :</strong> Fourniture du service de facturation</li>
+                <li><strong>Consentement :</strong> Notifications et communications (si applicable)</li>
+                <li><strong>Intérêt légitime :</strong> Amélioration du service et sécurité</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>🔄 10. Modifications</h2>
+            <p>
+                Nous pouvons mettre à jour cette politique de confidentialité. Les modifications importantes seront notifiées dans l'application. La date de dernière mise à jour est toujours indiquée en haut de cette page.
+            </p>
+        </div>
+
+        <div class="highlight-box" style="margin: 2rem 0;">
+            <p style="margin: 0;">
+                <strong>Protection des données professionnelles :</strong> Vos données de facturation sont vos données professionnelles. Elles restent votre propriété exclusive et peuvent être exportées ou supprimées à tout moment sans restriction.
+            </p>
+        </div>
+
+        <footer>
+            © 2025 Topal. Tous droits réservés.
+        </footer>
+    </div>
+</body>
+</html>
