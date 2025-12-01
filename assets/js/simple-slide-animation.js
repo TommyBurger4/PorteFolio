@@ -1,18 +1,18 @@
 // Animation simple slide-in pour les descriptions avec effet slow motion
 
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎯 Simple Slide Animation - Initialisation');
-    
+document.addEventListener('DOMContentLoaded', function () {
+    Logger.log('🎯 Simple Slide Animation - Initialisation');
+
     // Sélectionner uniquement les descriptions (pas les éléments dans les animations Créno/PixShare)
     const descriptions = document.querySelectorAll('.slide-in-left');
     const validDescriptions = Array.from(descriptions).filter(el => {
         return !el.closest('.creno-animation-container') && !el.closest('.pixshare-animation-container');
     });
-    
-    console.log(`📊 Descriptions trouvées: ${validDescriptions.length}`);
-    
+
+    Logger.log(`📊 Descriptions trouvées: ${validDescriptions.length}`);
+
     // Plus de ralentissement du scroll
-    
+
     // Appliquer immédiatement le style initial
     validDescriptions.forEach(desc => {
         desc.style.cssText = `
@@ -21,17 +21,17 @@ document.addEventListener('DOMContentLoaded', function() {
             transition: none;
         `;
     });
-    
-    
-    
+
+
+
     // Observer pour déclencher l'animation
     const animationObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting && !entry.target.dataset.animated) {
                 entry.target.dataset.animated = 'true';
-                
-                console.log('🚀 Animation déclenchée pour:', entry.target.textContent.substring(0, 50) + '...');
-                
+
+                Logger.log('🚀 Animation déclenchée pour:', entry.target.textContent.substring(0, 50) + '...');
+
                 // Lancer l'animation
                 setTimeout(() => {
                     entry.target.style.cssText = `
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
         threshold: 0.3,
         rootMargin: '-50px 0px'
     });
-    
+
     validDescriptions.forEach(desc => {
         animationObserver.observe(desc);
     });

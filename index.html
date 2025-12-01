@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <script>
         // Forcer immédiatement le scroll en haut
@@ -8,19 +9,119 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Topal | Innovation Digitale</title>
-    <meta name="description" content="Créateurs d'expériences digitales révolutionnaires - Créno et PixShare">
-    
+
+    <!-- SEO Meta Tags -->
+    <title>Topal</title>
+    <meta name="description"
+        content="Topal crée des applications mobiles innovantes : Créno pour l'organisation d'événements, PixShare pour le partage photo, FindMyCourt pour trouver des terrains de sport, et Fakt pour la facturation automatisée.">
+    <meta name="keywords"
+        content="Topal, applications mobiles, Créno, PixShare, FindMyCourt, Fakt, développement application, solutions digitales, innovation, organisation événements, partage photo, facturation">
+    <meta name="author" content="Topal">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="French">
+    <meta name="revisit-after" content="7 days">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://topal.fr/">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://topal.fr/">
+    <meta property="og:title" content="Topal - Applications Mobiles & Solutions Digitales Innovantes">
+    <meta property="og:description"
+        content="Découvrez nos applications innovantes : Créno, PixShare, FindMyCourt et Fakt. Transformez vos idées en projets concrets.">
+    <meta property="og:image" content="https://topal.fr/assets/images/TomPaul/logo.png">
+    <meta property="og:locale" content="fr_FR">
+    <meta property="og:site_name" content="Topal">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://topal.fr/">
+    <meta name="twitter:title" content="Topal - Applications Mobiles & Solutions Digitales Innovantes">
+    <meta name="twitter:description"
+        content="Découvrez nos applications innovantes : Créno, PixShare, FindMyCourt et Fakt.">
+    <meta name="twitter:image" content="https://topal.fr/assets/images/TomPaul/logo.png">
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    
+    <link rel="apple-touch-icon" href="assets/images/favicon.png">
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Topal",
+      "url": "https://topal.fr",
+      "logo": "https://topal.fr/assets/images/TomPaul/logo.png",
+      "description": "Créateurs d'applications mobiles et solutions digitales innovantes",
+      "sameAs": [
+        "https://www.instagram.com/topalfr",
+        "https://www.tiktok.com/@topalfr",
+        "https://www.linkedin.com/company/topalfr"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "availableLanguage": ["French"]
+      },
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "Créno",
+            "applicationCategory": "LifestyleApplication",
+            "operatingSystem": "iOS, Android",
+            "description": "Application de planification d'événements intelligente"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "PixShare",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": "iOS, Android",
+            "description": "Plateforme de partage photo nouvelle génération"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "FindMyCourt",
+            "applicationCategory": "SportsApplication",
+            "description": "Trouvez des terrains de sport et des partenaires de jeu"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "SoftwareApplication",
+            "name": "Fakt",
+            "applicationCategory": "BusinessApplication",
+            "description": "Automatisation de facturation pour réservations"
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Préchargement des images importantes -->
     <link rel="preload" as="image" href="assets/images/Creno/icone.png">
     <link rel="preload" as="image" href="assets/images/PixShare/Icone.png">
+
+    <!-- Logger - Doit être chargé en premier -->
+    <script src="assets/js/logger.js"></script>
 </head>
+
 <body>
     <!-- Loading Screen -->
     <div id="loadingScreen">
@@ -60,11 +161,14 @@
     <section id="home" class="hero-zoom" style="align-items: flex-start; padding-top: 15vh; position: relative;">
         <div class="hero-content">
             <h1 class="headline-massive fade-section">Topal</h1>
-            <p class="product-subtitle fade-section" style="margin-top: 2rem;">Innovation Digitale</p>
-            <p class="product-tagline fade-section" style="font-size: 1.2rem; opacity: 0.8; margin-top: 1rem; font-weight: 300;">Découvrez notre collection de projets qui transforment les idées en projets concrets.</p>
+
+            <p class="product-tagline fade-section"
+                style="font-size: 1.2rem; opacity: 0.8; margin-top: 1rem; font-weight: 300;">Découvrez notre collection
+                de projets qui transforment les idées en projets concrets.</p>
         </div>
         <!-- Flèche animée dans la même section, en bas -->
-        <div class="arrow-container" style="position: absolute; bottom: 10vh; left: 50%; transform: translateX(-50%); text-align: center;">
+        <div class="arrow-container"
+            style="position: absolute; bottom: 10vh; left: 50%; transform: translateX(-50%); text-align: center;">
             <h2 class="headline-massive fade-section bounce-arrow" style="opacity: 0.2;">↓</h2>
         </div>
     </section>
@@ -77,7 +181,7 @@
             <div class="creno-logo-zoom">
                 <img src="assets/images/Creno/icone.png" alt="Créno">
             </div>
-            
+
             <!-- Statistiques -->
             <div class="creno-stats-container">
                 <div class="creno-stat-item stat-item-1">
@@ -86,21 +190,21 @@
                         <div class="stat-label">Téléchargements</div>
                     </div>
                 </div>
-                
+
                 <div class="creno-stat-item stat-item-2">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="87">0</div>
                         <div class="stat-label">Événements créés</div>
                     </div>
                 </div>
-                
+
                 <div class="creno-stat-item stat-item-3">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="4.8">0</div>
                         <div class="stat-label">Note de l'application</div>
                     </div>
                 </div>
-                
+
                 <div class="creno-stat-item stat-item-4">
                     <div class="stat-box availability-box">
                         <div class="store-logos">
@@ -111,7 +215,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Texte et indicateur -->
             <div class="creno-text-content">
                 <h3 class="product-title">Créno</h3>
@@ -123,20 +227,22 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section Créno -->
     <section class="scroll-section" style="background: #000; padding: 2rem 0;">
         <div class="section-container">
             <div class="slide-in-left" style="text-align: center; width: 100%;">
                 <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                    Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités 
+                    Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités
                     de votre groupe et trouve le créneau parfait.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="creno.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #1a315c; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="creno.html" class="hover-lift"
+                        style="display: inline-block; padding: 1.2rem 3.5rem; background: #1a315c; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         Découvrir Créno →
                     </a>
-                    <a href="user-guide.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #1a315c; border: 2px solid #1a315c; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="user-guide.html" class="hover-lift"
+                        style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #1a315c; border: 2px solid #1a315c; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
                         Documentation
                     </a>
@@ -153,7 +259,7 @@
             <div class="pixshare-logo-zoom">
                 <img src="assets/images/PixShare/Icone.png" alt="PixShare">
             </div>
-            
+
             <!-- Statistiques -->
             <div class="pixshare-stats-container">
                 <div class="pixshare-stat-item stat-item-1">
@@ -162,21 +268,21 @@
                         <div class="stat-label">Photos partagées</div>
                     </div>
                 </div>
-                
+
                 <div class="pixshare-stat-item stat-item-2">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="8750">0</div>
                         <div class="stat-label">Créateurs actifs</div>
                     </div>
                 </div>
-                
+
                 <div class="pixshare-stat-item stat-item-3">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="1250">0</div>
                         <div class="stat-label">Albums créés</div>
                     </div>
                 </div>
-                
+
                 <div class="pixshare-stat-item stat-item-4">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="99">0</div>
@@ -184,7 +290,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Texte et indicateur -->
             <div class="pixshare-text-content">
                 <h3 class="product-title">PixShare</h3>
@@ -196,16 +302,17 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section PixShare -->
     <section class="scroll-section" style="background: #000; padding: 2rem 0;">
         <div class="section-container">
             <div class="slide-in-left" style="text-align: center; width: 100%;">
                 <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                    Partagez vos moments en toute simplicité. PixShare révolutionne le partage photo 
+                    Partagez vos moments en toute simplicité. PixShare révolutionne le partage photo
                     avec une expérience intuitive et sécurisée.
                 </p>
-                <a href="pixshare.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #10B981; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                <a href="pixshare.html" class="hover-lift"
+                    style="display: inline-block; padding: 1.2rem 3.5rem; background: #10B981; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                     Découvrir PixShare →
                 </a>
             </div>
@@ -219,7 +326,7 @@
             <div class="findmycourt-logo-zoom">
                 <img src="assets/images/FindMyCourt/logoFDM.png" alt="FindMyCourt">
             </div>
-            
+
             <!-- Statistiques -->
             <div class="findmycourt-stats-container">
                 <div class="findmycourt-stat-item stat-item-1">
@@ -228,21 +335,21 @@
                         <div class="stat-label">Terrains référencés</div>
                     </div>
                 </div>
-                
+
                 <div class="findmycourt-stat-item stat-item-2">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="850">0</div>
                         <div class="stat-label">Joueurs actifs</div>
                     </div>
                 </div>
-                
+
                 <div class="findmycourt-stat-item stat-item-3">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="4.7">0</div>
                         <div class="stat-label">Note moyenne</div>
                     </div>
                 </div>
-                
+
                 <div class="findmycourt-stat-item stat-item-4">
                     <div class="stat-box">
                         <div class="stat-counter" data-target="15">0</div>
@@ -250,7 +357,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Texte et indicateur -->
             <div class="findmycourt-text-content">
                 <h3 class="product-title">FindMyCourt</h3>
@@ -262,16 +369,17 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section FindMyCourt -->
     <section class="scroll-section" style="background: #000; padding: 2rem 0;">
         <div class="section-container">
             <div class="slide-in-left" style="text-align: center; width: 100%;">
                 <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                    Découvrez des terrains de sport près de chez vous et connectez-vous avec d'autres joueurs 
+                    Découvrez des terrains de sport près de chez vous et connectez-vous avec d'autres joueurs
                     grâce à notre plateforme communautaire interactive.
                 </p>
-                <a href="findmycourt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #FFD700; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                <a href="findmycourt.html" class="hover-lift"
+                    style="display: inline-block; padding: 1.2rem 3.5rem; background: #FFD700; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                     Découvrir FindMyCourt →
                 </a>
             </div>
@@ -285,7 +393,7 @@
             <div class="fakt-logo-zoom">
                 <img src="assets/images/Fakt/icone.png" alt="Fakt">
             </div>
-            
+
             <!-- Statistiques -->
             <div class="fakt-stats-container">
                 <div class="fakt-stat-item stat-item-1">
@@ -315,7 +423,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Texte et indicateur -->
             <div class="fakt-text-content">
                 <h3 class="product-title">Fakt</h3>
@@ -327,7 +435,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section Fakt -->
     <section class="scroll-section" style="background: #000; padding: 2rem 0;">
         <div class="section-container">
@@ -337,10 +445,12 @@
                     en quelques clics depuis Fakt.
                 </p>
                 <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="fakt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="fakt.html" class="hover-lift"
+                        style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         Découvrir Fakt →
                     </a>
-                    <a href="user-guide-fakt.html" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #87CEEB; border: 2px solid #87CEEB; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                    <a href="user-guide-fakt.html" class="hover-lift"
+                        style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #87CEEB; border: 2px solid #87CEEB; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
                         <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
                         Documentation
                     </a>
@@ -360,47 +470,52 @@
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Créno</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Application de planification d'événements intelligente</p>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Application de planification d'événements
+                            intelligente</p>
                         <a href="creno.html" style="color: #ffc605; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">PixShare</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Plateforme de partage photo nouvelle génération</p>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Plateforme de partage photo nouvelle génération
+                        </p>
                         <a href="pixshare.html" style="color: #10B981; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Burger Michel</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Site web en cours pour une entreprise de couverture</p>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Site web en cours pour une entreprise de
+                            couverture</p>
                         <a href="#" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">
                             En cours de développement →
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">FindMyCourt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu près de chez vous</p>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu
+                            près de chez vous</p>
                         <a href="findmycourt.html" style="color: #FFD700; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="project-card fade-section">
                     <div style="padding: 2rem;">
                         <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Fakt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations Booking.com</p>
+                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations
+                            Booking.com</p>
                         <a href="fakt.html" style="color: #87CEEB; text-decoration: none; font-weight: 600;">
                             En savoir plus →
                         </a>
@@ -417,22 +532,22 @@
     <!-- NAVIGATION_ITEMS_START -->
     <!-- Script de mise à jour automatique des menus -->
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Par défaut, mettre Créno et PixShare dans Applications
-        const appsMenu = document.getElementById('apps-menu');
-        if (appsMenu) {
-            appsMenu.innerHTML = `
+        document.addEventListener('DOMContentLoaded', function () {
+            // Par défaut, mettre Créno et PixShare dans Applications
+            const appsMenu = document.getElementById('apps-menu');
+            if (appsMenu) {
+                appsMenu.innerHTML = `
                         <li><a href="#creno-showcase">Créno</a></li>
                         <li><a href="#pixshare-showcase">PixShare</a></li>
                         `;
-        }
-        
-        // Sites web menu reste vide par défaut
-        const websitesMenu = document.getElementById('websites-menu');
-        if (websitesMenu) {
-            websitesMenu.innerHTML = '';
-        }
-    });
+            }
+
+            // Sites web menu reste vide par défaut
+            const websitesMenu = document.getElementById('websites-menu');
+            if (websitesMenu) {
+                websitesMenu.innerHTML = '';
+            }
+        });
     </script>
     <!-- NAVIGATION_ITEMS_END -->
 
@@ -490,56 +605,64 @@
                 <p style="font-size: 1.2rem; opacity: 0.8; margin-bottom: 3rem; text-align: center;">
                     Prêt à transformer vos idées en réalité digitale ?
                 </p>
-                
+
                 <!-- Formulaire de contact -->
                 <div style="max-width: 600px; margin: 0 auto 3rem;">
-                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" style="background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <form id="contact-form" action="https://api.web3forms.com/submit" method="POST"
+                        style="background: rgba(255, 255, 255, 0.05); padding: 2.5rem; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
                         <!-- Web3Forms Access Key -->
                         <input type="hidden" name="access_key" value="037c3508-78ee-4b7c-aec9-12ed36b72766">
                         <input type="hidden" name="redirect" value="false">
 
                         <div style="margin-bottom: 1.5rem;">
-                            <label for="name" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre nom</label>
+                            <label for="name"
+                                style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre
+                                nom</label>
                             <input type="text" id="name" name="name" placeholder="Votre nom" required
-                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
-                                   onfocus="this.style.borderColor='#fcc60d'"
-                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                                style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                onfocus="this.style.borderColor='#fcc60d'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
-                            <label for="email" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre email</label>
+                            <label for="email"
+                                style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre
+                                email</label>
                             <input type="email" id="email" name="email" placeholder="votre.email@exemple.com" required
-                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
-                                   onfocus="this.style.borderColor='#fcc60d'"
-                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                                style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                onfocus="this.style.borderColor='#fcc60d'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
-                            <label for="subject" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Objet</label>
+                            <label for="subject"
+                                style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Objet</label>
                             <input type="text" id="subject" name="subject" placeholder="Objet de votre message" required
-                                   style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
-                                   onfocus="this.style.borderColor='#fcc60d'"
-                                   onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
+                                style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s;"
+                                onfocus="this.style.borderColor='#fcc60d'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'">
                         </div>
                         <div style="margin-bottom: 1.5rem;">
-                            <label for="message" style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre message</label>
-                            <textarea id="message" name="message" rows="5" placeholder="Parlez-nous de votre projet..." required
-                                      style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s; resize: vertical;"
-                                      onfocus="this.style.borderColor='#fcc60d'"
-                                      onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'"></textarea>
+                            <label for="message"
+                                style="display: block; color: #fff; margin-bottom: 0.5rem; font-size: 0.9rem; text-align: left;">Votre
+                                message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Parlez-nous de votre projet..."
+                                required
+                                style="width: 100%; padding: 0.75rem 1rem; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 10px; color: #fff; outline: none; transition: all 0.3s; resize: vertical;"
+                                onfocus="this.style.borderColor='#fcc60d'"
+                                onblur="this.style.borderColor='rgba(255, 255, 255, 0.2)'"></textarea>
                         </div>
 
                         <!-- Honeypot anti-spam -->
                         <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
 
                         <button type="submit" id="submit-btn"
-                                style="width: 100%; padding: 1rem; background: #fcc60d; color: #000; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
-                                onmouseover="this.style.background='#ffdc4d'"
-                                onmouseout="this.style.background='#fcc60d'">
+                            style="width: 100%; padding: 1rem; background: #fcc60d; color: #000; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; transition: all 0.3s;"
+                            onmouseover="this.style.background='#ffdc4d'" onmouseout="this.style.background='#fcc60d'">
                             <span id="btn-text">Envoyer le message</span>
                         </button>
                         <div id="form-status" style="margin-top: 1rem; text-align: center; display: none;"></div>
                     </form>
                 </div>
-                
+
                 <!-- Liens sociaux -->
                 <div class="contact-links" style="text-align: center;">
                     <a href="https://www.instagram.com/topalfr" target="_blank" title="Instagram">
@@ -548,7 +671,8 @@
                     <a href="https://www.tiktok.com/@topalfr" target="_blank" title="TikTok">
                         <i class="fab fa-tiktok"></i>
                     </a>
-                    <a href="https://www.linkedin.com/company/topalfr/about/?viewAsMember=true" target="_blank" title="LinkedIn Topal">
+                    <a href="https://www.linkedin.com/company/topalfr/about/?viewAsMember=true" target="_blank"
+                        title="LinkedIn Topal">
                         <i class="fab fa-linkedin"></i>
                     </a>
                 </div>
@@ -569,15 +693,15 @@
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         };
-        
+
         // Aussi au chargement complet de la page
-        window.addEventListener('load', function() {
-            setTimeout(function() {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
                 window.scrollTo(0, 0);
             }, 0);
         });
     </script>
-    
+
     <!-- Scripts -->
     <script src="assets/js/app.js?v=2"></script>
     <!-- Correctifs iOS -->
@@ -596,7 +720,7 @@
                 .then(settings => {
                     // Stocker dans localStorage pour que projects-manager.js puisse les utiliser
                     localStorage.setItem('topal-projects-settings', JSON.stringify(settings));
-                    console.log('Settings loaded from JSON:', settings);
+                    Logger.log('Settings loaded from JSON:', settings);
 
                     // Recharger l'affichage des projets après le chargement
                     setTimeout(() => {
@@ -606,22 +730,22 @@
                     }, 100);
                 })
                 .catch(error => {
-                    console.error('Error loading settings:', error);
+                    Logger.error('Error loading settings:', error);
                 });
         }
     </script>
-    
+
     <!-- Gestion dynamique des projets -->
     <script src="assets/js/projects-manager.js"></script>
     <script>
         // Supprimer tout contenu Fakt en doublon dans le conteneur dynamique
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const dynamicContainer = document.getElementById('dynamic-projects-container');
             if (dynamicContainer) {
                 // Observer les changements dans le conteneur
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        mutation.addedNodes.forEach(function(node) {
+                const observer = new MutationObserver(function (mutations) {
+                    mutations.forEach(function (mutation) {
+                        mutation.addedNodes.forEach(function (node) {
                             if (node.nodeType === 1 && node.tagName === 'SECTION') {
                                 const content = node.textContent.toLowerCase();
                                 if (content.includes('fakt') || content.includes('facturation') || content.includes('booking')) {
@@ -631,10 +755,10 @@
                         });
                     });
                 });
-                
+
                 // Observer le conteneur pour les ajouts futurs
                 observer.observe(dynamicContainer, { childList: true });
-                
+
                 // Nettoyer le contenu existant
                 const faktSections = dynamicContainer.querySelectorAll('section');
                 faktSections.forEach(section => {
@@ -645,18 +769,18 @@
                 });
             }
         });
-        
+
         // Forcer la création des sections immédiatement
-        window.addEventListener('load', function() {
-            setTimeout(function() {
+        window.addEventListener('load', function () {
+            setTimeout(function () {
                 // Lire les paramètres depuis localStorage
                 const settings = JSON.parse(localStorage.getItem('topal-projects-settings') || '{}');
-                console.log('Settings admin:', settings);
-                
+                Logger.log('Settings admin:', settings);
+
                 const container = document.getElementById('dynamic-projects-container');
                 if (container) {
-                    console.log('Container trouvé, création des sections selon paramètres admin...');
-                    
+                    Logger.log('Container trouvé, création des sections selon paramètres admin...');
+
                     // Configuration des projets
                     const projects = {
                         fakt: {
@@ -678,12 +802,12 @@
                             url: 'clubs-sportifs.html'
                         }
                     };
-                    
+
                     // Créer les sections uniquement pour les projets activés
                     let sectionsCreated = [];
                     Object.entries(projects).forEach(([projectId, config]) => {
                         if (settings[projectId] === true) {
-                            console.log('Création section pour:', config.name);
+                            Logger.log('Création section pour:', config.name);
                             const section = document.createElement('section');
                             section.style.cssText = 'background: #000 !important; padding: 4rem 0 !important; min-height: 400px !important; display: block !important;';
                             section.innerHTML = `
@@ -703,32 +827,32 @@
                             container.appendChild(section);
                             sectionsCreated.push(config.name);
                         } else {
-                            console.log('Projet désactivé:', config.name);
+                            Logger.log('Projet désactivé:', config.name);
                         }
                     });
-                    
-                    console.log('Sections créées:', sectionsCreated.join(', ') || 'Aucune');
+
+                    Logger.log('Sections créées:', sectionsCreated.join(', ') || 'Aucune');
                 } else {
-                    console.error('Container non trouvé !');
+                    Logger.error('Container non trouvé !');
                 }
             }, 1000);
         });
     </script>
-    
+
     <!-- Firebase (optionnel) -->
     <script type="module">
         // Configuration Firebase si nécessaire
         // import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
     </script>
-    
+
     <!-- Script de gestion du formulaire de contact -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const contactForm = document.getElementById('contact-form');
             const formStatus = document.getElementById('form-status');
 
             if (contactForm) {
-                contactForm.addEventListener('submit', async function(e) {
+                contactForm.addEventListener('submit', async function (e) {
                     e.preventDefault();
 
                     const formData = new FormData(contactForm);
@@ -744,7 +868,7 @@
                     fetch(contactForm.action, {
                         method: 'POST',
                         body: formData
-                    }).catch(() => {});
+                    }).catch(() => { });
 
                     // Always show success message
                     setTimeout(() => {
@@ -771,4 +895,5 @@
         });
     </script>
 </body>
+
 </html>
