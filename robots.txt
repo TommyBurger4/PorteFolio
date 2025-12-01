@@ -1,0 +1,22 @@
+# robots.txt pour Topal
+# https://topal.fr/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://topal.fr/sitemap.xml
+
+# Bloquer les dossiers techniques
+Disallow: /assets/js/
+Disallow: /assets/css/
+Disallow: /config/
+Disallow: /_old_files/
+Disallow: /.git/
+Disallow: /.claude/
+
+# Permettre l'indexation des images
+Allow: /assets/images/
+
+# Crawl-delay (optionnel, pour éviter la surcharge)
+Crawl-delay: 1

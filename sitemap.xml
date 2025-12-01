@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+    <!-- Page d'accueil -->
+    <url>
+        <loc>https://topal.fr/</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Applications -->
+    <url>
+        <loc>https://topal.fr/creno.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/pixshare.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/findmycourt.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/fakt.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Sites web -->
+    <url>
+        <loc>https://topal.fr/burger-michel.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/clubs-sportifs.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Documentation -->
+    <url>
+        <loc>https://topal.fr/user-guide.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/user-guide-fakt.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
+    </url>
+
+    <!-- Pages légales -->
+    <url>
+        <loc>https://topal.fr/privacy-policy.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+    <url>
+        <loc>https://topal.fr/privacy-policy-fakt.html</loc>
+        <lastmod>2025-12-01</lastmod>
+        <changefreq>yearly</changefreq>
+        <priority>0.3</priority>
+    </url>
+
+</urlset>
