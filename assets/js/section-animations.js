@@ -1,52 +1,52 @@
 // Système d'animations basé sur IntersectionObserver
 // Propre, fiable, fonctionne sur tous les écrans
 
-console.log('🚀 SCRIPT SECTION-ANIMATIONS.JS CHARGÉ !');
-console.log('🌍 User Agent:', navigator.userAgent);
-console.log('📄 Document ready state:', document.readyState);
+Logger.log('🚀 SCRIPT SECTION-ANIMATIONS.JS CHARGÉ !');
+Logger.log('🌍 User Agent:', navigator.userAgent);
+Logger.log('📄 Document ready state:', document.readyState);
 
 // Attendre que le DOM soit prêt
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('✅ DOM READY - Démarrage du système d\'animations');
+document.addEventListener('DOMContentLoaded', function () {
+    Logger.log('✅ DOM READY - Démarrage du système d\'animations');
     initSectionAnimations();
 });
 
 // Si le DOM est déjà prêt (script chargé après DOMContentLoaded)
 if (document.readyState === 'loading') {
-    console.log('⏳ En attente du DOM...');
+    Logger.log('⏳ En attente du DOM...');
 } else {
-    console.log('✅ DOM déjà prêt - Démarrage immédiat');
+    Logger.log('✅ DOM déjà prêt - Démarrage immédiat');
     initSectionAnimations();
 }
 
 function initSectionAnimations() {
-    console.log('🔥 INIT SECTION ANIMATIONS !');
+    Logger.log('🔥 INIT SECTION ANIMATIONS !');
 
     // Détecter le device
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isAndroid = /Android/.test(navigator.userAgent);
     const isMobile = isIOS || isAndroid;
 
-    console.log(`📱 Section Animations - Device: ${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Desktop'}`);
+    Logger.log(`📱 Section Animations - Device: ${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Desktop'}`);
 
     // Sélectionner toutes les sections avec animations
-    console.log('🔍 Recherche des sections avec [class*="-animation-container"]...');
+    Logger.log('🔍 Recherche des sections avec [class*="-animation-container"]...');
     const animationSections = document.querySelectorAll('[class*="-animation-container"]');
-    console.log('📦 Sections trouvées:', animationSections.length);
+    Logger.log('📦 Sections trouvées:', animationSections.length);
 
     // Logger chaque section trouvée
     animationSections.forEach((section, index) => {
-        console.log(`  ${index + 1}. ${section.className}`);
+        Logger.log(`  ${index + 1}. ${section.className}`);
     });
 
     if (animationSections.length === 0) {
-        console.log('⚠️ Aucune section d\'animation trouvée');
-        console.log('🔍 Vérification du DOM...');
-        console.log('Toutes les sections:', document.querySelectorAll('section').length);
+        Logger.log('⚠️ Aucune section d\'animation trouvée');
+        Logger.log('🔍 Vérification du DOM...');
+        Logger.log('Toutes les sections:', document.querySelectorAll('section').length);
         return;
     }
 
-    console.log(`✅ ${animationSections.length} sections d'animation détectées`);
+    Logger.log(`✅ ${animationSections.length} sections d'animation détectées`);
 
     // Tracker l'état de chaque section
     const sectionStates = new Map();
@@ -70,12 +70,12 @@ function initSectionAnimations() {
             const state = sectionStates.get(section);
 
             // Logger TOUS les changements de visibilité
-            console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
-            console.log(`📱 SECTION: ${sectionName.toUpperCase()}`);
-            console.log(`👁️ VISIBLE: ${ratio}%`);
-            console.log(`🎯 IS INTERSECTING: ${entry.isIntersecting ? 'YES' : 'NO'}`);
-            console.log(`📍 PHASE: ${state.phase}`);
-            console.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
+            Logger.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+            Logger.log(`📱 SECTION: ${sectionName.toUpperCase()}`);
+            Logger.log(`👁️ VISIBLE: ${ratio}%`);
+            Logger.log(`🎯 IS INTERSECTING: ${entry.isIntersecting ? 'YES' : 'NO'}`);
+            Logger.log(`📍 PHASE: ${state.phase}`);
+            Logger.log(`📊 BOUNDS: top=${Math.round(entry.boundingClientRect.top)}, bottom=${Math.round(entry.boundingClientRect.bottom)}`);
 
             // PHASE 1 : Détecter quand la section est bien centrée (snappée)
             // >= 85% visible sur Android (même seuil que desktop)
@@ -94,13 +94,13 @@ function initSectionAnimations() {
 
             // Déclencher si: ratio suffisant OU parfaitement centré + visible à 75%+
             const shouldTrigger = (entry.intersectionRatio >= triggerThreshold) ||
-                                  (wellCentered && entry.intersectionRatio >= 0.75);
+                (wellCentered && entry.intersectionRatio >= 0.75);
 
             if (entry.isIntersecting && shouldTrigger && state.phase === 'waiting') {
-                console.log(`🎯 PHASE 1: Section snappée au centre`);
-                console.log(`   - Visible: ${ratio}%, Seuil: ${triggerThreshold * 100}%`);
-                console.log(`   - Distance du centre: ${Math.round(distanceFromCenter)}px`);
-                console.log(`   - Bien centrée: ${wellCentered ? 'OUI' : 'NON'}`);
+                Logger.log(`🎯 PHASE 1: Section snappée au centre`);
+                Logger.log(`   - Visible: ${ratio}%, Seuil: ${triggerThreshold * 100}%`);
+                Logger.log(`   - Distance du centre: ${Math.round(distanceFromCenter)}px`);
+                Logger.log(`   - Bien centrée: ${wellCentered ? 'OUI' : 'NON'}`);
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
@@ -112,16 +112,16 @@ function initSectionAnimations() {
                     document.body.style.width = '100%';
                     document.body.style.touchAction = 'none';
                     document.documentElement.style.touchAction = 'none';
-                    console.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
+                    Logger.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
                 }
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
-                console.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
+                Logger.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
 
-                console.log(`⏳ En attente d'un geste de scroll...`);
+                Logger.log(`⏳ En attente d'un geste de scroll...`);
 
                 // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
                 let scrollAttempts = 0;
@@ -136,10 +136,10 @@ function initSectionAnimations() {
                         }
 
                         scrollAttempts++;
-                        console.log(`📍 Tentative de scroll détectée (#${scrollAttempts}/${requiredAttempts})`);
+                        Logger.log(`📍 Tentative de scroll détectée (#${scrollAttempts}/${requiredAttempts})`);
 
                         if (scrollAttempts >= requiredAttempts) {
-                            console.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
+                            Logger.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
                             state.phase = 'animated';
 
                             // DÉBLOQUER le scroll
@@ -154,10 +154,10 @@ function initSectionAnimations() {
                                 document.body.style.touchAction = '';
                                 document.documentElement.style.touchAction = '';
                                 window.scrollTo(0, state.savedScrollY);
-                                console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px + touch-action restauré)`);
+                                Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                             }
 
-                            console.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
+                            Logger.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
 
                             // Retirer les listeners
                             window.removeEventListener('touchstart', unlockAndAnimate);
@@ -174,18 +174,18 @@ function initSectionAnimations() {
                 // Tous les autres (Android + Desktop Chrome/Firefox/Edge): passive: false pour vraiment bloquer
                 if (isIOS) {
                     window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
-                    console.log(`👂 Listeners iOS/Safari actifs (passive: true)`);
+                    Logger.log(`👂 Listeners iOS/Safari actifs (passive: true)`);
                 } else {
                     // Android + Desktop (Chrome, Firefox, Edge, etc.)
                     if (isMobile) {
                         // Mobile Android: écouter touchstart et touchmove
                         window.addEventListener('touchstart', unlockAndAnimate, { passive: false });
                         window.addEventListener('touchmove', unlockAndAnimate, { passive: false });
-                        console.log(`👂 Listeners Android actifs (passive: false)`);
+                        Logger.log(`👂 Listeners Android actifs (passive: false)`);
                     } else {
                         // Desktop: écouter wheel pour la molette
                         window.addEventListener('wheel', unlockAndAnimate, { passive: false });
-                        console.log(`👂 Listeners Desktop (Chrome/Firefox/Edge) actifs (passive: false)`);
+                        Logger.log(`👂 Listeners Desktop (Chrome/Firefox/Edge) actifs (passive: false)`);
                     }
                 }
             }
@@ -193,7 +193,7 @@ function initSectionAnimations() {
             // Si la section sort du viewport, reset ET débloquer
             if (!entry.isIntersecting || entry.intersectionRatio < 0.3) {
                 if (state.phase === 'snapped' || state.phase === 'animated') {
-                    console.log(`⬅️ Section sortie - Reset de la phase`);
+                    Logger.log(`⬅️ Section sortie - Reset de la phase`);
                     state.phase = 'waiting';
 
                     // S'assurer que le scroll est débloqué (tous les devices)
@@ -208,14 +208,14 @@ function initSectionAnimations() {
                         document.body.style.touchAction = '';
                         document.documentElement.style.touchAction = '';
                         window.scrollTo(0, state.savedScrollY);
-                        console.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px + touch-action restauré)`);
+                        Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                     }
 
-                    console.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);
+                    Logger.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);
                 }
             }
 
-            console.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
+            Logger.log(`━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`);
         });
     }, {
         // Plusieurs seuils pour détecter progressivement
@@ -227,12 +227,12 @@ function initSectionAnimations() {
     // Observer toutes les sections
     animationSections.forEach(section => {
         observer.observe(section);
-        console.log(`👁️ Observing: ${section.className}`);
+        Logger.log(`👁️ Observing: ${section.className}`);
     });
 
     // PHASE 1 : Préparer la section (logo et texte en arrière-plan, PAS de stats)
     function prepareSection(section, sectionName) {
-        console.log(`🎬 PHASE 1: Préparation de ${sectionName.toUpperCase()}`);
+        Logger.log(`🎬 PHASE 1: Préparation de ${sectionName.toUpperCase()}`);
 
         // Logo et texte reculent légèrement en arrière-plan
         const logo = section.querySelector(`[class*="${sectionName}-logo-zoom"]`);
@@ -255,12 +255,12 @@ function initSectionAnimations() {
             text.style.zIndex = '5';
         }
 
-        console.log(`✅ Section préparée - Logo et texte en arrière-plan (z-index 5-10)`);
+        Logger.log(`✅ Section préparée - Logo et texte en arrière-plan (z-index 5-10)`);
     }
 
     // PHASE 2 : Déclencher les animations des stats
     function triggerSectionAnimation(section, sectionName) {
-        console.log(`🎬 PHASE 2: Animation des stats pour ${sectionName.toUpperCase()}`)
+        Logger.log(`🎬 PHASE 2: Animation des stats pour ${sectionName.toUpperCase()}`)
 
         // Faire disparaître complètement le texte sur mobile pour éviter superposition
         const text = section.querySelector(`[class*="${sectionName}-text-content"]`);
@@ -268,7 +268,7 @@ function initSectionAnimations() {
             text.style.transition = 'all 0.3s ease-out';
             text.style.opacity = '0';
             text.style.transform = 'translateY(60px) scale(0.9)';
-            console.log(`📱 Texte caché complètement sur mobile`);
+            Logger.log(`📱 Texte caché complètement sur mobile`);
         }
 
         const statsContainer = section.querySelector(`[class*="${sectionName}-stats-container"]`);
@@ -294,7 +294,7 @@ function initSectionAnimations() {
                 statsContainer.style.setProperty('bottom', '0', 'important');
                 statsContainer.style.setProperty('width', '100%', 'important');
                 statsContainer.style.setProperty('height', '100%', 'important');
-                console.log(`📦 Container ${sectionName}: Mobile - plein écran`);
+                Logger.log(`📦 Container ${sectionName}: Mobile - plein écran`);
             } else {
                 // Sur desktop : centré avec transform
                 statsContainer.style.setProperty('top', '50%', 'important');
@@ -303,13 +303,13 @@ function initSectionAnimations() {
                 statsContainer.style.setProperty('width', '90vw', 'important');
                 statsContainer.style.setProperty('max-width', '1000px', 'important');
                 statsContainer.style.setProperty('height', '80vh', 'important');
-                console.log(`📦 Container ${sectionName}: Desktop - centré`);
+                Logger.log(`📦 Container ${sectionName}: Desktop - centré`);
             }
 
             // Animer chaque stat item
             const statItems = statsContainer.querySelectorAll(`[class*="${sectionName}-stat-item"]`);
 
-            console.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
+            Logger.log(`📊 Nombre de stats trouvées: ${statItems.length}`);
 
             // Positions fixes pour chaque stat - esthétique améliorée
             // Sur mobile : bien espacées autour du logo central, sans chevaucher le titre
@@ -345,7 +345,7 @@ function initSectionAnimations() {
 
                     // Log de la position réelle
                     const posInfo = pos.top !== 'auto' ? `top:${pos.top}` : `bottom:${pos.bottom}`;
-                    console.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
+                    Logger.log(`  Stat ${index + 1}: ${posInfo}, left:${pos.left || 'auto'}, right:${pos.right || 'auto'}`);
                 }
 
                 // FORCER les couleurs selon la section (Créno = bleu, PixShare = violet)
@@ -357,14 +357,14 @@ function initSectionAnimations() {
                         statBox.style.setProperty('border', '2px solid rgba(26, 49, 92, 0.4)', 'important');
                         statBox.style.setProperty('backdrop-filter', 'blur(20px)', 'important');
                         statBox.style.setProperty('-webkit-backdrop-filter', 'blur(20px)', 'important');
-                        console.log(`  ✅ Stat ${index + 1}: Background bleu Créno`);
+                        Logger.log(`  ✅ Stat ${index + 1}: Background bleu Créno`);
                     } else if (sectionName === 'pixshare') {
                         // PixShare : fond violet semi-transparent avec border violet
                         statBox.style.setProperty('background', 'linear-gradient(135deg, rgba(147, 51, 234, 0.2) 0%, rgba(147, 51, 234, 0.1) 100%)', 'important');
                         statBox.style.setProperty('border', '2px solid rgba(147, 51, 234, 0.3)', 'important');
                         statBox.style.setProperty('backdrop-filter', 'blur(20px)', 'important');
                         statBox.style.setProperty('-webkit-backdrop-filter', 'blur(20px)', 'important');
-                        console.log(`  ✅ Stat ${index + 1}: Background violet PixShare`);
+                        Logger.log(`  ✅ Stat ${index + 1}: Background violet PixShare`);
                     }
                     statBox.style.setProperty('box-shadow', '0 20px 60px rgba(0, 0, 0, 0.5)', 'important');
 
@@ -387,10 +387,10 @@ function initSectionAnimations() {
                         } else if (index === 3) {
                             // Stat 4 (stores) : forte inclinaison + petit - effet DJI
                             statBox.style.setProperty('transform', 'rotate(8deg) scale(0.85)', 'important');
-                            console.log(`  🔄 Stat ${index + 1}: Inclinée 8deg + scale 0.85`);
+                            Logger.log(`  🔄 Stat ${index + 1}: Inclinée 8deg + scale 0.85`);
                         }
 
-                        console.log(`  📱 Stat ${index + 1}: Taille mobile réduite avec rotation`);
+                        Logger.log(`  📱 Stat ${index + 1}: Taille mobile réduite avec rotation`);
                     }
                 }
 
@@ -400,11 +400,11 @@ function initSectionAnimations() {
                     if (sectionName === 'creno') {
                         statCounter.style.setProperty('color', '#1a315c', 'important');
                         statCounter.style.setProperty('text-shadow', '0 0 20px rgba(26, 49, 92, 0.6)', 'important');
-                        console.log(`  ✅ Stat ${index + 1}: Texte counter bleu Créno`);
+                        Logger.log(`  ✅ Stat ${index + 1}: Texte counter bleu Créno`);
                     } else if (sectionName === 'pixshare') {
                         statCounter.style.setProperty('color', '#9333ea', 'important');
                         statCounter.style.setProperty('text-shadow', '0 0 20px rgba(147, 51, 234, 0.6)', 'important');
-                        console.log(`  ✅ Stat ${index + 1}: Texte counter violet PixShare`);
+                        Logger.log(`  ✅ Stat ${index + 1}: Texte counter violet PixShare`);
                     }
 
                     // Sur mobile : texte plus petit
@@ -423,7 +423,7 @@ function initSectionAnimations() {
                         statLabel.style.setProperty('font-size', '0.75rem', 'important');
                     }
 
-                    console.log(`  ✅ Stat ${index + 1}: Texte label blanc`);
+                    Logger.log(`  ✅ Stat ${index + 1}: Texte label blanc`);
                 }
 
                 // Forcer opacity à 0 initialement
@@ -435,12 +435,12 @@ function initSectionAnimations() {
                     item.style.setProperty('opacity', '1', 'important');
                     item.style.setProperty('transform', 'translateY(0) scale(1)', 'important');
 
-                    console.log(`  🎬 Stat ${index + 1}: Animation déclenchée - opacity devrait être 1`);
+                    Logger.log(`  🎬 Stat ${index + 1}: Animation déclenchée - opacity devrait être 1`);
 
                     // Vérifier la position réelle calculée
                     const rect = item.getBoundingClientRect();
-                    console.log(`  📍 Stat ${index + 1}: Position réelle - top:${Math.round(rect.top)}px, left:${Math.round(rect.left)}px, width:${Math.round(rect.width)}px, height:${Math.round(rect.height)}px`);
-                    console.log(`  👁️ Stat ${index + 1}: Visible dans viewport? ${rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth ? 'OUI' : 'NON'}`);
+                    Logger.log(`  📍 Stat ${index + 1}: Position réelle - top:${Math.round(rect.top)}px, left:${Math.round(rect.left)}px, width:${Math.round(rect.width)}px, height:${Math.round(rect.height)}px`);
+                    Logger.log(`  👁️ Stat ${index + 1}: Visible dans viewport? ${rect.top >= 0 && rect.left >= 0 && rect.bottom <= window.innerHeight && rect.right <= window.innerWidth ? 'OUI' : 'NON'}`);
 
                     // Animer le compteur
                     const counter = item.querySelector('.stat-counter');
@@ -451,7 +451,7 @@ function initSectionAnimations() {
             });
         }
 
-        console.log(`✅ Stats animées: ${sectionName.toUpperCase()}`);
+        Logger.log(`✅ Stats animées: ${sectionName.toUpperCase()}`);
     }
 
     // Animation de compteur
@@ -479,5 +479,5 @@ function initSectionAnimations() {
         }, 16);
     }
 
-    console.log('✅ Section Animations - IntersectionObserver actif');
+    Logger.log('✅ Section Animations - IntersectionObserver actif');
 }

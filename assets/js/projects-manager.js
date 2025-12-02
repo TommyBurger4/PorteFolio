@@ -1,5 +1,5 @@
 // Gestion dynamique des projets
-(function() {
+(function () {
     // Configuration des projets
     const projectsConfig = {
         creno: {
@@ -60,13 +60,13 @@
     function loadProjectsSettings() {
         const defaultSettings = {
             creno: true,
-            pixshare: true,
+            pixshare: false,
             'burger-michel': false,
             fakt: true,
-            findmycourt: true,
+            findmycourt: false,
             'clubs-sportifs': false
         };
-        
+
         const savedSettings = localStorage.getItem('topal-projects-settings');
         if (savedSettings) {
             try {
@@ -121,7 +121,7 @@
     // Mettre à jour la visibilité des sections showcase
     function updateShowcaseSections() {
         const settings = loadProjectsSettings();
-        
+
         // Gérer Créno
         const crenoShowcase = document.getElementById('creno-showcase');
         const crenoSection = crenoShowcase?.nextElementSibling;
@@ -131,7 +131,7 @@
                 crenoSection.style.display = settings.creno ? 'block' : 'none';
             }
         }
-        
+
         // Gérer PixShare
         const pixshareShowcase = document.getElementById('pixshare-showcase');
         const pixshareSection = pixshareShowcase?.nextElementSibling;
@@ -141,7 +141,7 @@
                 pixshareSection.style.display = settings.pixshare ? 'block' : 'none';
             }
         }
-        
+
         // Gérer FindMyCourt
         const findmycourtShowcase = document.getElementById('findmycourt-showcase');
         const findmycourtSection = findmycourtShowcase?.nextElementSibling;
@@ -151,7 +151,7 @@
                 findmycourtSection.style.display = settings.findmycourt ? 'block' : 'none';
             }
         }
-        
+
         // Gérer Fakt
         const faktShowcase = document.getElementById('fakt-showcase');
         const faktSection = faktShowcase?.nextElementSibling;
@@ -167,9 +167,9 @@
     function updateProjectCards() {
         const settings = loadProjectsSettings();
         const projectsGrid = document.querySelector('.projects-grid');
-        
+
         if (!projectsGrid) return;
-        
+
         // Sauvegarder les cartes existantes
         const existingCards = {};
         projectsGrid.querySelectorAll('.project-card').forEach(card => {
@@ -178,10 +178,10 @@
                 existingCards[title] = card;
             }
         });
-        
+
         // Réorganiser les cartes selon les paramètres
         projectsGrid.innerHTML = '';
-        
+
         // Ajouter les cartes des projets actifs
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
             if (settings[projectId]) {
@@ -197,12 +197,12 @@
     function generateIndividualSections() {
         const settings = loadProjectsSettings();
         const container = document.getElementById('dynamic-projects-container');
-        
+
         if (!container) return;
-        
+
         // Vider le conteneur
         container.innerHTML = '';
-        
+
         // Générer les sections pour chaque projet actif (sauf ceux qui ont leurs propres sections showcase)
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
             if (settings[projectId] && projectId !== 'creno' && projectId !== 'pixshare' && projectId !== 'findmycourt' && projectId !== 'fakt') {
@@ -226,7 +226,7 @@
                 container.appendChild(section);
             }
         });
-        
+
         // Réinitialiser les animations pour les nouvelles sections
         if (window.initScrollAnimations) {
             window.initScrollAnimations();
@@ -240,7 +240,7 @@
             document.addEventListener('DOMContentLoaded', initProjectsManager);
             return;
         }
-        
+
         // Mettre à jour tous les éléments
         updateNavigationMenus();
         updateShowcaseSections();
@@ -250,10 +250,10 @@
 
     // Initialiser
     initProjectsManager();
-    
+
     // Réinitialiser après un court délai pour s'assurer que tout est chargé
     setTimeout(initProjectsManager, 100);
-    
+
     // Exposer la fonction pour permettre la mise à jour manuelle
     window.updateProjectsDisplay = initProjectsManager;
 })();
