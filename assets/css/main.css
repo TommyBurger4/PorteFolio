@@ -752,6 +752,38 @@ nav {
     transform: translateY(-10px);
 }
 
+.project-card-content {
+    padding: 2rem;
+}
+
+.project-card-title {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+}
+
+.project-card-desc {
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.project-card-link {
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.project-card-link.link-creno { color: #ffc605; }
+.project-card-link.link-pixshare { color: #10B981; }
+.project-card-link.link-burger { color: #ff6b6b; }
+.project-card-link.link-findmycourt { color: #FFD700; }
+.project-card-link.link-fakt { color: #87CEEB; }
+
+/* Titre de section */
+.section-title {
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
 /* ==========================================================================
    8. UPCOMING PROJECTS CAROUSEL
    ========================================================================== */
@@ -899,6 +931,92 @@ nav {
 /* ==========================================================================
    10. UTILITAIRES
    ========================================================================== */
+
+/* Section sombre standard */
+.section-dark {
+    background: #000;
+    padding: 2rem 0;
+}
+
+/* Conteneur centré pleine largeur */
+.text-center-full {
+    text-align: center;
+    width: 100%;
+}
+
+/* Description de section */
+.section-description {
+    font-size: 1.5rem;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    color: #fff;
+}
+
+/* Conteneur de boutons */
+.btn-container {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Bouton primaire */
+.btn-primary {
+    display: inline-block;
+    padding: 1.2rem 3.5rem;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: transform var(--transition-fast);
+}
+
+.btn-primary:hover {
+    transform: translateY(-5px);
+}
+
+.btn-primary.btn-creno {
+    background: #1a315c;
+}
+
+.btn-primary.btn-fakt {
+    background: #87CEEB;
+    color: #000;
+}
+
+/* Bouton outline */
+.btn-outline {
+    display: inline-block;
+    padding: 1.2rem 3.5rem;
+    background: transparent;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid;
+    transition: transform var(--transition-fast);
+}
+
+.btn-outline:hover {
+    transform: translateY(-5px);
+}
+
+.btn-outline.btn-creno {
+    color: #1a315c;
+    border-color: #1a315c;
+}
+
+.btn-outline.btn-fakt {
+    color: #87CEEB;
+    border-color: #87CEEB;
+}
+
+/* Icône dans les boutons */
+.btn-icon {
+    margin-right: 0.5rem;
+}
 
 .fade-section {
     opacity: 0;

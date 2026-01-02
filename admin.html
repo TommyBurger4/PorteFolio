@@ -378,15 +378,26 @@
             }
         };
         
-        // Mot de passe simple (en production, utilisez un système plus sécurisé)
-        const ADMIN_PASSWORD = 'topal2025';
-        
+        // Hash SHA-256 du mot de passe (ne jamais stocker le mot de passe en clair)
+        // Pour générer un nouveau hash: crypto.subtle.digest('SHA-256', new TextEncoder().encode('votre_mot_de_passe'))
+        const ADMIN_PASSWORD_HASH = '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8';
+
+        // Fonction pour hasher le mot de passe
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
         // Vérifier l'authentification
-        function checkAuth() {
+        async function checkAuth() {
             const password = document.getElementById('password').value;
             const authError = document.getElementById('auth-error');
-            
-            if (password === ADMIN_PASSWORD) {
+            const passwordHash = await hashPassword(password);
+
+            if (passwordHash === ADMIN_PASSWORD_HASH) {
                 localStorage.setItem('topal-admin-auth', 'true');
                 document.getElementById('auth-container').style.display = 'none';
                 document.getElementById('admin-container').style.display = 'block';

@@ -1,0 +1,23 @@
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Fichiers archivés (ne pas déployer)
+_old_files/
+
+# Fichiers de debug
+*.log
+pglite-debug.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Dépendances (si ajoutées plus tard)
+node_modules/
+
+# Fichiers de configuration locale
+.env
+.env.local

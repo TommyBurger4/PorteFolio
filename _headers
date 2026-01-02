@@ -1,0 +1,29 @@
+# Headers de cache pour Netlify (si migration future)
+# GitHub Pages gère automatiquement le cache
+
+# Assets statiques - Cache longue durée (1 an)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images - Cache longue durée
+/assets/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# CSS/JS - Cache longue durée (versionné avec ?v=)
+/assets/css/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# HTML - Pas de cache (toujours frais)
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Page d'accueil
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Config JSON - Cache court (1 heure)
+/config/*
+  Cache-Control: public, max-age=3600

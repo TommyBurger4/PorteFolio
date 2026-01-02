@@ -46,6 +46,12 @@
     <link rel="icon" type="image/png" href="assets/images/favicon.png">
     <link rel="apple-touch-icon" href="assets/images/favicon.png">
 
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#fcc60d">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json">
     {
@@ -111,7 +117,26 @@
     <!-- Sitemap -->
     <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
 
-    <!-- Styles -->
+    <!-- Preconnect pour CDN (performance) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://api.web3forms.com" crossorigin>
+
+    <!-- Critical CSS (above-the-fold) -->
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#000;color:#fff;overflow-x:hidden}
+        nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);padding:1rem 2rem}
+        .nav-container{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .logo img{height:40px}
+        .hero-section{min-height:100vh;display:flex;align-items:center;justify-content:center;padding-top:80px}
+        .loading-screen{position:fixed;inset:0;background:#000;display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s}
+        .loading-screen.hidden{opacity:0;pointer-events:none}
+        .loader{width:50px;height:50px;border:3px solid rgba(255,255,255,.1);border-top-color:#fcc60d;border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{to{transform:rotate(360deg)}}
+    </style>
+
+    <!-- Styles (chargement différé) -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Préchargement des images importantes -->
@@ -229,21 +254,19 @@
     </section>
 
     <!-- Section Créno -->
-    <section class="scroll-section" style="background: #000; padding: 2rem 0;">
+    <section class="scroll-section section-dark">
         <div class="section-container">
-            <div class="slide-in-left" style="text-align: center; width: 100%;">
-                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+            <div class="slide-in-left text-center-full">
+                <p class="section-description">
                     Plus jamais de sorties ratées. Créno synchronise automatiquement les disponibilités
                     de votre groupe et trouve le créneau parfait.
                 </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="creno.html" class="hover-lift"
-                        style="display: inline-block; padding: 1.2rem 3.5rem; background: #1a315c; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                <div class="btn-container">
+                    <a href="creno.html" class="btn-primary btn-creno">
                         Découvrir Créno →
                     </a>
-                    <a href="user-guide.html" class="hover-lift"
-                        style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #1a315c; border: 2px solid #1a315c; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                        <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
+                    <a href="user-guide.html" class="btn-outline btn-creno">
+                        <i class="fas fa-book btn-icon"></i>
                         Documentation
                     </a>
                 </div>
@@ -307,21 +330,19 @@
     </section>
 
     <!-- Section Fakt -->
-    <section class="scroll-section" style="background: #000; padding: 2rem 0;">
+    <section class="scroll-section section-dark">
         <div class="section-container">
-            <div class="slide-in-left" style="text-align: center; width: 100%;">
-                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
+            <div class="slide-in-left text-center-full">
+                <p class="section-description">
                     Automatisez la création et l'envoi de vos factures. Générez vos factures PDF professionnelles
                     en quelques clics depuis Fakt.
                 </p>
-                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-                    <a href="fakt.html" class="hover-lift"
-                        style="display: inline-block; padding: 1.2rem 3.5rem; background: #87CEEB; color: #000; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
+                <div class="btn-container">
+                    <a href="fakt.html" class="btn-primary btn-fakt">
                         Découvrir Fakt →
                     </a>
-                    <a href="user-guide-fakt.html" class="hover-lift"
-                        style="display: inline-block; padding: 1.2rem 3.5rem; background: transparent; color: #87CEEB; border: 2px solid #87CEEB; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                        <i class="fas fa-book" style="margin-right: 0.5rem;"></i>
+                    <a href="user-guide-fakt.html" class="btn-outline btn-fakt">
+                        <i class="fas fa-book btn-icon"></i>
                         Documentation
                     </a>
                 </div>
@@ -333,62 +354,47 @@
     <div id="dynamic-projects-container"></div>
 
     <!-- Projets -->
-    <section id="projects" class="scroll-section" style="background: #000;">
+    <section id="projects" class="scroll-section section-dark">
         <div class="section-container">
-            <h2 class="fade-section" style="font-size: 3rem; text-align: center; margin-bottom: 3rem;">Nos Projets</h2>
+            <h2 class="fade-section section-title">Nos Projets</h2>
             <div class="projects-grid">
                 <div class="project-card fade-section">
-                    <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Créno</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Application de planification d'événements
-                            intelligente</p>
-                        <a href="creno.html" style="color: #ffc605; text-decoration: none; font-weight: 600;">
-                            En savoir plus →
-                        </a>
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">Créno</h3>
+                        <p class="project-card-desc">Application de planification d'événements intelligente</p>
+                        <a href="creno.html" class="project-card-link link-creno">En savoir plus →</a>
                     </div>
                 </div>
 
                 <div class="project-card fade-section">
-                    <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">PixShare</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Plateforme de partage photo nouvelle génération
-                        </p>
-                        <a href="pixshare.html" style="color: #10B981; text-decoration: none; font-weight: 600;">
-                            En savoir plus →
-                        </a>
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">PixShare</h3>
+                        <p class="project-card-desc">Plateforme de partage photo nouvelle génération</p>
+                        <a href="pixshare.html" class="project-card-link link-pixshare">En savoir plus →</a>
                     </div>
                 </div>
 
                 <div class="project-card fade-section">
-                    <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Burger Michel</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Site web en cours pour une entreprise de
-                            couverture</p>
-                        <a href="#" style="color: #ff6b6b; text-decoration: none; font-weight: 600;">
-                            En cours de développement →
-                        </a>
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">Burger Michel</h3>
+                        <p class="project-card-desc">Site web en cours pour une entreprise de couverture</p>
+                        <a href="#" class="project-card-link link-burger">En cours de développement →</a>
                     </div>
                 </div>
 
                 <div class="project-card fade-section">
-                    <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">FindMyCourt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Trouvez des terrains et des partenaires de jeu
-                            près de chez vous</p>
-                        <a href="findmycourt.html" style="color: #FFD700; text-decoration: none; font-weight: 600;">
-                            En savoir plus →
-                        </a>
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">FindMyCourt</h3>
+                        <p class="project-card-desc">Trouvez des terrains et des partenaires de jeu près de chez vous</p>
+                        <a href="findmycourt.html" class="project-card-link link-findmycourt">En savoir plus →</a>
                     </div>
                 </div>
 
                 <div class="project-card fade-section">
-                    <div style="padding: 2rem;">
-                        <h3 style="font-size: 1.8rem; margin-bottom: 1rem;">Fakt</h3>
-                        <p style="opacity: 0.8; margin-bottom: 1.5rem;">Automatisation de facturation pour réservations
-                            Booking.com</p>
-                        <a href="fakt.html" style="color: #87CEEB; text-decoration: none; font-weight: 600;">
-                            En savoir plus →
-                        </a>
+                    <div class="project-card-content">
+                        <h3 class="project-card-title">Fakt</h3>
+                        <p class="project-card-desc">Automatisation de facturation pour réservations Booking.com</p>
+                        <a href="fakt.html" class="project-card-link link-fakt">En savoir plus →</a>
                     </div>
                 </div>
             </div>
@@ -572,14 +578,14 @@
         });
     </script>
 
-    <!-- Scripts -->
-    <script src="assets/js/app.js?v=2"></script>
+    <!-- Scripts (defer = non-bloquant) -->
+    <script src="assets/js/app.js?v=2" defer></script>
     <!-- Correctifs iOS -->
-    <script src="assets/js/ios-fixes.js?v=2"></script>
+    <script src="assets/js/ios-fixes.js?v=2" defer></script>
     <!-- Système d'animations basé sur IntersectionObserver -->
-    <script src="assets/js/section-animations.js?v=23"></script>
+    <script src="assets/js/section-animations.js?v=23" defer></script>
     <!-- Animation simple slide-in pour les descriptions -->
-    <script src="assets/js/simple-slide-animation.js?v=2"></script>
+    <script src="assets/js/simple-slide-animation.js?v=2" defer></script>
     <!-- Configuration des projets depuis le fichier JSON -->
     <script>
         // Charger la configuration depuis le fichier JSON pour GitHub Pages
@@ -606,7 +612,7 @@
     </script>
 
     <!-- Gestion dynamique des projets -->
-    <script src="assets/js/projects-manager.js"></script>
+    <script src="assets/js/projects-manager.js" defer></script>
 
 
     <!-- Firebase (optionnel) -->
@@ -679,6 +685,17 @@
                 });
             }
         });
+    </script>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => Logger.log('Service Worker enregistré'))
+                    .catch(err => Logger.error('Service Worker erreur:', err));
+            });
+        }
     </script>
 </body>
 

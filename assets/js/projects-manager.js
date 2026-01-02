@@ -86,9 +86,9 @@
 
         if (!appsMenu || !websitesMenu) return;
 
-        // Réinitialiser les menus
-        appsMenu.innerHTML = '';
-        websitesMenu.innerHTML = '';
+        // Réinitialiser les menus (sécurisé)
+        while (appsMenu.firstChild) appsMenu.removeChild(appsMenu.firstChild);
+        while (websitesMenu.firstChild) websitesMenu.removeChild(websitesMenu.firstChild);
 
         // Ajouter les projets actifs aux menus appropriés
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
@@ -179,8 +179,8 @@
             }
         });
 
-        // Réorganiser les cartes selon les paramètres
-        projectsGrid.innerHTML = '';
+        // Réorganiser les cartes selon les paramètres (sécurisé)
+        while (projectsGrid.firstChild) projectsGrid.removeChild(projectsGrid.firstChild);
 
         // Ajouter les cartes des projets actifs
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
@@ -193,36 +193,49 @@
         });
     }
 
-    // Générer les sections individuelles des projets
+    // Générer les sections individuelles des projets (sécurisé - sans innerHTML)
     function generateIndividualSections() {
         const settings = loadProjectsSettings();
         const container = document.getElementById('dynamic-projects-container');
 
         if (!container) return;
 
-        // Vider le conteneur
-        container.innerHTML = '';
+        // Vider le conteneur (sécurisé)
+        while (container.firstChild) container.removeChild(container.firstChild);
 
         // Générer les sections pour chaque projet actif (sauf ceux qui ont leurs propres sections showcase)
         Object.entries(projectsConfig).forEach(([projectId, config]) => {
             if (settings[projectId] && projectId !== 'creno' && projectId !== 'pixshare' && projectId !== 'findmycourt' && projectId !== 'fakt') {
+                // Création sécurisée avec DOM API
                 const section = document.createElement('section');
-                section.className = 'scroll-section';
-                section.style.cssText = 'background: #000; padding: 2rem 0;';
-                section.innerHTML = `
-        <div class="section-container">
-            <div class="project-showcase fade-section" style="text-align: center;">
-                <h2 style="font-size: 3rem; margin-bottom: 2rem; color: ${config.color};">
-                    ${config.name}
-                </h2>
-                <p style="font-size: 1.5rem; max-width: 700px; margin: 0 auto 3rem; line-height: 1.8; color: #fff;">
-                    ${config.description}
-                </p>
-                <a href="${config.url}" class="hover-lift" style="display: inline-block; padding: 1.2rem 3.5rem; background: ${config.color}; color: #fff; text-decoration: none; border-radius: 50px; font-weight: 600; font-size: 1.1rem;">
-                    Découvrir ${config.name} →
-                </a>
-            </div>
-        </div>`;
+                section.className = 'scroll-section section-dark';
+
+                const sectionContainer = document.createElement('div');
+                sectionContainer.className = 'section-container';
+
+                const showcase = document.createElement('div');
+                showcase.className = 'project-showcase fade-section text-center-full';
+
+                const title = document.createElement('h2');
+                title.className = 'section-title';
+                title.style.color = config.color;
+                title.textContent = config.name;
+
+                const desc = document.createElement('p');
+                desc.className = 'section-description';
+                desc.textContent = config.description;
+
+                const link = document.createElement('a');
+                link.href = config.url;
+                link.className = 'btn-primary';
+                link.style.background = config.color;
+                link.textContent = 'Découvrir ' + config.name + ' →';
+
+                showcase.appendChild(title);
+                showcase.appendChild(desc);
+                showcase.appendChild(link);
+                sectionContainer.appendChild(showcase);
+                section.appendChild(sectionContainer);
                 container.appendChild(section);
             }
         });

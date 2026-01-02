@@ -21,3 +21,4 @@ exclude:
   - EMAILJS_SETUP.md
   - .gitignore
   - .git
+  - _old_files

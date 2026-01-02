@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-topal",
+  "version": "1.0.0",
+  "description": "Portfolio Topal - Applications & Solutions Digitales",
+  "scripts": {
+    "build": "npm run minify:css && npm run minify:js",
+    "minify:css": "cleancss -o assets/css/main.min.css assets/css/main.css",
+    "minify:js": "terser assets/js/app.js assets/js/section-animations.js assets/js/simple-slide-animation.js assets/js/projects-manager.js -o assets/js/bundle.min.js -c -m",
+    "serve": "npx serve .",
+    "webp": "for f in assets/images/**/*.{png,jpg}; do cwebp -q 80 \"$f\" -o \"${f%.*}.webp\"; done"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.3",
+    "terser": "^5.26.0"
+  },
+  "keywords": ["portfolio", "topal", "creno", "pixshare"],
+  "author": "Topal",
+  "license": "MIT"
+}
