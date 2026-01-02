@@ -122,13 +122,20 @@ function initSectionAnimations() {
                     Logger.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
                 }
 
-                // Sur Safari Mac, utiliser position: fixed (overflow: hidden ne suffit pas)
+                // Sur Safari Mac, bloquer via wheel event (position: fixed cause un saut)
                 if (isSafariMac) {
-                    document.body.style.position = 'fixed';
-                    document.body.style.top = `-${state.savedScrollY}px`;
-                    document.body.style.width = '100%';
+                    // Fonction pour bloquer le scroll wheel
+                    state.wheelBlocker = (e) => {
+                        if (state.phase === 'snapped') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
+                    };
+                    // Capturer les events wheel au niveau document avec capture: true
+                    document.addEventListener('wheel', state.wheelBlocker, { passive: false, capture: true });
                     document.body.style.overscrollBehavior = 'none';
-                    Logger.log(`🔒 SCROLL BLOQUÉ SAFARI MAC (position: fixed à ${state.savedScrollY}px)`);
+                    document.documentElement.style.overscrollBehavior = 'none';
+                    Logger.log(`🔒 SCROLL BLOQUÉ SAFARI MAC (wheel event blocker)`);
                 }
 
                 document.body.style.overflow = 'hidden';
@@ -174,14 +181,13 @@ function initSectionAnimations() {
                                 Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                             }
 
-                            // Sur Safari Mac, restaurer la position du scroll
-                            if (isSafariMac) {
-                                document.body.style.position = '';
-                                document.body.style.top = '';
-                                document.body.style.width = '';
+                            // Sur Safari Mac, retirer le wheel blocker
+                            if (isSafariMac && state.wheelBlocker) {
+                                document.removeEventListener('wheel', state.wheelBlocker, { passive: false, capture: true });
                                 document.body.style.overscrollBehavior = '';
-                                window.scrollTo(0, state.savedScrollY);
-                                Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (restauré à ${state.savedScrollY}px)`);
+                                document.documentElement.style.overscrollBehavior = '';
+                                state.wheelBlocker = null;
+                                Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (wheel blocker retiré)`);
                             }
 
                             Logger.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
@@ -244,14 +250,13 @@ function initSectionAnimations() {
                         Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                     }
 
-                    // Sur Safari Mac, restaurer la position du scroll
-                    if (isSafariMac && state.savedScrollY !== undefined) {
-                        document.body.style.position = '';
-                        document.body.style.top = '';
-                        document.body.style.width = '';
+                    // Sur Safari Mac, retirer le wheel blocker
+                    if (isSafariMac && state.wheelBlocker) {
+                        document.removeEventListener('wheel', state.wheelBlocker, { passive: false, capture: true });
                         document.body.style.overscrollBehavior = '';
-                        window.scrollTo(0, state.savedScrollY);
-                        Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC sortie (restauré à ${state.savedScrollY}px)`);
+                        document.documentElement.style.overscrollBehavior = '';
+                        state.wheelBlocker = null;
+                        Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC sortie (wheel blocker retiré)`);
                     }
 
                     Logger.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
