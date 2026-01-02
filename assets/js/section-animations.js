@@ -208,13 +208,16 @@ function initSectionAnimations() {
                                 Logger.log(`🚨 PHASE 2: DÉCLENCHEMENT ANIMATION!`);
                                 state.phase = 'animated';
 
-                                // DÉBLOQUER le scroll
+                                // DÉBLOQUER le scroll COMPLÈTEMENT
                                 document.body.style.overflow = '';
                                 document.documentElement.style.overflow = '';
+                                document.body.style.overscrollBehavior = '';
+                                document.documentElement.style.overscrollBehavior = '';
 
                                 // Retirer le listener
                                 document.removeEventListener('wheel', safariMacHandler, { passive: false, capture: true });
-                                Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC`);
+                                state.safariMacHandler = null;
+                                Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (overflow + overscrollBehavior reset)`);
 
                                 triggerSectionAnimation(section, sectionName);
                             }
