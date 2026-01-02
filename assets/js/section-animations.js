@@ -22,12 +22,17 @@ if (document.readyState === 'loading') {
 function initSectionAnimations() {
     Logger.log('🔥 INIT SECTION ANIMATIONS !');
 
-    // Détecter le device
+    // Détecter le device et navigateur
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isAndroid = /Android/.test(navigator.userAgent);
     const isMobile = isIOS || isAndroid;
 
+    // Détecter Safari (iOS et Mac)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isSafariMac = isSafari && !isMobile;
+
     Logger.log(`📱 Section Animations - Device: ${isIOS ? 'iOS' : isAndroid ? 'Android' : 'Desktop'}`);
+    Logger.log(`🧭 Navigateur: ${isSafari ? (isSafariMac ? 'Safari Mac' : 'Safari iOS') : 'Autre'}`);
 
     // Sélectionner toutes les sections avec animations
     Logger.log('🔍 Recherche des sections avec [class*="-animation-container"]...');
@@ -104,9 +109,11 @@ function initSectionAnimations() {
                 state.phase = 'snapped';
 
                 // Système 2-phases avec blocage pour TOUS les devices
-                // Sur Android, il faut aussi bloquer avec position: fixed + touch-action
+                // Sauvegarder la position de scroll
+                state.savedScrollY = window.scrollY;
+
+                // Sur Android, il faut bloquer avec position: fixed + touch-action
                 if (isAndroid) {
-                    state.savedScrollY = window.scrollY;
                     document.body.style.position = 'fixed';
                     document.body.style.top = `-${state.savedScrollY}px`;
                     document.body.style.width = '100%';
@@ -114,9 +121,19 @@ function initSectionAnimations() {
                     document.documentElement.style.touchAction = 'none';
                     Logger.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
                 }
+
+                // Sur Safari Mac, utiliser position: fixed (overflow: hidden ne suffit pas)
+                if (isSafariMac) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${state.savedScrollY}px`;
+                    document.body.style.width = '100%';
+                    document.body.style.overscrollBehavior = 'none';
+                    Logger.log(`🔒 SCROLL BLOQUÉ SAFARI MAC (position: fixed à ${state.savedScrollY}px)`);
+                }
+
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
-                Logger.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
+                Logger.log(`🔒 SCROLL BLOQUÉ (${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
 
                 // Préparer le logo et le texte (arrière-plan)
                 prepareSection(section, sectionName);
@@ -129,8 +146,8 @@ function initSectionAnimations() {
 
                 const unlockAndAnimate = (e) => {
                     if (state.phase === 'snapped') {
-                        // Sur tous les navigateurs sauf Safari, bloquer le scroll avec preventDefault
-                        if (!isIOS) {
+                        // Sur tous les navigateurs sauf Safari (iOS et Mac), bloquer le scroll avec preventDefault
+                        if (!isSafari) {
                             e.preventDefault();
                             e.stopPropagation();
                         }
@@ -157,7 +174,17 @@ function initSectionAnimations() {
                                 Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                             }
 
-                            Logger.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : 'desktop'})`);
+                            // Sur Safari Mac, restaurer la position du scroll
+                            if (isSafariMac) {
+                                document.body.style.position = '';
+                                document.body.style.top = '';
+                                document.body.style.width = '';
+                                document.body.style.overscrollBehavior = '';
+                                window.scrollTo(0, state.savedScrollY);
+                                Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (restauré à ${state.savedScrollY}px)`);
+                            }
+
+                            Logger.log(`🔓 SCROLL DÉBLOQUÉ (${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
 
                             // Retirer les listeners
                             window.removeEventListener('touchstart', unlockAndAnimate);
@@ -170,11 +197,17 @@ function initSectionAnimations() {
                 };
 
                 // Écouter les tentatives de scroll
-                // Safari iOS: passive: true (fonctionne déjà parfaitement)
+                // Safari (iOS et Mac): passive: true (Safari n'aime pas preventDefault sur wheel)
                 // Tous les autres (Android + Desktop Chrome/Firefox/Edge): passive: false pour vraiment bloquer
-                if (isIOS) {
-                    window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
-                    Logger.log(`👂 Listeners iOS/Safari actifs (passive: true)`);
+                if (isSafari) {
+                    if (isMobile) {
+                        window.addEventListener('touchmove', unlockAndAnimate, { passive: true });
+                        Logger.log(`👂 Listeners Safari iOS actifs (passive: true)`);
+                    } else {
+                        // Safari Mac: utiliser wheel avec passive: true
+                        window.addEventListener('wheel', unlockAndAnimate, { passive: true });
+                        Logger.log(`👂 Listeners Safari Mac actifs (passive: true)`);
+                    }
                 } else {
                     // Android + Desktop (Chrome, Firefox, Edge, etc.)
                     if (isMobile) {
@@ -183,7 +216,7 @@ function initSectionAnimations() {
                         window.addEventListener('touchmove', unlockAndAnimate, { passive: false });
                         Logger.log(`👂 Listeners Android actifs (passive: false)`);
                     } else {
-                        // Desktop: écouter wheel pour la molette
+                        // Desktop non-Safari: écouter wheel pour la molette
                         window.addEventListener('wheel', unlockAndAnimate, { passive: false });
                         Logger.log(`👂 Listeners Desktop (Chrome/Firefox/Edge) actifs (passive: false)`);
                     }
@@ -211,7 +244,17 @@ function initSectionAnimations() {
                         Logger.log(`🔓 SCROLL DÉBLOQUÉ ANDROID sortie (restauré à ${state.savedScrollY}px + touch-action restauré)`);
                     }
 
-                    Logger.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : 'desktop'})`);
+                    // Sur Safari Mac, restaurer la position du scroll
+                    if (isSafariMac && state.savedScrollY !== undefined) {
+                        document.body.style.position = '';
+                        document.body.style.top = '';
+                        document.body.style.width = '';
+                        document.body.style.overscrollBehavior = '';
+                        window.scrollTo(0, state.savedScrollY);
+                        Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC sortie (restauré à ${state.savedScrollY}px)`);
+                    }
+
+                    Logger.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
                 }
             }
 
