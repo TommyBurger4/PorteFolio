@@ -488,7 +488,8 @@ nav {
 
 /* Container des statistiques */
 .creno-stats-container,
-.pixshare-stats-container {
+.pixshare-stats-container,
+.fakt-stats-container {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -496,17 +497,17 @@ nav {
     width: 90vw;
     max-width: 1000px;
     height: 80vh;
-    display: none;
+    visibility: hidden;
     opacity: 0;
     pointer-events: none;
     z-index: 30;
-    transition: opacity var(--transition-normal);
 }
 
 /* Container des statistiques mobile - Carrousel */
 @media (max-width: 768px) {
     .creno-stats-container,
-    .pixshare-stats-container {
+    .pixshare-stats-container,
+    .fakt-stats-container {
         position: absolute;
         top: 35%;
         left: 0;
@@ -559,7 +560,8 @@ nav {
 
 /* Items de statistiques */
 .creno-stat-item,
-.pixshare-stat-item {
+.pixshare-stat-item,
+.fakt-stat-item {
     position: absolute;
     opacity: 0;
     transform: translateY(30px) scale(0.8);
