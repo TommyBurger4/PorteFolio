@@ -59,39 +59,21 @@ function setupSectionAnimation(config) {
             pin: true,             // PIN - La section reste fixe pendant le scroll
             scrub: 1,              // Lie l'animation au scroll (1 = léger smoothing)
             anticipatePin: 1,      // Optimise le pinning
-            markers: true,      // DEBUG ACTIVÉ - à désactiver en prod
+            // markers: true,   // Désactivé en prod
             onEnter: () => console.log(`🎯 ${config.name} - PINNED`),
             onLeave: () => console.log(`➡️ ${config.name} - UNPINNED`),
         }
     });
 
-    // PHASE 1 (0% - 30%) : Le logo recule et s'assombrit
-    tl.to(logo, {
-        scale: 0.85,
-        opacity: 0.6,
-        filter: "brightness(0.5)",
-        duration: 0.3,
-        ease: "power2.out"
-    }, 0);
+    // Le logo et le texte restent fixes - seules les stats s'animent
 
-    // Le texte recule aussi
-    if (text) {
-        tl.to(text, {
-            y: 30,
-            opacity: 0.4,
-            scale: 0.95,
-            duration: 0.3,
-            ease: "power2.out"
-        }, 0);
-    }
-
-    // PHASE 2 (30% - 100%) : Les stats apparaissent
+    // Les stats apparaissent progressivement dès le début du scroll
     tl.to(statsContainer, {
         autoAlpha: 1,
         pointerEvents: "auto",
-        duration: 0.1,
+        duration: 0.15,
         ease: "none"
-    }, 0.25);
+    }, 0);
 
     // Animer chaque stat avec un délai progressif
     statItems.forEach((stat, index) => {
@@ -99,7 +81,7 @@ function setupSectionAnimation(config) {
             autoAlpha: 1,
             y: 0,
             scale: 1,
-            duration: 0.2,
+            duration: 0.25,
             ease: "back.out(1.7)",
             onStart: () => {
                 // Animer le compteur quand la stat apparaît
@@ -108,7 +90,7 @@ function setupSectionAnimation(config) {
                     animateCounter(counter);
                 }
             }
-        }, 0.3 + (index * 0.1));
+        }, 0.1 + (index * 0.15));
     });
 
     console.log(`✅ ${config.name} - Animation GSAP configurée avec PIN`);
