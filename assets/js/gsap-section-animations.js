@@ -65,9 +65,25 @@ function setupSectionAnimation(config) {
         }
     });
 
-    // Le logo et le texte restent fixes - seules les stats s'animent
+    // PHASE 1: Le logo recule légèrement et s'assombrit (pendant que les stats apparaissent)
+    tl.to(logo, {
+        scale: 0.85,
+        filter: "brightness(0.5)",
+        duration: 0.4,
+        ease: "power2.out"
+    }, 0);
 
-    // Les stats apparaissent progressivement dès le début du scroll
+    // Le texte recule aussi légèrement
+    if (text) {
+        tl.to(text, {
+            y: 20,
+            opacity: 0.5,
+            duration: 0.4,
+            ease: "power2.out"
+        }, 0);
+    }
+
+    // PHASE 2: Les stats apparaissent progressivement
     tl.to(statsContainer, {
         autoAlpha: 1,
         pointerEvents: "auto",
