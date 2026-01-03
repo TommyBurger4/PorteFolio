@@ -122,7 +122,14 @@ function initSectionAnimations() {
                     Logger.log(`🔒 SCROLL BLOQUÉ ANDROID (position: fixed + touch-action: none à ${state.savedScrollY}px)`);
                 }
 
-                // Safari Mac : pas de blocage ici, tout est géré dans le listener unique plus bas
+                // Safari Mac : blocage agressif avec position: fixed (comme Android) pour contrer le trackpad
+                if (isSafariMac) {
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${state.savedScrollY}px`;
+                    document.body.style.width = '100%';
+                    document.body.style.height = '100%';
+                    Logger.log(`🔒 SCROLL BLOQUÉ SAFARI MAC (position: fixed à ${state.savedScrollY}px)`);
+                }
 
                 document.body.style.overflow = 'hidden';
                 document.documentElement.style.overflow = 'hidden';
@@ -135,7 +142,8 @@ function initSectionAnimations() {
 
                 // PHASE 2 : Écouter les tentatives de scroll (même si bloqué)
                 let scrollAttempts = 0;
-                const requiredAttempts = isMobile ? 1 : 15; // Mobile: 1 tentative, Desktop: 15 tentatives (blocage fort)
+                // Mobile: 1 tentative, Safari Mac: 1 tentative (trackpad), Autres Desktop: 15 tentatives
+                const requiredAttempts = isMobile ? 1 : (isSafariMac ? 1 : 15);
 
                 const unlockAndAnimate = (e) => {
                     if (state.phase === 'snapped') {
@@ -220,7 +228,9 @@ function initSectionAnimations() {
                                     document.body.style.top = '';
                                     document.body.style.width = '';
                                     document.body.style.height = '';
-                                    Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (délai 50ms)`);
+                                    // Restaurer la position de scroll
+                                    window.scrollTo(0, state.savedScrollY);
+                                    Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC (délai 50ms, restauré à ${state.savedScrollY}px)`);
                                 }, 50);
 
                                 triggerSectionAnimation(section, sectionName);
@@ -281,11 +291,16 @@ function initSectionAnimations() {
                     }
                     // Reset complet pour Safari Mac
                     if (isSafariMac) {
+                        document.body.style.position = '';
+                        document.body.style.top = '';
+                        document.body.style.width = '';
+                        document.body.style.height = '';
                         document.body.style.overscrollBehavior = '';
                         document.documentElement.style.overscrollBehavior = '';
                         document.body.style.overflowY = '';
                         document.documentElement.style.overflowY = '';
-                        Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC sortie`);
+                        window.scrollTo(0, state.savedScrollY);
+                        Logger.log(`🔓 SCROLL DÉBLOQUÉ SAFARI MAC sortie (restauré à ${state.savedScrollY}px)`);
                     }
 
                     Logger.log(`🔓 SCROLL DÉBLOQUÉ (sortie ${isMobile ? 'mobile' : isSafariMac ? 'Safari Mac' : 'desktop'})`);
