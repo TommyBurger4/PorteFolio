@@ -601,6 +601,27 @@ nav {
     text-shadow: 0 0 30px rgba(26, 49, 92, 0.8);
 }
 
+/* Positionnement spécifique Creno - stats remontées pour ne pas empiéter sur le texte */
+.creno-stat-item.stat-item-1 {
+    top: 25%;
+    left: 22%;
+}
+
+.creno-stat-item.stat-item-2 {
+    top: 25%;
+    right: 22%;
+}
+
+.creno-stat-item.stat-item-3 {
+    bottom: 32%;
+    left: 24%;
+}
+
+.creno-stat-item.stat-item-4 {
+    bottom: 32%;
+    right: 24%;
+}
+
 /* Styles spécifiques PixShare */
 .pixshare-stat-item .stat-box {
     background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(147, 51, 234, 0.05) 100%);
@@ -1346,22 +1367,22 @@ nav {
 }
 
 .fakt-stat-item.stat-item-1 {
-    top: 22%;
+    top: 28%;
     left: 22%;
 }
 
 .fakt-stat-item.stat-item-2 {
-    top: 22%;
+    top: 28%;
     right: 22%;
 }
 
 .fakt-stat-item.stat-item-3 {
-    bottom: 24%;
+    bottom: 30%;
     left: 24%;
 }
 
 .fakt-stat-item.stat-item-4 {
-    bottom: 24%;
+    bottom: 30%;
     right: 24%;
 }
 
