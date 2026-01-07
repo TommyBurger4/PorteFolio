@@ -102,24 +102,13 @@
             force3D: true
         });
 
-        // Pour les stat items: différent selon desktop/mobile
-        if (isMobile) {
-            // Mobile: les stats sont en position relative (carrousel)
-            // Ne pas appliquer de y offset qui casserait le layout
-            gsap.set(statItems, {
-                autoAlpha: 0,
-                scale: 0.9,
-                force3D: true
-            });
-        } else {
-            // Desktop: les stats sont en position absolue autour du logo
-            gsap.set(statItems, {
-                autoAlpha: 0,
-                y: 30,
-                scale: 0.9,
-                force3D: true
-            });
-        }
+        // Stats en position absolue autour du logo (desktop ET mobile)
+        gsap.set(statItems, {
+            autoAlpha: 0,
+            y: 20,
+            scale: 0.9,
+            force3D: true
+        });
 
         // Configuration ScrollTrigger
         const scrollTriggerConfig = {
@@ -175,10 +164,11 @@
             ease: "none"
         }, 0);
 
-        // Animer chaque stat
+        // Animer chaque stat (apparition progressive autour du logo)
         statItems.forEach((stat, index) => {
-            const animProps = {
+            tl.to(stat, {
                 autoAlpha: 1,
+                y: 0,
                 scale: 1,
                 duration: 0.25,
                 ease: "back.out(1.7)",
@@ -189,14 +179,7 @@
                         animateCounter(counter);
                     }
                 }
-            };
-
-            // Ajouter y: 0 seulement sur desktop (où on a mis y: 30 au départ)
-            if (!isMobile) {
-                animProps.y = 0;
-            }
-
-            tl.to(stat, animProps, 0.1 + (index * 0.15));
+            }, 0.1 + (index * 0.15));
         });
 
         console.log(`✅ ${config.name} - Animation configurée (pinType: ${scrollTriggerConfig.pinType}, mobile: ${isMobile})`);
