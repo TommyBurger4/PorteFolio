@@ -601,25 +601,27 @@ nav {
     text-shadow: 0 0 30px rgba(26, 49, 92, 0.8);
 }
 
-/* Positionnement spécifique Creno - stats remontées pour ne pas empiéter sur le texte */
-.creno-stat-item.stat-item-1 {
-    top: 25%;
-    left: 22%;
-}
+/* Positionnement spécifique Creno desktop - stats remontées pour ne pas empiéter sur le texte */
+@media (min-width: 769px) {
+    .creno-stat-item.stat-item-1 {
+        top: 25%;
+        left: 22%;
+    }
 
-.creno-stat-item.stat-item-2 {
-    top: 25%;
-    right: 22%;
-}
+    .creno-stat-item.stat-item-2 {
+        top: 25%;
+        right: 22%;
+    }
 
-.creno-stat-item.stat-item-3 {
-    bottom: 32%;
-    left: 24%;
-}
+    .creno-stat-item.stat-item-3 {
+        bottom: 32%;
+        left: 24%;
+    }
 
-.creno-stat-item.stat-item-4 {
-    bottom: 32%;
-    right: 24%;
+    .creno-stat-item.stat-item-4 {
+        bottom: 32%;
+        right: 24%;
+    }
 }
 
 /* Styles spécifiques PixShare */
@@ -1366,24 +1368,27 @@ nav {
     transition: all 0.8s ease-out;
 }
 
-.fakt-stat-item.stat-item-1 {
-    top: 28%;
-    left: 22%;
-}
+/* Positionnement Fakt desktop */
+@media (min-width: 769px) {
+    .fakt-stat-item.stat-item-1 {
+        top: 28%;
+        left: 22%;
+    }
 
-.fakt-stat-item.stat-item-2 {
-    top: 28%;
-    right: 22%;
-}
+    .fakt-stat-item.stat-item-2 {
+        top: 28%;
+        right: 22%;
+    }
 
-.fakt-stat-item.stat-item-3 {
-    bottom: 30%;
-    left: 24%;
-}
+    .fakt-stat-item.stat-item-3 {
+        bottom: 30%;
+        left: 24%;
+    }
 
-.fakt-stat-item.stat-item-4 {
-    bottom: 30%;
-    right: 24%;
+    .fakt-stat-item.stat-item-4 {
+        bottom: 30%;
+        right: 24%;
+    }
 }
 
 .fakt-stat-item .stat-box {
