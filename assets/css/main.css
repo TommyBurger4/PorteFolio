@@ -593,6 +593,36 @@ nav {
         inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
+/* Stats pour écrans moyens (MacBook Air, petits laptops) */
+@media (min-width: 769px) and (max-width: 1440px) {
+    .stat-box {
+        padding: 1.2rem 1.8rem;
+        min-width: 140px;
+        border-radius: 18px;
+    }
+
+    .stat-counter {
+        font-size: 1.8rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    /* Repositionner plus vers les bords */
+    .creno-stat-item.stat-item-1,
+    .fakt-stat-item.stat-item-1 { top: 20%; left: 8%; }
+
+    .creno-stat-item.stat-item-2,
+    .fakt-stat-item.stat-item-2 { top: 20%; right: 8%; }
+
+    .creno-stat-item.stat-item-3,
+    .fakt-stat-item.stat-item-3 { bottom: 25%; left: 10%; }
+
+    .creno-stat-item.stat-item-4,
+    .fakt-stat-item.stat-item-4 { bottom: 25%; right: 10%; }
+}
+
 /* Styles spécifiques Créno - Bleu marine lumineux */
 .creno-stat-item .stat-box {
     background: linear-gradient(135deg, rgba(26, 49, 92, 0.35) 0%, rgba(26, 49, 92, 0.2) 100%);
