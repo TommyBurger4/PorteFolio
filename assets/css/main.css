@@ -536,33 +536,36 @@ nav {
     opacity: 0.85;
 }
 
-/* Stats sur mobile - beaucoup plus petites, rapprochées et inclinées */
+/* Stats sur mobile - compactes pour éviter chevauchement */
 @media (max-width: 768px) {
-    /* Repositionner les stats plus près du centre */
-    .stat-item-1 { top: 15%; left: 5%; }
-    .stat-item-2 { top: 15%; right: 5%; }
-    .stat-item-3 { bottom: 20%; left: 5%; }
-    .stat-item-4 { bottom: 20%; right: 5%; }
+    /* Repositionner les stats */
+    .stat-item-1 { top: 12%; left: 3%; }
+    .stat-item-2 { top: 12%; right: 3%; }
+    .stat-item-3 { bottom: 18%; left: 3%; }
+    .stat-item-4 { bottom: 18%; right: 3%; }
 
-    /* Inclinaison des vignettes - alternée pour un effet dynamique */
-    .stat-item-1 .stat-box { transform: rotate(-3deg); }
-    .stat-item-2 .stat-box { transform: rotate(3deg); }
-    .stat-item-3 .stat-box { transform: rotate(2deg); }
-    .stat-item-4 .stat-box { transform: rotate(-2deg); }
+    /* Inclinaison des vignettes */
+    .stat-item-1 .stat-box { transform: rotate(-3deg) scale(0.85); }
+    .stat-item-2 .stat-box { transform: rotate(3deg) scale(0.85); }
+    .stat-item-3 .stat-box { transform: rotate(2deg) scale(0.85); }
+    .stat-item-4 .stat-box { transform: rotate(-2deg) scale(0.85); }
 
-    /* Stats boxes beaucoup plus petites */
+    /* Stats boxes très compactes */
     .stat-box {
-        padding: 0.5rem 0.7rem;
+        padding: 0.4rem 0.5rem;
         min-width: auto;
-        border-radius: 12px;
+        max-width: 80px;
+        border-radius: 10px;
     }
 
     .stat-counter {
-        font-size: 1.1rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.1rem;
     }
 
     .stat-label {
-        font-size: 0.5rem;
+        font-size: 0.4rem;
+        line-height: 1.1;
     }
 }
 
