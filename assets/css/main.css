@@ -542,7 +542,7 @@ nav {
     /* Repositionner les stats Creno - remontées pour ne pas empiéter sur le texte */
     .creno-stat-item.stat-item-1 { top: 18%; left: 3%; }
     .creno-stat-item.stat-item-2 { top: 18%; right: 3%; }
-    .creno-stat-item.stat-item-3 { bottom: 28%; left: 3%; }
+    .creno-stat-item.stat-item-3 { bottom: 28%; left: 1%; }
     .creno-stat-item.stat-item-4 { bottom: 28%; right: 3%; }
 
     /* Inclinaison des vignettes */
@@ -550,6 +550,13 @@ nav {
     .stat-item-2 .stat-box { transform: rotate(3deg) scale(0.85); }
     .stat-item-3 .stat-box { transform: rotate(2deg) scale(0.85); }
     .stat-item-4 .stat-box { transform: rotate(-2deg) scale(0.85); }
+
+    /* Note de l'application (stat-item-3) plus petit pour Creno */
+    .creno-stat-item.stat-item-3 .stat-box {
+        transform: rotate(2deg) scale(0.75);
+        max-width: 65px;
+        padding: 0.3rem 0.4rem;
+    }
 
     /* Stats boxes très compactes */
     .stat-box {
