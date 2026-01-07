@@ -536,7 +536,7 @@ nav {
     opacity: 0.85;
 }
 
-/* Stats sur mobile - plus petites, rapprochées et inclinées */
+/* Stats sur mobile - beaucoup plus petites, rapprochées et inclinées */
 @media (max-width: 768px) {
     /* Repositionner les stats plus près du centre */
     .stat-item-1 { top: 15%; left: 5%; }
@@ -550,19 +550,19 @@ nav {
     .stat-item-3 .stat-box { transform: rotate(2deg); }
     .stat-item-4 .stat-box { transform: rotate(-2deg); }
 
-    /* Stats boxes plus petites */
+    /* Stats boxes beaucoup plus petites */
     .stat-box {
-        padding: 0.8rem 1rem;
+        padding: 0.5rem 0.7rem;
         min-width: auto;
-        border-radius: 16px;
+        border-radius: 12px;
     }
 
     .stat-counter {
-        font-size: 1.5rem;
+        font-size: 1.1rem;
     }
 
     .stat-label {
-        font-size: 0.65rem;
+        font-size: 0.5rem;
     }
 }
 
