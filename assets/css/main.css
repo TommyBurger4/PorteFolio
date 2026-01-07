@@ -553,9 +553,9 @@ nav {
 
     /* Note de l'application (stat-item-3) plus petit pour Creno */
     .creno-stat-item.stat-item-3 .stat-box {
-        transform: rotate(2deg) scale(0.75);
-        max-width: 65px;
-        padding: 0.3rem 0.4rem;
+        transform: rotate(5deg) scale(0.64);
+        max-width: 55px;
+        padding: 0.25rem 0.35rem;
     }
 
     /* Stats boxes très compactes */
