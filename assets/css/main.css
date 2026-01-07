@@ -21,32 +21,10 @@ html {
     -webkit-scroll-snap-type: none;
 }
 
-/* Mobile : configuration spécifique pour compatibilité cross-platform */
+/* Mobile : configuration simple */
 @media (max-width: 768px) {
-    html {
-        /* IMPORTANT: Pas de -webkit-overflow-scrolling: touch car interfère avec GSAP ScrollTrigger */
-        overflow-y: auto;
-        height: auto;
-        min-height: 100vh;
-        /* Support de la variable --vh pour iOS */
-        min-height: calc(var(--vh, 1vh) * 100);
-    }
-
-    body {
-        height: auto;
-        min-height: 100vh;
-        min-height: calc(var(--vh, 1vh) * 100);
-        overflow-y: auto;
-        /* Empêche le overscroll bounce sur iOS */
-        overscroll-behavior: none;
-        -webkit-overscroll-behavior: none;
-    }
-}
-
-/* Fix pour iOS Safari - support du 100vh dynamique */
-@supports (-webkit-touch-callout: none) {
     html, body {
-        min-height: -webkit-fill-available;
+        overflow-x: hidden;
     }
 }
 
@@ -319,54 +297,12 @@ nav {
    6. ANIMATIONS DJI STYLE
    ========================================================================== */
 
-/* Container principal pour l'animation - GÉNÉRIQUE pour toutes les apps */
+/* Container principal pour l'animation - SIMPLE et UNIVERSEL */
 [class*="-animation-container"] {
     position: relative;
     height: 100vh;
-    /* Support iOS 100vh dynamique */
-    height: calc(var(--vh, 1vh) * 100);
     background: var(--color-black);
-    overflow: visible;
-    /* PAS de scroll-snap - GSAP ScrollTrigger gère le pinning */
-    scroll-snap-align: none;
-    -webkit-scroll-snap-align: none;
-    scroll-snap-stop: normal;
-    -webkit-scroll-snap-stop: normal;
-    /* GPU acceleration pour animations fluides */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-    will-change: transform;
-    /* Touch support */
-    touch-action: pan-y;
-    -webkit-touch-action: pan-y;
-}
-
-/* GSAP Pin Spacer - Styles pour compatibilité cross-platform */
-.pin-spacer {
-    /* Évite les problèmes de layout sur iOS/Android */
-    contain: layout style;
-    /* Force GPU layer */
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-}
-
-/* Sur mobile: configuration adaptée */
-@media (max-width: 768px) {
-    [class*="-animation-container"] {
-        overflow: hidden;
-        /* Hauteur iOS safe */
-        height: 100vh;
-        height: calc(var(--vh, 1vh) * 100);
-        min-height: -webkit-fill-available;
-        /* PAS de scroll-snap sur mobile non plus */
-        scroll-snap-align: none;
-        -webkit-scroll-snap-align: none;
-    }
-
-    .pin-spacer {
-        /* Fix pour Safari iOS */
-        -webkit-overflow-scrolling: auto !important;
-    }
+    overflow: hidden;
 }
 
 /* Section sticky */
@@ -527,38 +463,17 @@ nav {
     }
 }
 
-/* Container des statistiques */
+/* Container des statistiques - UNIVERSEL */
 .creno-stats-container,
 .pixshare-stats-container,
 .fakt-stats-container {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    max-width: 1000px;
-    height: 80vh;
-    visibility: hidden;
-    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 30;
-}
-
-/* Container des statistiques mobile - Stats autour du logo (plus petites et rapprochées) */
-@media (max-width: 768px) {
-    .creno-stats-container,
-    .pixshare-stats-container,
-    .fakt-stats-container {
-        /* Garder le même positionnement que desktop */
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-        height: 100%;
-        z-index: 35;
-        pointer-events: none;
-    }
 }
 
 /* Items de statistiques */
@@ -621,66 +536,26 @@ nav {
     opacity: 0.85;
 }
 
-/* Positionnement des stats mobile - Autour du logo (plus petites et rapprochées) */
+/* Stats sur mobile - plus petites et rapprochées */
 @media (max-width: 768px) {
-    .creno-stat-item,
-    .pixshare-stat-item {
-        /* Garder position absolue comme desktop */
-        position: absolute !important;
-        pointer-events: auto;
-    }
+    /* Repositionner les stats plus près du centre */
+    .stat-item-1 { top: 15%; left: 5%; }
+    .stat-item-2 { top: 15%; right: 5%; }
+    .stat-item-3 { bottom: 20%; left: 5%; }
+    .stat-item-4 { bottom: 20%; right: 5%; }
 
-    /* Positions rapprochées pour mobile - Creno & Pixshare */
-    .creno-stat-item.stat-item-1,
-    .pixshare-stat-item.stat-item-1 {
-        top: 12% !important;
-        left: 5% !important;
-        right: auto !important;
-        bottom: auto !important;
-    }
-
-    .creno-stat-item.stat-item-2,
-    .pixshare-stat-item.stat-item-2 {
-        top: 12% !important;
-        right: 5% !important;
-        left: auto !important;
-        bottom: auto !important;
-    }
-
-    .creno-stat-item.stat-item-3,
-    .pixshare-stat-item.stat-item-3 {
-        bottom: 18% !important;
-        left: 5% !important;
-        top: auto !important;
-        right: auto !important;
-    }
-
-    .creno-stat-item.stat-item-4,
-    .pixshare-stat-item.stat-item-4 {
-        bottom: 18% !important;
-        right: 5% !important;
-        top: auto !important;
-        left: auto !important;
-    }
-
-    /* Stats boxes plus petites sur mobile */
-    .creno-stat-item .stat-box,
-    .pixshare-stat-item .stat-box,
-    .fakt-stat-item .stat-box {
+    /* Stats boxes plus petites */
+    .stat-box {
         padding: 0.8rem 1rem;
         min-width: auto;
         border-radius: 16px;
     }
 
-    .creno-stat-item .stat-counter,
-    .pixshare-stat-item .stat-counter,
-    .fakt-stat-item .stat-counter {
+    .stat-counter {
         font-size: 1.5rem;
     }
 
-    .creno-stat-item .stat-label,
-    .pixshare-stat-item .stat-label,
-    .fakt-stat-item .stat-label {
+    .stat-label {
         font-size: 0.65rem;
     }
 }
