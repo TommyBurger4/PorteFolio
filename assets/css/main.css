@@ -484,6 +484,7 @@ nav {
     opacity: 0;
     transform: translateY(30px) scale(0.8);
     transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    pointer-events: auto;
 }
 
 /* Positionnement des stats desktop - plus proche du centre */
