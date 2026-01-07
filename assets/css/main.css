@@ -21,17 +21,32 @@ html {
     -webkit-scroll-snap-type: none;
 }
 
-/* Mobile : configuration spécifique */
+/* Mobile : configuration spécifique pour compatibilité cross-platform */
 @media (max-width: 768px) {
     html {
-        -webkit-overflow-scrolling: touch;
-        overflow-y: scroll;
-        height: 100vh;
+        /* IMPORTANT: Pas de -webkit-overflow-scrolling: touch car interfère avec GSAP ScrollTrigger */
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+        /* Support de la variable --vh pour iOS */
+        min-height: calc(var(--vh, 1vh) * 100);
     }
 
     body {
-        height: 100vh;
-        overflow-y: scroll;
+        height: auto;
+        min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
+        overflow-y: auto;
+        /* Empêche le overscroll bounce sur iOS */
+        overscroll-behavior: none;
+        -webkit-overscroll-behavior: none;
+    }
+}
+
+/* Fix pour iOS Safari - support du 100vh dynamique */
+@supports (-webkit-touch-callout: none) {
+    html, body {
+        min-height: -webkit-fill-available;
     }
 }
 
@@ -307,23 +322,50 @@ nav {
 /* Container principal pour l'animation - GÉNÉRIQUE pour toutes les apps */
 [class*="-animation-container"] {
     position: relative;
-    height: 100vh;  /* 100vh partout pour que scroll-snap fonctionne bien */
+    height: 100vh;
+    /* Support iOS 100vh dynamique */
+    height: calc(var(--vh, 1vh) * 100);
     background: var(--color-black);
     overflow: visible;
-    /* PAS de scroll-snap sur les containers d'animation - JavaScript gère le blocage */
+    /* PAS de scroll-snap - GSAP ScrollTrigger gère le pinning */
     scroll-snap-align: none;
     -webkit-scroll-snap-align: none;
     scroll-snap-stop: normal;
     -webkit-scroll-snap-stop: normal;
+    /* GPU acceleration pour animations fluides */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    will-change: transform;
+    /* Touch support */
+    touch-action: pan-y;
+    -webkit-touch-action: pan-y;
 }
 
-/* Sur mobile: overflow hidden */
+/* GSAP Pin Spacer - Styles pour compatibilité cross-platform */
+.pin-spacer {
+    /* Évite les problèmes de layout sur iOS/Android */
+    contain: layout style;
+    /* Force GPU layer */
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Sur mobile: configuration adaptée */
 @media (max-width: 768px) {
     [class*="-animation-container"] {
         overflow: hidden;
-        /* Confirmer: PAS de scroll-snap sur mobile non plus */
+        /* Hauteur iOS safe */
+        height: 100vh;
+        height: calc(var(--vh, 1vh) * 100);
+        min-height: -webkit-fill-available;
+        /* PAS de scroll-snap sur mobile non plus */
         scroll-snap-align: none;
         -webkit-scroll-snap-align: none;
+    }
+
+    .pin-spacer {
+        /* Fix pour Safari iOS */
+        -webkit-overflow-scrolling: auto !important;
     }
 }
 

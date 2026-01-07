@@ -582,15 +582,16 @@
 
     <!-- Scripts (defer = non-bloquant) -->
     <script src="assets/js/app.js?v=2" defer></script>
-    <!-- Correctifs iOS -->
-    <script src="assets/js/ios-fixes.js?v=2" defer></script>
 
     <!-- GSAP + ScrollTrigger (utilisé par Apple/DJI pour les animations de scroll) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
 
+    <!-- Correctifs cross-platform (doit être après GSAP pour ScrollTrigger.refresh) -->
+    <script src="assets/js/ios-fixes.js?v=3" defer></script>
+
     <!-- Système d'animations GSAP ScrollTrigger avec PIN -->
-    <script src="assets/js/gsap-section-animations.js?v=1" defer></script>
+    <script src="assets/js/gsap-section-animations.js?v=2" defer></script>
 
     <!-- Ancien système (backup) -->
     <!-- <script src="assets/js/section-animations.js?v=23" defer></script> -->
