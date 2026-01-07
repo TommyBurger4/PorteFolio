@@ -347,6 +347,7 @@ nav {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 20;
+    transition: all 1s ease-out;
 }
 
 /* Halo lumineux derrière le logo Créno */

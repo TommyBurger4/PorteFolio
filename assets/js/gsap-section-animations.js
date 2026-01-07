@@ -46,6 +46,22 @@ function setupSectionAnimation(config) {
         return;
     }
 
+    // IMPORTANT: Utiliser xPercent/yPercent de GSAP pour le centrage
+    // Cela évite les conflits avec le CSS transform: translate(-50%, -50%)
+    // GSAP combine xPercent, yPercent et scale en un seul transform
+    gsap.set(logo, {
+        xPercent: -50,
+        yPercent: -50,
+        // Retirer le transform CSS et laisser GSAP gérer
+        clearProps: "transform"
+    });
+
+    // Réappliquer immédiatement le centrage GSAP
+    gsap.set(logo, {
+        xPercent: -50,
+        yPercent: -50
+    });
+
     // Cacher les stats au départ
     gsap.set(statsContainer, { autoAlpha: 0 });
     gsap.set(statItems, { autoAlpha: 0, y: 50, scale: 0.8 });
@@ -66,8 +82,11 @@ function setupSectionAnimation(config) {
     });
 
     // PHASE 1: Le logo recule légèrement et s'assombrit (pendant que les stats apparaissent)
+    // On maintient xPercent/yPercent pour garder le centrage
     tl.to(logo, {
         scale: 0.85,
+        xPercent: -50,
+        yPercent: -50,
         filter: "brightness(0.5)",
         duration: 0.4,
         ease: "power2.out"
