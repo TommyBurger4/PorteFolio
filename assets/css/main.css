@@ -1076,18 +1076,8 @@ nav {
         font-size: 1.1rem;
     }
     
-    .stat-counter {
-        font-size: 2rem;
-    }
-    
-    .stat-box {
-        padding: 1.8rem 2.2rem;
-        min-width: 200px;
-        max-width: 280px;
-        margin: 0 auto;
-        transform: scale(0.85);
-    }
-    
+    /* Stats mobile - voir section dédiée plus haut */
+
     /* Animation d'entrée pour le carrousel */
     @keyframes slideInStat {
         from {
