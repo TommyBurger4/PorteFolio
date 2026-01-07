@@ -539,11 +539,11 @@ nav {
 
 /* Stats sur mobile - compactes pour éviter chevauchement */
 @media (max-width: 768px) {
-    /* Repositionner les stats */
-    .stat-item-1 { top: 12%; left: 3%; }
-    .stat-item-2 { top: 12%; right: 3%; }
-    .stat-item-3 { bottom: 18%; left: 3%; }
-    .stat-item-4 { bottom: 18%; right: 3%; }
+    /* Repositionner les stats Creno - remontées pour ne pas empiéter sur le texte */
+    .creno-stat-item.stat-item-1 { top: 18%; left: 3%; }
+    .creno-stat-item.stat-item-2 { top: 18%; right: 3%; }
+    .creno-stat-item.stat-item-3 { bottom: 28%; left: 3%; }
+    .creno-stat-item.stat-item-4 { bottom: 28%; right: 3%; }
 
     /* Inclinaison des vignettes */
     .stat-item-1 .stat-box { transform: rotate(-3deg) scale(0.85); }
@@ -1478,24 +1478,24 @@ nav {
         height: 600px;
     }
     
-    /* Positions rapprochées pour Fakt sur mobile */
+    /* Positions rapprochées pour Fakt sur mobile - stats plus proches verticalement */
     .fakt-stat-item.stat-item-1 {
-        top: 12%;
+        top: 22%;
         left: 5%;
     }
 
     .fakt-stat-item.stat-item-2 {
-        top: 12%;
+        top: 22%;
         right: 5%;
     }
 
     .fakt-stat-item.stat-item-3 {
-        bottom: 18%;
+        bottom: 26%;
         left: 5%;
     }
 
     .fakt-stat-item.stat-item-4 {
-        bottom: 18%;
+        bottom: 26%;
         right: 5%;
     }
     
