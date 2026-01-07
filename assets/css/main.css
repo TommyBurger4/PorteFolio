@@ -486,11 +486,11 @@ nav {
     transition: all var(--transition-normal) cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Positionnement des stats desktop - rapprochées du centre */
-.stat-item-1 { top: 20%; left: 18%; }
-.stat-item-2 { top: 20%; right: 18%; }
-.stat-item-3 { bottom: 22%; left: 20%; }
-.stat-item-4 { bottom: 22%; right: 20%; }
+/* Positionnement des stats desktop - plus proche du centre */
+.stat-item-1 { top: 22%; left: 22%; }
+.stat-item-2 { top: 22%; right: 22%; }
+.stat-item-3 { bottom: 24%; left: 24%; }
+.stat-item-4 { bottom: 24%; right: 24%; }
 
 /* Style spécifique pour la box de disponibilité des stores */
 .availability-box {
@@ -566,28 +566,35 @@ nav {
     }
 }
 
-/* Boîtes de stats */
+/* Boîtes de stats - Plus lumineuses */
 .stat-box {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 2rem 3rem;
     text-align: center;
     min-width: 200px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(255, 255, 255, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-/* Styles spécifiques Créno - Bleu marine */
+/* Styles spécifiques Créno - Bleu marine lumineux */
 .creno-stat-item .stat-box {
-    background: linear-gradient(135deg, rgba(26, 49, 92, 0.15) 0%, rgba(26, 49, 92, 0.08) 100%);
-    border-color: rgba(26, 49, 92, 0.3);
+    background: linear-gradient(135deg, rgba(26, 49, 92, 0.35) 0%, rgba(26, 49, 92, 0.2) 100%);
+    border-color: rgba(26, 49, 92, 0.5);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 40px rgba(26, 49, 92, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .creno-stat-item .stat-counter {
-    color: #1a315c;
-    text-shadow: 0 0 20px rgba(26, 49, 92, 0.6);
+    color: #4a7cc9;
+    text-shadow: 0 0 30px rgba(26, 49, 92, 0.8);
 }
 
 /* Styles spécifiques PixShare */
@@ -1345,39 +1352,43 @@ nav {
 }
 
 .fakt-stat-item.stat-item-1 {
-    top: 15%;
-    left: 12%;
+    top: 22%;
+    left: 22%;
 }
 
 .fakt-stat-item.stat-item-2 {
-    top: 25%;
-    right: 8%;
+    top: 22%;
+    right: 22%;
 }
 
 .fakt-stat-item.stat-item-3 {
-    bottom: 30%;
-    left: 15%;
+    bottom: 24%;
+    left: 24%;
 }
 
 .fakt-stat-item.stat-item-4 {
-    bottom: 25%;
-    right: 18%;
+    bottom: 24%;
+    right: 24%;
 }
 
 .fakt-stat-item .stat-box {
-    background: linear-gradient(135deg, rgba(135, 206, 235, 0.12) 0%, rgba(135, 206, 235, 0.06) 100%);
-    border: 1px solid rgba(135, 206, 235, 0.25);
+    background: linear-gradient(135deg, rgba(135, 206, 235, 0.35) 0%, rgba(135, 206, 235, 0.2) 100%);
+    border: 1px solid rgba(135, 206, 235, 0.5);
     border-radius: 15px;
     padding: 1.5rem 2rem;
     min-width: 160px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 8px 32px rgba(135, 206, 235, 0.1);
+    box-shadow:
+        0 8px 32px rgba(135, 206, 235, 0.2),
+        0 0 40px rgba(135, 206, 235, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .fakt-stat-item .stat-counter {
     font-size: 2.5rem;
     font-weight: 800;
-    color: #87CEEB;
+    color: #a8e0f5;
+    text-shadow: 0 0 30px rgba(135, 206, 235, 0.8);
     line-height: 1;
     margin-bottom: 0.5rem;
 }
