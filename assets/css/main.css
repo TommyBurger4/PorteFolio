@@ -551,11 +551,11 @@ nav {
     .stat-item-3 .stat-box { transform: rotate(2deg) scale(0.85); }
     .stat-item-4 .stat-box { transform: rotate(-2deg) scale(0.85); }
 
-    /* Note de l'application (stat-item-3) plus petit pour Creno */
+    /* Note de l'application (stat-item-3) pour Creno */
     .creno-stat-item.stat-item-3 .stat-box {
-        transform: rotate(5deg) scale(0.64);
-        max-width: 55px;
-        padding: 0.25rem 0.35rem;
+        transform: rotate(4deg) scale(0.78);
+        max-width: 70px;
+        padding: 0.35rem 0.45rem;
     }
 
     /* Stats boxes très compactes */
