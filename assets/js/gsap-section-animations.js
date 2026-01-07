@@ -15,7 +15,6 @@
         // Attendre que GSAP soit chargé
         if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') {
             console.error('GSAP ou ScrollTrigger non chargé');
-            // Réessayer après un court délai
             setTimeout(initGSAPAnimations, 200);
             return;
         }
@@ -23,30 +22,26 @@
         console.log('🚀 GSAP ScrollTrigger initialisé');
         console.log(`📱 Environnement: iOS=${isIOS}, Android=${isAndroid}, Safari=${isSafari}, Mobile=${isMobile}, Touch=${isTouch}`);
 
-        // Enregistrer le plugin
         gsap.registerPlugin(ScrollTrigger);
 
-        // CRITICAL: Configuration globale pour compatibilité universelle
+        // Configuration globale
         ScrollTrigger.config({
-            // Limite les recalculs pour de meilleures performances
             limitCallbacks: true,
-            // Ignore les éléments mobiles qui peuvent causer des problèmes
             ignoreMobileResize: true
         });
 
-        // CRITICAL pour iOS/touch: Normaliser le scroll pour éviter les conflits
-        // avec le momentum scroll natif d'iOS Safari
+        // Normaliser le scroll sur touch/mobile
         if (isTouch || isMobile) {
             ScrollTrigger.normalizeScroll({
                 allowNestedScroll: true,
                 lockAxis: false,
-                momentum: self => Math.min(3, self.velocityY / 1000), // Réduit le momentum
+                momentum: self => Math.min(3, self.velocityY / 1000),
                 type: "touch,wheel,pointer"
             });
-            console.log('📲 ScrollTrigger.normalizeScroll activé pour touch/mobile');
+            console.log('📲 ScrollTrigger.normalizeScroll activé');
         }
 
-        // Configuration des sections à animer
+        // Configuration des sections
         const sections = [
             { name: 'creno', color: '#1a315c' },
             { name: 'fakt', color: '#87CEEB' }
@@ -56,7 +51,7 @@
             setupSectionAnimation(config);
         });
 
-        // Rafraîchir après le chargement complet (important pour iOS)
+        // Refresh après chargement complet
         window.addEventListener('load', () => {
             setTimeout(() => {
                 ScrollTrigger.refresh();
@@ -64,7 +59,7 @@
             }, 500);
         });
 
-        // Rafraîchir après changement d'orientation (mobile)
+        // Refresh après changement d'orientation
         window.addEventListener('orientationchange', () => {
             setTimeout(() => {
                 ScrollTrigger.refresh();
@@ -94,12 +89,11 @@
             return;
         }
 
-        // Préparer les éléments pour l'animation GPU-accelerated
+        // IMPORTANT: Ne PAS modifier le transform du logo pour préserver le centrage CSS
+        // Le CSS gère: position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)
+        // On ajoute seulement force3D pour GPU acceleration sans toucher au positionnement
         gsap.set(logo, {
-            xPercent: -50,
-            yPercent: -50,
-            force3D: true,           // Force GPU acceleration
-            willChange: 'transform, filter'
+            force3D: true
         });
 
         // Cacher les stats au départ
@@ -107,28 +101,39 @@
             autoAlpha: 0,
             force3D: true
         });
-        gsap.set(statItems, {
-            autoAlpha: 0,
-            y: 50,
-            scale: 0.8,
-            force3D: true
-        });
 
-        // Configuration ScrollTrigger adaptée à l'environnement
+        // Pour les stat items: différent selon desktop/mobile
+        if (isMobile) {
+            // Mobile: les stats sont en position relative (carrousel)
+            // Ne pas appliquer de y offset qui casserait le layout
+            gsap.set(statItems, {
+                autoAlpha: 0,
+                scale: 0.9,
+                force3D: true
+            });
+        } else {
+            // Desktop: les stats sont en position absolue autour du logo
+            gsap.set(statItems, {
+                autoAlpha: 0,
+                y: 30,
+                scale: 0.9,
+                force3D: true
+            });
+        }
+
+        // Configuration ScrollTrigger
         const scrollTriggerConfig = {
             trigger: container,
             start: "top top",
             end: "+=150%",
             pin: true,
-            scrub: isMobile ? 0.5 : 1,  // Scrub plus réactif sur mobile
+            scrub: isMobile ? 0.5 : 1,
             anticipatePin: 1,
-            // CRITICAL pour iOS: utiliser transform au lieu de fixed
+            // Sur iOS: utiliser transform au lieu de fixed
+            // Mais attention: cela peut affecter les éléments enfants
             pinType: isIOS ? "transform" : "fixed",
-            // Évite les problèmes avec les barres d'adresse mobiles
             pinSpacing: true,
-            // Force le recalcul si nécessaire
             invalidateOnRefresh: true,
-            // Callbacks de debug
             onEnter: () => console.log(`🎯 ${config.name} - PINNED`),
             onLeave: () => console.log(`➡️ ${config.name} - UNPINNED`),
             onEnterBack: () => console.log(`🔙 ${config.name} - PINNED (back)`),
@@ -141,10 +146,10 @@
         });
 
         // PHASE 1: Le logo recule et s'assombrit
+        // IMPORTANT: Utiliser scale uniquement, sans toucher à xPercent/yPercent
+        // pour ne pas casser le centrage CSS
         tl.to(logo, {
             scale: 0.85,
-            xPercent: -50,
-            yPercent: -50,
             filter: "brightness(0.5)",
             duration: 0.4,
             ease: "power2.out",
@@ -172,9 +177,8 @@
 
         // Animer chaque stat
         statItems.forEach((stat, index) => {
-            tl.to(stat, {
+            const animProps = {
                 autoAlpha: 1,
-                y: 0,
                 scale: 1,
                 duration: 0.25,
                 ease: "back.out(1.7)",
@@ -185,10 +189,17 @@
                         animateCounter(counter);
                     }
                 }
-            }, 0.1 + (index * 0.15));
+            };
+
+            // Ajouter y: 0 seulement sur desktop (où on a mis y: 30 au départ)
+            if (!isMobile) {
+                animProps.y = 0;
+            }
+
+            tl.to(stat, animProps, 0.1 + (index * 0.15));
         });
 
-        console.log(`✅ ${config.name} - Animation configurée (pinType: ${scrollTriggerConfig.pinType})`);
+        console.log(`✅ ${config.name} - Animation configurée (pinType: ${scrollTriggerConfig.pinType}, mobile: ${isMobile})`);
     }
 
     // Animation de compteur
@@ -218,11 +229,10 @@
         });
     }
 
-    // Initialiser quand le DOM est prêt
+    // Initialiser
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', initGSAPAnimations);
     } else {
-        // DOM déjà prêt, attendre que GSAP soit chargé
         setTimeout(initGSAPAnimations, 100);
     }
 
