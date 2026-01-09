@@ -238,19 +238,34 @@ nav {
     
     .dropdown-menu {
         position: static;
-        opacity: 1;
-        visibility: visible;
+        opacity: 0;
+        visibility: hidden;
+        max-height: 0;
+        overflow: hidden;
         transform: none;
         background: transparent;
         border: none;
         min-width: auto;
         margin: 0;
         padding: 0;
+        transition: all 0.3s ease;
     }
-    
+
+    /* Dropdown ouvert sur mobile (via JS) */
+    .dropdown.open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        max-height: 200px;
+        padding: 0.5rem 0;
+    }
+
+    .dropdown.open .dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+
     .dropdown-menu a {
         margin: 0;
-        padding: 0.5rem 0;
+        padding: 0.5rem 1rem;
     }
 }
 
@@ -822,14 +837,11 @@ nav {
     min-height: auto;
 }
 
-/* Activer scroll snap sur les scroll-sections uniquement sur mobile */
+/* Mobile: pas de scroll-snap forcé - Lenis gère le smooth scroll */
 @media (max-width: 768px) {
     .scroll-section {
         min-height: 100vh;
-        scroll-snap-align: start;
-        -webkit-scroll-snap-align: start;
-        scroll-snap-stop: always;
-        -webkit-scroll-snap-stop: always;
+        /* Supprimé: scroll-snap-* causait des blocages sur iOS */
     }
 }
 
@@ -843,6 +855,8 @@ nav {
 
 .feature-reveal {
     background: linear-gradient(180deg, #000 0%, #111 100%);
+    min-height: auto; /* Override le 100vh de section */
+    padding: 4rem 0;
 }
 
 /* ==========================================================================
@@ -904,7 +918,7 @@ nav {
    ========================================================================== */
 
 .upcoming-section {
-    padding: 6rem 0;
+    padding: 4rem 0 3rem;
     background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
     overflow: hidden;
 }
@@ -912,16 +926,18 @@ nav {
 .upcoming-title {
     font-size: 3rem;
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2.5rem;
     color: #fff;
     font-weight: 800;
 }
 
 .carousel-wrapper {
     width: 100%;
-    overflow: hidden;
-    mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
-    -webkit-mask: linear-gradient(90deg, transparent, white 20%, white 80%, transparent);
+    overflow: visible; /* Permet le débordement du hover */
+    mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+    -webkit-mask: linear-gradient(90deg, transparent, white 15%, white 85%, transparent);
+    padding: 20px 0; /* Espace pour le hover */
+    margin: -20px 0; /* Compense le padding */
 }
 
 .carousel-track {
@@ -942,7 +958,7 @@ nav {
     background: rgba(255, 255, 255, 0.03);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, background 0.3s ease;
+    transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -951,6 +967,7 @@ nav {
     transform: translateY(-10px) scale(1.05);
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 }
 
 .carousel-item:hover img {

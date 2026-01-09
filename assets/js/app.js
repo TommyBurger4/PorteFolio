@@ -116,8 +116,31 @@ class PortfolioApp {
             }
         });
 
-        // Fermer le menu en cliquant sur un lien
-        navLinks.querySelectorAll('a').forEach(link => {
+        // Gestion des dropdowns sur mobile (clic au lieu de hover)
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            if (toggle) {
+                toggle.addEventListener('click', (e) => {
+                    // Seulement sur mobile
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+
+                        // Fermer les autres dropdowns
+                        dropdowns.forEach(d => {
+                            if (d !== dropdown) d.classList.remove('open');
+                        });
+
+                        // Toggle celui-ci
+                        dropdown.classList.toggle('open');
+                    }
+                });
+            }
+        });
+
+        // Fermer le menu en cliquant sur un lien (pas le toggle)
+        navLinks.querySelectorAll('a:not(.dropdown-toggle)').forEach(link => {
             link.addEventListener('click', () => {
                 this.closeMobileMenu();
             });
@@ -142,6 +165,11 @@ class PortfolioApp {
             icon.classList.add('fa-bars');
             icon.classList.remove('fa-times');
         }
+
+        // Fermer tous les dropdowns
+        document.querySelectorAll('.dropdown.open').forEach(d => {
+            d.classList.remove('open');
+        });
     }
 }
 

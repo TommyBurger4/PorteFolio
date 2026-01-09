@@ -1,5 +1,6 @@
 // GSAP ScrollTrigger - Style Apple/DJI
 // Solution UNIVERSELLE - Fonctionne sur TOUS les navigateurs/devices
+// Compatible avec Lenis smooth scroll
 
 (function() {
     'use strict';
@@ -12,6 +13,11 @@
         }
 
         gsap.registerPlugin(ScrollTrigger);
+
+        // Configuration pour compatibilité Lenis/iOS
+        ScrollTrigger.config({
+            ignoreMobileResize: true  // Évite les recalculs lors du resize de la barre d'adresse iOS
+        });
         console.log('GSAP ScrollTrigger ready');
 
         // Configuration SIMPLE - pas de comportements différents selon device
