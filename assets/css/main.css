@@ -918,15 +918,16 @@ nav {
    ========================================================================== */
 
 .upcoming-section {
-    padding: 4rem 0 3rem;
+    padding: 3rem 0 2rem;
     background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
     overflow: hidden;
+    min-height: auto; /* Override le 100vh par défaut */
 }
 
 .upcoming-title {
-    font-size: 3rem;
+    font-size: 2.5rem;
     text-align: center;
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
     color: #fff;
     font-weight: 800;
 }
@@ -1012,8 +1013,8 @@ nav {
 /* Responsive */
 @media (max-width: 768px) {
     .upcoming-title {
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
+        font-size: 2rem;
+        margin-bottom: 1rem;
     }
     
     .carousel-item {
