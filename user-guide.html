@@ -12,10 +12,10 @@
     <meta name="description" content="Guide complet d'utilisation de l'application Créno - Organisation simplifiée">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="../../assets/images/favicon.png">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -427,48 +427,57 @@
         <!-- Section Agenda -->
         <div class="doc-section fade-section" id="agenda">
             <h2><i class="fas fa-calendar-alt" style="margin-right: 1rem;"></i>Onglet Agenda</h2>
-            
+
             <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet Agenda est votre espace personnel pour gérer vos disponibilités. C'est ici que vous indiquez quand vous êtes disponible ou non pour participer aux événements de vos groupes.
+                L'onglet Agenda est votre espace personnel pour déclarer vos <strong>indisponibilités</strong>. C'est ici que vous indiquez les créneaux où vous n'êtes pas disponible pour participer aux événements de vos groupes.
             </p>
 
             <h3>Comprendre le calendrier</h3>
-            
+
             <div class="feature-grid">
                 <div class="feature-card">
-                    <div style="width: 40px; height: 40px; background: #fcc60d; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Jours sélectionnés</h4>
-                    <p>Les jours en jaune sont vos disponibilités actuelles</p>
+                    <div style="width: 40px; height: 40px; background: #1A3B5C; border-radius: 50%; margin-bottom: 1rem;"></div>
+                    <h4>Indisponibilité</h4>
+                    <p>Un rond bleu indique que vous avez une indisponibilité ce jour-là</p>
                 </div>
                 <div class="feature-card">
-                    <div style="width: 40px; height: 40px; background: #0f2e4f; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Jours indisponibles</h4>
-                    <p>Les jours en bleu foncé indiquent vos indisponibilités</p>
+                    <div style="width: 40px; height: 40px; border: 3px solid #FFB800; border-radius: 50%; margin-bottom: 1rem;"></div>
+                    <h4>Événement planifié</h4>
+                    <p>Un cercle jaune (contour) indique un événement prévu ce jour-là</p>
                 </div>
                 <div class="feature-card">
-                    <div style="width: 40px; height: 40px; border: 2px solid #fcc60d; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Événements planifiés</h4>
-                    <p>Un cercle jaune indique un événement ce jour-là</p>
+                    <div style="width: 40px; height: 40px; background: #1A3B5C; border: 3px solid #FFB800; border-radius: 50%; margin-bottom: 1rem;"></div>
+                    <h4>Les deux</h4>
+                    <p>Un rond bleu avec bordure jaune : indisponibilité + événement</p>
                 </div>
             </div>
 
-            <h3>Gérer ses disponibilités</h3>
+            <h3>Ajouter une indisponibilité</h3>
             <div class="step">
                 <span class="step-number">1</span>
                 <strong>Ouvrez l'onglet Agenda</strong> (première icône en bas)
             </div>
             <div class="step">
                 <span class="step-number">2</span>
-                <strong>Appuyez sur une date</strong> pour basculer entre disponible/indisponible
+                <strong>Sélectionnez une ou plusieurs dates</strong> sur le calendrier
             </div>
             <div class="step">
                 <span class="step-number">3</span>
-                <strong>Les changements sont automatiques</strong> - Pas besoin de sauvegarder
+                <strong>Définissez les heures</strong> de début et de fin, ou cochez "Toute la journée"
+            </div>
+            <div class="step">
+                <span class="step-number">4</span>
+                <strong>Validez</strong> pour enregistrer votre indisponibilité
             </div>
 
             <div class="tip">
                 <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
-                <strong>Astuce :</strong> Maintenez appuyé sur une date pour sélectionner rapidement plusieurs jours consécutifs.
+                <strong>Astuce :</strong> Avec Premium, vous pouvez créer des indisponibilités récurrentes qui se répètent automatiquement chaque semaine (de 2 à 12 semaines).
+            </div>
+
+            <div class="warning">
+                <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
+                <strong>Version gratuite :</strong> Limite de 10 indisponibilités. Passez à Premium pour des indisponibilités illimitées.
             </div>
         </div>
 
@@ -544,11 +553,7 @@
             </div>
             <div class="step">
                 <span class="step-number">3</span>
-                <strong>Choisissez le mode de recherche :</strong>
-                <ul style="margin-top: 0.5rem; list-style: none;">
-                    <li>• Heures spécifiques : Pour définir des heures précises</li>
-                    <li>• Durée en jours : Pour un événement sur plusieurs jours</li>
-                </ul>
+                <strong>Définissez la durée souhaitée</strong> et optionnellement une plage horaire préférée
             </div>
             <div class="step">
                 <span class="step-number">4</span>
@@ -556,26 +561,33 @@
             </div>
             <div class="step">
                 <span class="step-number">5</span>
-                <strong>Lancez la recherche automatique</strong> - Créno trouve les meilleurs créneaux
+                <strong>Lancez la recherche automatique</strong> - Créno analyse les 90 prochains jours et trouve les 10 meilleurs créneaux où tous les participants sont disponibles
             </div>
+            <div class="step">
+                <span class="step-number">6</span>
+                <strong>Choisissez un créneau</strong> parmi les propositions et validez pour créer l'événement
+            </div>
+
+            <h3>Consulter vos événements</h3>
+            <p style="margin-bottom: 1rem;">L'onglet "Événements" (3ème icône) affiche tous les événements auxquels vous participez. Les événements passés sont marqués "TERMINÉ".</p>
 
             <div class="warning">
                 <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
-                <strong>Important :</strong> La recherche automatique ne fonctionne que si les participants ont renseigné leurs disponibilités.
+                <strong>Important :</strong> La recherche automatique ne fonctionne que si les participants ont renseigné leurs indisponibilités. Plus les indisponibilités sont précises, meilleurs seront les créneaux proposés.
             </div>
         </div>
 
         <!-- Section Notifications -->
         <div class="doc-section fade-section" id="notifications">
             <h2><i class="fas fa-bell" style="margin-right: 1rem;"></i>Notifications</h2>
-            
+
             <h3>Types de notifications</h3>
             <p style="margin-bottom: 1rem;">Créno vous envoie des notifications pour :</p>
             <ul style="list-style: none; padding: 0;">
-                <li style="padding: 0.5rem 0;"><i class="fas fa-calendar-plus" style="color: #fcc60d; margin-right: 0.5rem;"></i> Nouveaux événements dans vos groupes</li>
-                <li style="padding: 0.5rem 0;"><i class="fas fa-exclamation-triangle" style="color: #fcc60d; margin-right: 0.5rem;"></i> Changements de disponibilité d'un participant</li>
+                <li style="padding: 0.5rem 0;"><i class="fas fa-calendar-plus" style="color: #fcc60d; margin-right: 0.5rem;"></i> Nouveaux événements créés dans vos groupes</li>
+                <li style="padding: 0.5rem 0;"><i class="fas fa-clock" style="color: #fcc60d; margin-right: 0.5rem;"></i> Rappel 24h avant un événement</li>
+                <li style="padding: 0.5rem 0;"><i class="fas fa-user-times" style="color: #fcc60d; margin-right: 0.5rem;"></i> Un participant est devenu indisponible pour un événement</li>
                 <li style="padding: 0.5rem 0;"><i class="fas fa-trash-alt" style="color: #fcc60d; margin-right: 0.5rem;"></i> Événements supprimés</li>
-                <li style="padding: 0.5rem 0;"><i class="fas fa-user-plus" style="color: #fcc60d; margin-right: 0.5rem;"></i> Nouveaux membres dans vos groupes</li>
             </ul>
 
             <h3>Gérer les notifications</h3>
@@ -712,7 +724,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="../../assets/js/app.js"></script>
+    <script src="assets/js/app.js"></script>
     
     <!-- Script pour le scroll en haut au chargement -->
     <script>
