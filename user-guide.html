@@ -2,7 +2,6 @@
 <html lang="fr">
 <head>
     <script>
-        // Forcer immédiatement le scroll en haut
         window.history.scrollRestoration = 'manual';
         window.scrollTo(0, 0);
     </script>
@@ -10,21 +9,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documentation Créno | Guide d'utilisation</title>
     <meta name="description" content="Guide complet d'utilisation de l'application Créno - Organisation simplifiée">
-    
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/favicon.png">
-    
+    <link rel="icon" type="image/png" href="assets/images/Creno/icone.png">
+
     <!-- Styles -->
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <style>
-        /* Styles spécifiques à la documentation */
         body {
             padding-top: 80px;
+            background: #000;
+            color: #fff;
         }
-        
-        /* Styles pour le menu mobile */
+
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -35,12 +34,11 @@
             padding: 0.5rem;
             z-index: 1000;
         }
-        
+
         .desktop-only {
             display: flex;
         }
-        
-        /* Menu Mobile Overlay */
+
         .mobile-menu-overlay {
             position: fixed;
             top: 0;
@@ -52,17 +50,17 @@
             display: none;
             overflow-y: auto;
         }
-        
+
         .mobile-menu-overlay.active {
             display: block;
         }
-        
+
         .mobile-menu-content {
             padding: 2rem;
             max-width: 500px;
             margin: 0 auto;
         }
-        
+
         .mobile-menu-close {
             position: absolute;
             top: 2rem;
@@ -74,15 +72,15 @@
             cursor: pointer;
             padding: 0.5rem;
         }
-        
+
         .mobile-menu-sections {
             margin-top: 4rem;
         }
-        
+
         .mobile-menu-section {
             margin-bottom: 3rem;
         }
-        
+
         .mobile-menu-section h4 {
             color: #fcc60d;
             font-size: 1.2rem;
@@ -90,16 +88,16 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
-        
+
         .mobile-menu-section ul {
             list-style: none;
             padding: 0;
         }
-        
+
         .mobile-menu-section li {
             margin-bottom: 0.75rem;
         }
-        
+
         .mobile-menu-section a {
             color: #fff;
             text-decoration: none;
@@ -108,112 +106,31 @@
             display: block;
             padding: 0.5rem 0;
         }
-        
+
         .mobile-menu-section a:hover {
             color: #fcc60d;
         }
-        
-        .mobile-download-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1.5rem;
-            align-items: flex-start;
-        }
-        
-        .mobile-download-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            position: relative;
-            overflow: hidden;
-            width: 180px;
-            text-align: center;
-        }
-        
-        .mobile-download-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.6s ease;
-        }
-        
-        .mobile-download-btn:hover::before {
-            left: 100%;
-        }
-        
-        .mobile-download-btn i {
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-        
-        .mobile-download-btn.apple {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .mobile-download-btn.apple:hover {
-            background: linear-gradient(135deg, #2d2d2d 0%, #3d3d3d 100%);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-        
-        .mobile-download-btn.google {
-            background: linear-gradient(135deg, #fcc60d 0%, #ffdc4d 100%);
-            color: #000;
-            box-shadow: 0 4px 20px rgba(252, 198, 13, 0.3);
-            font-weight: 700;
-        }
-        
-        .mobile-download-btn.google:hover {
-            background: linear-gradient(135deg, #ffdc4d 0%, #ffe66d 100%);
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 8px 35px rgba(252, 198, 13, 0.5);
-        }
-        
-        .mobile-download-btn span {
-            position: relative;
-            z-index: 1;
-            letter-spacing: 0.3px;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-            white-space: nowrap;
-        }
-        
+
         @media (max-width: 768px) {
             body {
                 padding-top: 80px;
             }
-            
+
             .mobile-menu-toggle {
                 display: block;
             }
-            
+
             .desktop-only {
                 display: none;
             }
         }
-        
+
         .doc-container {
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
         }
-        
+
         .doc-header {
             text-align: center;
             padding: 4rem 0;
@@ -221,93 +138,93 @@
             border-radius: 20px;
             margin-bottom: 3rem;
         }
-        
+
         .doc-section {
             background: rgba(255, 255, 255, 0.02);
-            padding: 3rem;
+            padding: 2.5rem;
             border-radius: 20px;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .doc-section h2 {
             color: #fcc60d;
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
             border-bottom: 2px solid rgba(252, 198, 13, 0.3);
         }
-        
+
         .doc-section h3 {
             color: #fff;
-            font-size: 1.5rem;
-            margin: 2rem 0 1rem;
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
         }
-        
-        .step {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            margin: 1rem 0;
-            border-radius: 15px;
+
+        .doc-section p {
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .doc-section ol,
+        .doc-section ul {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        .doc-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+
+        .doc-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0 1.5rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .doc-table th,
+        .doc-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .doc-table th {
+            background: rgba(252, 198, 13, 0.2);
+            color: #fcc60d;
+            font-weight: 600;
+        }
+
+        .doc-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .doc-table code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .doc-note {
+            background: rgba(252, 198, 13, 0.1);
             border-left: 4px solid #fcc60d;
-        }
-        
-        .step-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background: #fcc60d;
-            color: #000;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 50%;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin: 2rem 0;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .tip {
-            background: rgba(79, 195, 247, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
+            padding: 1rem 1.25rem;
             margin: 1.5rem 0;
-            border-left: 4px solid #4FC3F7;
+            border-radius: 0 10px 10px 0;
         }
-        
-        .warning {
-            background: rgba(255, 107, 107, 0.1);
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-            border-left: 4px solid #FF6B6B;
+
+        .doc-note strong {
+            color: #fcc60d;
         }
-        
-        .calendar-demo {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 2rem;
-            margin: 2rem 0;
-        }
-        
+
         .back-button {
             position: fixed;
             bottom: 2rem;
@@ -322,36 +239,25 @@
             transition: all 0.3s ease;
             z-index: 100;
         }
-        
+
         .back-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 40px rgba(252, 198, 13, 0.4);
         }
-        
-        /* Navigation de documentation */
-        .doc-nav {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 1rem;
-            border-radius: 15px;
-            margin-bottom: 3rem;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        
-        .doc-nav a {
-            padding: 0.75rem 1.5rem;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-        }
-        
-        .doc-nav a:hover {
-            background: rgba(252, 198, 13, 0.2);
-            color: #fcc60d;
+
+        @media (max-width: 768px) {
+            .doc-section {
+                padding: 1.5rem;
+            }
+
+            .doc-table {
+                font-size: 0.9rem;
+            }
+
+            .doc-table th,
+            .doc-table td {
+                padding: 0.5rem 0.75rem;
+            }
         }
     </style>
 </head>
@@ -376,344 +282,395 @@
             </button>
         </div>
     </nav>
-    
+
     <!-- Menu Mobile Overlay -->
     <div class="mobile-menu-overlay" id="mobileMenu">
         <div class="mobile-menu-content">
             <button class="mobile-menu-close" id="closeMenuBtn">
                 <i class="fas fa-times"></i>
             </button>
-            
+
             <div class="mobile-menu-sections">
-                <!-- Liens de documentation -->
                 <div class="mobile-menu-section">
                     <h4>Documentation Créno</h4>
                     <ul>
                         <li><a href="#agenda">Agenda</a></li>
-                        <li><a href="#groups">Groupes</a></li>
-                        <li><a href="#events">Événements</a></li>
+                        <li><a href="#groupes">Groupes</a></li>
+                        <li><a href="#evenements">Événements</a></li>
+                        <li><a href="#mes-evenements">Mes Événements</a></li>
                         <li><a href="#notifications">Notifications</a></li>
                         <li><a href="#premium">Premium</a></li>
-                        <li><a href="#faq">FAQ</a></li>
                     </ul>
-                </div>
-                
-                <!-- Boutons de téléchargement -->
-                <div class="mobile-menu-section">
-                    <h4>Télécharger Créno</h4>
-                    <div class="mobile-download-buttons">
-                        <a href="https://apps.apple.com/fr/app/cr%C3%A9no/id6748276669" target="_blank" class="mobile-download-btn apple">
-                            <i class="fab fa-apple"></i>
-                            <span>App Store</span>
-                        </a>
-                        <a href="https://play.google.com/store/apps/details?id=com.creno" target="_blank" class="mobile-download-btn google">
-                            <i class="fab fa-google-play"></i>
-                            <span>Google Play</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Header de documentation -->
+    <!-- Contenu documentation -->
     <div class="doc-container">
         <div class="doc-header fade-section">
-            <i class="fas fa-mobile-alt" style="font-size: 4rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-            <h1 style="font-size: 3rem; margin-bottom: 1rem;">Guide d'utilisation Créno</h1>
-            <p style="font-size: 1.3rem; opacity: 0.8;">Documentation complète de l'application Créno organisée par onglet</p>
+            <img src="assets/images/Creno/icone.png" alt="Créno" style="width: 80px; height: 80px; margin-bottom: 1rem;">
+            <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Guide utilisateur Créno</h1>
+            <p style="font-size: 1.2rem; opacity: 0.8;">Application de planification d'événements en groupe</p>
         </div>
 
-        <!-- Section Agenda -->
+        <!-- Section 1: Onglet Agenda -->
         <div class="doc-section fade-section" id="agenda">
-            <h2><i class="fas fa-calendar-alt" style="margin-right: 1rem;"></i>Onglet Agenda</h2>
+            <h2><i class="fas fa-calendar-alt" style="margin-right: 0.75rem;"></i>1. Onglet Agenda</h2>
 
-            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet Agenda est votre espace personnel pour déclarer vos <strong>indisponibilités</strong>. C'est ici que vous indiquez les créneaux où vous n'êtes pas disponible pour participer aux événements de vos groupes.
-            </p>
-
-            <h3>Comprendre le calendrier</h3>
-
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div style="width: 40px; height: 40px; background: #1A3B5C; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Indisponibilité</h4>
-                    <p>Un rond bleu indique que vous avez une indisponibilité ce jour-là</p>
-                </div>
-                <div class="feature-card">
-                    <div style="width: 40px; height: 40px; border: 3px solid #FFB800; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Événement planifié</h4>
-                    <p>Un cercle jaune (contour) indique un événement prévu ce jour-là</p>
-                </div>
-                <div class="feature-card">
-                    <div style="width: 40px; height: 40px; background: #1A3B5C; border: 3px solid #FFB800; border-radius: 50%; margin-bottom: 1rem;"></div>
-                    <h4>Les deux</h4>
-                    <p>Un rond bleu avec bordure jaune : indisponibilité + événement</p>
-                </div>
-            </div>
+            <p>L'onglet Agenda affiche votre calendrier personnel avec vos indisponibilités et événements.</p>
 
             <h3>Ajouter une indisponibilité</h3>
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>Ouvrez l'onglet Agenda</strong> (première icône en bas)
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Sélectionnez une ou plusieurs dates</strong> sur le calendrier
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <strong>Définissez les heures</strong> de début et de fin, ou cochez "Toute la journée"
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <strong>Validez</strong> pour enregistrer votre indisponibilité
-            </div>
-
-            <div class="tip">
-                <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
-                <strong>Astuce :</strong> Avec Premium, vous pouvez créer des indisponibilités récurrentes qui se répètent automatiquement chaque semaine (de 2 à 12 semaines).
-            </div>
-
-            <div class="warning">
-                <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
-                <strong>Version gratuite :</strong> Limite de 10 indisponibilités. Passez à Premium pour des indisponibilités illimitées.
-            </div>
-        </div>
-
-        <!-- Section Groupes -->
-        <div class="doc-section fade-section" id="groups">
-            <h2><i class="fas fa-users" style="margin-right: 1rem;"></i>Onglet Groupes</h2>
-            
-            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet Groupes affiche le calendrier de votre groupe actuel avec tous les événements et indisponibilités des membres. C'est une vue d'ensemble pour voir l'activité et la disponibilité de tout le groupe.
-            </p>
-
-            <h3>Créer un groupe</h3>
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>Allez dans l'onglet "Groupes"</strong> (2ème icône)
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Appuyez sur "Changer"</strong> en haut de l'écran
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <strong>Sélectionnez "Créer un groupe"</strong>
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <strong>Donnez un nom au groupe</strong> et confirmez
-            </div>
-            <div class="step">
-                <span class="step-number">5</span>
-                <strong>Partagez le code</strong> avec vos amis pour qu'ils rejoignent
-            </div>
-
-            <h3>Rejoindre un groupe</h3>
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>Demandez le code du groupe</strong> au créateur
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Dans "Groupes" > "Changer"</strong>
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <strong>Appuyez sur "Rejoindre un groupe"</strong>
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <strong>Entrez le code</strong> et confirmez
-            </div>
-        </div>
-
-        <!-- Section Événements -->
-        <div class="doc-section fade-section" id="events">
-            <h2><i class="fas fa-calendar-plus" style="margin-right: 1rem;"></i>Onglet Événements</h2>
-            
-            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                L'onglet Événements centralise tous les événements de vos groupes. Vous y créez de nouveaux événements et consultez ceux existants.
-            </p>
-
-            <h3>Créer un événement</h3>
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>Appuyez sur le bouton "+"</strong> au centre de la barre de navigation
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Remplissez les informations de base :</strong>
-                <ul style="margin-top: 0.5rem; list-style: none;">
-                    <li>• Titre : Nom de l'événement</li>
-                    <li>• Description : Détails supplémentaires (optionnel)</li>
-                </ul>
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <strong>Définissez la durée souhaitée</strong> et optionnellement une plage horaire préférée
-            </div>
-            <div class="step">
-                <span class="step-number">4</span>
-                <strong>Sélectionnez les participants</strong> parmi les membres de votre groupe
-            </div>
-            <div class="step">
-                <span class="step-number">5</span>
-                <strong>Lancez la recherche automatique</strong> - Créno analyse les 90 prochains jours et trouve les 10 meilleurs créneaux où tous les participants sont disponibles
-            </div>
-            <div class="step">
-                <span class="step-number">6</span>
-                <strong>Choisissez un créneau</strong> parmi les propositions et validez pour créer l'événement
-            </div>
-
-            <h3>Consulter vos événements</h3>
-            <p style="margin-bottom: 1rem;">L'onglet "Événements" (3ème icône) affiche tous les événements auxquels vous participez. Les événements passés sont marqués "TERMINÉ".</p>
-
-            <div class="warning">
-                <i class="fas fa-exclamation-triangle" style="margin-right: 0.5rem;"></i>
-                <strong>Important :</strong> La recherche automatique ne fonctionne que si les participants ont renseigné leurs indisponibilités. Plus les indisponibilités sont précises, meilleurs seront les créneaux proposés.
-            </div>
-        </div>
-
-        <!-- Section Notifications -->
-        <div class="doc-section fade-section" id="notifications">
-            <h2><i class="fas fa-bell" style="margin-right: 1rem;"></i>Notifications</h2>
-
-            <h3>Types de notifications</h3>
-            <p style="margin-bottom: 1rem;">Créno vous envoie des notifications pour :</p>
-            <ul style="list-style: none; padding: 0;">
-                <li style="padding: 0.5rem 0;"><i class="fas fa-calendar-plus" style="color: #fcc60d; margin-right: 0.5rem;"></i> Nouveaux événements créés dans vos groupes</li>
-                <li style="padding: 0.5rem 0;"><i class="fas fa-clock" style="color: #fcc60d; margin-right: 0.5rem;"></i> Rappel 24h avant un événement</li>
-                <li style="padding: 0.5rem 0;"><i class="fas fa-user-times" style="color: #fcc60d; margin-right: 0.5rem;"></i> Un participant est devenu indisponible pour un événement</li>
-                <li style="padding: 0.5rem 0;"><i class="fas fa-trash-alt" style="color: #fcc60d; margin-right: 0.5rem;"></i> Événements supprimés</li>
-            </ul>
-
-            <h3>Gérer les notifications</h3>
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>Allez dans "Réglages"</strong> (dernière icône)
-            </div>
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>Appuyez sur "Notifications"</strong>
-            </div>
-            <div class="step">
-                <span class="step-number">3</span>
-                <strong>Activez ou désactivez</strong> selon vos préférences
-            </div>
-        </div>
-
-        <!-- Section Premium -->
-        <div class="doc-section fade-section" id="premium">
-            <h2><i class="fas fa-crown" style="margin-right: 1rem;"></i>Créno Premium</h2>
-
-            <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;">
-                Créno propose plusieurs options d'abonnement pour débloquer des fonctionnalités avancées.
-            </p>
-
-            <h3>Fonctionnalités Premium exclusives</h3>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <i class="fas fa-infinity" style="font-size: 2rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-                    <h4>Groupes illimités</h4>
-                    <p>Créez autant de groupes que vous voulez (famille, travail, sport...)</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-calendar-week" style="font-size: 2rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-                    <h4>Indisponibilités illimitées</h4>
-                    <p>Plus de limite à 10 indisponibilités</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-redo" style="font-size: 2rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-                    <h4>Récurrence hebdomadaire</h4>
-                    <p>Créez des indisponibilités qui se répètent automatiquement chaque semaine (2 à 12 semaines)</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fas fa-user-calendar" style="font-size: 2rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-                    <h4>Calendrier des membres</h4>
-                    <p>Consultez le calendrier individuel de chaque membre de votre groupe</p>
-                </div>
-                <div class="feature-card">
-                    <i class="fab fa-apple" style="font-size: 2rem; color: #fcc60d; margin-bottom: 1rem;"></i>
-                    <h4>Sync Apple Calendar</h4>
-                    <p>Importez vos événements depuis Apple Calendar ou exportez vos indisponibilités</p>
-                </div>
-            </div>
-
-            <h3>Plans disponibles</h3>
-            <div class="step">
-                <strong style="color: #fcc60d;">Premium Individuel</strong>
-                <ul style="margin-top: 0.5rem; list-style: none;">
-                    <li>• Mensuel : 2,99€/mois</li>
-                    <li>• Annuel : 17,99€/an (50% d'économie)</li>
-                </ul>
-            </div>
-            <div class="step">
-                <strong style="color: #fcc60d;">Abonnements Équipe</strong> - Le créateur paie, tous les membres en profitent
-                <ul style="margin-top: 0.5rem; list-style: none;">
-                    <li>• Team S : 5 membres • 9,99€/mois (2€/personne)</li>
-                    <li>• Team M : 10 membres • 17,99€/mois (1,75€/personne)</li>
-                    <li>• Team XL : 50 membres • 74,99€/mois (1,50€/personne)</li>
-                </ul>
-            </div>
-
-            <div class="tip">
-                <i class="fas fa-lightbulb" style="margin-right: 0.5rem;"></i>
-                <strong>Astuce :</strong> Si vous êtes le créateur d'un groupe, vous pouvez souscrire un abonnement équipe et tous vos membres bénéficieront automatiquement des fonctionnalités Premium !
-            </div>
-        </div>
-
-        <!-- Section FAQ -->
-        <div class="doc-section fade-section" id="faq">
-            <h2><i class="fas fa-question-circle" style="margin-right: 1rem;"></i>Questions fréquentes</h2>
-            
-            <h3>Je ne reçois pas de notifications</h3>
-            <ol style="padding-left: 1.5rem;">
-                <li>Vérifiez que les notifications sont activées dans Créno (Réglages)</li>
-                <li>Vérifiez les réglages iOS : Réglages > Notifications > Créno</li>
-                <li>Assurez-vous d'avoir une connexion internet</li>
+            <ol>
+                <li>Sélectionnez une date sur le calendrier</li>
+                <li>Pour une plage de dates : sélectionnez une première date, puis une seconde date pour définir la fin de la période</li>
+                <li>Définissez l'heure de début</li>
+                <li>Définissez l'heure de fin</li>
+                <li>Le bouton "Toute la journée" définit automatiquement 00:00 - 23:59</li>
+                <li>Appuyez sur "Confirmer l'indisponibilité" pour enregistrer</li>
             </ol>
 
-            <h3>Comment supprimer un groupe ?</h3>
-            <p>Seul le créateur du groupe peut le supprimer. Dans l'onglet Groupes, descendez tout en bas de la page pour trouver l'option de suppression.</p>
+            <h3>Indisponibilités récurrentes (Premium)</h3>
+            <ol>
+                <li>Sélectionnez une date unique (pas une plage)</li>
+                <li>Activez l'option "Récurrence"</li>
+                <li>Définissez le nombre de semaines (jusqu'à 52)</li>
+                <li>L'indisponibilité sera créée chaque semaine au même jour</li>
+            </ol>
 
-            <h3>Puis-je modifier un événement après sa création ?</h3>
-            <p>Oui ! Pour modifier ou supprimer vos événements : appuyez sur le bouton "+" (création d'événement), puis descendez dans la page pour voir la section "Mes événements créés".</p>
+            <h3>Supprimer une indisponibilité</h3>
+            <ol>
+                <li>Faites défiler vers le bas pour voir la liste "Mes indisponibilités"</li>
+                <li>Appuyez sur l'icône de suppression (corbeille)</li>
+                <li>Confirmez la suppression</li>
+            </ol>
 
-            <h3>Comment quitter un groupe ?</h3>
-            <p>Dans l'onglet Groupes, appuyez sur "Changer" en haut de l'écran, puis sur "Gérer mes groupes". Vous pourrez alors quitter le groupe souhaité.</p>
+            <h3>Conflits avec les événements</h3>
+            <p>Lors de la création d'une indisponibilité qui chevauche un événement auquel vous participez :</p>
+            <ul>
+                <li>Une alerte affiche la liste des événements en conflit</li>
+                <li>"Me désinscrire et continuer" : vous êtes retiré des événements et l'indisponibilité est créée</li>
+                <li>"Annuler" : votre participation aux événements est conservée</li>
+            </ul>
 
-            <h3>Comment fonctionne le système Premium ?</h3>
-            <p>La version gratuite permet :</p>
-            <ul style="padding-left: 1.5rem;">
-                <li>1 groupe</li>
-                <li>10 indisponibilités maximum</li>
-                <li>Événements illimités</li>
-                <li>Notifications push</li>
+            <div class="doc-note">
+                <strong>Limite gratuite :</strong> 10 indisponibilités maximum. Premium : illimitées.
+            </div>
+        </div>
+
+        <!-- Section 2: Onglet Groupes -->
+        <div class="doc-section fade-section" id="groupes">
+            <h2><i class="fas fa-users" style="margin-right: 0.75rem;"></i>2. Onglet Groupes</h2>
+
+            <p>Les groupes permettent de planifier des événements entre plusieurs utilisateurs.</p>
+
+            <h3>Créer un groupe</h3>
+            <ol>
+                <li>Appuyez sur "Créer un groupe"</li>
+                <li>Saisissez le nom du groupe (obligatoire)</li>
+                <li>Saisissez une description (optionnel)</li>
+                <li>Appuyez sur "Créer"</li>
+                <li>Un code d'invitation à 6 caractères est généré automatiquement</li>
+            </ol>
+
+            <h3>Rejoindre un groupe</h3>
+            <ol>
+                <li>Appuyez sur "Rejoindre un groupe"</li>
+                <li>Saisissez le code d'invitation à 6 caractères</li>
+                <li>Appuyez sur "Rejoindre"</li>
+            </ol>
+
+            <h3>Sélectionner un groupe actif</h3>
+            <p>Dans la liste de vos groupes, appuyez sur "Sélectionner ce groupe". Le groupe sélectionné devient le contexte pour les événements et calendriers.</p>
+
+            <h3>Quitter un groupe</h3>
+            <ol>
+                <li>Appuyez sur "Quitter" à droite du nom du groupe</li>
+                <li>Confirmez dans la boîte de dialogue</li>
+            </ol>
+
+            <h3>Informations affichées</h3>
+            <ul>
+                <li>Nom du groupe</li>
+                <li>Description (si renseignée)</li>
+                <li>Nombre de membres</li>
+                <li>Code d'invitation</li>
             </ul>
-            <p style="margin-top: 1rem;">Le <strong>Premium Individuel</strong> (à partir de 2,99€/mois) offre :</p>
-            <ul style="padding-left: 1.5rem;">
-                <li>Groupes illimités</li>
-                <li>Indisponibilités illimitées</li>
-                <li>Indisponibilités récurrentes (répétition hebdomadaire)</li>
-                <li>Calendrier individuel des membres du groupe</li>
-                <li>Synchronisation Apple Calendar</li>
+
+            <div class="doc-note">
+                <strong>Limite gratuite :</strong> 1 groupe maximum. Premium : illimités.
+            </div>
+        </div>
+
+        <!-- Section 3: Création d'événements -->
+        <div class="doc-section fade-section" id="evenements">
+            <h2><i class="fas fa-calendar-plus" style="margin-right: 0.75rem;"></i>3. Création d'événements</h2>
+
+            <h3>Créer un événement</h3>
+            <ol>
+                <li>Accédez à l'écran de création d'événement depuis l'onglet Groupe</li>
+                <li>Saisissez le titre de l'événement (obligatoire)</li>
+                <li>Saisissez une description (optionnel)</li>
+                <li>Sélectionnez la date de début et la date de fin</li>
+                <li>Définissez l'heure de début et l'heure de fin</li>
+                <li>Sélectionnez les participants parmi les membres du groupe</li>
+                <li>Les participants avec des indisponibilités en conflit sont affichés avec un indicateur orange</li>
+                <li>Appuyez sur "Créer l'événement"</li>
+            </ol>
+
+            <h3>Indisponibilités automatiques</h3>
+            <p>Lors de la création d'un événement :</p>
+            <ul>
+                <li>Une indisponibilité est automatiquement créée pour chaque participant</li>
+                <li>Cette indisponibilité couvre la durée de l'événement</li>
+                <li>Elle est liée à l'événement et sera supprimée si l'événement est supprimé</li>
             </ul>
-            <p style="margin-top: 1rem;"><strong>Abonnements Équipe</strong> - Le créateur paie pour tout le groupe :</p>
-            <ul style="padding-left: 1.5rem;">
-                <li>Team S : 5 membres • 9,99€/mois</li>
-                <li>Team M : 10 membres • 17,99€/mois</li>
-                <li>Team XL : 50 membres • 74,99€/mois</li>
+
+            <h3>Modifier un événement</h3>
+            <ol>
+                <li>Appuyez sur un événement dans l'onglet "Mes Événements"</li>
+                <li>Si vous êtes le créateur, vous pouvez modifier les informations</li>
+                <li>Modifiez le titre, la description, les horaires ou les participants</li>
+                <li>Appuyez sur "Sauvegarder les modifications"</li>
+            </ol>
+
+            <h3>Supprimer un événement</h3>
+            <ol>
+                <li>Ouvrez l'écran de modification de l'événement</li>
+                <li>Appuyez sur "Supprimer l'événement"</li>
+                <li>Confirmez dans la boîte de dialogue</li>
+                <li>Les indisponibilités liées sont supprimées automatiquement</li>
+            </ol>
+        </div>
+
+        <!-- Section 4: Mes Événements -->
+        <div class="doc-section fade-section" id="mes-evenements">
+            <h2><i class="fas fa-calendar-check" style="margin-right: 0.75rem;"></i>4. Onglet Mes Événements</h2>
+
+            <p>Cet écran liste tous les événements auxquels vous participez.</p>
+
+            <h3>Indicateurs visuels</h3>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Indicateur</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bordure verte</td>
+                        <td>Vous participez sans conflit</td>
+                    </tr>
+                    <tr>
+                        <td>Bordure rouge</td>
+                        <td>Conflit avec une indisponibilité</td>
+                    </tr>
+                    <tr>
+                        <td>Badge "TERMINÉ"</td>
+                        <td>L'événement est passé</td>
+                    </tr>
+                    <tr>
+                        <td>Icône orange</td>
+                        <td>Conflit détecté</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Informations affichées</h3>
+            <ul>
+                <li>Titre de l'événement</li>
+                <li>Créateur de l'événement</li>
+                <li>Date(s) de l'événement</li>
+                <li>Horaires de début et de fin</li>
+                <li>Liste des participants</li>
             </ul>
+        </div>
+
+        <!-- Section 5: Notifications -->
+        <div class="doc-section fade-section" id="notifications">
+            <h2><i class="fas fa-bell" style="margin-right: 0.75rem;"></i>5. Notifications</h2>
+
+            <p>L'application envoie des notifications push pour vous tenir informé des changements.</p>
+
+            <h3>Types de notifications</h3>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>new_event</code></td>
+                        <td>Vous avez été ajouté à un nouvel événement</td>
+                    </tr>
+                    <tr>
+                        <td><code>participant_unavailable</code></td>
+                        <td>Un participant s'est désisté d'un événement auquel vous participez</td>
+                    </tr>
+                    <tr>
+                        <td><code>event_deleted</code></td>
+                        <td>Un événement auquel vous participiez a été supprimé</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Écran des notifications</h3>
+            <ul>
+                <li>Les notifications non lues sont affichées avec un indicateur bleu</li>
+                <li>Appuyez sur une notification pour la marquer comme lue</li>
+                <li>Les notifications liées à un événement redirigent vers les détails</li>
+            </ul>
+        </div>
+
+        <!-- Section 6: Calendrier -->
+        <div class="doc-section fade-section" id="calendrier">
+            <h2><i class="fas fa-th" style="margin-right: 0.75rem;"></i>6. Marqueurs du calendrier</h2>
+
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Marqueur</th>
+                        <th>Signification</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cercle bleu (plein)</td>
+                        <td>Indisponibilité sur cette date</td>
+                    </tr>
+                    <tr>
+                        <td>Cercle jaune (contour)</td>
+                        <td>Événement sur cette date</td>
+                    </tr>
+                    <tr>
+                        <td>Cercle bleu avec bordure jaune</td>
+                        <td>Indisponibilité et événement sur la même date</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Section 7: Système Premium -->
+        <div class="doc-section fade-section" id="premium">
+            <h2><i class="fas fa-crown" style="margin-right: 0.75rem;"></i>7. Système Premium</h2>
+
+            <h3>Abonnements individuels</h3>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Prix</th>
+                        <th>Période</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Premium Mensuel</td>
+                        <td>2,99 €</td>
+                        <td>Par mois</td>
+                    </tr>
+                    <tr>
+                        <td>Premium Annuel</td>
+                        <td>17,99 €</td>
+                        <td>Par an</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Abonnements équipe</h3>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Plan</th>
+                        <th>Membres max</th>
+                        <th>Prix mensuel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Équipe S</td>
+                        <td>5 membres</td>
+                        <td>9,99 €</td>
+                    </tr>
+                    <tr>
+                        <td>Équipe M</td>
+                        <td>10 membres</td>
+                        <td>17,99 €</td>
+                    </tr>
+                    <tr>
+                        <td>Équipe XL</td>
+                        <td>50 membres</td>
+                        <td>74,99 €</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Comparatif Gratuit / Premium</h3>
+            <table class="doc-table">
+                <thead>
+                    <tr>
+                        <th>Fonctionnalité</th>
+                        <th>Gratuit</th>
+                        <th>Premium</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Indisponibilités</td>
+                        <td>10 maximum</td>
+                        <td>Illimitées</td>
+                    </tr>
+                    <tr>
+                        <td>Groupes</td>
+                        <td>1 maximum</td>
+                        <td>Illimités</td>
+                    </tr>
+                    <tr>
+                        <td>Indisponibilités récurrentes</td>
+                        <td>Non</td>
+                        <td>Oui</td>
+                    </tr>
+                    <tr>
+                        <td>Sync Apple/Google Calendar</td>
+                        <td>Non</td>
+                        <td>Oui</td>
+                    </tr>
+                    <tr>
+                        <td>Calendriers des membres</td>
+                        <td>Non</td>
+                        <td>Oui</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Abonnement équipe</h3>
+            <ul>
+                <li>Un utilisateur souscrit à un abonnement équipe</li>
+                <li>Cet abonnement est assigné à un groupe spécifique</li>
+                <li>Tous les membres du groupe bénéficient des fonctionnalités Premium</li>
+                <li>L'abonnement peut être transféré vers un autre groupe</li>
+            </ul>
+
+            <h3>Gestion de l'abonnement</h3>
+            <ul>
+                <li><strong>Souscrire :</strong> Sélectionnez un plan et appuyez sur "S'abonner"</li>
+                <li><strong>Restaurer :</strong> Appuyez sur "Restaurer les achats" pour récupérer un abonnement existant</li>
+                <li><strong>Annuler :</strong> Gérez votre abonnement dans les paramètres de l'App Store</li>
+            </ul>
+
+            <div class="doc-note">
+                <strong>Renouvellement automatique :</strong> Les abonnements se renouvellent automatiquement sauf annulation au moins 24h avant la fin de la période en cours.
+            </div>
         </div>
     </div>
 
     <!-- Bouton retour fixe -->
-    <a href="index.html" class="back-button">
+    <a href="creno.html" class="back-button">
         <i class="fas fa-arrow-left" style="margin-right: 0.5rem;"></i>
-        Retour à l'accueil
+        Retour
     </a>
 
     <!-- Footer -->
@@ -725,42 +682,37 @@
 
     <!-- Scripts -->
     <script src="assets/js/app.js"></script>
-    
-    <!-- Script pour le scroll en haut au chargement -->
+
     <script>
         window.onbeforeunload = function () {
             window.scrollTo(0, 0);
         };
-        
+
         window.addEventListener('load', function() {
             setTimeout(function() {
                 window.scrollTo(0, 0);
             }, 0);
         });
-        
-        // Gestion du menu mobile
+
         document.addEventListener('DOMContentLoaded', function() {
             const mobileMenuBtn = document.getElementById('mobileMenuBtn');
             const closeMenuBtn = document.getElementById('closeMenuBtn');
             const mobileMenu = document.getElementById('mobileMenu');
-            
-            // Ouvrir le menu
+
             if (mobileMenuBtn) {
                 mobileMenuBtn.addEventListener('click', function() {
                     mobileMenu.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Empêcher le scroll du body
+                    document.body.style.overflow = 'hidden';
                 });
             }
-            
-            // Fermer le menu
+
             if (closeMenuBtn) {
                 closeMenuBtn.addEventListener('click', function() {
                     mobileMenu.classList.remove('active');
-                    document.body.style.overflow = ''; // Réactiver le scroll
+                    document.body.style.overflow = '';
                 });
             }
-            
-            // Fermer le menu quand on clique sur un lien
+
             const menuLinks = mobileMenu.querySelectorAll('a');
             menuLinks.forEach(link => {
                 link.addEventListener('click', function() {
@@ -768,8 +720,7 @@
                     document.body.style.overflow = '';
                 });
             });
-            
-            // Fermer le menu si on clique en dehors
+
             mobileMenu.addEventListener('click', function(e) {
                 if (e.target === mobileMenu) {
                     mobileMenu.classList.remove('active');
